@@ -1,0 +1,7 @@
+Release Name: EtherMind Bluetooth and Bluetooth Low Energy Host Stack
+Release Version: 16.5.16
+Outgoing License: LA_OPT_NXP_Software_License.txt - Additional Distribution License granted, license in Section 2.3 applies
+License File: LA_OPT_NXP_Software_License.txt     
+Format: Source, Binary libraries                  
+Description: Bluetooth and Bluetooth Low Energy Host Stack.                                                 
+Origin: Mindtree                                  
