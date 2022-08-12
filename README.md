@@ -6,6 +6,3 @@ This repository is under LA_OPT_NXP_Software_License, license copy please check 
 
 ## Contribution
 Contributions are not accepted now, and will be opened in the future. 
-
-## Notice
-Different from SDK 2.11.0 package release, wifi-bluetooth firmware is moved to this repo and located in port\pal\mcux\bluetooth\controller\wifi. 
