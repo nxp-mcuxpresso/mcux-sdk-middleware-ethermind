@@ -19,7 +19,7 @@
 
 #ifdef BT_STORAGE
 
-#define CONFIG_NVM_SIZE (3U * 1024U)
+#define CONFIG_NVM_SIZE (6U * 1024U)
 
 /* --------------------------------------------- External Global Variables */
 
@@ -27,13 +27,15 @@
 
 /* --------------------------------------------- Static Global Variables */
 #if ((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS))
+DECL_STATIC lfs_t * lfs;
+
 /* Storage File Handle array */
 DECL_STATIC lfs_file_t * fp[STORAGE_NUM_TYPES];
-
 DECL_STATIC lfs_file_t lfs_file[STORAGE_NUM_TYPES];
 #endif /* CONFIG_BT_SETTINGS */
 
 /* Storage File Name array */
+#if ((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS))
 DECL_STATIC UCHAR * fn[STORAGE_NUM_TYPES] =
 {
     (UCHAR *)"btps.db",
@@ -41,16 +43,19 @@ DECL_STATIC UCHAR * fn[STORAGE_NUM_TYPES] =
     (UCHAR *)"btrn.db",
 #endif /* STORAGE_RETENTION_SUPPORT */
 };
+#endif
 
 #if ((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS))
 DECL_STATIC lfs_t * lfs;
 #endif /* CONFIG_BT_SETTINGS */
 
-#if (STORAGE_SKEY_SIZE != 0)
-/* Storage Signature Key array */
-DECL_STATIC UCHAR ssign[STORAGE_NUM_TYPES][STORAGE_SKEY_SIZE] =
-	{ {'E', 'T', 'H', 'E', 'R', 'M', 'I', 'N', 'D', 'P', 'S'} };
-#endif /* (STORAGE_SKEY_SIZE != 0) */
+/* if CONFIG_BT_SETTINGS is not enable, disable STORAGE_IDLE_TASK_SYNC_ENABLE */
+#if !((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS))
+#if defined STORAGE_IDLE_TASK_SYNC_ENABLE
+#undef STORAGE_IDLE_TASK_SYNC_ENABLE
+#define STORAGE_IDLE_TASK_SYNC_ENABLE (0)
+#endif
+#endif
 
 #if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE))
 static OSA_TASK_HANDLE_DEFINE(s_nvmIdleTask);
@@ -60,16 +65,28 @@ static OSA_TASK_DEFINE(storage_idle_task, STORAGE_IDLE_TASK_PRIORITY, 1, STORAGE
 
 static bool s_nvLoadData;
 
-DECL_STATIC UCHAR NvmSaveBuf[CONFIG_NVM_SIZE];
-DECL_STATIC UINT16 nv_offset;
-
 static osa_semaphore_handle_t g_nvWriteBack;
 static OSA_SEMAPHORE_HANDLE_DEFINE(g_nvWriteBackHandle);
 static volatile bool g_nvWriteBackState[STORAGE_NUM_TYPES];
 #endif
 
+#if ((((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS)) &&\
+      ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE))) ||\
+     (!((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS))))
+/* Case1:when CONFIG_BT_SETTINGS is not enable, NvmSaveBuf and ssign are used to save data from mindtree stack
+   Case2: when both CONFIG_BT_SETTINGS and STORAGE_IDLE_TASK_SYNC_ENABLE are enable, NvmSaveBuf and ssign are used to cache data from mindtree stack.
+*/
+DECL_STATIC UCHAR NvmSaveBuf[CONFIG_NVM_SIZE];
+DECL_STATIC UINT16 nv_offset;
+#if (STORAGE_SKEY_SIZE != 0)
+/* Storage Signature Key array */
+DECL_STATIC UCHAR ssign[STORAGE_NUM_TYPES][STORAGE_SKEY_SIZE] =
+	{ {'E', 'T', 'H', 'E', 'R', 'M', 'I', 'N', 'D', 'P', 'S'} };
+#endif /* (STORAGE_SKEY_SIZE != 0) */
+#endif
 /* --------------------------------------------- Functions */
 
+#if ((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS))
 #if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE))
 static void storage_idle_task(osa_task_param_t arg)
 {
@@ -102,17 +119,18 @@ static void storage_idle_task(osa_task_param_t arg)
         }
     }
 }
-#endif
+#endif /* STORAGE_IDLE_TASK_SYNC_ENABLE */
+#endif /* CONFIG_BT_SETTINGS */
 
 void storage_bt_init_pl (void)
 {
-
+#if ((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS))
+    UCHAR i;
 #if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE))
     osa_status_t ret;
 #endif
-    BT_IGNORE_UNUSED_PARAM(fn); /*fix build warning: set but never used.*/
+
 #if ((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS))
-    UCHAR i;
     for (i = 0; i < STORAGE_NUM_TYPES; i++)
     {
         fp[i] = NULL;
@@ -144,6 +162,8 @@ void storage_bt_init_pl (void)
     }
     s_nvLoadData = true;
 #endif
+
+#endif /* CONFIG_BT_SETTINGS */
 }
 
 void storage_bt_shutdown_pl (void)
@@ -210,6 +230,8 @@ API_RESULT storage_open_pl (UCHAR type, UCHAR mode)
     fp[type] = &lfs_file[type];
 
 #endif
+#else
+    nv_offset = 0;
 #endif /* CONFIG_BT_SETTINGS */
 
     return API_SUCCESS;
@@ -218,6 +240,7 @@ API_RESULT storage_open_pl (UCHAR type, UCHAR mode)
 API_RESULT storage_close_pl (UCHAR type, UCHAR mode)
 {
     BT_IGNORE_UNUSED_PARAM(mode);
+#if ((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS))
 #if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE))
     /* Notify idle task to write back */
     if (STORAGE_OPEN_MODE_WRITE == mode)
@@ -236,6 +259,7 @@ API_RESULT storage_close_pl (UCHAR type, UCHAR mode)
         fp[type] = NULL;
     }
 #endif
+#endif /* CONFIG_BT_SETTINGS */
 
     return API_SUCCESS;
 }
@@ -244,7 +268,8 @@ INT16 storage_write_pl (UCHAR type, void * buffer, UINT16 size)
 {
     INT16 nbytes;
 
-#if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE))
+#if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE)) || \
+    (!((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS)))
     nbytes = (INT16)size;
     if ((nv_offset + nbytes) < CONFIG_NVM_SIZE)
     {
@@ -274,7 +299,8 @@ INT16 storage_read_pl (UCHAR type, void * buffer, UINT16 size)
 {
     INT16 nbytes;
 
-#if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE))
+#if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE)) || \
+    (!((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS)))
     nbytes = (INT16)size;
     BT_mem_copy(buffer, (NvmSaveBuf + nv_offset), size);
     nv_offset += size;
@@ -295,7 +321,8 @@ INT16 storage_write_signature_pl (UCHAR type)
 #if (STORAGE_SKEY_SIZE != 0)
     INT16 nbytes;
 
-#if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE))
+#if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE)) || \
+    (!((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS)))
     if (STORAGE_NUM_TYPES <= type)
     {
         return -1;
@@ -325,7 +352,8 @@ INT16 storage_read_signature_pl (UCHAR type)
 #if (STORAGE_SKEY_SIZE != 0)
     INT16 nbytes;
 
-#if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE))
+#if ((defined STORAGE_IDLE_TASK_SYNC_ENABLE) && (STORAGE_IDLE_TASK_SYNC_ENABLE)) || \
+    (!((defined(CONFIG_BT_SETTINGS)) && (CONFIG_BT_SETTINGS)))
     if (STORAGE_NUM_TYPES <= type)
     {
         return -1;

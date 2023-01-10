@@ -675,7 +675,7 @@ API_RESULT hfp_unit_service_request_1_7
  *       This API registers application callback function with the HFP Unit
  *       and initializes the HF profile.
  *
- *  \param [in] notify_cb
+ *  \param [in] event_notification_cb
  *         Application callback function pointer.
  *
  *  \return
@@ -684,7 +684,7 @@ API_RESULT hfp_unit_service_request_1_7
  */
 API_RESULT BT_hfp_unit_init
            (
-               /* IN */  HFP_UNIT_EVENT_NOTIFICATION_CB    notify_cb
+               /* IN */  HFP_UNIT_EVENT_NOTIFICATION_CB    event_notification_cb
            );
 
 #ifndef HFP_UNIT_1_6
@@ -835,7 +835,7 @@ API_RESULT BT_hfp_unit_abort
  *  \param [in] handle
  *         Connection Handle to identify the connection to remote AG.
  *
- *  \param [in] cind_test_result
+ *  \param [in] indicators
  *         Pointer to the CIND TEST result structure.
  *
  *  \return
@@ -845,7 +845,7 @@ API_RESULT BT_hfp_unit_abort
 API_RESULT BT_hfp_unit_get_peer_indicator_list
            (
                /* IN */  HFP_UNIT_HANDLE                handle,
-               /* OUT */ HFP_UNIT_CIND_TEST_RESULT *    cind_test_result
+               /* OUT */ HFP_UNIT_CIND_TEST_RESULT *    indicators
            );
 
 /**
@@ -1773,7 +1773,7 @@ API_RESULT BT_hfp_unit_codec_confirmation_num
  *  \param [in] peer_supp_hf_ind_list
  *              List of HF indicators supported by peer.
  *
- *  \param [in] peer_supp_hf_ind_list_count
+ *  \param [in] peer_supp_hf_ind_count
  *              Number of HF indicators supported by peer.
  *
  *  \return
@@ -1784,7 +1784,7 @@ API_RESULT BT_hfp_unit_get_peer_hf_indicators
            (
                /* IN */  HFP_UNIT_HANDLE                 handle,
                /* OUT */ HFP_UNIT_BIND_READ_RESULT     * peer_supp_hf_ind_list,
-               /* OUT */ UCHAR                         * peer_supp_hf_ind_list_count
+               /* OUT */ UCHAR                         * peer_supp_hf_ind_count
            );
 
 /**

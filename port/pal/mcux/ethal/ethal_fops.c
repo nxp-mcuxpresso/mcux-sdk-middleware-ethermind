@@ -74,7 +74,7 @@ static void fops_file_write_buffer_queue_init(void)
 {
     fops_file_write_buffer_node_t *node;
     uint32_t index = 0U;
-    uint32_t regMask;
+    uint32_t regMask = 0U;
     osa_status_t ret = KOSA_StatusSuccess;
 
     OSA_EnterCritical(&regMask);
@@ -658,7 +658,7 @@ EM_RESULT EM_fops_file_write
 #if EM_FOPS_FILE_SYNC_IN_IDLE
     fops_file_handle_t * fHandleP;
     fops_file_handle_t * fHandleQ;
-    uint32_t regMask;
+    uint32_t regMask = 0U;
     osa_status_t ret;
     uint32_t length;
 
@@ -1154,7 +1154,7 @@ EM_RESULT EM_fops_file_close
 #if EM_FOPS_FILE_SYNC_IN_IDLE
     fops_file_handle_t * fHandleP;
     fops_file_handle_t * fHandleQ;
-    uint32_t regMask;
+    uint32_t regMask = 0U;
 #endif
     FRESULT ret;
     EM_RESULT retval;
@@ -1657,6 +1657,7 @@ static void fops_list_directory (CHAR *path)
 static void fops_display_file_info(FILINFO *fileInfo)
 {
     char *fileName;
+    (void)fileName;
     fileName = fileInfo->fname;
     /* note: if this file/directory don't have one attribute, '_' replace the attribute letter ('R' - readonly, 'H' - hide, 'S' - system) */
     fops_echo("    %s - %c%c%c - %s - %dBytes - %d-%d-%d %d:%d:%d\r\n", (fileInfo->fattrib & AM_DIR) ? "dir" : "fil",
@@ -1762,5 +1763,4 @@ static void fops_idle(osa_task_param_t arg)
     }
 }
 #endif
-
 

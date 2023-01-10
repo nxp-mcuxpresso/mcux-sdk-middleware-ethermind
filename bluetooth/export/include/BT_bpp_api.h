@@ -1168,8 +1168,8 @@ API_RESULT BT_bpp_sender_transport_close
  *  \param [in] more
  *         It Indicates if application has remaining body still to be sent or it
  *         is the complete body(request) content
- *         1 – Body part remaining
- *         0 – No more body part remaining
+ *         1 - Body part remaining
+ *         0 - No more body part remaining
  *
  *  \param [out] actual
  *         Contains the actual number of bytes of BODY header, if any included
@@ -1483,8 +1483,8 @@ API_RESULT bpp_sender_get_operation
  *  \param [in] more
  *         Indicates if application has remaining of object body still to be
  *         sent or object complete
- *         1 – Object part remaining
- *         0 – No more object part remaining
+ *         1 - Object part remaining
+ *         0 - No more object part remaining
  *
  *  \param [out] actual
  *         Contains the actual number of bytes of BODY header, if any included
@@ -1942,8 +1942,8 @@ API_RESULT BT_bpp_printer_send_response
  *  \param [in] more
  *         Indicates if application has remaining of object body still to be
  *         sent or object complete
- *         1 – Object part remaining
- *         0 – No more object part remaining
+ *         1 - Object part remaining
+ *         0 - No more object part remaining
  *
  *  \param [out] actual
  *         Contains the actual number of bytes of BODY header, if any included
