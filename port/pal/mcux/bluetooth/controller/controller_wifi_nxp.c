@@ -5,23 +5,29 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#include "BT_common.h"
 #include "fsl_common.h"
 
-#if (defined(WIFI_IW416_BOARD_AW_AM457_USD) || defined(WIFI_IW61x_BOARD_RD_USD) || \
+#if (defined(WIFI_IW416_BOARD_AW_AM457_USD) || defined(WIFI_IW612_BOARD_RD_USD) || \
      defined(WIFI_IW416_BOARD_AW_AM510_USD) || defined(WIFI_IW416_BOARD_AW_AM510MA) || \
      defined(WIFI_88W8987_BOARD_AW_CM358_USD) || defined(WIFI_88W8987_BOARD_AW_CM358MA) || \
      defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || \
-     defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD) || defined (WIFI_88W8987_BOARD_MURATA_1ZM_M2))
+     defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD) || defined (WIFI_88W8987_BOARD_MURATA_1ZM_M2) || \
+	 defined(WIFI_IW611_BOARD_MURATA_2DL_USD) || defined (WIFI_IW611_BOARD_MURATA_2DL_M2) || \
+     defined(WIFI_AW611_BOARD_UBX_JODY_W5_USD) || defined (WIFI_AW611_BOARD_UBX_JODY_W5_M2) || \
+	 defined (WIFI_IW612_BOARD_MURATA_2EL_USD) || defined (WIFI_IW612_BOARD_MURATA_2EL_M2) )
 
 #ifndef CONTROLLER_INIT_ESCAPE
-#if defined(SD8978)
+#if defined(SD8978) /*RB3P*/
 #include "sduartIW416_wlan_bt.h"
-#elif defined(SD8987)
+#elif defined(SD8987) /*CA2*/
 #include "sduart8987_wlan_bt.h"
-#elif defined(IW61x)
-#ifndef BT_THIRDPARTY_SUPPORT
-#include "sduart_nw61x.h"
-#endif
+#elif defined(SD9177) /*FC*/
+	#if defined (WIFI_IW612_BOARD_RD_USD)
+		#include "sduart_nw61x.h" /*non-secured FC firmware*/
+	#else
+		#include "sduart_nw61x_se.h" /*secured FC firmware*/
+	#endif /*defined (WIFI_IW612_BOARD_RD_USD)*/
 #else
 #error The Wi-Fi module is unsupported
 #endif
@@ -66,7 +72,6 @@ static UART_HANDLE_DEFINE(s_controllerHciUartHandle);
 
 __WEAK_FUNC int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config);
 
-#ifndef BT_THIRDPARTY_SUPPORT
 /* Initialize the platform */
 void controller_init(void)
 {
@@ -74,16 +79,15 @@ void controller_init(void)
     int result;
     /* Download firmware */
     result = sdio_init();
-    assert(WM_SUCCESS == result);
+    assert(API_SUCCESS == result);
     result = sdio_ioport_init();
-    assert(WM_SUCCESS == result);
+    assert(API_SUCCESS == result);
     result = firmware_download(wlan_fw_bin, wlan_fw_bin_len);
-    assert(WM_SUCCESS == result);
+    assert(API_SUCCESS == result);
     (void)result;
 #endif
     controller_hci_uart_init();
 }
-#endif
 
 __WEAK_FUNC int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
 {

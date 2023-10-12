@@ -13,50 +13,6 @@
 /* ------------------------------------------- Header File Inclusion */
 #include "BT_common.h"
 
-/* It means that edgefast is using ethermind if CONFIG_BT_BREDR is defined */
-#if (defined (CONFIG_BT_BREDR) && (CONFIG_BT_BREDR))
-#ifdef BT_BCSP
-#undef BT_BCSP
-#endif
-
-#ifdef BNEP
-#undef BNEP
-#endif
-
-#if !(defined (CONFIG_BT_A2DP) && (CONFIG_BT_A2DP))
-#ifdef AVDTP
-#undef AVDTP
-#endif
-#endif
-
-#if !(defined (CONFIG_BT_AVRCP) && (CONFIG_BT_AVRCP))
-#ifdef AVCTP
-#undef AVCTP
-#endif
-#endif
-
-#ifdef MCAP
-#undef MCAP
-#endif
-
-#if !(defined (CONFIG_BT_AVRCP) && (CONFIG_BT_AVRCP))
-#ifdef OBEX
-#undef OBEX
-#endif
-#endif
-
-#ifdef HCRP
-#undef HCRP
-#endif
-#endif
-
-/* It means that edgefast is using ethermind if CONFIG_BT_BLE_DISABLE is defined */
-#if (defined (CONFIG_BT_BLE_DISABLE) && (CONFIG_BT_BLE_DISABLE))
-#ifdef ATT
-#undef ATT
-#endif
-#endif
-
 #ifdef CLASSIC_SEC_MANAGER
 #include "sm.h"
 #endif /* CLASSIC_SEC_MANAGER */
@@ -76,10 +32,6 @@
 #ifdef BT_SOCKET
     #include "hci_socket.h"
 #endif /* BT_SOCKET */
-
-#ifdef BT_PLATFORM
-    #include "hci_platform.h"
-#endif /* BT_PLATFORM */
 
 #ifdef SDP
     #include "sdp.h"
@@ -155,11 +107,6 @@ void ethermind_init_lower_pl (void)
     /* Socket Initialization */
     hci_socket_init();
 #endif /* BT_SOCKET */
-
-#ifdef BT_PLATFORM
-    /* PLATFORM Initialization */
-    hci_platform_init();
-#endif /* BT_PLATFORM */
 }
 
 
@@ -340,11 +287,6 @@ void bluetooth_on_lower_pl (void)
     /* Socket BT Init */
     hci_socket_bt_init();
 #endif /* BT_SOCKET */
-
-#ifdef BT_PLATFORM
-    /* PLATFORM BT Init */
-    hci_platform_bt_init();
-#endif /* BT_PLATFORM */
 }
 
 
@@ -418,11 +360,6 @@ void bluetooth_on_upper_pl (void)
 /* Bluetooth-OFF: Platform Lower Handler */
 void bluetooth_off_lower_pl (void)
 {
-#ifdef BT_PLATFORM
-    /* BT_PLATFORM BT Shutdown */
-    hci_platform_bt_shutdown();
-#endif /* BT_PLATFORM */
-
 #ifdef BT_SOCKET
     /* SOCKET BT Shutdown */
     hci_socket_bt_shutdown();

@@ -858,6 +858,8 @@ typedef UINT16    API_RESULT;
 #define GATT_DB_DONOT_RESPOND                    (0x0061U | GATT_DB_ERR_ID)
 /** GATT DB status code to inform Response is already triggered */
 #define GATT_DB_ALREADY_RESPONDED                (0x0062U | GATT_DB_ERR_ID)
+/** GATT DB status code to inform Upper Layer updated Attribute Value */
+#define GATT_DB_UL_UPDATED_ATTR_VAL              (0x0063U | GATT_DB_ERR_ID)
 
 /** \} */
 

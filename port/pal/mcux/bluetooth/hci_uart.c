@@ -15,6 +15,10 @@
 #include "BT_hci_api.h"
 #include "hci_transport.h"
 
+#ifdef BT_ANALYZER
+#include "BT_analyzer.h"
+#endif /* BT_ANALYZER */
+
 /* IMX RT1060 SDK Includes */
 #include "fsl_common.h"
 #include "fsl_debug_console.h"
@@ -107,11 +111,11 @@ DECL_STATIC UART_HANDLE_DEFINE(hci_uart_handle);
 UART_DMA_HANDLE_DEFINE(hci_uart_DmaHandle);
 #endif
 /* HCI UART RX Meta Data */
-hci_uart_meta_data hci_uart_rx;
+volatile hci_uart_meta_data hci_uart_rx;
 
 AT_NONCACHEABLE_SECTION_ALIGN(static UCHAR  hci_uart_rx_data_buff[HCI_RX_QUEUE_SIZE], 4);
-UCHAR  hci_uart_rx_state;
-UINT16 hci_uart_rx_bytes;
+volatile UCHAR  hci_uart_rx_state;
+volatile UINT16 hci_uart_rx_bytes;
 UCHAR  hci_uart_instance;
 
 static UCHAR assert;
@@ -138,7 +142,7 @@ void hci_uart_init (void)
     hci_uart_task_attr.thread_name       = (DECL_CONST CHAR  *)"EtherMind UART Task";
     hci_uart_task_attr.thread_stack_size = BT_TASK_STACK_DEPTH;
     /* Setting the Priority 1 Higher than the Default EtherMind Tasks */
-    hci_uart_task_attr.thread_priority   = (BT_TASK_PRIORITY);
+    hci_uart_task_attr.thread_priority   = (BT_TASK_PRIORITY + 1U);
 
     /* Create a thread to receive data From Serial PORT and BUFFER it */
     if (0U != BT_thread_create(&tid, &hci_uart_task_attr, hci_uart_read_task, NULL))
@@ -424,6 +428,13 @@ void hci_uart_bt_init(void)
 {
     hal_uart_config_t config;
     hal_uart_status_t ret;
+#if defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)
+    hal_uart_dma_status_t status;
+#else
+    hal_uart_status_t status;
+#endif /*defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)*/
+
+
 #if HCI_UART_TX_NONBLOCKING || ((defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)))
     INT32 retVal;
 #endif
@@ -508,12 +519,12 @@ void hci_uart_bt_init(void)
 #endif
 
 #if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))
-    ret = (hal_uart_status_t)HAL_UartDMATransferInstallCallback( (hal_uart_handle_t)hci_uart_handle,
+    status = HAL_UartDMATransferInstallCallback( (hal_uart_handle_t)hci_uart_handle,
                                                      hci_uartdma_transmit_cb,
                                                      NULL);
 #else
     /* Install the UART TX-RX Callback */
-    ret = HAL_UartInstallCallback
+    status = HAL_UartInstallCallback
           (
               (hal_uart_handle_t)hci_uart_handle,
               hci_uart_transmit_cb,
@@ -521,7 +532,11 @@ void hci_uart_bt_init(void)
           );
 #endif
     /* Check if Assert or Log and return? */
-    if (ret != kStatus_HAL_UartSuccess)
+#if defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)
+    if (status != kStatus_HAL_UartDmaSuccess)
+#else
+    if (status != kStatus_HAL_UartSuccess)
+#endif /*defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)*/
     {
         HCI_UART_ERR("Failed to Register UART Rx-Tx Callback!\r\n");
 
@@ -547,21 +562,26 @@ void hci_uart_bt_init(void)
     hci_uart_rx.data     = &hci_uart_rx_data_buff[hci_uart_rx_bytes];
     hci_uart_rx.dataSize = ht.packet_expected_len;
 #if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))
-        ret = (hal_uart_status_t)HAL_UartDMATransferReceive
-          (
+    status = HAL_UartDMATransferReceive
+    		(
               (hal_uart_handle_t)hci_uart_handle,
               hci_uart_rx.data,
               hci_uart_rx.dataSize, true
-          );
+    	    );
 #else
-    ret = HAL_UartReceiveNonBlocking
+    status = HAL_UartReceiveNonBlocking
           (
               (hal_uart_handle_t)hci_uart_handle,
               hci_uart_rx.data,
               hci_uart_rx.dataSize
           );
 #endif
-    if (ret != kStatus_HAL_UartSuccess)
+
+#if defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)
+    if (status != kStatus_HAL_UartDmaSuccess)
+#else
+    if (status != kStatus_HAL_UartSuccess)
+#endif /*defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)*/
     {
         HCI_UART_ERR(
         "[HCI-UART] First UART Receive Non-Blocking Failed for Inst: %d\n",
@@ -608,6 +628,11 @@ void hci_uart_bt_init(void)
 void hci_uart_bt_shutdown (void)
 {
     hal_uart_status_t ret;
+#if defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)
+    hal_uart_dma_status_t status;
+#else
+    hal_uart_status_t status;
+#endif /*defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)*/
 
 #if HCI_UART_TX_NONBLOCKING || ((defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)))
     /* Lock */
@@ -618,8 +643,17 @@ void hci_uart_bt_shutdown (void)
 
     hci_uart_state = 0x0U;
 
-    ret = HAL_UartAbortReceive((hal_uart_handle_t)hci_uart_handle);
-    if (ret != kStatus_HAL_UartSuccess)
+#if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))
+    status = HAL_UartDMAAbortReceive((hal_uart_handle_t)hci_uart_handle);
+#else
+    status = HAL_UartAbortReceive((hal_uart_handle_t)hci_uart_handle);
+#endif
+
+#if defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)
+    if (status != kStatus_HAL_UartDmaSuccess)
+#else
+    if (status != kStatus_HAL_UartSuccess)
+#endif /*defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)*/
     {
         HCI_UART_ERR(
         "[HCI-UART] UART Abort Receive Failed for UART Instance: %d\n",
@@ -631,8 +665,17 @@ void hci_uart_bt_shutdown (void)
         }
     }
 
-    ret = HAL_UartAbortSend((hal_uart_handle_t)hci_uart_handle);
-    if (ret != kStatus_HAL_UartSuccess)
+#if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))
+    status = HAL_UartDMAAbortSend((hal_uart_handle_t)hci_uart_handle);
+#else
+    status = HAL_UartAbortSend((hal_uart_handle_t)hci_uart_handle);
+#endif
+
+#if defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)
+    if (status != kStatus_HAL_UartDmaSuccess)
+#else
+    if (status != kStatus_HAL_UartSuccess)
+#endif /*defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U)*/
     {
         HCI_UART_ERR(
         "[HCI-UART] UART Abort Send Failed for UART Instance: %d\n",
@@ -643,6 +686,22 @@ void hci_uart_bt_shutdown (void)
         {
         }
     }
+
+#if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))
+    status = HAL_UartDMADeinit((hal_uart_handle_t)hci_uart_handle);
+    if (status != kStatus_HAL_UartDmaSuccess)
+    {
+        HCI_UART_ERR(
+        "[HCI-UART] UART De-Init Failed for UART Instance: %d\n",
+        hci_uart_instance);
+
+        /* TODO: To Be Removed! */
+        while (true)
+        {
+        }
+    }
+#else
+#endif
 
     ret = HAL_UartDeinit((hal_uart_handle_t)hci_uart_handle);
     if (ret != kStatus_HAL_UartSuccess)
@@ -796,6 +855,15 @@ DECL_STATIC BT_THREAD_RETURN_TYPE hci_uart_read_task (BT_THREAD_ARGS args)
 #endif /* 0 */
 }
 
+#ifdef LE_AUDIO_CT_CG_TIME_DBG
+static UCHAR isIsoStarted1 = 0;
+
+UCHAR isIsoStarted (void)
+{
+	return isIsoStarted1;
+}
+#endif
+
 #ifdef HCI_UART_COLLECT_AND_WR_COMPLETE_PKT
 /** HCI-UART Send Data */
 API_RESULT hci_uart_send_data
@@ -804,6 +872,15 @@ API_RESULT hci_uart_send_data
     static UINT32 total_len = 0U;
     static UINT32 cur_len = 0U;
     static UCHAR acl_data_pkt = BT_FALSE;
+
+#ifdef LE_AUDIO_CT_CG_TIME_DBG
+    static uint32_t startTime2;
+    static uint32_t endTime2;
+    static uint8_t firstTime2 = 1;
+
+    static int isoDataCount = 0;
+	#define TICKS_TO_MSEC(tick) ((uint32_t)((uint64_t)(tick)*1000uL / (uint64_t)configTICK_RATE_HZ))
+#endif
 
     if (0x1U != hci_uart_state)
     {
@@ -821,6 +898,25 @@ API_RESULT hci_uart_send_data
             acl_data_pkt = BT_TRUE;
             total_len = (((UINT32)(buf[3U]) << 8U) | (UINT32)(buf[2U])) + 5U;
         }
+#ifdef LE_AUDIO_CT_CG_TIME_DBG
+        else if (HCI_ISO_DATA_PACKET == type)
+        {
+        	isIsoStarted1 = 1;
+        	isoDataCount++;
+
+			if (firstTime2) {
+				startTime2 = OSA_TimeGetMsec();
+				firstTime2 = 0;
+			} else {
+				endTime2 = OSA_TimeGetMsec();
+				//if (TICKS_TO_MSEC(endTime2 - startTime2) > 10)
+				{
+					printf("tx1=%dms, count:%d\n", TICKS_TO_MSEC(endTime2 - startTime2), isoDataCount);
+				}
+				startTime2 = endTime2;
+			}
+        }
+#endif
         else
         {
             total_len = (UINT32)length + 1U;
@@ -863,8 +959,8 @@ API_RESULT hci_uart_send_data
     /* Write HCI Packet */
     hci_uart_write_data (hci_uart_wr_buf[odd], total_len);
 
-    /* Transmitted packet logging in btsnoop format */
-    BT_snoop_write_packet(hci_uart_wr_buf[odd][0U], 0U, (&hci_uart_wr_buf[odd][1U]), (total_len - 1U));
+    /* Transmitted packet logging in btanalyzer format */
+    BT_analyzer_write_packet(hci_uart_wr_buf[odd][0U], 0U, (&hci_uart_wr_buf[odd][1U]), (total_len - 1U));
 #else
     if (0U != acl_data_pkt)
     {
@@ -896,8 +992,8 @@ API_RESULT hci_uart_send_data
     if (BT_SNOOP_PKTLEN_LIMIT > total_len)
     {
 #endif /* BT_SNOOP_WRITE_TRUNCATE */
-    /* Transmitted packet logging in btsnoop format */
-    BT_snoop_write_packet(hci_uart_wr_buf[0U], 0U, (&hci_uart_wr_buf[1U]), (total_len - 1U));
+    /* Transmitted packet logging in btanalyzer format */
+    BT_analyzer_write_packet(hci_uart_wr_buf[0U], 0U, (&hci_uart_wr_buf[1U]), (total_len - 1U));
 #ifdef BT_SNOOP_WRITE_TRUNCATE
     }
 #endif /* BT_SNOOP_WRITE_TRUNCATE */
@@ -1019,5 +1115,4 @@ API_RESULT hci_transport_write_data (UCHAR type, UCHAR * buf, UINT16 length, UCH
 }
 
 #endif /* BT_UART */
-
 

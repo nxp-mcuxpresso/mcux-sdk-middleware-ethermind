@@ -1378,7 +1378,6 @@
  * The HCI_LE_Transmit_Power_Reporting event is used to report the transmit power
  * level on the ACL connection identified by the Connection_Handle parameter.
  */
-#define HCI_LE_TX_POWER_REPORTING_SUBEVENT                      0x21U
 #define HCI_LE_TRANSMIT_POWER_REPORTING_SUBEVENT                0x21U
 
 /**
@@ -1729,7 +1728,7 @@ typedef struct
 /** ISO Header information */
 typedef struct _HCI_ISO_HEADER
 {
-    /* ISO connection handle */
+    /* CIS/BIS connection handle */
     UINT16 conn_handle;
 
     /* Packet Broadcast Flag */
@@ -2015,6 +2014,38 @@ API_RESULT BT_hci_get_acl_connection_handle
                UCHAR *   bd_addr,
                UINT16 *  handle
            );
+
+#ifdef HCI_ENABLE_LINKINFO_LOOKUP_FROM_CONNHANDLE
+/**
+ *  \brief To retrieve the remote Bluetooth Device Address and link type (ACL/eSCO etc.)
+ *         for the specified connection handle
+ *
+ *  \par Description:
+ *       For a specified connection handle, this API retrieves the remote Bluetooth
+ *       device address, if one exists.
+ *
+ *  \param [in] conn_handle
+ *         HCI Connection Handle, for which the remote bluetooth device address to be retrieved.
+ *
+ *  \param [out] bd_addr
+ *         Pointer allocated by the caller to store the corresponding remote Bluetooth
+ *         Device Address.
+ *
+ *  \param [out] link_type
+ *         Pointer allocated by the caller to store the corresponding link type (ACL/SCO/eSCO)
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_get_bd_addr_for_connection_handle
+           (
+               UINT16           conn_handle,
+               BT_DEVICE_ADDR * bd_addr,
+               UCHAR          * link_type
+           );
+#endif /* HCI_ENABLE_LINKINFO_LOOKUP_FROM_CONNHANDLE */
+
 /**
  *  \brief To retrieve the list of SCO Connection Handles for a specified remote
  *         Bluetooth Device Address.
@@ -2439,9 +2470,9 @@ API_RESULT BT_hci_iso_write
  *  API_RESULT BT_hci_iso_write_pdu:
  *  API to write ISO data PDU, where the application manages the queue.
  *
- *  @param: (IN) connection_handle: ISO Connection Handle
- *  @param: (IN) packet: ISO fragment packet pointer
- *  @param: (IN) packet_len: ISO fragment length
+ *  \param [in] connection_handle: ISO Connection Handle
+ *  \param [in] packet: ISO fragment packet pointer
+ *  \param [in] packet_len: ISO fragment length
  *
  *  @return: API_RESULT
  *           API_SUCCESS : On successful registration of the callback pointer.
@@ -9131,6 +9162,9 @@ API_RESULT BT_hci_le_extended_create_connection
  *         -----------+----------------------
  *            1       | 0: Reporting initially enabled
  *                    | 1: Reporting initially disabled
+ *         -----------+----------------------
+ *            2       | 0: Duplicate Filtering initially disabled
+ *                    | 1: Duplicate Filtering initially enabled
  *         -----------+----------------------
  *     All other bits | Reserved for future use
  *
