@@ -25,7 +25,11 @@
 /**
  * Default Bluetooth Task's preferred Stack Depth and Priority
  */
+#ifdef BT_GAM
+#define BT_TASK_STACK_DEPTH             EM_OS_TASK_STACKDEPTH + (2U * 1024U)
+#else
 #define BT_TASK_STACK_DEPTH             EM_OS_TASK_STACKDEPTH
+#endif
 #define BT_TASK_PRIORITY                EM_OS_TASK_PRIORITY
 
 /* --------------------------------------------- Structures/Data Types */

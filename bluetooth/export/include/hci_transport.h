@@ -59,13 +59,13 @@
 /* HCI Packet parsing utility structure */
 typedef struct _HT_PARSE
 {
-    /* Packet state */
+    /* Packet Pointer */
     UCHAR * packet;
 
     /* Packet Expected Length */
     UINT16 packet_expected_len;
 
-    /* Packet Pointer */
+    /* Packet state */
     UCHAR packet_state;
 
 } HT_PARSE;

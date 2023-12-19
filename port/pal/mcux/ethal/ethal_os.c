@@ -272,6 +272,8 @@ INT32 EM_thread_mutex_deinit
         ret = OSA_MutexDestroy((*mutex));
         if (KOSA_StatusSuccess == ret)
         {
+            /* Free memory for Mutex */
+            EM_free_mem((*mutex));
             return 0;
         }
     }
