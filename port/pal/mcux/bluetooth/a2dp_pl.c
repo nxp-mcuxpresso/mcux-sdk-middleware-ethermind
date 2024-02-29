@@ -199,13 +199,13 @@ void a2dp_pl_produce_media(void)
 {
     UCHAR * media;
     UINT16  medialen;
-
+    UINT8 isMemAllocated = BT_FALSE;
 #ifndef A2DP_PL_SOURCE_FS_MEDIA
 
     /* Music Audio is Stereo */
     medialen = (a2dp_src_num_samples << a2dp_src_nc);
 
-    /* For mono or dual configuration, skip alternative samples */
+    /* For mono or stereo configuration, skip alternative samples */
     if (1U == a2dp_src_nc)
     {
         UINT16 index;
@@ -218,6 +218,8 @@ void a2dp_pl_produce_media(void)
             A2DP_PL_ERR("Memory Allocation failed in Produce Media\n");
             return;
         }
+
+        isMemAllocated = BT_TRUE;
 
         for (index = 0U; index < a2dp_src_num_samples; index++)
         {
@@ -242,6 +244,9 @@ void a2dp_pl_produce_media(void)
                 A2DP_PL_ERR("Memory Allocation failed in Produce Media\n");
                 return;
             }
+
+            isMemAllocated = BT_TRUE;
+
             memcpy(media, ((UCHAR*)beethoven + tone_index), sizeof(beethoven) - tone_index);
             memcpy(&media[sizeof(beethoven) - tone_index],
                    ((UCHAR*)beethoven),
@@ -279,6 +284,8 @@ void a2dp_pl_produce_media(void)
         return;
     }
 
+    isMemAllocated = BT_TRUE;
+
     retval = BT_fops_file_read(media, medialen, a2dp_src_media_fd, &readlen);
     if (API_SUCCESS != retval)
     {
@@ -296,14 +303,10 @@ void a2dp_pl_produce_media(void)
     /* Give data to callback */
     a2dp_src_cb(media, medialen);
 
-#ifdef A2DP_PL_SOURCE_FS_MEDIA
-    BT_free_mem(media);
-#else /* A2DP_PL_SOURCE_FS_MEDIA */
-    if (1U == a2dp_src_nc)
+    if (BT_TRUE == isMemAllocated)
     {
         BT_free_mem(media);
     }
-#endif /* A2DP_PL_SOURCE_FS_MEDIA */
 }
 
 void a2dp_pl_playback(void)

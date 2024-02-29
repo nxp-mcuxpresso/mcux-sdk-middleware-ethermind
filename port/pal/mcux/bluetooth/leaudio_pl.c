@@ -17,6 +17,9 @@
 /* --------------------------------------------- External Global Variables */
 /* --------------------------------------------- Exported Global functions */
 /* --------------------------------------------- Static Global Variables */
+
+bool is_sf_44k;
+
 /* --------------------------------------------- internal functions prototypes */
 
 /* --------------------------------------------- Functions */
@@ -55,7 +58,7 @@ __attribute__((weak)) void leaudio_write_pl_ext (UCHAR ep, UCHAR * m_data, UINT1
 {
 }
 
-__attribute__((weak)) void le_audio_pl_ext_iso_tx_delay (void)
+__attribute__((weak)) void le_audio_pl_ext_iso_tx_hook (UCHAR *buf)
 {
 }
 
@@ -117,6 +120,11 @@ UCHAR * leaudio_alloc_buffer_pl(UCHAR type)
     return ptr;
 }
 
+int leaudio_get_sf(void)
+{
+	return is_sf_44k;
+}
+
 API_RESULT leaudio_setup_pl
            (
                UCHAR ep,
@@ -170,8 +178,8 @@ void leaudio_write_pl (UCHAR ep, UCHAR * m_data, UINT16 m_datalen)
     leaudio_write_pl_ext(ep, m_data, m_datalen);
 }
 
-void le_audio_pl_iso_tx_delay (void)
+void le_audio_pl_iso_tx_hook (UCHAR * buf)
 {
-    le_audio_pl_ext_iso_tx_delay();
+    le_audio_pl_ext_iso_tx_hook(buf);
 }
 

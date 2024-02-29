@@ -891,7 +891,7 @@ API_RESULT hci_uart_send_data
 #ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
         if (HCI_ISO_DATA_PACKET == type)
         {
-        	le_audio_pl_iso_tx_delay ();
+        	le_audio_pl_iso_tx_hook (buf);
         }
 #endif /*LE_AUDIO_ENABLE_APP_SPECIFIC_CODE*/
 

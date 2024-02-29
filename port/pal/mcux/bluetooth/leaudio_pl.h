@@ -49,6 +49,14 @@ API_RESULT leaudio_setup_pl_ext
 API_RESULT  leaudio_start_pl_ext (UCHAR ep);
 API_RESULT   leaudio_stop_pl_ext (UCHAR ep);
 void leaudio_write_pl_ext (UCHAR ep, UCHAR * m_data, UINT16 m_datalen);
-void le_audio_pl_iso_tx_delay (void);
+void le_audio_pl_iso_tx_hook (UCHAR *buf);
+UINT32 le_audio_src_get_cig_sdu_int(void);
+void le_audio_src_set_cig_sdu_int(UINT32 cig_sdu_int);
+void le_audio_set_iso_interval(UINT32 iso_interval);
+void le_audio_set_big_cig_sync_delay(UINT32 sync_delay);
+#ifdef LE_AUDIO_SRC_SYNC_ENABLE
+void le_audio_pl_src_sync_configure(void);
+void le_audio_pl_src_sync_deconfigure(void);
+#endif
 
 #endif /* _H_LEAUDIO_PL_*/
