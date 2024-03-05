@@ -812,7 +812,7 @@ int appl_main (int argc, char **argv)
 
 static int appl_handle_multiprofile_menu_option(int choice)
 {
-	API_RESULT retval;
+	API_RESULT retval = API_SUCCESS;
     UINT16 peer_acl_handle;
     UINT16 handle;
     CHAR c;
@@ -892,36 +892,47 @@ static int appl_handle_multiprofile_menu_option(int choice)
 		appl_get_bd_addr(appl_peer_bd_addr);
 #else
 		INQUIRY_RESULT *inq_res;
-		int index = 0xFFU;
+		UINT32 index, dev_cnt = 0;
 		inq_res = appl_get_hci_inquiry_result();
-		appl_print_discovered_devices();
-		printf("Enter BD_ADDR Index to connect = "); fflush(stdout);
+		dev_cnt = appl_print_discovered_devices();
+		printf("Enter Device Index to connect from above list, if device is not present please enter 99 = "); fflush(stdout);
 		scanf("%d", &index);
+        if(index < dev_cnt)
+        {
 		BT_COPY_BD_ADDR(appl_peer_bd_addr, inq_res[index].bd_addr);
+        }
+        else
+        {
+			printf("Retry scanning the device\n"); fflush(stdout);
+			retval = API_FAILURE;
+        }
 #endif
-		retval = BT_hci_get_acl_connection_handle(appl_peer_bd_addr, &handle);
-		if(retval != API_SUCCESS)
+		if (retval == API_SUCCESS)
 		{
-			printf("\nConnecting to ...\n");
-			printf("\t    " BT_DEVICE_ADDR_ONLY_FRMT_SPECIFIER "\n",
-			BT_DEVICE_ADDR_ONLY_PRINT_STR (appl_peer_bd_addr));
-			retval = BT_sm_delete_device (appl_peer_bd_addr, 0x01);
-			if (API_SUCCESS != retval)
+		     retval = BT_hci_get_acl_connection_handle(appl_peer_bd_addr, &handle);
+			if (retval != API_SUCCESS)
 			{
-				printf("FAILED ! Reason = 0x%04X\n", retval);
-				/*break;*/
-			}
+				printf("\nConnecting to ...\n");
+				printf("\t    " BT_DEVICE_ADDR_ONLY_FRMT_SPECIFIER "\n",
+						BT_DEVICE_ADDR_ONLY_PRINT_STR (appl_peer_bd_addr));
+				retval = BT_sm_delete_device(appl_peer_bd_addr, SM_ANY_LIST);
+				if (API_SUCCESS != retval)
+				{
+					printf("FAILED ! Reason = 0x%04X\n", retval);
+					/*break;*/
+				}
 #ifdef CONNECT_BDADDR
 			appl_hci_connect(appl_peer_bd_addr);
 #else
 			appl_hci_connect_index(index);
 #endif
-		}
-		else
-		{
-			printf("\n ACL connection to this device is already established \n calling appl_sdp_open() to check"
-					" if HFP is supported on peer side \n");
-			appl_sdp_open();
+			}
+			else
+			{
+				printf("\n ACL connection to this device is already established \n calling appl_sdp_open() to check"
+								" if HFP is supported on peer side \n");
+				appl_sdp_open();
+			}
 		}
 	}
 	break;
@@ -968,37 +979,48 @@ static int appl_handle_multiprofile_menu_option(int choice)
 		appl_get_bd_addr(appl_peer_bd_addr);
 #else
 		INQUIRY_RESULT *inq_res;
-		int index = 0xFFU;
+		UINT32 index, dev_cnt = 0;
 		inq_res = appl_get_hci_inquiry_result();
 		printf("ins_res = %p\n",inq_res);
-		appl_print_discovered_devices();
-		printf("Enter BD_ADDR Index to connect = "); fflush(stdout);
+		dev_cnt = appl_print_discovered_devices();
+		printf("Enter Device Index to connect from above list, if device is not present please enter 99 = "); fflush(stdout);
 		scanf("%d", &index);
-		BT_COPY_BD_ADDR(appl_peer_bd_addr, inq_res[index].bd_addr);
-#endif
-		retval = BT_hci_get_acl_connection_handle(appl_peer_bd_addr, &handle);
-		if(retval != API_SUCCESS)
+		if(index < dev_cnt)
 		{
-			printf("\nConnecting to ...\n");
-			printf("\t    " BT_DEVICE_ADDR_ONLY_FRMT_SPECIFIER "\n",
-			BT_DEVICE_ADDR_ONLY_PRINT_STR (appl_peer_bd_addr));
-			retval = BT_sm_delete_device (appl_peer_bd_addr, 0x01);
-			if (API_SUCCESS != retval)
+			BT_COPY_BD_ADDR(appl_peer_bd_addr, inq_res[index].bd_addr);
+		}
+		else
+		{
+			printf("Retry scanning the device\n"); fflush(stdout);
+			retval = API_FAILURE;
+		}
+#endif
+		if (retval == API_SUCCESS)
+		{
+		retval = BT_hci_get_acl_connection_handle(appl_peer_bd_addr, &handle);
+			if (retval != API_SUCCESS)
 			{
-				printf("FAILED ! Reason = 0x%04X\n", retval);
-				/*break;*/
-			}
+				printf("\nConnecting to ...\n");
+				printf("\t    " BT_DEVICE_ADDR_ONLY_FRMT_SPECIFIER "\n",
+						BT_DEVICE_ADDR_ONLY_PRINT_STR (appl_peer_bd_addr));
+				retval = BT_sm_delete_device(appl_peer_bd_addr, SM_ANY_LIST);
+				if (API_SUCCESS != retval)
+				{
+					printf("FAILED ! Reason = 0x%04X\n", retval);
+					/*break;*/
+				}
 #ifdef CONNECT_BDADDR
 			appl_hci_connect(appl_peer_bd_addr);
 #else
 			appl_hci_connect_index(index);
 #endif
-		}
-		else
-		{
-			printf("\n ACL connection to this device is already established \n calling appl_sdp_open() to check"
-					" if HFP is supported on peer side \n");
-			appl_sdp_open();
+			}
+			else
+			{
+				printf("\n ACL connection to this device is already established \n calling appl_sdp_open() to check"
+								" if HFP is supported on peer side \n");
+				appl_sdp_open();
+			}
 		}
 	}
 	break;

@@ -337,10 +337,10 @@ INQUIRY_RESULT* appl_get_hci_inquiry_result();
 /*
  * Description: API to print the list of discovered devices.
  *              This API needs to be called after HCI_INQUIRY_COMPLETE_EVENT is received
- * Return: None
+ * Return: Number of discovered devices
  * Params: None
  */
-void appl_print_discovered_devices();
+UINT32 appl_print_discovered_devices();
 
 #endif /* _H_APPL_HCI_ */
 

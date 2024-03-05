@@ -4139,8 +4139,9 @@ INQUIRY_RESULT* appl_get_hci_inquiry_result()
 	return appl_inquiry_res;
 }
 
-void appl_print_discovered_devices()
+UINT32 appl_print_discovered_devices()
 {
+	UINT32 ret = 0;
 	INQUIRY_RESULT *inq_result;
 
 	inq_result = appl_get_hci_inquiry_result();
@@ -4158,6 +4159,7 @@ void appl_print_discovered_devices()
 			printf("   rssi = 0x%X\n", inq_result[i].rssi);
 			printf("   local device name = %s\n", inq_result[i].local_name);
 			printf("****************************************************\n");
+			ret++;
 		}
 		else
 		{
@@ -4165,6 +4167,7 @@ void appl_print_discovered_devices()
 		}
 
 	}
+	return ret;
 }
 
 static UINT8 appl_get_free_inq_res_index()

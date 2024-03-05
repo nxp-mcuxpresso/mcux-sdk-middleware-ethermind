@@ -124,6 +124,7 @@
  ******************************************************************************/
 #ifdef PCAL6408A_IO_EXP_ENABLE
 static hal_i2c_master_handle_t handle;
+static uint8_t is_PCAL6408A_Initialise = 0U;
 #endif /*PCAL6408A_IO_EXP_ENABLE*/
 /*******************************************************************************
  * Function Prototypes
@@ -292,11 +293,25 @@ status_t PCAL6408A_Init(pcal6408a_pins_cfg_t *config)
         return kStatus_Fail;
     }
 
+    is_PCAL6408A_Initialise = 1U;
+
     PCAL6408A_CHECK_RET(PCAL6408A_WriteReg(&handle, PCAL6408A_REG_OUTPUT_PORT_CONFIGURATION, 0x08), ret);
     /*making p0, p3 as output*/
     PCAL6408A_CHECK_RET(PCAL6408A_WriteReg(&handle, PCAL6408A_REG_CONFIGURATION, 0xF6), ret);
     PCAL6408A_CHECK_RET(PCAL6408A_WriteReg(&handle, PCAL6408A_REG_OUTPUT_PORT, 0x00), ret);
     ret = PCAL6408A_readAllConfig(config);
+
+    return ret;
+}
+
+status_t PCAL6408A_DeInit(void)
+{
+    status_t ret = IOEXP_I2C_Deinit(&handle);
+
+    if(kStatus_Success == ret)
+    {
+        is_PCAL6408A_Initialise = 0;
+    }
 
     return ret;
 }
@@ -359,19 +374,58 @@ static status_t PCAL6408A_readAllConfig(pcal6408a_pins_cfg_t *config)
 
 status_t PCAL6408A_control_op_port(pcal6408a_op_port_e port_num, uint8_t signal)
 {
-    status_t ret = kStatus_Success;
-    PCAL6408A_CHECK_RET(PCAL6408A_ModifyReg(&handle, PCAL6408A_REG_OUTPUT_PORT, (1U << port_num), (signal << port_num)),
-                        ret);
+	status_t ret = kStatus_Success;
+
+    if(is_PCAL6408A_Initialise == 0)
+    {
+        pcal6408a_pins_cfg_t config;
+        ret = PCAL6408A_Init(&config);
+
+        if(kStatus_Success == ret)
+        {
+            uint8_t reg_val = 0;
+
+            PCAL6408A_CHECK_RET(PCAL6408A_ModifyReg(&handle, PCAL6408A_REG_OUTPUT_PORT, (1U << port_num),
+                    (signal << port_num)), ret);
+
+            PCAL6408A_CHECK_RET(PCAL6408A_ReadReg(&handle, PCAL6408A_REG_OUTPUT_PORT, &reg_val), ret);
+            reg_val = (reg_val >> port_num) & 1U;
+
+            (signal == reg_val) ? (ret = kStatus_Success):(ret = kStatus_Fail);
+            PCAL6408A_DeInit();
+        }
+        else
+        {
+        	PRINTF_E("IO-EXP init failure:%d\n", ret);
+        }
+    }
+
     return ret;
 }
 
 status_t PCAL6408A_read_op_port(pcal6408a_op_port_e port_num, uint8_t *value)
 {
-    status_t ret    = kStatus_Success;
-    uint8_t reg_val = 0;
+	status_t ret = kStatus_Success;
 
-    PCAL6408A_CHECK_RET(PCAL6408A_ReadReg(&handle, PCAL6408A_REG_OUTPUT_PORT, &reg_val), ret);
-    *value = (reg_val >> port_num) & 1U;
+    if(is_PCAL6408A_Initialise == 0)
+    {
+        pcal6408a_pins_cfg_t config;
+        ret = PCAL6408A_Init(&config);
+
+        if(kStatus_Success == ret)
+        {
+            uint8_t reg_val = 0;
+
+            PCAL6408A_CHECK_RET(PCAL6408A_ReadReg(&handle, PCAL6408A_REG_OUTPUT_PORT, &reg_val), ret);
+            *value = (reg_val >> port_num) & 1U;
+            ret = kStatus_Success;
+            PCAL6408A_DeInit();
+        }
+        else
+        {
+            PRINTF_E("IO-EXP init failure:%d\n", ret);
+        }
+    }
 
     return ret;
 }
