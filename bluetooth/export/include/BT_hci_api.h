@@ -2509,15 +2509,6 @@ API_RESULT BT_hci_iso_write_pdu
 #endif /* HCI_SUPPORT_ISO_WRITE_PDU */
 
 /**
- *  API_RESULT BT_hci_iso_queue_flush:
- *  API to flush existing iso packets
- *
- *  \param
- *  @return:
- */
-void BT_hci_iso_queue_flush(void);
-
-/**
  *  API_RESULT BT_hci_iso_queue_info:
  *  API to provide iso-queue-count details
  *
