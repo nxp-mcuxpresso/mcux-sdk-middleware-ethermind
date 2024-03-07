@@ -58,9 +58,12 @@ __attribute__((weak)) void leaudio_write_pl_ext (UCHAR ep, UCHAR * m_data, UINT1
 {
 }
 
-__attribute__((weak)) void le_audio_pl_ext_iso_tx_hook (UCHAR *buf)
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+__attribute__((weak)) void le_audio_set_sync_info_pl_ext (UINT8 ep, UINT8 evt, void *sync_data)
 {
 }
+
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
 
 API_RESULT leaudio_create_task_pl(BT_THREAD_START_ROUTINE routine)
 {
@@ -178,8 +181,9 @@ void leaudio_write_pl (UCHAR ep, UCHAR * m_data, UINT16 m_datalen)
     leaudio_write_pl_ext(ep, m_data, m_datalen);
 }
 
-void le_audio_pl_iso_tx_hook (UCHAR * buf)
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+void le_audio_set_sync_info_pl (UINT8 ep, UINT8 evt, void *sync_data)
 {
-    le_audio_pl_ext_iso_tx_hook(buf);
+    le_audio_set_sync_info_pl_ext (ep, evt, sync_data);
 }
-
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/

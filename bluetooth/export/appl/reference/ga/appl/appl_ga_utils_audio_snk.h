@@ -114,5 +114,6 @@ GA_RESULT appl_ga_utils_audio_snk_config_audio_dump_files
           );
 
 UINT16 appl_ga_utils_audio_snk_get_fd(void);
+GA_RESULT audio_snk_lc3_msg_process(UCHAR * data, UINT16 datalen, HCI_ISO_HEADER* iso_hdr);
 
 #endif /* _H_APPL_GA_UTILS_AUDIO_SNK_ */

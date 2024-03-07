@@ -67,8 +67,4 @@ void main_ba_operations(void);
 
 void appl_ga_bc_set_src_setting(APPL_GA_ROLE  role);
 
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-UINT32 appl_ga_get_big_sdu_int(void);
-#endif
-
 #endif /* _H_APPL_GA_BC_BA */

@@ -28,11 +28,7 @@
 #include "queue.h"
 #include "task.h"
 #include "fsl_adapter_uart.h"
-
 #include "controller_hci_uart.h"
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-#include "leaudio_pl.h"
-#endif /*LE_AUDIO_ENABLE_APP_SPECIFIC_CODE*/
 
 #ifdef BT_UART
 
@@ -887,13 +883,6 @@ API_RESULT hci_uart_send_data
         {
             total_len = (UINT32)length + 1U;
         }
-
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-        if (HCI_ISO_DATA_PACKET == type)
-        {
-        	le_audio_pl_iso_tx_hook (buf);
-        }
-#endif /*LE_AUDIO_ENABLE_APP_SPECIFIC_CODE*/
 
         if (HCI_UART_WR_BUF_SIZE < total_len)
         {

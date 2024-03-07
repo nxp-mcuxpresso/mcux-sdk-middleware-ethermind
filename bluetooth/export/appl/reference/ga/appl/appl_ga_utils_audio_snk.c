@@ -20,6 +20,11 @@
 #include "audio_pl.h"
 #endif /* AUDIO_SNK_PL_SUPPORT */
 
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+#include "le_audio_pl_sync.h"
+#include "leaudio_pl.h"
+#endif /*#defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
+
 #include "BT_fops.h"
 
 #ifdef GA_BAP
@@ -55,7 +60,9 @@ FILE* snk_dump_audio_predecoded_fd;
 FILE* snk_dump_audio_decoded_fd;
 #endif /* SNK_DUMP_AUDIO_DECODED */
 
+#if !defined(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE == 0)
 static INT16  dec16_silence[AUDIO_SNK_LC3_CHANNELS_MAX * AUDIO_SNK_LC3_INPUT_FRAME_SIZE_MAX];
+#endif
 
 /* --------------------------------------------- Static Global Variables */
 
@@ -86,11 +93,7 @@ static void audio_snk_lc3_deinterleave_samples
                 UINT32 num_channels
             );
 
-GA_RESULT audio_snk_lc3_decode_n_play
-          (
-              UCHAR* data,
-              UINT16 datalen
-          );
+GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen, HCI_ISO_HEADER *iso_hdr);
 
 void audio_snk_write_pl(UCHAR * data, UINT16 datalen);
 #endif /* AUDIO_SNK_LC3_SUPPORT */
@@ -696,7 +699,9 @@ GA_RESULT appl_ga_utils_audio_snk_hci_iso_data_ind_cb
     /* APPL_TRC("."); */
 
 #ifdef AUDIO_SNK_LC3_SUPPORT
+#if !defined(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE == 0)
     if ((datalen > 0) && (NULL != data))
+#endif /*!defined(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE == 0)*/
     {
         /*
          * Fetch the handle and check the ISO state.
@@ -748,25 +753,18 @@ GA_RESULT appl_ga_utils_audio_snk_hci_iso_data_ind_cb
                 if (GA_TRUE == audio_iso_snk[i].streaming_state)
                 {
                     /* Decode and send the rx packet */
-                    retval = audio_snk_lc3_decode_n_play(data, datalen);
+                    retval = audio_snk_lc3_decode_n_play(data, datalen, &iso_header);
                     break;
                 }
                 else
                 {
-                    APPL_TRC("%c ", audio_iso_snk[i].stream_symbol);
+                 //   APPL_TRC("%c ", audio_iso_snk[i].stream_symbol);
                     break;
                 }
             }
         }
     }
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-    else
-    {
-    }
-#endif /*LE_AUDIO_ENABLE_APP_SPECIFIC_CODE*/
-
 #endif /* AUDIO_SNK_LC3_SUPPORT */
-
     return retval;
 }
 
@@ -1150,14 +1148,17 @@ static void audio_snk_lc3_interleave_samples(INT32 **in, INT16 *out, UINT32 len,
     }
 }
 
-GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen)
+GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen, HCI_ISO_HEADER *iso_hdr)
 {
     INT32         encoded_byte_len[AUDIO_SNK_LC3_CHANNELS_MAX];
-    static INT16  dec16_buffer[AUDIO_SNK_LC3_CHANNELS_MAX * AUDIO_SNK_LC3_INPUT_FRAME_SIZE_MAX];
     INT32         flg_bytes[AUDIO_SNK_LC3_CHANNELS_MAX];
     UINT16        index;
     INT32         samples_per_frame_per_channel;
-
+    INT16  		  pcm_buffer[AUDIO_SNK_LC3_CHANNELS_MAX * (AUDIO_SNK_LC3_INPUT_FRAME_SIZE_MAX + 120U)];
+	INT16 		  resampler_in[AUDIO_LC3_INPUT_FRAME_SIZE_MAX + 120U];
+	INT16         resampler_out[AUDIO_LC3_INPUT_FRAME_SIZE_MAX + 120U];
+	INT32 		  resampler_samples_out = 0;
+    INT16 		  sample_out = 0;
     /* Initialize */
     index = 0U;
     samples_per_frame_per_channel = 0;
@@ -1196,13 +1197,20 @@ GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen)
      * out[1][2] = in[n + 2]
      * out[1][3] = in[n + 3]
      */
-    audio_snk_lc3_deinterleave_samples
-    (
-        data,
-        audio_lc3_snk.ctx.snk_enc_buf,
-        (datalen / audio_lc3_snk.cc),
-        audio_lc3_snk.cc
-    );
+
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+    /*If this data is correct!*/
+    if (iso_hdr->ps_flag == 0U)
+#endif
+    {
+        audio_snk_lc3_deinterleave_samples
+        (
+            data,
+            audio_lc3_snk.ctx.snk_enc_buf,
+            (datalen / audio_lc3_snk.cc),
+            audio_lc3_snk.cc
+        );
+    }
 
     /* Memset all fields */
     for (index = 0U; index < audio_lc3_snk.cc; index++)
@@ -1223,17 +1231,19 @@ GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen)
     for (index = 0U; index < audio_lc3_snk.cc; index++)
     {
         encoded_byte_len[index] = (datalen / audio_lc3_snk.cc);
-        flg_bytes[index] = 0; /* G192_GOOD_FRAME = 0 */
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+        flg_bytes[index] = iso_hdr->ps_flag;
+#endif
     }
 
     samples_per_frame_per_channel = LC3_decoder_get_frame_length(&audio_lc3_snk.ctx.dec_ctx);
-
-    if (LC3_DECODER_SUCCESS == LC3_decoder_process
-                               (
-                                   &audio_lc3_snk.ctx.dec_ctx,
-                                   flg_bytes,
-                                   encoded_byte_len
-                               ))
+    INT32 ret = LC3_decoder_process
+            (
+                &audio_lc3_snk.ctx.dec_ctx,
+                flg_bytes,
+                encoded_byte_len
+            );
+    if (LC3_DECODER_SUCCESS == ret)
     {
 #ifdef APPL_SNK_TIMESTAMP_DUMP
         appl_snk_dump_timestamp(2, encoded_byte_len);
@@ -1241,7 +1251,45 @@ GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen)
 
         /* APPL_DBG("[APPL][AUDIO_SNK][LC3]: LC3 Decoder Process Start Status: Succes\n"); */
         /* APPL_TRC("ISO: LC3 Decoded Data : %d\n", samples_per_frame_per_channel); */
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE > 0)
 
+        for (UINT16 ch_index = 0U; ch_index < audio_lc3_snk.cc; ch_index++)
+        {
+        	/*fetch 16bit samples from 32bit sample array*/
+            for (UINT16 sample = 0U; sample < samples_per_frame_per_channel; sample++)
+            {
+            	resampler_in[sample] = (INT16)(audio_lc3_snk.ctx.snk_dec_buffer[ch_index][sample]);
+            }
+
+            /*run re-sampler asrc per channel*/
+            sample_out = le_audio_asrc_process
+											(
+												LE_AUDIO_SDU_FLAG_VALID,
+												iso_hdr,
+												(INT16*) &resampler_in[0],
+												samples_per_frame_per_channel,
+												(INT16*) &resampler_out[0],
+												ch_index + 1U
+											);
+
+        	/*interleave samples to even, odd pattern*/
+            for (UINT16 sample = 0U; sample < sample_out; sample++)
+            {
+            	pcm_buffer[(sample * audio_lc3_snk.cc) + ch_index] = resampler_out[sample];
+            }
+
+            if ((ch_index == 1) && (resampler_samples_out != sample_out))
+            {
+            	PRINTF ("[sdu:%d] %d %d]", iso_hdr->seqnum, resampler_samples_out, sample_out);
+            }
+
+            resampler_samples_out += sample_out;
+        }
+
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
+
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+#else
         if (1U < audio_lc3_snk.cc)
         {
             /* This is a Handle that is supporting more than 1 CC */
@@ -1249,7 +1297,7 @@ GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen)
             audio_snk_lc3_interleave_samples
             (
                 audio_lc3_snk.ctx.snk_dec_buf,
-                dec16_buffer,
+                pcm_buffer,
                 samples_per_frame_per_channel,
                 audio_lc3_snk.cc
             );
@@ -1259,22 +1307,22 @@ GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen)
             /* It is supporting 1 CC */
             for (index = 0U; index < samples_per_frame_per_channel; index++)
             {
-                dec16_buffer[index] = (INT16)(audio_lc3_snk.ctx.snk_dec_buffer[0U][index]);
+                pcm_buffer[index] = (INT16)(audio_lc3_snk.ctx.snk_dec_buffer[0U][index]);
             }
         }
+#endif /*(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
 
 #ifdef SNK_DUMP_AUDIO_DECODED
         if (NULL != snk_dump_audio_decoded_fd)
         {
-            fwrite(dec16_buffer, sizeof(INT16), (samples_per_frame_per_channel), snk_dump_audio_decoded_fd);
+            fwrite(pcm_buffer, sizeof(INT16), (samples_per_frame_per_channel), snk_dump_audio_decoded_fd);
         }
 #endif /* SNK_DUMP_AUDIO_DECODED */
 
 #ifdef AUDIO_SNK_PL_SUPPORT
         if (AUDIO_LC3_CREATED == audio_lc3_snk.state)
         {
-            GA_mem_set(dec16_silence, 0x00, sizeof(dec16_silence));
-
+#if !defined(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE == 0)
             for (index = 0; index < LC3_SILENCE_BUFFER_COUNT; index++)
             {
                 /*
@@ -1294,13 +1342,13 @@ GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen)
                     (UINT16)(samples_per_frame_per_channel << audio_lc3_snk.cc) /* Check this */
                 );
             }
-
+#endif
             audio_lc3_snk.state = AUDIO_LC3_IN_PROGRESS;
         }
 
         /*
          * audio_snk_write_pl API will take data of type UCHAR pointer and
-         * dec16_buffer is an array of INT16 and if channel count > 1, then
+         * pcm_buffer is an array of INT16 and if channel count > 1, then
          * it will have interleaved data. So, datalen will become
          * (samples_per_frame_per_channel * channel count * 2(for data type conversion))
          * For 1 channel: samples_per_frame_per_channel * 1 * 2
@@ -1310,11 +1358,17 @@ GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen)
          *              = samples_per_frame_per_channel * 4
          *              = (samples_per_frame_per_channel << 2(audio_lc3_snk.cc))
          */
+
         audio_snk_write_pl
         (
-            (UCHAR *)dec16_buffer,
+            (UCHAR *)pcm_buffer,
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+			resampler_samples_out * (audio_lc3_snk.bps / 8U)
+#else
             (UINT16)(samples_per_frame_per_channel << audio_lc3_snk.cc) /* Check this */
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
         );
+
 #ifdef APPL_SNK_TIMESTAMP_DUMP
         appl_snk_dump_timestamp(3, (UINT16)(samples_per_frame_per_channel << audio_lc3_snk.cc));
 #endif /* APPL_SNK_TIMESTAMP_DUMP */
@@ -1322,7 +1376,7 @@ GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen)
     }
     else
     {
-        /* APPL_DBG("[APPL][AUDIO_SNK][LC3]: LC3 Decoder Process Start Status: Failed !\n"); */
+    	PRINTF ("^");
     }
 
     return GA_SUCCESS;

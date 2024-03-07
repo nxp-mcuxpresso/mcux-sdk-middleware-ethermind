@@ -5670,13 +5670,6 @@ void appl_bc_ba_add_local_bc_src_to_src_db(void)
     );
 }
 
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-UINT32 appl_ga_get_big_sdu_int()
-{
-	return appl_bc_src_params.bc_qos_conf.sdu_interval;
-}
-#endif
-
 #ifdef APPL_GA_USE_CONFIG_FILE_FOR_INPUT
 void appl_bc_src_bap_set_bc_params_using_default_values(APPL_GA_ROLE role)
 {

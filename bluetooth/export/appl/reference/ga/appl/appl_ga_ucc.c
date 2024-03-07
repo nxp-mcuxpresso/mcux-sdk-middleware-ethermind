@@ -16,9 +16,10 @@
 #include "appl_hci.h"
 #include "appl_ga_utils_audio_src.h"
 #include "appl_ga_utils_audio_snk.h"
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
+
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
 #include "leaudio_pl.h"
-#endif
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
 
 #ifdef BAP_UCC
 
@@ -612,8 +613,8 @@ GA_RESULT appl_ga_ucc_hci_cb_handler
                 hci_unpack_1_byte_param(&cig_id, &event_data[marker]);
                 marker++;
                 appl_ga_ucc_handle_remove_cig_event(status, cig_id);
-#ifdef LE_AUDIO_SRC_SYNC_ENABLE
-                le_audio_pl_src_sync_deconfigure ();
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+                le_audio_pl_sync_stop ();
 #endif
                 break;
 

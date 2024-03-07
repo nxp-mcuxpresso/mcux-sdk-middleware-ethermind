@@ -104,6 +104,15 @@ GA_RESULT appl_ga_utils_audio_src_config_audio_dump_files
 void appl_ga_utils_audio_src_config_missed_seq_num_display(UINT8 op);
 #endif /* SRC_DISPLAY_MISSED_SEQ_NUM */
 
+#if defined (LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
 UINT16 appl_ga_utils_audio_src_get_fd(void);
+
+API_RESULT appl_ga_utils_audio_src_get_pcm_queue_info
+           (
+               UINT16 *  pcm_queue_count
+           );
+
+void appl_ga_utils_audio_src_signal_encoder_task (void);
+#endif /*defined (LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
 
 #endif /* _H_APPL_GA_UTILS_AUDIO_SRC_ */

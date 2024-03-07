@@ -18,6 +18,10 @@
 
 #ifdef BAP_UCS
 
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+#include "le_audio_pl_sync.h"
+static qos_config_data_t qos_data_obj;
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
 /* --------------------------------------------- Global Definitions */
 
 static const char ucs_menu_options[] = " \n\
@@ -1471,6 +1475,11 @@ GA_RESULT appl_ga_ucs_cb_handler
                 /* Update the ASE State */
                 ascs.ase[ase_index].state = GA_ASE_STATE_QOS_CONF;
                 ascs.ase[ase_index].cig_cis_info.cis_state = CIS_STATE_INITIALIZED;
+
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+                qos_data_obj.qos_config_state = BT_TRUE;
+                GA_mem_copy(&qos_data_obj.qos_config, &ascs.ase[ase_index].qos_conf, sizeof(GA_QOS_CONF));
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
             }
             else
             {
@@ -2253,8 +2262,6 @@ GA_RESULT appl_ga_ucs_register_ascs_using_runtime_values
 {
     GA_RESULT  retval;
     int        choice;
-    UINT8      index;
-    UINT8      ase_count;
 
     /* ASCS: Sink ASE/Source ASE */
     UINT8                       csc_set_id;
@@ -2263,8 +2270,6 @@ GA_RESULT appl_ga_ucs_register_ascs_using_runtime_values
     /* Initialize */
     retval = GA_FAILURE;
     choice = 0;
-    index = 0U;
-    ase_count = 0U;
     csc_set_id = 0U;
 
     APPL_DBG("[APPL][GA][UCS]: >> appl_ga_ucs_register_ascs_using_runtime_values\n");
@@ -5551,4 +5556,10 @@ void appl_ga_ucs_trigger_release_complete_timer_handler
     return;
 }
 
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+void* appl_ga_ucs_fetch_qos_config_data_buf (void)
+{
+    return &qos_data_obj;
+}
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
 #endif /* BAP_UCS */

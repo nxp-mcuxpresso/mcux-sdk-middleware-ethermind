@@ -139,6 +139,10 @@
 /* This depends on the kind of Input File used, move it under AUDIO_PL_SUPPORT? */
 #define AUDIO_NUM_OF_BITS_PER_SAMPLE  16U
 
+#define AUDIO_POS_LOCATION_LEFT		1U
+#define AUDIO_POS_LOCATION_RIGHT	2U
+#define AUDIO_POS_LOCATION_STEREO	3U
+
 #if (defined APPL_BAP_BROADCAST_SOURCE) || (defined APPL_BAP_BROADCAST_SINK) || (defined APPL_BAP_BROADCAST_SCAN_DELEGATOR) || (defined APPL_BAP_BROADCAST_ASSISTANT)
 #define APPL_BC_MAX_NUM_OF_SUB_GROUPS            5U
 #define APPL_BC_MAX_BIS_PER_SUB_GROUP            4U
@@ -1519,8 +1523,11 @@ UINT8 appl_ga_utils_get_cap_announcement_type(void);
 void appl_ga_utils_update_cap_announcement_type_in_adv(void);
 void appl_ga_utils_display_adtype_rsi(UCHAR* adv_data, UINT8 adlength);
 void appl_ga_utils_verify_rsi(UINT8 cas_index);
-UINT32 appl_ga_utils_audio_src_get_sdu_int(void);
 
+UINT8 appl_ga_utils_fetch_chan_info_from_aca
+     (
+         UINT32 aca
+     );
 #if defined (LC3_DSP) && ((LC3_DSP == 0) || (LC3_DSP == 2))
 INT32 lc3_encoder_convert_bitrate_to_bytes
       (

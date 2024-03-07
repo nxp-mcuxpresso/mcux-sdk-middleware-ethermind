@@ -26,5 +26,10 @@
         *fsl_edma.o(.text .text* .rodata .rodata*)
         *fsl_sai.o(.text .text* .rodata .rodata*)
         *fsl_sai_edma.o(.text .text* .rodata .rodata*)
-        *leaudio_pl_ext.o(.text .text* .rodata .rodata*)
+        *le_audio_pl_ext.o(.text .text* .rodata .rodata*)
+        *le_audio_pl_sync.o(.text .text* .rodata .rodata*)
+        *le_audio_pl_i2s.o(.text .text* .rodata .rodata*)
+        *srCvtFrm.o(.text .text* .rodata .rodata*)
+        *appl_ga_utils_audio_sink.o(.text .text* .rodata .rodata*)
+        *fsl_gpt.o(.text .text* .rodata .rodata*)
         </#if>

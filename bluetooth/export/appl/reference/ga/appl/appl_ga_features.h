@@ -22,7 +22,7 @@
 #define APPL_GA_LEGACY_SUPPORT
 
 /* Define to use default configurations for init and registration */
-#define APPL_GA_USE_CONFIG_FILE_FOR_INPUT
+//#define APPL_GA_USE_CONFIG_FILE_FOR_INPUT
 
 
 /* Define to display the missed Streaming data Sequence number for Source */

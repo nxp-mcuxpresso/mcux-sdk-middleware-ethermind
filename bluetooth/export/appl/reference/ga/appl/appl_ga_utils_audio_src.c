@@ -21,6 +21,10 @@
 
 #ifdef AUDIO_SRC_PL_SUPPORT
 #include "audio_pl.h"
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+#include "leaudio_pl.h"
+#include "BT_hci_api.h"
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
 #endif /* AUDIO_SRC_PL_SUPPORT */
 
 #include "BT_fops.h"
@@ -44,6 +48,10 @@ AUDIO_PL_INFO audio_pl_src;
 /* Queue: Synchronization for thread */
 BT_DEFINE_MUTEX(audio_pl_src_th_mutex)
 BT_DEFINE_COND(audio_pl_src_th_cond)
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+OSA_SEMAPHORE_HANDLE_DEFINE(encoder_task_signal);
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
+
 
 #define AUDIO_PL_SRC_WR_TH_INIT                 0x01U
 #define AUDIO_PL_SRC_WR_TH_STOP                 0x02U
@@ -62,11 +70,10 @@ BT_DEFINE_COND(audio_pl_src_th_cond)
 
 /**
  * Src PCM Queue Size.
- * Having 4 buffers of above size which should be able to
+ * Having 8 buffers of above size which should be able to
  * serve buffering with a max interval of 10ms
  */
-#define AUDIO_PL_MAX_BUFFER_SIZE                (AUDIO_PL_MAX_BYTES_TO_LC3_ENCODE << 2U)
-
+#define AUDIO_PL_MAX_BUFFER_SIZE                (AUDIO_PL_MAX_BYTES_TO_LC3_ENCODE << 3U)
 
 /* Write thread state */
 static UINT8 audio_pl_src_wr_th_state;
@@ -158,6 +165,7 @@ UINT16 audio_src_get_byte_size_to_encode_for_lc3
        (
            UINT16  sf_in_Hz,
            UINT16  fd_in_us,
+           UINT16  bps,
            UINT8   channel_count
        );
 
@@ -257,6 +265,9 @@ void appl_ga_utils_audio_src_init(void)
     (void)BT_thread_mutex_init(&audio_pl_src_th_mutex, NULL);
     (void)BT_thread_cond_init(&audio_pl_src_th_cond, NULL);
 
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+     OSA_SemaphoreCreateBinary(encoder_task_signal);
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
     /* Initialize the task variables and create the task */
     audio_pl_src_wr_th_state = AUDIO_PL_SRC_WR_TH_INIT;
 
@@ -268,8 +279,23 @@ void appl_ga_utils_audio_src_init(void)
     /* Initialize Audio PL */
     audio_init_pl(AUDIO_EP_SOURCE);
 
-    /* Create the Write task which will trigger audio produce on audio start */
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+    BT_thread_attr_type lc3_encoder_task;
+    BT_thread_type lc3_encoder_task_handle;
+
+    lc3_encoder_task.thread_name       = (DECL_CONST CHAR  *)"lc3_encoder_task";
+    lc3_encoder_task.thread_stack_size = (BT_TASK_STACK_DEPTH + 2048U);
+    lc3_encoder_task.thread_priority   = (BT_TASK_PRIORITY + 1);
+
+    if (0 != BT_thread_create(&lc3_encoder_task_handle, &lc3_encoder_task, audio_pl_src_task_for_handling_queue, NULL))
+    {
+        PRINTF("failed to create lc3 encoder task\n");
+        return;
+    }
+#else
     audio_create_task_pl(audio_pl_src_task_for_handling_queue);
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
+
 #endif /* AUDIO_SRC_PL_SUPPORT */
 
     APPL_DBG
@@ -841,21 +867,147 @@ GA_RESULT audio_pl_src_enqueue
         }
     }
 
+#if !defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE == 0)
     if (AUDIO_PL_SRC_WR_TH_INIT == audio_pl_src_wr_th_state)
     {
         /* Signal the waiting thread */
         audio_pl_src_wr_th_state = AUDIO_PL_SRC_WR_TH_PLAYING;
         BT_thread_cond_signal(&audio_pl_src_th_cond);
     }
-
+#endif /*!defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE == 0)*/
     BT_thread_mutex_unlock(&audio_pl_src_th_mutex);
-
     return GA_SUCCESS;
 }
+
+/**
+ *  API_RESULT appl_ga_utils_audio_src_get_pcm_queue_info:
+ *  API to provide iso-pcm-queue-count details
+ *
+ *  \param (OUT) iso-pcm-queue-count iso-queue-count
+ *  @return: API_RESULT
+ *           API_SUCCESS : On successful registration of the callback pointer.
+ */
+
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+API_RESULT appl_ga_utils_audio_src_get_pcm_queue_info
+           (
+               UINT16*  pcm_queue_count
+           )
+{
+    API_RESULT retval;
+    UINT16 remaining = 0;
+
+    if (NULL == pcm_queue_count)
+    {
+        retval = HCI_INVALID_PARAMETER_VALUE;
+    }
+    else
+    {
+        retval = API_SUCCESS;
+        /* Lock */
+        BT_thread_mutex_lock(&audio_pl_src_th_mutex);
+
+        if (audio_pl_src_buffer_wr_ptr >= audio_pl_src_buffer_rd_ptr)
+        {
+        	remaining = audio_pl_src_buffer_wr_ptr - audio_pl_src_buffer_rd_ptr;
+        }
+        else
+        {
+        	remaining = audio_pl_src_buffer_size -
+                (audio_pl_src_buffer_rd_ptr - audio_pl_src_buffer_wr_ptr);
+        }
+
+        if (remaining >= audio_pl_src.bytes_to_lc3_encode)
+        {
+        	*pcm_queue_count = remaining / audio_pl_src.bytes_to_lc3_encode;
+        }
+        else
+        {
+        	*pcm_queue_count = 0;
+        }
+        /* Unlock */
+        BT_thread_mutex_unlock(&audio_pl_src_th_mutex);
+    }
+
+    return retval;
+}
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
 /*
  * This task is created by Audio PL, but this is used by us to handle the
  * Audio produced by the Audio PL when we are Source.
  */
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+DECL_STATIC BT_THREAD_RETURN_TYPE audio_pl_src_task_for_handling_queue
+                                  (
+                                      BT_THREAD_ARGS args
+                                  )
+{
+    INT32  rd_ptr, index, remaining;
+    UINT8 iso_tx_max_buf_cnt, iso_tx_curr_buf_cnt;
+    UINT8 isValidTx = BT_FALSE;
+    GA_IGNORE_UNUSED_PARAM(args);
+
+    BT_LOOP_FOREVER()
+    {
+		OSA_SemaphoreWait(encoder_task_signal, osaWaitForever_c);
+
+		BT_thread_mutex_lock(&audio_pl_src_th_mutex);
+        isValidTx = BT_FALSE;
+
+		(void) BT_hci_get_iso_tx_buffer_count (&iso_tx_curr_buf_cnt, &iso_tx_max_buf_cnt);
+		if (iso_tx_curr_buf_cnt == 0)
+		{
+			PRINTF ("^C^");
+			BT_thread_mutex_unlock(&audio_pl_src_th_mutex);
+			continue;
+		}
+
+        if (audio_pl_src_buffer_wr_ptr >= audio_pl_src_buffer_rd_ptr)
+        {
+            remaining = audio_pl_src_buffer_wr_ptr - audio_pl_src_buffer_rd_ptr;
+        }
+        else
+        {
+            remaining = audio_pl_src_buffer_size -
+                (audio_pl_src_buffer_rd_ptr - audio_pl_src_buffer_wr_ptr);
+        }
+
+        if (remaining >= audio_pl_src.bytes_to_lc3_encode)
+        {
+			rd_ptr = audio_pl_src_buffer_rd_ptr;
+			for (index = 0; index < audio_pl_src.bytes_to_lc3_encode; index++)
+			{
+				audio_pl_src_pcm_to_send[index] =
+						audio_pl_src_buffer[rd_ptr];
+
+				rd_ptr = rd_ptr + 1;
+				if (rd_ptr == audio_pl_src_buffer_size)
+				{
+					rd_ptr = 0;
+				}
+			}
+			audio_pl_src_buffer_rd_ptr = rd_ptr;
+			isValidTx = BT_TRUE;
+        }
+		else
+		{
+			PRINTF ("U");
+		}
+
+        if (isValidTx == BT_TRUE)
+        {
+#ifdef AUDIO_SRC_LC3_SUPPORT
+            audio_src_lc3_encode_n_send
+            (
+                &audio_pl_src_pcm_to_send[0],
+				audio_pl_src.bytes_to_lc3_encode
+            );
+#endif /* AUDIO_SRC_LC3_SUPPORT */
+        }
+        BT_thread_mutex_unlock(&audio_pl_src_th_mutex);
+    }
+}
+#else
 DECL_STATIC BT_THREAD_RETURN_TYPE audio_pl_src_task_for_handling_queue
                                   (
                                       BT_THREAD_ARGS args
@@ -985,7 +1137,7 @@ DECL_STATIC BT_THREAD_RETURN_TYPE audio_pl_src_task_for_handling_queue
         }
     }
 }
-
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
 /*
  * Callback that is triggered from Audio Pl callback.
  * Call the Queue Module to stagger data flow to achieve synchronization.
@@ -1010,13 +1162,7 @@ static void audio_pl_src_callback
 #endif /* SRC_DUMP_AUDIO_PREENCODED */
 
 #ifdef AUDIO_SRC_LC3_SUPPORT
-
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-		audio_src_lc3_encode_n_send(p_data, p_datalen);
-#else
 		audio_pl_src_enqueue(p_data, p_datalen);
-#endif /*LE_AUDIO_ENABLE_APP_SPECIFIC_CODE*/
-
 #endif /* AUDIO_SRC_LC3_SUPPORT */
 
 #ifdef APPL_SRC_TIMESTAMP_DUMP
@@ -1087,9 +1233,11 @@ GA_RESULT appl_ga_utils_audio_src_setup_generator_pl
                                            (
                                                (UINT16 )sf_hz,
                                                fd_in_us,
+											   bps,
                                                cc
                                            );
 
+        PRINTF("[APPL][GA][AUDIO_SRC][PL]: bytes_to_lc3_encode %d\n", audio_pl_src.bytes_to_lc3_encode);
         audio_pl_src.state = AUDIO_PL_SETUP_COMPLETE;
     }
     else
@@ -1171,11 +1319,6 @@ GA_RESULT appl_ga_utils_audio_src_stop_generator_pl(void)
         {
             APPL_DBG("[APPL][GA][AUDIO_SRC][PL]: Audio PL Generator Stop Process Status: Failed !\n");
         }
-        
-        /* Flush the enqueued iso data packets those are scheduled by ISO data bottom half*/
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-        BT_hci_iso_queue_flush();
-#endif
     }
     else
     {
@@ -1190,6 +1333,7 @@ UINT16 audio_src_get_byte_size_to_encode_for_lc3
        (
            UINT16  sf_in_Hz,
            UINT16  fd_in_us,
+           UINT16  bps,
            UINT8   channel_count
        )
 {
@@ -1203,7 +1347,7 @@ UINT16 audio_src_get_byte_size_to_encode_for_lc3
      * sf_in_Hz = 48000
      * fd_in_us = 10000 in micro seconds
      * channel_count = 1
-     * No of samples per frame: 2
+     * No of bytes per sample: 2
      * bytes_to_lc3_encode = (48000 * 10000 * 1 * 2)/(1000000) = 960
      * We are dividing by 10^6 as fd will be in micro seconds.
      */
@@ -1216,8 +1360,7 @@ UINT16 audio_src_get_byte_size_to_encode_for_lc3
         sf_in_Hz = 48000;
     }
 
-    /* TODO: Why * 2? */
-    bytes_to_lc3_encode = (UINT16)((sf_in_Hz * fd_in_us * channel_count * 2U)
+    bytes_to_lc3_encode = (UINT16)((sf_in_Hz * fd_in_us * channel_count * (bps/8))
                                    / (1000U * 1000U));
 
     return bytes_to_lc3_encode;
@@ -1512,9 +1655,10 @@ GA_RESULT audio_src_lc3_encode_n_send
     UINT8     cc[3U] = { 0 }; /* TODO */
     UINT16    * seq_num[AUDIO_SRC_ISO_MAX_ENTRIES] = { 0 }; /* TODO */
     UINT16      ts_flag[AUDIO_SRC_ISO_MAX_ENTRIES] = { 0 }; /* TODO */
+   // UINT8      aca_info[AUDIO_SRC_ISO_MAX_ENTRIES] = { 0 };
     UINT8     active_handle_count;
     INT32       samples_per_frame;
-
+    UINT8		ts_fetched = BT_FALSE;
     /* Initialize */
     retval = GA_FAILURE;
     lc3_encoded_bytes = 0;
@@ -1550,14 +1694,17 @@ GA_RESULT audio_src_lc3_encode_n_send
                                       );
             seq_num[active_handle_count] = &audio_iso_src[index].seq_num;
             ts_flag[active_handle_count] = audio_iso_src[index].ts_flag;
-            /* TODO: Based on the ACA, Assign the Right Packet Index */
+            //aca_info[active_handle_count] = appl_ga_utils_fetch_chan_info_from_aca (audio_iso_src[index].cs_conf.aca);
             active_handle_count++;
         }
     }
 
-    memset(pcm_in_16_from_8, 0, sizeof(pcm_in_16_from_8));
-    memset(enc_interleaved_data, 0, sizeof(enc_interleaved_data));
 
+    for (index = 0U; index < 1000U; index++)
+    {
+    	enc_interleaved_data[index] = 0;
+    	pcm_in_16_from_8[index] = 0;
+    }
 
     /**
      * Copy the local buffer contents here to the LC3 Module buffer.
@@ -1569,12 +1716,11 @@ GA_RESULT audio_src_lc3_encode_n_send
      *  2. Pack it into UINT16 pcm_in_16_from_8[0].
      *  3. Run this loop for pcm_datalen/2 - As, we are working on 2 samples at a time.
      */
-    GA_mem_set(pcm_in_16_from_8, 0, 1000);
-
-    for (index = 0; index < (pcm_datalen >> 1U); index++)
+	/*below 8bit to 16 bit conversion takes more then 550us, need optimization to fall under 100us*/
+    INT16 *sample = (int16_t *)pcm_data;
+    for(index = 0; (index < pcm_datalen >> 1); index++)
     {
-        pcm_in_16_from_8[index] =
-            (INT32)((pcm_data[(2U * index) + 1U] << 8U) | (pcm_data[2U * index]));
+    	pcm_in_16_from_8[index] = (INT32)sample[index];
     }
 
     /* Fetch LC3 Encoder frame length */
@@ -1603,6 +1749,7 @@ GA_RESULT audio_src_lc3_encode_n_send
         /* Update it for the first time here */
         audio_lc3_src.state = AUDIO_LC3_IN_PROGRESS;
     }
+
 
     if (AUDIO_LC3_IN_PROGRESS == audio_lc3_src.state)
     {
@@ -1634,6 +1781,48 @@ GA_RESULT audio_src_lc3_encode_n_send
                 }
 #endif /* SRC_DUMP_AUDIO_ENCODED */
 
+/*                if (aca_info[index] == AUDIO_POS_LOCATION_LEFT)
+                {
+                	this link supports Left Channel
+                    for(UINT16 sample = 0; (sample < (lc3_encoded_bytes / audio_lc3_src.cc)); sample++)
+                    {
+                    	enc_interleaved_data[sample] = audio_lc3_src.ctx.src_enc_buffer[0][sample];
+                    }
+                }
+                else if (aca_info[index] == AUDIO_POS_LOCATION_RIGHT)
+                {
+                	this link supports Right Channel
+                    for(UINT16 sample = 0; (sample < (lc3_encoded_bytes / audio_lc3_src.cc)); sample++)
+                    {
+                    	enc_interleaved_data[sample] = audio_lc3_src.ctx.src_enc_buffer[1U][sample];
+                    }
+                }
+                else if (aca_info[index] == AUDIO_POS_LOCATION_STEREO)
+                {
+                	this link supports Stereo Channel
+                     Interleave the samples
+                    audio_src_lc3_interleave_samples
+                    (
+                        audio_lc3_src.ctx.src_enc_buf,
+                        &enc_interleaved_data[0U],
+                        (lc3_encoded_bytes / audio_lc3_src.cc),
+                        cc[index]
+                    );
+                }
+                else
+                {
+                	//
+                }*/
+
+            	/*this link supports Stereo Channel*/
+                /* Interleave the samples */
+                audio_src_lc3_interleave_samples
+                (
+                    audio_lc3_src.ctx.src_enc_buf,
+                    &enc_interleaved_data[0U],
+                    (lc3_encoded_bytes / audio_lc3_src.cc),
+                    cc[index]
+                );
                 /*
                  * TODO: Based on the ACA and CC, Send the right data to the right
                  * ISO Handle.
@@ -1649,29 +1838,23 @@ GA_RESULT audio_src_lc3_encode_n_send
                 }
 #endif /* APPL_GA_SRC_USE_CC1_CONFIG_FOR_CC2 */
 
-                /* Interleave the samples */
-                audio_src_lc3_interleave_samples
-                (
-                    audio_lc3_src.ctx.src_enc_buf,
-                    &enc_interleaved_data[0U],
-                    (lc3_encoded_bytes / audio_lc3_src.cc),
-                    cc[index]
-                );
-
-                if (ts_flag[index])
+                if (ts_flag[index] && (ts_fetched == BT_FALSE))
                 {
-                    /* TODO: Is the typecast OK? */
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+                	ts = le_audio_pl_get_sdu_timestamp (*(seq_num[index]));
+                	ts_fetched = BT_TRUE;
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
                 }
 
                 retval = audio_src_iso_write
-                         (
-                             handle[index],
-                             ts_flag[index],
-                             ts,
-                             *(seq_num[index]),
-                             &enc_interleaved_data[0U],
-                             (((UINT16)lc3_encoded_bytes / audio_lc3_src.cc) * cc[index]) /* Total encoded byte size for all channels for respective ISO */
-                         );
+                (
+                    handle[index],
+                    ts_flag[index],
+                    ts,
+                    *(seq_num[index]),
+                    &enc_interleaved_data[0U],
+                    (((UINT16)lc3_encoded_bytes / audio_lc3_src.cc) * cc[index]) /* Total encoded byte size for all channels for respective ISO */
+                );
 
 #ifdef APPL_SRC_TIMESTAMP_DUMP
                 appl_src_dump_isohandle(handle[index]);
@@ -1679,9 +1862,10 @@ GA_RESULT audio_src_lc3_encode_n_send
 
                 /* APPL_TRC("%lld ", timestamp); */
                 /* APPL_DBG("ISO Data Write: Status = %04X\n", retval); */
-                /* APPL_DBG("Sequence Number: %02X\n", seq_num[index]); */
+               // PRINTF("Sequence Number: %02X\n", *seq_num[index]);
                 if (GA_SUCCESS != retval)
                 {
+                	PRINTF (" src tx failed, %d %d\n", retval,  *(seq_num[index]));
 #ifdef SRC_DISPLAY_MISSED_SEQ_NUM
                     if (GA_TRUE == config_src_seq_num)
                     {
@@ -1690,13 +1874,11 @@ GA_RESULT audio_src_lc3_encode_n_send
                     }
 #endif /* SRC_DISPLAY_MISSED_SEQ_NUM */
                 }
-#ifdef DEBUG
                 else
                 {
                     /* APPL_TRC("%c ", stream_symbol[index]); */
                     (*seq_num[index])++;
                 }
-#endif
             }
         }
     }
@@ -1916,10 +2098,22 @@ void appl_ga_utils_audio_src_config_missed_seq_num_display(UINT8 op)
 }
 #endif /* SRC_DISPLAY_MISSED_SEQ_NUM */
 
+#if defined (LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
 UINT16 appl_ga_utils_audio_src_get_fd(void)
 {
 	return (audio_lc3_src.fd_in_us / 100U);
 }
+#endif /*defined (LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
+
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+void appl_ga_utils_audio_src_signal_encoder_task (void)
+{
+    if (AUDIO_PL_SRC_WR_TH_INIT == audio_pl_src_wr_th_state)
+    {
+    	OSA_SemaphorePost(encoder_task_signal);
+    }
+}
+#endif /* defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
 
 #endif /* GA_BAP */
 #endif /* BT_GAM */

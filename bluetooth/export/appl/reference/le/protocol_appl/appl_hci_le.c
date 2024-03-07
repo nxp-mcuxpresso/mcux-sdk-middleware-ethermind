@@ -17,6 +17,17 @@
 
 #include "appl_service.h"
 #include "appl_gatt_client.h"
+
+#if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+#include "le_audio_pl_sync.h"
+#include "leaudio_pl.h"
+#include "audio_pl.h"
+
+static broadcast_sink_data_t bcast_sink_sync_data_obj;
+static unicast_sink_data_t   unicast_sink_sync_data_obj;
+static src_sync_data_t 		src_sync_data_obj;
+#endif /*#defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
+
 #ifdef ENABLE_BT_IND_RESET
 #include "controller_features.h"
 #endif /*ENABLE_BT_IND_RESET*/
@@ -24,9 +35,9 @@
 #include "vendor_specific_init.h"
 #endif /* BT_VENDOR_SPECIFIC_INIT */
 
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
 #include "leaudio_pl.h"
-#endif
+#endif /*defined (LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
 
 #ifdef BT_LE
 
@@ -2469,9 +2480,26 @@ API_RESULT appl_hci_le_event_indication_callback
                 APPL_TRC("Advertiser_PHY: 0x%02X\n", advertiser_phy);
                 APPL_TRC("Periodic_Advertising_Interval: 0x%04X\n", advertising_interval);
                 APPL_TRC("Advertiser_Clock_Accuracy: 0x%02X\n", advertiser_clk_accuy);
+
+#if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+                memset (&bcast_sink_sync_data_obj, 0, sizeof (bcast_sink_sync_data_obj));
+                bcast_sink_sync_data_obj.pa_sync_established = BT_TRUE;
+                bcast_sink_sync_data_obj.sync_handle = sync_handle;
+#endif /*defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
                 break;
 
             case HCI_LE_PERIODIC_ADVERTISING_REPORT_SUBEVENT:
+#if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+                hci_unpack_2_byte_param(&sync_handle, event_data);
+                if ( ( bcast_sink_sync_data_obj.pa_sync_established == BT_TRUE ) && ( bcast_sink_sync_data_obj.sync_handle == sync_handle) )
+                {
+                    if (bcast_sink_sync_data_obj.presentation_delay == 0)
+                    {
+                        /*In HCI, from sync_handle,offset for pd is 11 bytes*/
+                        hci_unpack_3_byte_param(&bcast_sink_sync_data_obj.presentation_delay, event_data + 11U);
+                    }
+                }
+#endif /*defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
 #ifndef BT_GAM
                 APPL_TRC("Subevent : HCI_LE_PERIODIC_ADVERTISING_REPORT_SUBEVENT.\n");
                 hci_unpack_2_byte_param(&sync_handle, event_data);
@@ -2506,6 +2534,13 @@ API_RESULT appl_hci_le_event_indication_callback
 
                 /* Print the parameters */
                 APPL_TRC("Sync_Handle = 0x%04X\n", sync_handle);
+#if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+                if ( ( bcast_sink_sync_data_obj.pa_sync_established == BT_TRUE ) && ( bcast_sink_sync_data_obj.sync_handle == sync_handle) )
+                {
+                    //TODO verify this!
+                    bcast_sink_sync_data_obj.pa_sync_established = BT_FALSE;
+                }
+#endif /*defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
                 break;
 
             case HCI_LE_SCAN_TIMEOUT_SUBEVENT:
@@ -2604,6 +2639,21 @@ API_RESULT appl_hci_le_event_indication_callback
             break;
 
         case HCI_LE_CIS_ESTABLISHED_SUBEVENT:
+#if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+        	if (unicast_sink_sync_data_obj.cis_sync_established != AUDIO_SYNC_CIG_ESTABLISHED)
+        	{
+        		UINT16 iso_interval = 0;
+                le_audio_sync_start(0x02U); /*src and sink both issues the same event*/
+                memset (&unicast_sink_sync_data_obj, 0, sizeof (unicast_sink_sync_data_obj));
+                hci_unpack_3_byte_param(&unicast_sink_sync_data_obj.cig_sync_delay, event_data + 3);
+                hci_unpack_3_byte_param(&unicast_sink_sync_data_obj.cis_sync_delay, event_data + 6);
+                hci_unpack_2_byte_param(&iso_interval, event_data + 26);
+                unicast_sink_sync_data_obj.iso_interval =  iso_interval * CONN_ISO_INTERVAL_US;
+                unicast_sink_sync_data_obj.cis_sync_established = AUDIO_SYNC_CIG_ESTABLISHED;
+                le_audio_set_sync_info_pl (0x02U, AUDIO_SYNC_CIG_ESTABLISHED, &unicast_sink_sync_data_obj);
+        	}
+#endif /*#defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
+
             APPL_TRC("Subevent : HCI_LE_CIS_ESTABLISHED_SUBEVENT.\n");
             hci_unpack_1_byte_param(&status, event_data + 0);
             APPL_TRC("Status: 0x%02X\n", status);
@@ -2611,9 +2661,6 @@ API_RESULT appl_hci_le_event_indication_callback
             APPL_TRC("Connection Handle: 0x%04X\n", connection_handle);
             hci_unpack_3_byte_param(&value_3, event_data + 3);
             APPL_TRC("CIG_Sync_Delay: 0x%08X\n", value_3);
-#ifdef LE_AUDIO_SRC_SYNC_ENABLE
-            le_audio_set_big_cig_sync_delay(value_3);
-#endif
             hci_unpack_3_byte_param(&value_3, event_data + 6);
             APPL_TRC("CIS_Sync_Delay: 0x%08X\n", value_3);
             hci_unpack_3_byte_param(&value_3, event_data + 9);
@@ -2626,10 +2673,6 @@ API_RESULT appl_hci_le_event_indication_callback
             APPL_TRC("PHY_S_To_M: 0x%02X\n", value_1);
             hci_unpack_2_byte_param(&value_2, event_data + 26);
             APPL_TRC("ISO interval: 0x%02X\n", value_2);
-#ifdef LE_AUDIO_SRC_SYNC_ENABLE
-            le_audio_set_iso_interval(value_2);
-            le_audio_pl_src_sync_configure ();
-#endif
             break;
 
         case HCI_LE_CIS_REQUEST_SUBEVENT:
@@ -2645,6 +2688,19 @@ API_RESULT appl_hci_le_event_indication_callback
             break;
 
         case HCI_LE_CREATE_BIG_COMPLETE_SUBEVENT:
+#if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+        	if (src_sync_data_obj.big_created != AUDIO_SYNC_BIG_CREATE)
+        	{
+        		UINT16 iso_interval = 0;
+                le_audio_sync_start(AUDIO_EP_SOURCE);
+                memset (&src_sync_data_obj, 0, sizeof (src_sync_data_obj));
+                hci_unpack_3_byte_param(&src_sync_data_obj.big_sync_delay, event_data + 2);
+                hci_unpack_2_byte_param(&iso_interval, event_data + 15);
+                src_sync_data_obj.iso_interval = iso_interval * CONN_ISO_INTERVAL_US;
+                src_sync_data_obj.big_created = AUDIO_SYNC_BIG_CREATE;
+                le_audio_set_sync_info_pl (AUDIO_EP_SOURCE, AUDIO_SYNC_BIG_CREATE, &src_sync_data_obj);
+        	}
+#endif /*defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
             APPL_TRC("Subevent : HCI_LE_CREATE_BIG_COMPLETE_SUBEVENT.\n");
             hci_unpack_1_byte_param(&status, event_data + 0);
             APPL_TRC("Status: 0x%02X\n", status);
@@ -2652,9 +2708,6 @@ API_RESULT appl_hci_le_event_indication_callback
             APPL_TRC("BIG_Handle: 0x%02X\n", value_1);
             hci_unpack_3_byte_param(&value_3, event_data + 2);
             APPL_TRC("BIG_Sync_Delay: 0x%08X\n", value_3);
-#ifdef LE_AUDIO_SRC_SYNC_ENABLE
-            le_audio_set_big_cig_sync_delay(value_3);
-#endif
             hci_unpack_3_byte_param(&value_3, event_data + 5);
             APPL_TRC("Transport_Latency_BIG: 0x%08X\n", value_3);
             hci_unpack_1_byte_param(&value_1, event_data + 8);
@@ -2671,10 +2724,6 @@ API_RESULT appl_hci_le_event_indication_callback
             APPL_TRC ("Max_PDU: 0x%04X\n", value_2);
             hci_unpack_2_byte_param (&value_2, event_data + 15);
             APPL_TRC ("ISO_Inerval: 0x%04X\n", value_2);
-#ifdef LE_AUDIO_SRC_SYNC_ENABLE
-            le_audio_set_iso_interval(value_2 * CONN_ISO_INTERVAL_US);
-            le_audio_pl_src_sync_configure ();
-#endif
             hci_unpack_1_byte_param(&value_1, event_data + 17);
             APPL_TRC("Num_BIS: 0x%02X\n", value_1);
             APPL_TRC("Connection Handles of BISes:");
@@ -2682,18 +2731,37 @@ API_RESULT appl_hci_le_event_indication_callback
             break;
 
         case HCI_LE_TERMINATE_BIG_COMPLETE_SUBEVENT:
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+            le_audio_pl_sync_stop ();
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
             APPL_TRC("Subevent : HCI_LE_TERMINATE_BIG_COMPLETE_SUBEVENT.\n");
             hci_unpack_1_byte_param(&value_1, event_data + 0);
             APPL_TRC("BIG_Handle: 0x%02X\n", value_1);
             hci_unpack_1_byte_param(&value_1, event_data + 1);
             APPL_TRC("Reason: 0x%02X\n", value_1);
-#ifdef LE_AUDIO_SRC_SYNC_ENABLE
-            le_audio_pl_src_sync_deconfigure ();
-#endif
             break;
 
         case HCI_LE_BIG_SYNC_ESTABLISHED_SUBEVENT:
             APPL_TRC("Subevent : HCI_LE_BIG_SYNC_ESTABLISHED_SUBEVENT.\n");
+
+#if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+            if (bcast_sink_sync_data_obj.pa_sync_established == BT_TRUE)
+            {
+        		UINT16 iso_interval = 0;
+                le_audio_sync_start(AUDIO_EP_SINK);
+                bcast_sink_sync_data_obj.big_sync_established = AUDIO_SYNC_BIG_ESTABLISHED;
+                hci_unpack_3_byte_param (&bcast_sink_sync_data_obj.transport_latency , &event_data[2]);
+                hci_unpack_1_byte_param (&bcast_sink_sync_data_obj.NSE , &event_data[5]);
+                hci_unpack_1_byte_param (&bcast_sink_sync_data_obj.BN , &event_data[6]);
+                hci_unpack_1_byte_param (&bcast_sink_sync_data_obj.PTO , &event_data[7]);
+                hci_unpack_1_byte_param (&bcast_sink_sync_data_obj.IRC , &event_data[8]);
+                hci_unpack_2_byte_param (&iso_interval , &event_data[11]);
+                bcast_sink_sync_data_obj.iso_interval = iso_interval * CONN_ISO_INTERVAL_US;
+                hci_unpack_1_byte_param (&bcast_sink_sync_data_obj.num_of_bis , &event_data[13]);
+                le_audio_set_sync_info_pl (AUDIO_EP_SINK, AUDIO_SYNC_BIG_ESTABLISHED, &bcast_sink_sync_data_obj);
+            }
+#endif /*#defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
+
             hci_unpack_1_byte_param(&value_1, event_data + 0);
             APPL_TRC("Status: 0x%02X\n", value_1);
             hci_unpack_1_byte_param(&value_1, event_data + 1);
@@ -2709,6 +2777,12 @@ API_RESULT appl_hci_le_event_indication_callback
 
         case HCI_LE_BIG_SYNC_LOST_SUBEVENT:
             APPL_TRC("Subevent : HCI_LE_BIG_SYNC_LOST_SUBEVENT.\n");
+#if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+            if (bcast_sink_sync_data_obj.big_sync_established == BT_TRUE)
+            {
+                bcast_sink_sync_data_obj.big_sync_established = BT_FALSE;
+            }
+#endif /*#defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
             hci_unpack_1_byte_param(&value_1, event_data + 0);
             APPL_TRC("BIG_Handle: 0x%02X\n", value_1);
             hci_unpack_1_byte_param(&value_1, event_data + 1);
@@ -2726,6 +2800,19 @@ API_RESULT appl_hci_le_event_indication_callback
             break;
 
         case HCI_LE_BIGINFO_ADVERTISING_REPORT_SUBEVENT:
+#if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+            hci_unpack_2_byte_param(&sync_handle, event_data + 0);
+            if ((bcast_sink_sync_data_obj.pa_sync_established == BT_TRUE) && (bcast_sink_sync_data_obj.sync_handle == sync_handle) )
+            {
+                if (bcast_sink_sync_data_obj.sdu_interval == 0)
+                {
+                    hci_unpack_3_byte_param (&bcast_sink_sync_data_obj.sdu_interval , &event_data[11]);
+                    PRINTF("sdu_interval: 0x%04X\n", bcast_sink_sync_data_obj.sdu_interval);
+                    hci_unpack_1_byte_param (&bcast_sink_sync_data_obj.framing , &event_data[17]);
+                    PRINTF("framing: 0x%04X\n", bcast_sink_sync_data_obj.framing);
+                }
+            }
+#endif /*#defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
 #ifndef BT_GAM
             APPL_TRC("Subevent : HCI_LE_BIGINFO_ADVERTISING_REPORT_SUBEVENT.\n");
             hci_unpack_2_byte_param(&value_2, event_data + 0);
@@ -3192,6 +3279,5 @@ UCHAR appl_hci_le_get_auto_conn_state(void)
     return BT_TRUE;
 #endif /* APPL_CONFIG_AUTO_CONNECTION_ON_ADV_RECV */
 }
-
 #endif /* BT_LE */
 

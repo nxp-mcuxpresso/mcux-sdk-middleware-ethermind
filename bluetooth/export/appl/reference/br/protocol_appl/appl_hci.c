@@ -2000,17 +2000,19 @@ API_RESULT appl_hci_event_indication_callback
 #ifndef APPL_HCI_NO_PROFILE_EVENT_IND
         {
             UINT32 i;
-
-            /* Invoke registered Callback functions */
-            for (i = 0U; i < appl_num_hci_cb; i++)
-            {
-                (BT_IGNORE_RETURN_VALUE) appl_hci_cb_list[i].hci_event_ind_cb
-                (
-                    event_type,
-                    revent_data,
-                    revent_datalen
-                );
-            }
+			/* Invoke registered Callback functions */
+			for (i = 0U; i < appl_num_hci_cb; i++)
+			{
+				if (appl_hci_cb_list[i].hci_event_ind_cb != NULL)
+				{
+					(BT_IGNORE_RETURN_VALUE) appl_hci_cb_list[i].hci_event_ind_cb
+					(
+						event_type,
+						revent_data,
+						revent_datalen
+					);
+				}
+			}
         }
 #endif /* APPL_HCI_NO_PROFILE_EVENT_IND */
     }

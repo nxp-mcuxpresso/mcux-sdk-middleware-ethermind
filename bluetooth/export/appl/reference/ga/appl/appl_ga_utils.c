@@ -19,11 +19,6 @@
 #include "GA_pbp_api.h"
 #include "appl_ga_ucs.h"
 
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-#include "leaudio_pl.h"
-#include "appl_ga_bc_ba.h"
-#endif
-
 #ifdef BT_GAM
 
 /* --------------------------------------------- Global Definitions */
@@ -4087,6 +4082,7 @@ void appl_ga_utils_bap_display_fd(UINT8 fd)
         default:
             APPL_TRC("RFU");
     }
+
     APPL_TRC(" (0x%02X)\n", fd);
 
     return;
@@ -4151,7 +4147,7 @@ void appl_ga_utils_bap_display_sf(UINT8 sf)
         default:
             APPL_TRC("Unsupported !");
     }
-
+    
     APPL_TRC(" (0x%04X)\n", sf);
 
     return;
@@ -8862,29 +8858,6 @@ void appl_ga_utils_bap_parse_and_display_iso_state(UINT8 iso_state)
     return;
 }
 
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-extern UINT8 isroleUMS;
-extern UINT8 isroleBMS;
-extern UINT8 isroleCG;
-extern UINT8 isroleCT;
- 
-UINT32 appl_ga_utils_audio_src_get_sdu_int()
-{
-    UINT32 sdu_int = 0;
- 
-    if( isroleUMS || isroleCG || isroleCT )
-    {
-        sdu_int = le_audio_src_get_cig_sdu_int();
-    }
-    if(isroleBMS)
-    {
-        sdu_int = appl_ga_get_big_sdu_int();
-    }
- 
-    return sdu_int;
-}
-#endif
-
 UINT16 appl_ga_utils_get_fd_in_us(UINT8 fd_in_ms)
 {
     /* Frame duration in MicroSeconds */
@@ -9008,6 +8981,27 @@ void appl_ga_utils_fetch_priority_from_aca
 
     /* TODO */
     return;
+}
+
+UINT8 appl_ga_utils_fetch_chan_info_from_aca
+     (
+         UINT32 aca
+     )
+{
+    UINT8  chan_pos = 0;
+
+    /* ACA : 4-octet bitfield of Audio Location values */
+    if (GA_AUDIO_LOCATION_FL == (aca & GA_AUDIO_LOCATION_FL))
+    {
+    	chan_pos = chan_pos + AUDIO_POS_LOCATION_LEFT;
+    }
+
+    if (GA_AUDIO_LOCATION_FR == (aca & GA_AUDIO_LOCATION_FR))
+    {
+    	chan_pos = chan_pos + AUDIO_POS_LOCATION_RIGHT;
+    }
+
+    return chan_pos;
 }
 
 UINT8 appl_ga_utils_fetch_qos_conf_set_id_from_qos_conf(GA_QOS_CONF qos_conf)
@@ -10669,9 +10663,6 @@ void appl_ga_utils_ucc_ascs_parse_and_display_ase_params_qos_cnf
         APPL_TRC("(RFU)");
     }
     
-#ifdef LE_AUDIO_ENABLE_APP_SPECIFIC_CODE
-    le_audio_src_set_cig_sdu_int(value_4b);
-#endif
     APPL_TRC("\n");
     marker += 3U;
 

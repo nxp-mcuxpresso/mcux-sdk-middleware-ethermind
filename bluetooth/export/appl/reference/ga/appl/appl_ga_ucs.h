@@ -59,4 +59,8 @@ void main_ucs_operations(void);
 void appl_ga_ucs_init(void);
 
 GA_RESULT appl_ga_ucs_register_ascs(APPL_GA_ROLE role);
+
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+void* appl_ga_ucs_fetch_qos_config_data_buf (void);
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
 #endif /* _H_APPL_GA_UCS_ */
