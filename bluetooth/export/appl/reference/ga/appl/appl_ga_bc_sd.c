@@ -1019,11 +1019,13 @@ void appl_ga_bc_sd_snk_handle_setup_iso_data_path_event
                                   AUDIO_IGNORE_VALUE
                               ))
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC
                 (
                     "[APPL][GA][%s]: ISO Data Path Setup Status: Complete\n",
                     SD_GET_ROLE_STRING(bc_role)
                 );
+#endif
                 /* Update the ISO state */
                 snk_param->bc_subgroup_info[sg_info_index].bis_info[bis_info_index].iso_state =
                     AUDIO_ISO_SETUP_COMPLETE;
@@ -1031,6 +1033,7 @@ void appl_ga_bc_sd_snk_handle_setup_iso_data_path_event
                  * Display BIS Streaming Info:
                  * BIS Index, Role, BIS Conn Handle, BIS Stream Symbol
                  */
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 GA_FORMAT_DISPLAY();
                 appl_ga_bc_sd_snk_display_bis_stream_info
                 (
@@ -1038,7 +1041,7 @@ void appl_ga_bc_sd_snk_handle_setup_iso_data_path_event
                     bis_info_index
                 );
                 GA_FORMAT_DISPLAY();
-
+#endif
                 if (GA_TRUE == start_audio_lc3)
                 {
                     /* We are Audio Sink, Start Receiving Audio data */
@@ -2480,6 +2483,7 @@ GA_RESULT appl_ga_bc_sd_sink_cb_handler
         break;
 
     case GA_BC_ENABLE_CNF:
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         GA_CB_ENTRY("BC CAP Server");
         appl_ga_utils_bc_display_sink_console_header(device, ga_status);
         APPL_TRC
@@ -2492,9 +2496,11 @@ GA_RESULT appl_ga_bc_sd_sink_cb_handler
 
         APPL_TRC("Data Length: 0x%02X\n", ga_datalen);
         APPL_TRC("Data:\n");
+#endif
         if (GA_SUCCESS ==
             GA_broadcast_decode_event_params(GA_BC_ENABLE_CNF, ga_data, &bc_enable))
         {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
             APPL_TRC
             (
                 "Len: 0x%02X,  Error Code: 0x%02X\n",
@@ -2559,7 +2565,7 @@ GA_RESULT appl_ga_bc_sd_sink_cb_handler
                     bc_enable.connection_handle[i]
                 );
             }
-
+#endif
             if (0x00U == bc_enable.error_code)
             {
                 if (GA_TRUE == appl_ga_bc_sd_params.encryption_state)
@@ -3739,6 +3745,7 @@ GA_RESULT appl_ga_bc_sink_handler
         break;
 
     case GA_BC_ENABLE_CNF:
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         GA_CB_ENTRY("BC CAP Server");
         appl_ga_utils_bc_display_sink_console_header(device, ga_status);
         APPL_TRC
@@ -3751,9 +3758,11 @@ GA_RESULT appl_ga_bc_sink_handler
 
         APPL_TRC("Data Length: 0x%02X\n", ga_datalen);
         APPL_TRC("Data:\n");
+#endif
         if (GA_SUCCESS ==
             GA_broadcast_decode_event_params(GA_BC_ENABLE_CNF, ga_data, &bc_enable))
         {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
             APPL_TRC
             (
                 "Len: 0x%02X,  Error Code: 0x%02X\n",
@@ -3819,7 +3828,7 @@ GA_RESULT appl_ga_bc_sink_handler
                     bc_enable.connection_handle[i]
                 );
             }
-
+#endif
             if (0x00U == bc_enable.error_code)
             {
                 /*
@@ -6983,11 +6992,13 @@ GA_RESULT appl_ga_bc_sd_snk_setup_iso
             else if (GA_CONTINUE == retval)
             {
                 /* ISO Data Path is Ongoing */
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC
                 (
                     "[APPL][GA][%s]: ISO Data Path Setup Status: In-progress\n",
                     SD_GET_ROLE_STRING(bc_role)
                 );
+#endif
                 snk_param->bc_subgroup_info[sg_info_index].bis_info[bis_info_index].iso_state =
                     AUDIO_ISO_UPDATE_IN_PROGRESS;
             }
@@ -7135,8 +7146,10 @@ GA_RESULT appl_ga_bc_sd_snk_update_receiving_audio
                      );
             if (GA_SUCCESS == retval)
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][%s]: LC3 Decoder Setup Status: Created\n",
-                    SD_GET_ROLE_STRING(bc_role));
+                SD_GET_ROLE_STRING(bc_role));
+#endif
             }
             else
             {
@@ -7180,8 +7193,10 @@ GA_RESULT appl_ga_bc_sd_snk_update_receiving_audio
                      );
             if (GA_SUCCESS == retval)
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][%s]: Audio PL Playback Setup Status: Success\n",
-                    SD_GET_ROLE_STRING(bc_role));
+                SD_GET_ROLE_STRING(bc_role));
+#endif
             }
             else
             {
@@ -7191,8 +7206,10 @@ GA_RESULT appl_ga_bc_sd_snk_update_receiving_audio
             retval = appl_ga_utils_audio_snk_start_playback_pl();
             if (GA_SUCCESS == retval)
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][%s]: Audio PL Playback Start Process Status: Success\n",
-                    SD_GET_ROLE_STRING(bc_role));
+                SD_GET_ROLE_STRING(bc_role));
+#endif
             }
             else
             {

@@ -1,7 +1,12 @@
 /**
- * @file
- * Ping sender module
+ *  \file ipspr_ping.c
+ *  Ping sender module
  *
+ */
+
+/*
+ *  Copyright (C) 2013. Mindtree Ltd.
+ *  All rights reserved.
  */
 
 /*

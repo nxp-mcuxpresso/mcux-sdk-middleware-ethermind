@@ -1128,7 +1128,9 @@ GA_RESULT appl_ga_ucs_cb_handler
         return GA_FAILURE;
     }
 
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
     GA_CB_ENTRY("Server");
+#endif
 
     switch (ga_event)
     {
@@ -1336,6 +1338,7 @@ GA_RESULT appl_ga_ucs_cb_handler
         break;
 
     case GA_SEP_SETUP_IND:
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         appl_ga_ucs_ascs_display_common_event_info
         (
             device,
@@ -1348,8 +1351,10 @@ GA_RESULT appl_ga_ucs_cb_handler
         );
         APPL_TRC("\n");
         appl_ga_utils_ascs_display_char_uuid(GA_CHAR_ASCS_ASE_CP);
+#endif
         info = (GA_SEP_INFO*)ga_data;
         qos_conf = (GA_QOS_CONF*)info->info;
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         APPL_TRC("RECEIVED DATA\n");
         GA_FORMAT_DISPLAY();
         APPL_TRC("Data Length: 0x%02X\n", ga_datalen);
@@ -1419,7 +1424,7 @@ GA_RESULT appl_ga_ucs_cb_handler
             qos_conf->presentation_delay,
             qos_conf->presentation_delay
         );
-
+#endif
         /* Fetch ASE Index from ASE ID */
         if (GA_FAILURE == appl_ga_ucs_get_ase_index_from_ase_id
                           (
@@ -1489,6 +1494,7 @@ GA_RESULT appl_ga_ucs_cb_handler
         break;
 
     case GA_SEP_START_IND:
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         appl_ga_ucs_ascs_display_common_event_info
         (
             device,
@@ -1501,8 +1507,10 @@ GA_RESULT appl_ga_ucs_cb_handler
         );
         APPL_TRC("\n");
         appl_ga_utils_ascs_display_char_uuid(GA_CHAR_ASCS_ASE_CP);
+#endif
         info = (GA_SEP_INFO*)ga_data;
         meta = (GA_METADATA*)info->info;
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         APPL_TRC("RECEIVED DATA\n");
         GA_FORMAT_DISPLAY();
         APPL_TRC("Data Length: 0x%02X\n", ga_datalen);
@@ -1530,6 +1538,7 @@ GA_RESULT appl_ga_ucs_cb_handler
             NULL,
             NULL
         );
+#endif
         /* Fetch ASE Index from ASE ID */
         if (GA_FAILURE == appl_ga_ucs_get_ase_index_from_ase_id
                           (
@@ -1562,6 +1571,7 @@ GA_RESULT appl_ga_ucs_cb_handler
         break;
 
     case GA_SEP_RX_START_READY_IND:
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         appl_ga_ucs_ascs_display_common_event_info
         (
             device,
@@ -1574,7 +1584,9 @@ GA_RESULT appl_ga_ucs_cb_handler
         );
         APPL_TRC("\n");
         appl_ga_utils_ascs_display_char_uuid(GA_CHAR_ASCS_ASE_CP);
+#endif
         info = (GA_SEP_INFO*)ga_data;
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         APPL_TRC("RECEIVED DATA\n");
         GA_FORMAT_DISPLAY();
         APPL_TRC("Data Length: 0x%02X\n", ga_datalen);
@@ -1585,7 +1597,7 @@ GA_RESULT appl_ga_ucs_cb_handler
             "Len: 0x%02X,  ASE ID: 0x%02X\n",
             (UCHAR)sizeof(info->sep_id), info->sep_id
         );
-
+#endif
         /* Fetch ASE Index from ASE ID */
         if (GA_FAILURE == appl_ga_ucs_get_ase_index_from_ase_id
                           (
@@ -1621,6 +1633,7 @@ GA_RESULT appl_ga_ucs_cb_handler
         break;
 
     case GA_SEP_RX_STOP_READY_IND:
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         appl_ga_ucs_ascs_display_common_event_info
         (
             device,
@@ -1633,7 +1646,9 @@ GA_RESULT appl_ga_ucs_cb_handler
         );
         APPL_TRC("\n");
         appl_ga_utils_ascs_display_char_uuid(GA_CHAR_ASCS_ASE_CP);
+#endif
         info = (GA_SEP_INFO*)ga_data;
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         APPL_TRC("RECEIVED DATA\n");
         GA_FORMAT_DISPLAY();
         APPL_TRC("Data Length: 0x%02X\n", ga_datalen);
@@ -1644,7 +1659,7 @@ GA_RESULT appl_ga_ucs_cb_handler
             "Len: 0x%02X,  ASE ID: 0x%02X\n",
             (UCHAR)sizeof(info->sep_id), info->sep_id
         );
-
+#endif
         /* Fetch ASE Index from ASE ID */
         if (GA_FAILURE == appl_ga_ucs_get_ase_index_from_ase_id
                           (
@@ -1736,6 +1751,7 @@ GA_RESULT appl_ga_ucs_cb_handler
         break;
 
     case GA_SEP_SUSPEND_IND:
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         appl_ga_ucs_ascs_display_common_event_info
         (
             device,
@@ -1748,7 +1764,9 @@ GA_RESULT appl_ga_ucs_cb_handler
         );
         APPL_TRC("\n");
         appl_ga_utils_ascs_display_char_uuid(GA_CHAR_ASCS_ASE_CP);
+#endif
         info = (GA_SEP_INFO*)ga_data;
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         APPL_TRC("RECEIVED DATA\n");
         GA_FORMAT_DISPLAY();
         APPL_TRC("Data Length: 0x%02X\n", ga_datalen);
@@ -1759,7 +1777,7 @@ GA_RESULT appl_ga_ucs_cb_handler
             "Len: 0x%02X,  ASE ID: 0x%02X\n",
             (UCHAR)sizeof(info->sep_id), info->sep_id
         );
-
+#endif
         /* Fetch ASE Index from ASE ID */
         if (GA_FAILURE == appl_ga_ucs_get_ase_index_from_ase_id
                           (
@@ -1945,7 +1963,9 @@ GA_RESULT appl_ga_ucs_cb_handler
         break;
     }
 
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
     GA_CB_EXIT();
+#endif
 
     APPL_DBG("[APPL][GA][UCS]: << appl_ga_ucs_cb_handler\n");
     return retval;
@@ -5332,7 +5352,9 @@ void appl_ga_ucs_update_transmitting_audio
                                   bps
                               ))
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SRC]: LC3 Encoder Setup Status: Created\n");
+#endif
             }
             else
             {
@@ -5345,7 +5367,9 @@ void appl_ga_ucs_update_transmitting_audio
             {
                 if (GA_SUCCESS == appl_ga_utils_audio_src_delete_lc3_encoder())
                 {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                     APPL_TRC("[APPL][GA][UCS][SRC]: LC3 Encoder Setup Status: Deleted\n");
+#endif
                 }
                 else
                 {
@@ -5354,7 +5378,9 @@ void appl_ga_ucs_update_transmitting_audio
             }
             else
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SRC]: LC3 Encoder Setup Status: Already Deleted\n");
+#endif
             }
         }
 #else /* AUDIO_SRC_LC3_SUPPORT */
@@ -5370,7 +5396,9 @@ void appl_ga_ucs_update_transmitting_audio
                                   AUDIO_SRC_PL_BUFFER_SIZE
                               ))
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SRC]: Audio PL Generator Setup Status: Success\n");
+#endif
             }
             else
             {
@@ -5378,7 +5406,9 @@ void appl_ga_ucs_update_transmitting_audio
             }
             if (GA_SUCCESS == appl_ga_utils_audio_src_start_generator_pl())
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SRC]: Audio PL Generator Start Process Status: Success\n");
+#endif
             }
             else
             {
@@ -5391,7 +5421,9 @@ void appl_ga_ucs_update_transmitting_audio
             {
                 if (GA_SUCCESS == appl_ga_utils_audio_src_stop_generator_pl())
                 {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                     APPL_TRC("[APPL][GA][UCS][SRC]: Audio PL Generator Stop Process Status: Success\n");
+#endif
                 }
                 else
                 {
@@ -5400,7 +5432,9 @@ void appl_ga_ucs_update_transmitting_audio
             }
             else
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SRC]: Audio PL Generator Status: Already Stopped\n");
+#endif
             }
         }
 #else /* AUDIO_SRC_PL_SUPPORT */
@@ -5444,7 +5478,9 @@ void appl_ga_ucs_update_receiving_audio
                                   bps
                               ))
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SNK]: LC3 Decoder Setup Status: Created\n");
+#endif
             }
             else
             {
@@ -5457,7 +5493,9 @@ void appl_ga_ucs_update_receiving_audio
             {
                 if (GA_SUCCESS == appl_ga_utils_audio_snk_delete_lc3_decoder())
                 {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                     APPL_TRC("[APPL][GA][UCS][SNK]: LC3 Decoder Setup Status: Deleted\n");
+#endif
                 }
                 else
                 {
@@ -5466,7 +5504,9 @@ void appl_ga_ucs_update_receiving_audio
             }
             else
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SNK]: LC3 Decoder Setup Status: Already Deleted\n");
+#endif
             }
         }
 #else /* AUDIO_SNK_LC3_SUPPORT */
@@ -5482,7 +5522,9 @@ void appl_ga_ucs_update_receiving_audio
                                   AUDIO_SNK_PL_BUFFER_SIZE
                               ))
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SNK]: Audio PL Playback Setup Status: Success\n");
+#endif
             }
             else
             {
@@ -5490,7 +5532,9 @@ void appl_ga_ucs_update_receiving_audio
             }
             if (GA_SUCCESS == appl_ga_utils_audio_snk_start_playback_pl())
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SNK]: Audio PL Playback Start Process Status: Success\n");
+#endif
             }
             else
             {
@@ -5503,7 +5547,9 @@ void appl_ga_ucs_update_receiving_audio
             {
                 if (GA_SUCCESS == appl_ga_utils_audio_snk_stop_playback_pl())
                 {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                     APPL_TRC("[APPL][GA][UCS][SNK]: Audio PL Playback Stop Process Status: Success\n");
+#endif
                 }
                 else
                 {
@@ -5512,7 +5558,9 @@ void appl_ga_ucs_update_receiving_audio
             }
             else
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][UCS][SNK]: Audio PL Playback Status: Already Stopped\n");
+#endif
             }
         }
 #else /* AUDIO_SNK_PL_SUPPORT */

@@ -1237,7 +1237,9 @@ GA_RESULT appl_ga_utils_audio_src_setup_generator_pl
                                                cc
                                            );
 
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         PRINTF("[APPL][GA][AUDIO_SRC][PL]: bytes_to_lc3_encode %d\n", audio_pl_src.bytes_to_lc3_encode);
+#endif
         audio_pl_src.state = AUDIO_PL_SETUP_COMPLETE;
     }
     else
@@ -1314,6 +1316,8 @@ GA_RESULT appl_ga_utils_audio_src_stop_generator_pl(void)
         {
             APPL_DBG("[APPL][GA][AUDIO_SRC][PL]: Audio PL Generator Stop Process Status: Success\n");
             audio_pl_src.state = AUDIO_PL_SETUP_COMPLETE;
+            audio_pl_src_buffer_rd_ptr = 0U;
+            audio_pl_src_buffer_wr_ptr = 0U;
         }
         else
         {
@@ -1434,6 +1438,8 @@ GA_RESULT appl_ga_utils_audio_src_audio_lc3_enc_allowed
         retval = GA_FAILURE;
     }
 
+	BT_thread_mutex_lock(&audio_pl_src_th_mutex);
+
     /*
      * First Validate if the LC3 Encoder is already in generation progress,
      * If yes, Validate and Allow.
@@ -1464,6 +1470,8 @@ GA_RESULT appl_ga_utils_audio_src_audio_lc3_enc_allowed
     {
         retval = GA_SUCCESS;
     }
+	BT_thread_mutex_unlock(&audio_pl_src_th_mutex);
+
 
 #else /* AUDIO_SRC_LC3_SUPPORT */
     retval = GA_SUCCESS;
@@ -1532,6 +1540,7 @@ GA_RESULT appl_ga_utils_audio_src_create_lc3_encoder
      * validating appl_ga_utils_audio_src_set_entry(), hence return GA_SUCCESS
      * by default.
      */
+	BT_thread_mutex_lock(&audio_pl_src_th_mutex);
 
     if (AUDIO_LC3_IN_PROGRESS != audio_lc3_src.state)
     {
@@ -1610,6 +1619,9 @@ GA_RESULT appl_ga_utils_audio_src_create_lc3_encoder
             retval = GA_FAILURE;
         }
     }
+
+	BT_thread_mutex_unlock(&audio_pl_src_th_mutex);
+
 
     return retval;
 }
@@ -1893,6 +1905,8 @@ UINT8 appl_ga_utils_audio_src_is_lc3_encoder_running(void)
     /* Initialize */
     isRunning = GA_FALSE;
 
+	BT_thread_mutex_lock(&audio_pl_src_th_mutex);
+
     if (AUDIO_LC3_IDLE == audio_lc3_src.state)
     {
         APPL_DBG("[APPL][GA][AUDIO_SRC][LC3]: LC3 Encoder Setup Status: Already Deleted !\n");
@@ -1903,6 +1917,8 @@ UINT8 appl_ga_utils_audio_src_is_lc3_encoder_running(void)
         isRunning = GA_TRUE;
     }
 
+    BT_thread_mutex_unlock(&audio_pl_src_th_mutex);
+
     return isRunning;
 }
 
@@ -1912,6 +1928,8 @@ GA_RESULT appl_ga_utils_audio_src_delete_lc3_encoder(void)
 
     /* Initialize */
     retval = GA_FAILURE;
+
+	BT_thread_mutex_lock(&audio_pl_src_th_mutex);
 
     if (AUDIO_LC3_IDLE != audio_lc3_src.state)
     {
@@ -1943,6 +1961,8 @@ GA_RESULT appl_ga_utils_audio_src_delete_lc3_encoder(void)
         retval = GA_SUCCESS;
         APPL_DBG("[APPL][GA][AUDIO_SRC][LC3]: LC3 Encoder Setup Status: Already Deleted !\n");
     }
+
+	BT_thread_mutex_unlock(&audio_pl_src_th_mutex);
 
     return retval;
 }
@@ -2101,7 +2121,15 @@ void appl_ga_utils_audio_src_config_missed_seq_num_display(UINT8 op)
 #if defined (LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
 UINT16 appl_ga_utils_audio_src_get_fd(void)
 {
-	return (audio_lc3_src.fd_in_us / 100U);
+	UINT16 fd_in_us;
+
+	BT_thread_mutex_lock(&audio_pl_src_th_mutex);
+
+	fd_in_us = (audio_lc3_src.fd_in_us / 100U);
+
+	BT_thread_mutex_unlock(&audio_pl_src_th_mutex);
+
+	return fd_in_us;
 }
 #endif /*defined (LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
 

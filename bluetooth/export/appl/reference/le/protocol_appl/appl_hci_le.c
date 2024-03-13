@@ -2701,6 +2701,7 @@ API_RESULT appl_hci_le_event_indication_callback
                 le_audio_set_sync_info_pl (AUDIO_EP_SOURCE, AUDIO_SYNC_BIG_CREATE, &src_sync_data_obj);
         	}
 #endif /*defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
             APPL_TRC("Subevent : HCI_LE_CREATE_BIG_COMPLETE_SUBEVENT.\n");
             hci_unpack_1_byte_param(&status, event_data + 0);
             APPL_TRC("Status: 0x%02X\n", status);
@@ -2728,10 +2729,12 @@ API_RESULT appl_hci_le_event_indication_callback
             APPL_TRC("Num_BIS: 0x%02X\n", value_1);
             APPL_TRC("Connection Handles of BISes:");
             appl_dump_bytes(event_data + 18, (UINT16)(value_1 * 2));
+#endif
             break;
 
         case HCI_LE_TERMINATE_BIG_COMPLETE_SUBEVENT:
 #if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+            src_sync_data_obj.big_created = BT_FALSE;
             le_audio_pl_sync_stop ();
 #endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
             APPL_TRC("Subevent : HCI_LE_TERMINATE_BIG_COMPLETE_SUBEVENT.\n");
@@ -2742,7 +2745,9 @@ API_RESULT appl_hci_le_event_indication_callback
             break;
 
         case HCI_LE_BIG_SYNC_ESTABLISHED_SUBEVENT:
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
             APPL_TRC("Subevent : HCI_LE_BIG_SYNC_ESTABLISHED_SUBEVENT.\n");
+#endif
 
 #if defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
             if (bcast_sink_sync_data_obj.pa_sync_established == BT_TRUE)
@@ -2761,7 +2766,7 @@ API_RESULT appl_hci_le_event_indication_callback
                 le_audio_set_sync_info_pl (AUDIO_EP_SINK, AUDIO_SYNC_BIG_ESTABLISHED, &bcast_sink_sync_data_obj);
             }
 #endif /*#defined(LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
-
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
             hci_unpack_1_byte_param(&value_1, event_data + 0);
             APPL_TRC("Status: 0x%02X\n", value_1);
             hci_unpack_1_byte_param(&value_1, event_data + 1);
@@ -2773,6 +2778,7 @@ API_RESULT appl_hci_le_event_indication_callback
 
             APPL_TRC("Connection Handles of BISes in the BIG\n");
             appl_dump_bytes(event_data + 6, (UINT16)(value_1 * 2));
+#endif
             break;
 
         case HCI_LE_BIG_SYNC_LOST_SUBEVENT:

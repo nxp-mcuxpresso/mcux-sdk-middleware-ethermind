@@ -6,6 +6,10 @@
  *  Service to Transmit and Receive Data over TCP/IP protocol.
  */
 
+/*
+ *  Copyright (C) 2013. Mindtree Ltd.
+ *  All rights reserved.
+ */
 /*******************************************************************************
  * Includes
  ******************************************************************************/

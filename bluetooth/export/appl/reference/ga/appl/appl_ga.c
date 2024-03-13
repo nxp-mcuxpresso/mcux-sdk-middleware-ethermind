@@ -1098,7 +1098,9 @@ GA_RESULT appl_ga_cap_callback
         break;
     }
 
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
     GA_CB_EXIT();
+#endif
 
     return GA_SUCCESS;
 }
@@ -1128,7 +1130,9 @@ GA_RESULT appl_ga_cap_uc_client_callback
         return GA_FAILURE;
     }
 
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
     GA_CB_ENTRY("Client");
+#endif
 
     APPL_DBG("[APPL][GA]: >> appl_ga_cap_uc_client_callback\n");
 
@@ -1233,7 +1237,9 @@ GA_RESULT appl_ga_cap_uc_client_callback
         break;
     }
 
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
     GA_CB_EXIT();
+#endif
 
     APPL_DBG("[APPL][GA]: << appl_ga_cap_uc_client_callback\n");
 

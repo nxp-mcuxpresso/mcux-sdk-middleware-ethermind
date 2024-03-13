@@ -893,7 +893,9 @@ void appl_ga_bc_ba_handle_setup_iso_data_path_event
                                   AUDIO_IGNORE_VALUE
                               ))
             {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 APPL_TRC("[APPL][GA][%s]: ISO Data Path Setup Status: Complete\n", BA_GET_ROLE_STRING(bc_role));
+#endif
                 /* Update the ISO state */
                 appl_bc_src_params.bc_subgroup_info[curr_sg_info_index].bis_info[curr_bis_info_index].iso_state =
                     AUDIO_ISO_SETUP_COMPLETE;
@@ -901,6 +903,7 @@ void appl_ga_bc_ba_handle_setup_iso_data_path_event
                  * Display BIS Streaming Info:
                  * Role, BIS Conn Handle, BIS Stream Symbol
                  */
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                 GA_FORMAT_DISPLAY();
                 appl_ga_bc_ba_src_display_bis_stream_info
                 (
@@ -908,6 +911,7 @@ void appl_ga_bc_ba_handle_setup_iso_data_path_event
                     curr_bis_info_index
                 );
                 GA_FORMAT_DISPLAY();
+#endif
 
                 if (GA_TRUE == start_audio_lc3)
                 {
@@ -2165,6 +2169,7 @@ GA_RESULT appl_ga_bc_src_handler
         break;
 
     case GA_BC_START_CNF:
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
         GA_CB_ENTRY("BC Source");
         appl_ga_utils_bc_display_src_console_header(device, ga_status);
         APPL_TRC
@@ -2177,9 +2182,11 @@ GA_RESULT appl_ga_bc_src_handler
 
         APPL_TRC("Data Length: 0x%02X\n", ga_datalen);
         APPL_TRC("Data:\n");
+#endif
         if (GA_SUCCESS ==
             GA_broadcast_decode_event_params(GA_BC_START_CNF, ga_data, &bc_start))
         {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
             APPL_TRC
             (
                 "Len: 0x%02X,  Error Code: 0x%02X\n",
@@ -2245,7 +2252,7 @@ GA_RESULT appl_ga_bc_src_handler
                 "Len: 0x%02X,  Number of BISes: 0x%02X\n",
                 (UCHAR)sizeof(bc_start.num_bis), bc_start.num_bis
             );
-
+#endif
             if (0x00U == bc_start.error_code)
             {
                 /*
@@ -2266,6 +2273,7 @@ GA_RESULT appl_ga_bc_src_handler
                  */
                 for (i = 0U; i < bc_start.num_bis; i++)
                 {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                     APPL_TRC("BIS[%d]:\n", (i+1U));
                     APPL_TRC
                     (
@@ -2273,7 +2281,7 @@ GA_RESULT appl_ga_bc_src_handler
                         (UCHAR)sizeof(bc_start.connection_handle[i]),
                         bc_start.connection_handle[i]
                     );
-
+#endif
                     /* Copy BIS connection handle in the BASE structure */
                     if ((appl_bc_src_params.bc_num_subgroups > sg_info_index) &&
                         (appl_bc_src_params.bc_subgroup_info[sg_info_index].bc_nstream > bis_info_index))
@@ -7249,8 +7257,10 @@ GA_RESULT appl_ga_bc_ba_update_transmitting_audio
                          );
                 if (GA_SUCCESS == retval)
                 {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                     APPL_TRC("[APPL][GA][%s]: LC3 Encoder Setup Status: Created\n",
-                     BA_GET_ROLE_STRING(bc_role));
+                    BA_GET_ROLE_STRING(bc_role));
+#endif
                 }
                 else
                 {
@@ -7300,8 +7310,10 @@ GA_RESULT appl_ga_bc_ba_update_transmitting_audio
                          );
                 if (GA_SUCCESS == retval)
                 {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                     APPL_TRC("[APPL][GA][%s]: Audio PL Generator Setup Status: Success\n",
-                        BA_GET_ROLE_STRING(bc_role));
+                    BA_GET_ROLE_STRING(bc_role));
+#endif
                 }
                 else
                 {
@@ -7311,8 +7323,10 @@ GA_RESULT appl_ga_bc_ba_update_transmitting_audio
                 retval = appl_ga_utils_audio_src_start_generator_pl();
                 if (GA_SUCCESS == retval)
                 {
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)
                     APPL_TRC("[APPL][GA][%s]: Audio PL Generator Start Process Status: Success\n",
-                        BA_GET_ROLE_STRING(bc_role));
+                    BA_GET_ROLE_STRING(bc_role));
+#endif
                 }
                 else
                 {
@@ -7490,7 +7504,9 @@ GA_RESULT appl_ga_bc_ba_src_setup_iso
             else if (GA_CONTINUE == retval)
             {
                 /* ISO Data Path is Ongoing */
+#if defined(LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING == 1)                
                 APPL_TRC("[APPL][GA][%s]: ISO Data Path Setup Status: In-progress\n", BA_GET_ROLE_STRING(bc_role));
+#endif
                 appl_bc_src_params.bc_subgroup_info[sg_info_index].bis_info[bis_info_index].iso_state =
                     AUDIO_ISO_UPDATE_IN_PROGRESS;
             }

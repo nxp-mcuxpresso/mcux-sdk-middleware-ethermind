@@ -58,6 +58,18 @@ __attribute__((weak)) void leaudio_write_pl_ext (UCHAR ep, UCHAR * m_data, UINT1
 {
 }
 
+__attribute__((weak)) void le_audio_codec_setabsvol_pl_ext (UCHAR volume)
+{
+}
+
+__attribute__((weak)) void le_audio_codec_setmute_pl_ext ()
+{
+}
+
+__attribute__((weak)) void le_audio_codec_setunmute_pl_ext ()
+{
+}
+
 #if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
 __attribute__((weak)) void le_audio_set_sync_info_pl_ext (UINT8 ep, UINT8 evt, void *sync_data)
 {
@@ -179,6 +191,21 @@ void leaudio_write_pl (UCHAR ep, UCHAR * m_data, UINT16 m_datalen)
 
     /* Write to player */
     leaudio_write_pl_ext(ep, m_data, m_datalen);
+}
+
+void le_audio_codec_setabsvol_pl (UCHAR volume)
+{
+    le_audio_codec_setabsvol_pl_ext(volume);
+}
+
+void le_audio_codec_setmute_pl ()
+{
+    le_audio_codec_setmute_pl_ext();
+}
+
+void le_audio_codec_setunmute_pl ()
+{
+    le_audio_codec_setunmute_pl_ext();
 }
 
 #if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)

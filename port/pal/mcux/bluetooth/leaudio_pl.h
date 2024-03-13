@@ -50,6 +50,11 @@ API_RESULT  leaudio_start_pl_ext (UCHAR ep);
 API_RESULT   leaudio_stop_pl_ext (UCHAR ep);
 void leaudio_write_pl_ext (UCHAR ep, UCHAR * m_data, UINT16 m_datalen);
 
+
+void le_audio_codec_setabsvol_pl(UCHAR volume);
+void le_audio_codec_setmute_pl();
+void le_audio_codec_setunmute_pl();
+
 #if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
 void le_audio_set_snk_sync_cnt_val (UINT32 sink_sync_counter);
 void le_audio_set_sync_info_pl (UINT8 ep, UINT8 evt, void *sync_data);

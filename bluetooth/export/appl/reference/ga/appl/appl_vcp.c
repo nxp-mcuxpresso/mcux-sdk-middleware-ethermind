@@ -24,7 +24,7 @@
 
 /* --------------------------------------------- Header File Inclusion */
 #include "appl_vcp.h"
-#include "audio_pl.h"
+#include "leaudio_pl.h"
 
 #if ((defined APPL_VCP_CONTROLLER) || (defined APPL_VCP_RENDERER))
 
@@ -3721,9 +3721,7 @@ GA_RESULT appl_vcp_rd_vcs_cp_write_handler
         {
             /* MISRA C-2012 Rule 15.7 */
         }
-#ifdef NXP_CODE
-        audio_codec_setabsvol_pl_ext(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
-#endif
+        le_audio_codec_setabsvol_pl(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
     }
     else if (VCS_CP_OP_RELATIVE_VOL_UP == cp_op_code)
     {
@@ -3760,9 +3758,7 @@ GA_RESULT appl_vcp_rd_vcs_cp_write_handler
             appl_vcp_rndr_vcs_vol_val.volume_flags = 0x01U;
             appl_ntf_volume_flag = 1U;
         }
-#ifdef NXP_CODE
-        audio_codec_setabsvol_pl_ext(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
-#endif
+        le_audio_codec_setabsvol_pl(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
     }
     else if (VCS_CP_OP_UNMUTE_RELATIVE_VOL_DOWN == cp_op_code)
     {
@@ -3780,9 +3776,7 @@ GA_RESULT appl_vcp_rd_vcs_cp_write_handler
         {
             vcs_change_counter_flag = 1U;
             appl_vcp_rndr_vcs_vol_val.vol_state.mute = VCS_MUTE_NO;
-#ifdef NXP_CODE
-            audio_codec_setunmute_pl_ext();
-#endif
+            le_audio_codec_setunmute_pl();
         }
 
         /* Update the Volume setting */
@@ -3802,9 +3796,7 @@ GA_RESULT appl_vcp_rd_vcs_cp_write_handler
         {
             /* MISRA C-2012 Rule 15.7 */
         }
-#ifdef NXP_CODE
-        audio_codec_setabsvol_pl_ext(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
-#endif
+        le_audio_codec_setabsvol_pl(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
     }
     else if (VCS_CP_OP_UNMUTE_RELATIVE_VOL_UP == cp_op_code)
     {
@@ -3822,9 +3814,7 @@ GA_RESULT appl_vcp_rd_vcs_cp_write_handler
         {
             vcs_change_counter_flag = 1U;
             appl_vcp_rndr_vcs_vol_val.vol_state.mute = VCS_MUTE_NO;
-#ifdef NXP_CODE
-            audio_codec_setunmute_pl_ext();
-#endif
+            le_audio_codec_setunmute_pl();
         }
 
         if ((VCS_VOLUME_SETTING_MAX - APPL_VCP_RD_VOL_STEP_SIZE) >= (appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting))
@@ -3843,9 +3833,7 @@ GA_RESULT appl_vcp_rd_vcs_cp_write_handler
         {
             /* MISRA C-2012 Rule 15.7 */
         }
-#ifdef NXP_CODE
-        audio_codec_setabsvol_pl_ext(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
-#endif
+        le_audio_codec_setabsvol_pl(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
     }
     else if (VCS_CP_OP_SET_ABSOLUE_VOL == cp_op_code)
     {
@@ -3874,9 +3862,7 @@ GA_RESULT appl_vcp_rd_vcs_cp_write_handler
         if (appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting != data[1U])
         {
             appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting = data[1U];
-#ifdef NXP_CODE
-            audio_codec_setabsvol_pl_ext(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
-#endif
+            le_audio_codec_setabsvol_pl(appl_vcp_rndr_vcs_vol_val.vol_state.volume_setting);
             vcs_change_counter_flag = 1U;
         }
     }
@@ -3896,9 +3882,7 @@ GA_RESULT appl_vcp_rd_vcs_cp_write_handler
         {
             vcs_change_counter_flag = 1U;
             appl_vcp_rndr_vcs_vol_val.vol_state.mute = VCS_MUTE_NO;
-#ifdef NXP_CODE
-            audio_codec_setunmute_pl_ext();
-#endif
+            le_audio_codec_setunmute_pl();
         }
     }
     else if (VCS_CP_OP_MUTE == cp_op_code)
@@ -3917,9 +3901,7 @@ GA_RESULT appl_vcp_rd_vcs_cp_write_handler
         {
             vcs_change_counter_flag = 1U;
             appl_vcp_rndr_vcs_vol_val.vol_state.mute = VCS_MUTE_YES;
-#ifdef NXP_CODE
-            audio_codec_setmute_pl_ext();
-#endif
+            le_audio_codec_setmute_pl();
         }
     }
     else

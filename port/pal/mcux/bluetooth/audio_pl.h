@@ -67,8 +67,4 @@ API_RESULT audio_stop_pl (UCHAR ep);
 
 void audio_write_pl (UCHAR ep, UCHAR * m_data, UINT16 m_datalen);
 
-void audio_codec_setabsvol_pl_ext(UCHAR volume);
-void audio_codec_setmute_pl_ext();
-void audio_codec_setunmute_pl_ext();
-
 #endif /* _H_AUDIO_PL_*/
