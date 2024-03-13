@@ -60,10 +60,12 @@ char profile_main_options[] = "\n\
    5.  Connect Mobile \n\
    6.  Connect Headset/Speaker \n\
    7.  Create SCO connection with Unit \n\
-   8.  Release SCO connection with Unit \n\
+   8.  Release all SCO connection with Unit \n\
    9.  Disconnect \n\
    10. Bluetooth OFF \n\
    11. Get Track Details\n\
+   12. Accept call\n\
+   13. Reject call\n\
 \n\
 Your Option ?\n";
 #else
@@ -1056,6 +1058,20 @@ static int appl_handle_multiprofile_menu_option(int choice)
 		appl_avrcp_ct_send_get_element_attibutes_cmd(index);
 	}
 	break;
+	case 12:
+	{
+		API_RESULT status;
+	    status = BT_hfp_unit_callaccept(appl_hfu_get_handle());
+		printf("Accept call status: %d and handle is %d\n", status, appl_hfu_get_handle());
+	    break;
+	}
+	case 13:
+	{
+		API_RESULT status;
+	    status = BT_hfp_unit_callhangup(appl_hfu_get_handle());
+		printf("Reject call status: %d and handle is %d\n", status, appl_hfu_get_handle());
+	    break;
+	}
 	default:
 		printf("Invalid Choice. Try Again\n");
 		break;

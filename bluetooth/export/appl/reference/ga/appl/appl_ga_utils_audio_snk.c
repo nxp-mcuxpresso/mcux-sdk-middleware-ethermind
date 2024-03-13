@@ -1155,10 +1155,12 @@ GA_RESULT audio_snk_lc3_decode_n_play(UCHAR * data, UINT16 datalen, HCI_ISO_HEAD
     UINT16        index;
     INT32         samples_per_frame_per_channel;
     INT16  		  pcm_buffer[AUDIO_SNK_LC3_CHANNELS_MAX * (AUDIO_SNK_LC3_INPUT_FRAME_SIZE_MAX + 120U)];
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE > 0)
 	INT16 		  resampler_in[AUDIO_LC3_INPUT_FRAME_SIZE_MAX + 120U];
 	INT16         resampler_out[AUDIO_LC3_INPUT_FRAME_SIZE_MAX + 120U];
 	INT32 		  resampler_samples_out = 0;
     INT16 		  sample_out = 0;
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) || (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
     /* Initialize */
     index = 0U;
     samples_per_frame_per_channel = 0;

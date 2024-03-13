@@ -2643,7 +2643,7 @@ API_RESULT appl_hci_le_event_indication_callback
         	if (unicast_sink_sync_data_obj.cis_sync_established != AUDIO_SYNC_CIG_ESTABLISHED)
         	{
         		UINT16 iso_interval = 0;
-                le_audio_sync_start(0x02U); /*src and sink both issues the same event*/
+                le_audio_sync_start(0x02U, 0); /*src and sink both issues the same event*/
                 memset (&unicast_sink_sync_data_obj, 0, sizeof (unicast_sink_sync_data_obj));
                 hci_unpack_3_byte_param(&unicast_sink_sync_data_obj.cig_sync_delay, event_data + 3);
                 hci_unpack_3_byte_param(&unicast_sink_sync_data_obj.cis_sync_delay, event_data + 6);
@@ -2692,7 +2692,7 @@ API_RESULT appl_hci_le_event_indication_callback
         	if (src_sync_data_obj.big_created != AUDIO_SYNC_BIG_CREATE)
         	{
         		UINT16 iso_interval = 0;
-                le_audio_sync_start(AUDIO_EP_SOURCE);
+                le_audio_sync_start(AUDIO_EP_SOURCE, 0);
                 memset (&src_sync_data_obj, 0, sizeof (src_sync_data_obj));
                 hci_unpack_3_byte_param(&src_sync_data_obj.big_sync_delay, event_data + 2);
                 hci_unpack_2_byte_param(&iso_interval, event_data + 15);
@@ -2753,7 +2753,7 @@ API_RESULT appl_hci_le_event_indication_callback
             if (bcast_sink_sync_data_obj.pa_sync_established == BT_TRUE)
             {
         		UINT16 iso_interval = 0;
-                le_audio_sync_start(AUDIO_EP_SINK);
+                le_audio_sync_start(AUDIO_EP_SINK, 0);
                 bcast_sink_sync_data_obj.big_sync_established = AUDIO_SYNC_BIG_ESTABLISHED;
                 hci_unpack_3_byte_param (&bcast_sink_sync_data_obj.transport_latency , &event_data[2]);
                 hci_unpack_1_byte_param (&bcast_sink_sync_data_obj.NSE , &event_data[5]);

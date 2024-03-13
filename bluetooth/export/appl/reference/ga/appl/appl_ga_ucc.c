@@ -1812,6 +1812,7 @@ GA_RESULT appl_ga_ucc_cb_handler
 
     case GA_SEP_SUSPEND_NTF: /* Fall - through */
     case GA_SEP_SUSPEND_CNF:
+#if defined (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING > 0)
         appl_ga_utils_ucc_ascs_display_common_event_info
         (
             device,
@@ -1827,6 +1828,7 @@ GA_RESULT appl_ga_ucc_cb_handler
         {
             APPL_TRC("GA_SEP_SUSPEND_NTF (0x%02X)\n", ga_event);
         }
+#endif /*LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING*/
 
         if (GA_SUCCESS == ga_status)
         {
@@ -1842,8 +1844,9 @@ GA_RESULT appl_ga_ucc_cb_handler
                 APPL_ERR("Unknown ASE ID !\n");
             }
         }
-
+#if defined (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING) && (LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING > 0)
         appl_ga_utils_ucc_ascs_display_cp_event_data(ga_status, ase);
+#endif
         if (GA_SUCCESS == ga_status)
         {
             if (GA_ASE_STATE_QOS_CONF ==

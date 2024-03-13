@@ -56,7 +56,6 @@ void le_audio_codec_setmute_pl();
 void le_audio_codec_setunmute_pl();
 
 #if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
-void le_audio_set_snk_sync_cnt_val (UINT32 sink_sync_counter);
 void le_audio_set_sync_info_pl (UINT8 ep, UINT8 evt, void *sync_data);
 #endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
 

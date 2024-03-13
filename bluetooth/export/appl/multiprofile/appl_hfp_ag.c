@@ -2192,34 +2192,44 @@ void appl_hfag_open_voice_channel(UCHAR codec)
 void appl_hfag_close_voice_channel(void)
 {
     API_RESULT retval;
-    UINT16 hci_sco_handles[HCI_MAX_SCO_CHANNELS];
-    UCHAR num_of_sco_handles;
+    UCHAR i, j, num_list;
+    HCI_CONNECTION_LIST hci_conn_list[BT_MAX_REMOTE_DEVICES];
 
     /* MISRA C-2012 Rule 9.1 | Coverity UNINIT */
-    BT_mem_set(hci_sco_handles, 0, sizeof(UINT16)*HCI_MAX_SCO_CHANNELS);
+    num_list = 0U;
+    BT_mem_set(hci_conn_list, 0, sizeof(HCI_CONNECTION_LIST) * BT_MAX_REMOTE_DEVICES);
 
-    retval = BT_hci_get_sco_connection_handle
-                (
-                    hfu_bd_addr,
-                    hci_sco_handles,
-                    &num_of_sco_handles
-                );
-
+    retval = BT_hci_get_connection_details
+    (hci_conn_list, BT_MAX_REMOTE_DEVICES, &num_list);
     /* If SCO/eSCO connection present, disconect the first one */
-    if (API_SUCCESS == retval)
+    if (API_SUCCESS != retval)
     {
-        printf("Disconnecting SCO/eSCO Connection 0x%04X\n",
-        hci_sco_handles[0U]);
-
-        retval = BT_hci_disconnect
-                 (
-                     hci_sco_handles[0U],
-                     0x13U
-                 );
+        printf("FAILED !! Error Code = 0x%04X\n", retval);
     }
     else
     {
-        printf ("SCO Connection for HFP-Unit not found\n");
+        for (i = 0U; i < num_list; i++)
+        {
+            for (j = 0U; j < HCI_MAX_SCO_CHANNELS; j++)
+            {
+                if (hci_conn_list[i].sco_handle[j] != 0xFFFF)
+                {
+                    retval = BT_hci_disconnect
+                    (
+                        hci_conn_list[i].sco_handle[j],
+                        0x13U
+                    );
+                    printf("Disconnect SCO status : %d for:\n", retval);
+                    printf("  BD_ADDR = %02X:%02X:%02X:%02X:%02X:%02X\n",
+                        hci_conn_list[i].bd_addr[0U], hci_conn_list[i].bd_addr[1U],
+                        hci_conn_list[i].bd_addr[2U], hci_conn_list[i].bd_addr[3U],
+                        hci_conn_list[i].bd_addr[4U], hci_conn_list[i].bd_addr[5U]);
+                    printf("  Connection Handle = 0x%04X\n", hci_conn_list[i].acl_handle);
+                    printf("0x%04X ", hci_conn_list[i].sco_handle[j]);
+                }
+            }
+            printf("\n");
+        }
     }
 }
 

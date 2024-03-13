@@ -4025,7 +4025,10 @@ void appl_hfp_handle_bridge_app_cmds(HFP_UNIT_EVENTS event, void *data, UINT16 d
 
         default:
                  CONSOLE_OUT("\n ------->> Bridge App : Sending to remote UNIT \n");
+                 if((data_len > 0) && (data != NULL))
+                 {
                  appl_hfag_read_pl(((UCHAR*)data), data_len);
+                 }
                  break;
     }
 
