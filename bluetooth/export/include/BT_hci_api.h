@@ -2529,6 +2529,23 @@ API_RESULT BT_hci_iso_queue_info
            (
                UINT16 *iso_queue_count
            );
+
+/**
+ *  API_RESULT BT_hci_set_sdu_tx_on_nocp:
+ *  API to provide iso-queue-count details
+ *
+ *  \param (IN) sdu_tx_flag: enable/disable sdu-tx to hci upon NOCP event
+ */
+API_RESULT BT_hci_set_sdu_tx_on_nocp
+           (
+        	 UINT8 sdu_tx_flag
+           );
+
+API_RESULT BT_hci_get_iso_tx_buffer_count
+           (
+        		   UINT8 *iso_tx_buf_cnt,
+        		   UINT8 *iso_tx_buf_max
+           );
 #endif /* HCI_ISO_DATA */
 
 /* ------------------------------------------------------------------------- */
