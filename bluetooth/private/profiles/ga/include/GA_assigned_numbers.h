@@ -27,28 +27,28 @@
  */
 
 /**
- * \addtogroup ga_bap_module
+ * \addtogroup ga_common_module
  * \{
  */
 
 /**
- * \addtogroup ga_bap_defines
+ * \addtogroup ga_common_defines
  * \{
  */
 
 /**
- * \addtogroup ga_bap_constants
+ * \addtogroup ga_common_constants
  * \{
  */
 
 /* --------------------------------------------- Global Definitions */
 
 /**
- * \name GA Capturing/Rendering Control Service UUID
+ * \name Capturing/Rendering Control Service UUID
  * \{
- * \brief GA Capturing and Rendering Control Service UUIDs
- * As defined in Assigned Numbers - 16-bit UUID Numbers Document.
- * \sa ga_bap_constants
+ * \brief GA Capturing and Rendering Control Service UUIDs. \n
+ * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
+ * \sa ga_common_constants
  */
 
 /** Audio Input Control Service */
@@ -63,11 +63,11 @@
 /** \} */
 
 /**
- * \name GA Audio Stream Control Service UUID
+ * \name Audio Stream Control Service UUID
  * \{
- * \brief GA Audio Control Service UUIDs
- * As defined in Assigned Numbers - 16-bit UUID Numbers Document.
- * \sa ga_bap_constants
+ * \brief GA Audio Control Service UUIDs. \n
+ * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
+ * \sa ga_common_constants
  */
 
 /** Audio Stream Control Service */
@@ -86,11 +86,11 @@
 /** \} */
 
 /**
- * \name GA Coordination Control Service UUID
+ * \name Coordination Control Service UUID
  * \{
- * \brief GA Coordination Control Service UUIDs
- * As defined in Assigned Numbers - 16-bit UUID Numbers Document.
- * \sa ga_bap_constants
+ * \brief GA Coordination Control Service UUIDs. \n
+ * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
+ * \sa ga_common_constants
  */
 
 /** Coordinated Set Identification Service */
@@ -99,18 +99,18 @@
 /** \} */
 
 /**
- * \name GA Content Control Service UUID
+ * \name Content Control Service UUID
  * \{
- * \brief GA Content Control Service UUIDs
+ * \brief GA Content Control Service UUIDs. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
- * GMCS and MCS use the same char UUID.
- * \sa ga_bap_constants
+ * GMCS and MCS use the same char UUID. \n
+ * \sa ga_common_constants
  *
- * GTBS and TBS uses the same char UUID.
- * \sa ga_bap_constants
+ * GTBS and TBS uses the same char UUID. \n
+ * \sa ga_common_constants
  *
- * GMCS, MCS, GTBS, TBS use below Char:
- * \sa ga_bap_constants
+ * GMCS, MCS, GTBS, TBS use below Char: \n
+ * \sa ga_common_constants
  */
 
 /** Media Control Service */
@@ -125,11 +125,11 @@
 /** \} */
 
 /**
- * \name GA Application Profile Service UUID
+ * \name Application Profile Service UUID
  * \{
- * \brief GA Application Profile Service UUIDs
- * As defined in Assigned Numbers - 16-bit UUID Numbers Document.
- * \sa ga_bap_constants
+ * \brief GA Application Profile Service UUIDs. \n
+ * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
+ * \sa ga_common_constants
  */
 
 /** Hearing Access Service */
@@ -140,11 +140,11 @@
 /** \} */
 
 /**
- * \name GA Common Audio Service UUID
+ * \name Common Audio Service UUID
  * \{
- * \brief GA Common Audio Service UUIDs
- * As defined in Assigned Numbers - 16-bit UUID Numbers Document.
- * \sa ga_bap_constants
+ * \brief GA Common Audio Service UUIDs. \n
+ * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
+ * \sa ga_common_constants
  */
 
 /** Common Audio Service */
@@ -153,22 +153,22 @@
 /** \} */
 
 /**
- * \name GA Object Transfer Service UUID
+ * \name Object Transfer Service UUID
  * \{
- * \brief GA Object Transfer Service UUIDs
- * \sa ga_bap_constants
+ * \brief GA Object Transfer Service UUIDs. \n
+ * \sa ga_common_constants \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document.
  */
 
 /** Object Transfer Service */
-#define GA_SERVICE_UUID_OTS                             0x1825U
+#define GA_SERVICE_OTS                                  0x1825U
 
 /** \} */
 
 /**
- * \name GA Capturing/Rendering Control Char UUID: AICS
+ * \name Capturing/Rendering Control Char UUID: AICS
  * \{
- * \brief Char UUID for AICS Service.
+ * \brief Char UUID for AICS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M : Mandatory \n
@@ -194,9 +194,9 @@
 /** \} */
 
 /**
- * \name GA Capturing/Rendering Control Char UUID: VCS
+ * \name Capturing/Rendering Control Char UUID: VCS
  * \{
- * \brief Char UUID for VCS Service.
+ * \brief Char UUID for VCS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M : Mandatory \n
@@ -214,9 +214,9 @@
 /** \} */
 
 /**
- * \name GA Capturing/Rendering Control Char UUID: VOCS
+ * \name Capturing/Rendering Control Char UUID: VOCS
  * \{
- * \brief Char UUID for VOCS Service.
+ * \brief Char UUID for VOCS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M : Mandatory \n
@@ -238,9 +238,9 @@
 /** \} */
 
 /**
- * \name GA Coordination Control Char UUID: CSIS
+ * \name Coordination Control Char UUID: CSIS
  * \{
- * \brief Char UUID for CSIS Service.
+ * \brief Char UUID for CSIS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M: Mandatory \n
@@ -260,16 +260,16 @@
 /** \} */
 
 /**
- * \name GA Content Control Char UUID: MCS and TBS
+ * \name Content Control Char UUID: MCS and TBS
  * \{
  */
 
 /**
- * GMCS and MCS use the same char UUID.
- * \sa ga_bap_constants
+ * GMCS and MCS use the same char UUID. \n
+ * \sa ga_common_constants
  *
- * GTBS and TBS use the same char UUID.
- * \sa ga_bap_constants
+ * GTBS and TBS use the same char UUID. \n
+ * \sa ga_common_constants \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document.
  */
 #define GA_CHAR_CONTENT_CONTROL_ID                      0x2BBAU
@@ -277,9 +277,9 @@
 /** \} */
 
 /**
- * \name GA Content Control Char UUID: MCS
+ * \name Content Control Char UUID: MCS
  * \{
- * \brief Char UUID for MCS Service.
+ * \brief Char UUID for MCS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M : Mandatory \n
@@ -342,9 +342,9 @@
 /** \} */
 
 /**
- * \name GA Content Control Char UUID: TBS
+ * \name Content Control Char UUID: TBS
  * \{
- * \brief Char UUID for TBS Service.
+ * \brief Char UUID for TBS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M: Mandatory \n
@@ -389,16 +389,16 @@
 /** \} */
 
 /**
- * \name GA Capturing/Rendering Control Char UUID: MICS
+ * \name Capturing/Rendering Control Char UUID: MICS
  * \{
- * \brief Char UUID for MICS Service.
+ * \brief Char UUID for MICS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M: Mandatory \n
  * O: Optional \n
  * X: Excluded \n
  *
- * This service may include zero or more instances of AICS
+ * This service may include zero or more instances of AICS.
  */
 
 /** Mute: M */
@@ -407,9 +407,9 @@
 /** \} */
 
 /**
- * \name GA Audio Stream Control Char UUID: ASCS
+ * \name Audio Stream Control Char UUID: ASCS
  * \{
- * \brief Char UUID for ASCS Service.
+ * \brief Char UUID for ASCS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M: Mandatory \n
@@ -428,9 +428,9 @@
 /** \} */
 
 /**
- * \name GA Audio Stream Control Char UUID: BASS
+ * \name Audio Stream Control Char UUID: BASS
  * \{
- * \brief Char UUID for BASS Service.
+ * \brief Char UUID for BASS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M: Mandatory
@@ -443,9 +443,9 @@
 /** \} */
 
 /**
- * \name GA Audio Stream Control Char UUID: PACS
+ * \name Audio Stream Control Char UUID: PACS
  * \{
- * \brief Char UUID for PACS Service.
+ * \brief Char UUID for PACS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * M: Mandatory \n
@@ -475,9 +475,9 @@
 /** \} */
 
 /**
- * \name GA OTS Char UUID
+ * \name OTS Char UUID
  * \{
- * \brief Char UUID for OTS Service.
+ * \brief Char UUID for OTS Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * C.1: Mandatory if the Server is capable of storing more than one object;
@@ -518,9 +518,9 @@
 /** \} */
 
 /**
- * \name GA OTS Object Type UUID
+ * \name OTS Object Type UUID
  * \{
- * \brief UUID for Object Type.
+ * \brief UUID for Object Type. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document.
  */
 
@@ -536,9 +536,9 @@
 /** \} */
 
 /**
- * \name GA HAP Char UUID
+ * \name HAP Char UUID
  * \{
- * \brief Char UUID for HAP Service.
+ * \brief Char UUID for HAP Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  *
  * C.1: Mandatory if Hearing Aid Preset Control Point is supported by the
@@ -555,9 +555,9 @@
 /** \} */
 
 /**
- * \name GA TMAP Char UUID
+ * \name TMAP Char UUID
  * \{
- * \brief Char UUID for TMAP Service.
+ * \brief Char UUID for TMAP Service. \n
  * As defined in Assigned Numbers - 16-bit UUID Numbers Document. \n
  */
 
@@ -573,18 +573,16 @@
  */
 #define GA_CHAR_PROP_CONTENT_CONTROL_ID                 GA_BRR_CHAR_READ_PROPERTY
 
-/** \} */
-
 /**
- * \name GA Audio Location Definitions
+ * \name Audio Location Definitions
  * \{
- * \brief GA Audio Location Definitions
+ * \brief GA Audio Location Definitions. \n
  * Values(BitMap) \n
  * As defined in Assigned Numbers - Generic Audio Document.
  */
 
-/** Not Allowed */
-#define GA_AUDIO_LOCATION_NOT_ALLOWED                   (0x00000000U << 0U)
+/** Mono Audio (no specified Audio Location) */
+#define GA_AUDIO_LOCATION_MONO_AUDIO                    (0x00000000U << 0U)
 /** Front Left */
 #define GA_AUDIO_LOCATION_FL                            (0x00000001U << 0U)
 /** Front Right */
@@ -653,7 +651,7 @@
 /** \} */
 
 /**
- * \name GA Audio Input Type Definitions
+ * \name Audio Input Type Definitions
  * \{
  */
 
@@ -671,19 +669,48 @@
 #define GA_AUDIO_INPUT_TYPE_RADIO                       0x05U
 /** Streaming audio source */
 #define GA_AUDIO_INPUT_TYPE_STREAMING                   0x06U
+/** Transparency/Pass-through */
+#define GA_AUDIO_INPUT_TYPE_AMBIENT                     0x07U
 
 /** \} */
 
+/** \} */
+/** \} */
+/** \} */
+
 /**
- * \name GA Context Type
+ * \addtogroup ga_bap_module
  * \{
- * \brief GA Context Type
+ */
+
+/**
+ * \addtogroup ga_bap_common_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_constants
+ * \{
+ */
+
+/**
+ * \name Context Type
+ * \{
+ * \brief GA Context Type. \n
  * Values(BitMap)
  */
 
 /** Prohibited */
 #define GA_CONTEXT_TYPE_PROHIBITED                      (0x0000U << 0U)
-/** Unspecified - bit 0 */
+/** 
+ * Identifies audio where the use case context does not match any other defined
+ * value, or where the context is unknown or cannot be determined. - bit 0
+ */
 #define GA_CONTEXT_TYPE_UNSPECIFIED                     (0x0001U << 0U)
 /**
  * Conversation between humans, for example, in telephony or video calls,
@@ -747,9 +774,9 @@
 /** \} */
 
 /**
- * \name GA LTV Length
+ * \name LTV Length
  * \{
- * \brief Length : Size(Octets): 1
+ * \brief Length : Size(Octets): 1 \n
  * Length includes size of LTV Type(1B) plus size of LTV Value(nB).
  */
 
@@ -787,7 +814,7 @@
 /* #define GA_LTV_METADATA_PGM_INFO_LEN */
 /** LTV Metadata: Language Length */
 #define GA_LTV_METADATA_LANGUAGE_LEN                    0x04U
-/* LTV Metadata: CCID List Length - Varies */
+/* LTV Metadata: CCID_List Length - Varies */
 /* #define GA_LTV_METADATA_CCID_LIST_LEN */
 /** LTV Metadata: Parental_Rating Length */
 #define GA_LTV_METADATA_PARENTAL_RATING_LEN             0x02U
@@ -797,11 +824,19 @@
 /* #define GA_LTV_METADATA_EM_LEN */
 /* LTV Metadata: Vendor_Specific Length - Varies */
 /* #define GA_LTV_METADATA_VS_LEN */
+/** LTV Metadata: Audio_Active_State Length */
+#define GA_LTV_METADATA_AAS_LEN                         0x02U
+/** LTV Metadata: Broadcast_Audio_Immediate_Rendering_Flag Length */
+#define GA_LTV_METADATA_BC_AIR_FLAG_LEN                 0x01U
+/** LTV Metadata: Assisted_Listening_Stream Length */
+#define GA_LTV_METADATA_ASSISTED_LISTENING_STREAM_LEN   0x02U
+/** LTV Metadata: Broadcast_Name Length */
+#define GA_LTV_METADATA_BC_NAME_LEN                     0x01U
 
 /** \} */
 
 /**
- * \name GA LTV Type
+ * \name LTV Type
  * \{
  * \brief Type : Size(Octets): 1
  */
@@ -840,23 +875,31 @@
 #define GA_LTV_METADATA_CCID_LIST_TYPE                  0x05U
 /** LTV Metadata: Parental_Rating Type */
 #define GA_LTV_METADATA_PARENTAL_RATING_TYPE            0x06U
-/** LTV Metadata: Program_Info_URL Type */
-#define GA_LTV_METADATA_PROGRAM_INFO_URL_TYPE           0x07U
+/** LTV Metadata: Program_Info_URI Type */
+#define GA_LTV_METADATA_PROGRAM_INFO_URI_TYPE           0x07U
 /** LTV Metadata: Extended_Metadata Type */
 #define GA_LTV_METADATA_EM_TYPE                         0xFEU
 /** LTV Metadata: Vendor_Specific Type */
 #define GA_LTV_METADATA_VS_TYPE                         0xFFU
+/** LTV Metadata: Audio_Active_State Type */
+#define GA_LTV_METADATA_AAS_TYPE                        0x08U
+/** LTV Metadata: Broadcast_Audio_Immediate_Rendering_Flag Type */
+#define GA_LTV_METADATA_BC_AIR_FLAG_TYPE                0x09U
+/** LTV Metadata: Assisted_Listening_Stream Type */
+#define GA_LTV_METADATA_ASSISTED_LISTENING_STREAM_TYPE  0x0AU
+/** LTV Metadata: Broadcast_Name Type */
+#define GA_LTV_METADATA_BC_NAME_TYPE                    0x0BU
 
 /** \} */
 
 /**
- * \defgroup ga_ltv_val GA LTV Value
+ * \defgroup ga_ltv_val LTV Value
  * \{
  * Value
  */
 
 /**
- * \name GA LTV Codec_Specific_Capabilities Supported_Sampling_Frequencies Value
+ * \name LTV Codec_Specific_Capabilities Supported_Sampling_Frequencies Value
  * \{
  * \brief Value : Size(Octets): 2 \n
  * Values(Bitmask)
@@ -933,7 +976,7 @@
 /** \} */
 
 /**
- * \name GA LTV Codec_Specific_Capabilities Supported_Frame_Durations Value
+ * \name LTV Codec_Specific_Capabilities Supported_Frame_Durations Value
  * \{
  * \brief Value : Size(Octets): 1 \n
  * Values(Bitmask) \n
@@ -966,7 +1009,7 @@
 /** \} */
 
 /**
- * \name GA LTV Codec_Specific_Capabilities Supported_Audio_Channel_Counts Value
+ * \name LTV Codec_Specific_Capabilities Supported_Audio_Channel_Counts Value
  * \{
  * \brief Value : Size(Octets): 1 \n
  * Values(Bitmask)
@@ -1016,7 +1059,7 @@
 /** \} */
 
 /**
- * \name GA LTV Codec_Specific_Capabilities Supported_Octets_Per_Codec_Frame Value
+ * \name LTV Codec_Specific_Capabilities Supported_Octets_Per_Codec_Frame Value
  * \{
  * \brief Value : Size(Octets): 4 \n
  */
@@ -1031,7 +1074,7 @@
 /** \} */
 
 /**
- * \name GA LTV Codec_Specific_Capabilities Supported_Max_Codec_Frames_Per_SDU Value
+ * \name LTV Codec_Specific_Capabilities Supported_Max_Codec_Frames_Per_SDU Value
  * \{
  * \brief Value : Size(Octets): 1 \n
  */
@@ -1045,7 +1088,7 @@
 /** \} */
 
 /**
- * \name GA LTV Codec_Specific_Configuration Sampling_Frequencies Value
+ * \name LTV Codec_Specific_Configuration Sampling_Frequencies Value
  * \{
  * \brief Value : Size(Octets): 1 \n
  * Selected codec sampling frequency
@@ -1120,7 +1163,7 @@
 /** \} */
 
 /**
- * \name GA LTV Codec_Specific_Configuration Frame_Duration Value
+ * \name LTV Codec_Specific_Configuration Frame_Duration Value
  * \{
  * \brief Value : Size(Octets): 1 \n
  */
@@ -1140,7 +1183,7 @@
 /** \} */
 
 /**
- * \name GA LTV Codec_Specific_Configuration Audio_Channel_Allocation Value
+ * \name LTV Codec_Specific_Configuration Audio_Channel_Allocation Value
  * \{
  * \brief Value : Size(Octets): 4 \n
  */
@@ -1148,14 +1191,14 @@
 /*
  * LTV Codec_Specific_Configuration: Audio_Channel_Allocation Value
  * 4-octet bitfield of Audio Location values
- * \ref ga_bap_constants
+ * \ref ga_common_constants
  */
 /* #define GA_LTV_CODEC_SPEC_CONF_ACA_VAL */
 
 /** \} */
 
 /**
- * \name GA LTV Codec_Specific_Configuration Octets_Per_Codec_Frame Value
+ * \name LTV Codec_Specific_Configuration Octets_Per_Codec_Frame Value
  * \{
  * \brief Value : Size(Octets): 2 \n
  */
@@ -1169,7 +1212,7 @@
 /** \} */
 
 /**
- * \name GA LTV Codec_Specific_Configuration Codec_Frame_Blocks_Per_SDU Value
+ * \name LTV Codec_Specific_Configuration Codec_Frame_Blocks_Per_SDU Value
  * \{
  * \brief Value : Size(Octets): 1 \n
  */
@@ -1183,7 +1226,7 @@
 /** \} */
 
 /**
- * \name GA LTV Metadata Preferred_Audio_Contexts Value
+ * \name LTV Metadata Preferred_Audio_Contexts Value
  * \{
  * \brief Value : Size(Octets): 2 \n
  */
@@ -1191,7 +1234,7 @@
 /*
  * LTV Metadata: Preferred_Audio_Contexts Value
  * Bitfield of Context Type values. \n
- * See Context Type values defined in \ref ga_bap_constants. \n
+ * See Context Type values defined in \ref ga_bap_common_constants. \n
  * 0b0 = Context Type is not a preferred use case for this
  * codec configuration. \n
  * 0b1 = Context Type is a preferred use case for this codec configuration.
@@ -1201,7 +1244,7 @@
 /** \} */
 
 /**
- * \name GA LTV Metadata Streaming_Audio_Contexts Value
+ * \name LTV Metadata Streaming_Audio_Contexts Value
  * \{
  * \brief Value : Size(Octets): 2 \n
  */
@@ -1209,7 +1252,7 @@
 /*
  * LTV Metadata: Streaming_Audio_Contexts Value
  * Bitfield of Context Type values. \n
- * See Context Type values defined in \ref ga_bap_constants. \n
+ * See Context Type values defined in \ref ga_bap_common_constants. \n
  * 0b0 = Context Type is not an intended use case for the Audio Stream. \n
  * 0b1 = Context Type is an intended use case for the Audio Stream.
  */
@@ -1218,7 +1261,7 @@
 /** \} */
 
 /**
- * \name GA LTV Metadata Program_Info Value
+ * \name LTV Metadata Program_Info Value
  * \{
  * \brief Value : Size(Octets): Varies \n
  */
@@ -1232,7 +1275,7 @@
 /** \} */
 
 /**
- * \name GA LTV Metadata Language Value
+ * \name LTV Metadata Language Value
  * \{
  * \brief Value : Size(Octets): 3 \n
  * 3-byte, lower case language code as defined in ISO 639-3
@@ -1246,7 +1289,7 @@
 /** \} */
 
 /**
- * \name GA LTV Metadata CCID_List Value
+ * \name LTV Metadata CCID_List Value
  * \{
  * \brief Value : Size(Octets): Varies \n
  */
@@ -1260,7 +1303,7 @@
 /** \} */
 
 /**
- * \name GA LTV Metadata Parental_Rating Value
+ * \name LTV Metadata Parental_Rating Value
  * \{
  * \brief Value : Size(Octets): 1 \n
  */
@@ -1273,7 +1316,7 @@
 /** \} */
 
 /**
- * \name GA LTV Metadata Program_Info_URI Value
+ * \name LTV Metadata Program_Info_URI Value
  * \{
  * \brief Value : Size(Octets): Varies \n
  * A UTF-8 formatted URL link used to present more information about
@@ -1288,7 +1331,7 @@
 /** \} */
 
 /**
- * \name GA LTV Metadata Extended_Metadata Value
+ * \name LTV Metadata Extended_Metadata Value
  * \{
  * \brief Value : Size(Octets): Varies \n
  */
@@ -1303,7 +1346,7 @@
 /** \} */
 
 /**
- * \name GA LTV Metadata Vendor_Specific Value
+ * \name LTV Metadata Vendor_Specific Value
  * \{
  * \brief Value : Size(Octets): Varies \n
  */
@@ -1317,10 +1360,72 @@
 /* #define GA_LTV_METADATA_VS_VAL */
 
 /** \} */
+
+/**
+ * \name LTV Metadata Audio_Active_State Value
+ * \{
+ * \brief Value : Size(Octets): 1 \n
+ */
+
+/**
+ * LTV Metadata: Audio_Active_State Value
+ * No audio data is being transmitted
+ */
+#define GA_LTV_METADATA_AAS_VAL_DATA_NOT_TRANSMITTED    0x00
+
+/**
+ * LTV Metadata: Audio_Active_State Value
+ * Audio data is being transmitted
+ */
+#define GA_LTV_METADATA_AAS_VAL_DATA_TRANSMITTED        0x01
+
 /** \} */
 
 /**
- * \name GA Coding Format Type
+ * \name LTV Metadata Broadcast_Audio_Immediate_Rendering_Flag Value
+ * \{
+ * \brief Value : Size(Octets): 0 \n
+ */
+
+/*
+ * LTV Metadata: Broadcast_Audio_Immediate_Rendering_Flag Value
+ */
+/* #define GA_LTV_METADATA_BC_AIR_FLAG_VAL */
+
+/** \} */
+
+/**
+ * \name LTV Metadata Assisted_Listening_Stream Value
+ * \{
+ * \brief Value : Size(Octets): 1 \n
+ */
+
+/*
+ * LTV Metadata: Assisted_Listening_Stream Value
+ * 1 octet enumeration of Assisted Listening Stream method
+ */
+#define GA_LTV_METADATA_ASSISTED_LISTENING_STREAM_VAL_UNSPEC_AE 0x00U
+
+/** \} */
+
+/**
+ * \name LTV Metadata Broadcast_Name Value
+ * \{
+ * \brief Value : Size(Octets): Varies (4 – 128) \n
+ */
+
+/*
+ * LTV Metadata: Broadcast_Name Value
+ * The UTF-8 string of the Broadcast_Name AD Type
+ */
+/* #define GA_LTV_METADATA_ASSISTED_BC_NAME_VAL */
+
+/** \} */
+
+/** \} */
+
+/**
+ * \name Coding Format Type
  * \{
  * \brief Type : Size(Octets): 1 \n
  * Defined as in Assigned Numbers - Host Controller Interface.
@@ -1338,22 +1443,7 @@
 /** \} */
 
 /**
- * \name GA Framing
- * \{
- * \brief Type : Size(Octets): 1 \n
- * Defined as in ASCS Specification.
- */
-
-/** Unframed ISOAL PDUs supported */
-#define GA_FRAMING_UNFRAMED_ISOAL_PDU_SUPP      0x00U
-
-/** Unframed ISOAL PDUs not supported */
-#define GA_FRAMING_UNFRAMED_ISOAL_PDU_NOT_SUPP  0x01U
-
-/** \} */
-
-/**
- * \name GA Framing Config QOS
+ * \name Framing Config QOS
  * \{
  * \brief Type : Size(Octets): 1 \n
  * Defined as in ASCS Specification.
@@ -1368,43 +1458,7 @@
 /** \} */
 
 /**
- * \name GA Target Latency
- * \{
- * \brief Type : Size(Octets): 1
- * Defined as in ASCS Specification.
- */
-
-/** Target low latency */
-#define GA_TARGET_LATENCY_LOW                       0x01U
-
-/** Target balanced latency and reliability */
-#define GA_TARGET_LATENCY_BALANCED_AND_RELAIBILITY  0x02U
-
-/** Target high reliability */
-#define GA_TARGET_LATENCY_HIGH_RELIABILITY          0x03U
-
-/** \} */
-
-/**
- * \name GA Target PHY
- * \{
- * \brief Type : Size(Octets): 1 \n
- * Defined as in ASCS Specification.
- */
-
-/** LE 1M PHY */
-#define GA_TARGET_PHY_LE_1M_PHY      0x01U
-
-/** LE 2M PHY */
-#define GA_TARGET_PHY_LE_2M_PHY      0x02U
-
-/** LE Coded PHY */
-#define GA_TARGET_PHY_LE_CODED_PHY   0x03U
-
-/** \} */
-
-/**
- * \name GA Preferred PHY
+ * \name Preferred PHY
  * \{
  * \brief Type : Size(Octets): 1 \n
  * Defined as in ASCS Specification. Formatted as a bitfield.
@@ -1425,7 +1479,7 @@
 /** \} */
 
 /**
- * \name GA Preferred Retransmission Number
+ * \name Preferred Retransmission Number
  * \{
  * \brief Type : Size(Octets): 1 \n
  * Defined as in ASCS Specification.
@@ -1440,10 +1494,11 @@
 /** \} */
 
 /**
- * \name GA Max Transport Latency
+ * \name Max Transport Latency
  * \{
  * \brief Type : Size(Octets): 2 \n
  * Defined as in ASCS Specification. \n
+ * Defined as in Core Spec, Version: 5.4, Page:2578, Section: 7.8.103
  * Units: ms
  */
 
@@ -1456,7 +1511,7 @@
 /** \} */
 
 /**
- * \name GA Max Presentation Delay
+ * \name Max Presentation Delay
  * \{
  * \brief Type : Size(Octets): 3 \n
  * Defined as in ASCS Specification. \n
@@ -1471,7 +1526,7 @@
 /** \} */
 
 /**
- * \name GA SDU Interval
+ * \name SDU Interval
  * \{
  * \brief Type : Size(Octets): 3 \n
  * Defined as in ASCS Specification.
@@ -1486,7 +1541,7 @@
 /** \} */
 
 /**
- * \name GA Max SDU
+ * \name Max SDU
  * \{
  * \brief Type : Size(Octets): 2 \n
  * Defined as in ASCS Specification.
@@ -1500,12 +1555,123 @@
 
 /** \} */
 
+/** \} */
+/** \} */
+/** \} */
+
 /**
- * \name GA Advertising types
+ * \addtogroup ga_bap_uc_module
  * \{
- * \brief GA AD Type values defined to use in BLE Advertising Data
- * As defined in Assigned Numbers - Generic Access Profile Document.
- * \sa ga_cap_constants
+ */
+
+/**
+ * \addtogroup ga_bap_uc_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_client_ascs_def
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_uc_client_ascs_constants Constants
+ * \{
+ * \brief This section lists the various data Constants in EtherMind
+ * GA BAP Layer for UC Client - ASCS.
+ */
+
+/**
+ * \name Framing
+ * \{
+ * \brief Type : Size(Octets): 1 \n
+ * Defined as in ASCS Specification.
+ */
+
+/** Unframed ISOAL PDUs supported */
+#define GA_FRAMING_UNFRAMED_ISOAL_PDU_SUPP      0x00U
+
+/** Unframed ISOAL PDUs not supported */
+#define GA_FRAMING_UNFRAMED_ISOAL_PDU_NOT_SUPP  0x01U
+
+/** \} */
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_uc_server_ascs_def
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_server_ascs_constants
+ * \{
+ */
+
+/**
+ * \name Target Latency
+ * \{
+ * \brief Type : Size(Octets): 1
+ * Defined as in ASCS Specification.
+ */
+
+/** Target low latency */
+#define GA_TARGET_LATENCY_LOW                       0x01U
+
+/** Target balanced latency and reliability */
+#define GA_TARGET_LATENCY_BALANCED_AND_RELAIBILITY  0x02U
+
+/** Target high reliability */
+#define GA_TARGET_LATENCY_HIGH_RELIABILITY          0x03U
+
+/** \} */
+
+/**
+ * \name Target PHY
+ * \{
+ * \brief Type : Size(Octets): 1 \n
+ * Defined as in ASCS Specification.
+ */
+
+/** LE 1M PHY */
+#define GA_TARGET_PHY_LE_1M_PHY      0x01U
+
+/** LE 2M PHY */
+#define GA_TARGET_PHY_LE_2M_PHY      0x02U
+
+/** LE Coded PHY */
+#define GA_TARGET_PHY_LE_CODED_PHY   0x03U
+
+/** \} */
+
+/** \} */
+/** \} */
+/** \} */
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_common_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_common_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_common_constants
+ * \{
+ */
+
+/**
+ * \name Advertising types
+ * \{
+ * \brief GA AD Type values defined to use in BLE Advertising Data. \n
+ * As defined in Assigned Numbers - Generic Access Profile Document. \n
+ * \sa ga_cas_constants
  */
 
 /** Advertisement Data Type: Flags */
@@ -1523,73 +1689,94 @@
 /** Advertisement Data Type: Complete Local Name */
 #define GA_ADTYPE_COMPLETE_LOCAL_NAME     0x09U
 
-/* AD Type - Service Data */
+/** Advertisement Data Type: Service Data ­ 16­bit UUID */
 #define GA_ADTYPE_SERVICE_DATA            0x16U
 
-/* AD Type - Appearance */
+/** Advertisement Data Type: Appearance */
 #define GA_ADTYPE_APPEARANCE              0x19U
 
-/* AD Type - BIGInfo */
+/** Advertisement Data Type: BIGInfo */
 #define GA_ADTYPE_BIGINFO                 0x2CU
 
-/* AD Type - Broadcast Code */
+/** Advertisement Data Type: Broadcast_Code */
 #define GA_ADTYPE_BROADCAST_CODE          0x2DU
 
-/* AD Type - Resolvable Set Identifier */
+/** Advertisement Data Type: Resolvable Set Identifier */
 #define GA_ADTYPE_RSI                     0x2EU
 
-/* AD Type - Broadcast Name */
+/** Advertisement Data Type: Broadcast_Name */
 #define GA_ADTYPE_BROADCAST_NAME          0x30U
+
+/** Advertisement Data Type: Manufacturer_Specific_Data */
+#define GA_ADTYPE_MANUFACTURER_SPECIFIC_DATA 0xFFU
 
 /** \} */
 
 /**
- * \name GA Appearance Category: Audio Source
+ * \name Appearance Category: Audio Source
  * \{
- * \brief GA Appearance Type values defined to use in BLE Advertising Data
- * As defined in Assigned Numbers Document.
+ * \brief GA Appearance Type values defined to use in BLE Advertising Data. \n
+ * As defined in Assigned Numbers Document. \n
  * https://btprodspecificationrefs.blob.core.windows.net/assigned-numbers/Assigned%20Number%20Types/Assigned%20Numbers.pdf
  *
- * Appearance Category: 0x022
- *            Value Range: 0x0880 to 0x08BF
- *            Name: Audio Source
- * \sa ga_cap_constants
+ * Appearance Category: 0x022 \n
+ *            Value Range: 0x0880 to 0x08BF \n
+ *            Name: Audio Source \n
+ * \sa ga_cas_constants
  */
-/* Appearance Types - Generic Audio Source */
+/** Appearance Types - Generic Audio Source */
 #define GA_APPEARANCE_TYPE_GA_SOURCE      0x0880U
 
-/* Appearance Types - Microphone */
+/** Appearance Types - Microphone */
 #define GA_APPEARANCE_TYPE_MICROPHONE     0x0881U
 
-/* Appearance Types - Alarm */
+/** Appearance Types - Alarm */
 #define GA_APPEARANCE_TYPE_ALARM          0x0882U
 
-/* Appearance Types - Bell */
+/** Appearance Types - Bell */
 #define GA_APPEARANCE_TYPE_BELL           0x0883U
 
-/* Appearance Types - Horn */
+/** Appearance Types - Horn */
 #define GA_APPEARANCE_TYPE_HORN           0x0884U
 
-/* Appearance Types - Broadcasting Device */
+/** Appearance Types - Broadcasting Device */
 #define GA_APPEARANCE_TYPE_BC_DEV         0x0885U
 
-/* Appearance Types - Service Desk */
+/** Appearance Types - Service Desk */
 #define GA_APPEARANCE_TYPE_SVC_DESK       0x0886U
 
-/* Appearance Types - Kiosk */
+/** Appearance Types - Kiosk */
 #define GA_APPEARANCE_TYPE_KIOSK          0x0887U
 
-/* Appearance Types - Broadcasting Room */
+/** Appearance Types - Broadcasting Room */
 #define GA_APPEARANCE_TYPE_BC_ROOM        0x0888U
 
-/* Appearance Types - Auditorium */
+/** Appearance Types - Auditorium */
 #define GA_APPEARANCE_TYPE_AUDITORIUM     0x0889U
 
 /** \} */
+
+/** \} */
+/** \} */
 /** \} */
 
 /**
- * \addtogroup ga_bap_structures
+ * \addtogroup ga_bap_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_structures
  * \{
  */
 
@@ -1812,6 +1999,7 @@ typedef struct _GA_LTV_CCID_LIST
 /** \} */
 /** \} */
 
+/** \} */
 /** \} */
 
 #endif /* _H_GA_ASSIGNED_NUMBERS_ */

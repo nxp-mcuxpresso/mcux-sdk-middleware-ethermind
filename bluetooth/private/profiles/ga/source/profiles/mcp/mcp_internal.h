@@ -91,7 +91,7 @@ typedef struct _MCP_CE_MCS_INFO
 
 } MCP_CE_MCS_INFO;
 
-typedef struct _MCP_CE_
+typedef struct _MCP_CE
 {
     /* Device Endpoint */
     GA_ENDPOINT device;
@@ -111,7 +111,7 @@ typedef struct _MCP_CE_
 #endif /* MCP_SUPPORT_OBJECT_TRANSFER */
 } MCP_CE;
 
-typedef struct _MCP_CE_MCS_
+typedef struct _MCP_CE_MCS
 {
     /* MCC generated Context ID for GMCS - Provides reference to GMCS device */
     MCP_HANDLE gmcs_handle;
@@ -124,7 +124,7 @@ typedef UINT8 MCP_CE_SVC_TYPE;
 #endif /* MCP_CLIENT */
 
 #ifdef MCP_SERVER
-typedef struct _MCP_MCS_ENTITY_
+typedef struct _MCP_MCS_ENTITY
 {
     /* Service Instance provided GA Bearer Module during registration */
     GA_BRR_SVC_INST mcs_svc_inst_id;
@@ -192,7 +192,7 @@ typedef struct _MCP_MCS_ENTITY_
         (GA_SERVICE_MCS == (service->uuid))
 
 #define MCP_IS_SVC_OTS(service) \
-        (GA_SERVICE_UUID_OTS == (service->uuid))
+        (GA_SERVICE_OTS == (service->uuid))
 
 #define MCP_IS_SVC_GMCS_OR_MCS(service) \
         ((GA_TRUE == MCP_IS_SVC_GMCS(service)) || (GA_TRUE == MCP_IS_SVC_MCS(service)))

@@ -30,7 +30,7 @@
 
 /* --------------------------------------------- Global Definitions */
 /**
- * \defgroup bt_ga_profiles GA Profiles
+ * \defgroup bt_ga_profiles Profiles
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
  * Generic Audio (GA) Profile module to the Application.
@@ -39,7 +39,7 @@
 /** \} */
 
 /**
- * \defgroup bt_ga_core GA Core
+ * \defgroup bt_ga_core Core
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
  * Generic Audio (GA) Core module to the Application and other upper
@@ -47,18 +47,121 @@
  */
 
 /**
- * \defgroup ga_cap_module GA CAP
+ * \defgroup ga_cap_module CAP
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
  * GA CAP module to the Application.
  */
 
 /**
+ * \defgroup ga_common_module Common
+ * \{
+ * \brief This section describes the interfaces & APIs offered by EtherMind
+ * module, which are common through all profile modules to the Application. \n
+ */
+
+/**
+ * \defgroup ga_common_defines Defines
+ * \{
+ * \brief This section describes the various Defines in EtherMind
+ * GA Layer which are common for all modules.
+ */
+
+/**
+ * \defgroup ga_common_error_code_def Error Code Definitions
+ * \{
+ * \brief This sections describes all the Error ID for GA Layer and
+ * Common Error Codes exposed and used by the EtherMind GA Layer.
+ */
+
+/**
+ * \defgroup ga_common_error_group Error Grouping
+ * \{
+ * \brief This sections describes various Error Code Groupings exposed by the
+ * EtherMind GA Layer.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_common_error_code Error Codes
+ * \{
+ * \brief This section lists the Common Error Codes that are provided as part
+ * of return of functionalities.
+ */
+
+/** \} */
+
+/** \} */
+
+/**
+ * \defgroup ga_common_constants Constants
+ * \{
+ * \brief This section describes the various Constants in EtherMind
+ * GA Layer which are common for all modules.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_common_structures Structures
+ * \{
+ * \brief This section lists the various data structures and typedefs for use
+ * by all modules.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_common_macros Utility Macros
+ * \{
+ * \brief This section describes Initialization and other Utility Macros
+ * offered by GA.
+ */
+
+/** \} */
+/** \} */
+
+/**
+ * \defgroup ga_common_api_defs API Definitions
+ * \{
+ * \brief This section describes the Generic Audio APIs.
+ * This section describes the Common APIs.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_common_cb Application Callback
+ * \{
+ * \brief This Section Describes the module Common Notification Callback
+ * interface offered to the application.
+ */
+
+/** \} */
+
+/** \} */
+
+/**
+ * \defgroup ga_cas_module Common Audio Service (CAS)
+ * \{
+ * \brief This section describes the interfaces & APIs offered by the EtherMind
+ * Common Audio Service(CAS) module to the Application. \n
+ * Common Audio Service shall be instantiated as a Primary Service and may be
+ * included by other services. \n
+ * If the device implementing CAS is a member of a Coordinated Set, the CAS
+ * instance shall include the CSIS instance that identifies the Coordinated Set
+ * as an included service.
+ */
+
+/** \} */
+
+/**
  * \defgroup ga_csip_module Coordinated Set Identification Profile (CSIP)
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
  * Coordinated Set Identification Profile(CSIP) module to the CAP
- * layers of the stack.
+ * layers of the stack. \n
  * Coordinated Set Identification Service shall be instantiated as a Primary
  * Service.
  */
@@ -69,11 +172,11 @@
  * \defgroup ga_micp_module Microphone Control Profile (MICP)
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
- * Microphone Control Profile (MICP) module to the CAP layer of the stack.
+ * Microphone Control Profile (MICP) module to the CAP layer of the stack. \n
  * Microphone Control Profile Service shall be instantiated as Primary
- * Service.
+ * Service. \n
  * The Audio Input Control Service shall only be instantiated as an
- * included service.
+ * included service. \n
  * Microphone Control Profile includes Audio Input Control Service.
  */
 
@@ -83,12 +186,12 @@
  * \defgroup ga_vcp_module Volume Control Profile (VCP)
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
- * Volume Control Profile (VCP) module to the CAP layer of the stack.
- * Volume Control Service is a Primary Service.
+ * Volume Control Profile (VCP) module to the CAP layer of the stack. \n
+ * Volume Control Service is a Primary Service. \n
  * Volume Offset Control Service shall only be instantiated as an included
- * service.
+ * service. \n
  * Audio Input Control Service shall only be instantiated as an included
- * service.
+ * service. \n
  * Volume Control Service includes Volume Offset Control Service and
  * Audio Input Control Service.
  */
@@ -99,30 +202,170 @@
  * \defgroup ga_bap_module Basic Audio Profile (BAP)
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
- * Basic Audio Profile (BAP) module to the CAP layer of the stack.
- * Published Audio Capabilities Service (PACS) is a Primary Service.
+ * Basic Audio Profile (BAP) Unicast and Broadcast module to the
+ * CAP layer of the stack.
+ * BAP roles used for unicast audio: Unicast Server and
+ * Unicast Client. \n
+ * BAP roles used for broadcast audio: Broadcast Source,
+ * Broadcast Sink, Broadcast Assistant (BA), and Scan Delegator (SD).
+ */
+
+/**
+ * \defgroup ga_bap_uc_module Unicast (UC)
+ * \{
+ * \brief This section describes the interfaces & APIs offered by the EtherMind
+ * Basic Audio Profile (BAP) Unicast module to the CAP layer of the stack. \n
+ * Published Audio Capabilities Service (PACS) is a Primary Service. \n
  * Audio Stream Control Service (ASCS) is a Primary Service.
- * Broadcast Audio Scan Service (BASS) is a Primary Service.
+ */
+
+/**
+ * \defgroup ga_bap_uc_defines Defines
+ * \{
+ * \brief This section describes the BAP Unicast Defines
+ * (PACS and ASCS).
  */
 
 /** \} */
 
 /**
- * \defgroup ga_cap_defines Defines
+ * \defgroup ga_bap_uc_api_defs API Definitions
+ * \{
+ * \brief This section describes the BAP Unicast API Definitions
+ * (PACS and ASCS).
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_bap_uc_api_sequences API Sequences
+ * \{
+ * \brief This section describes the BAP Unicast API Sequences(PACS and ASCS).
+ */
+
+/** \} */
+
+/** \} */
+
+/**
+ * \defgroup ga_bap_bc_module Broadcast (BC)
+ * \{
+ * \brief This section describes the interfaces & APIs offered by the EtherMind
+ * Basic Audio Profile (BAP) Broadcast module to the CAP layer of the stack. \n
+ * Broadcast Audio Scan Service (BASS) is a Primary Service used by Broadcast.
+ */
+
+/**
+ * \defgroup ga_bap_bc_defines Defines
+ * \{
+ * \brief This section describes the BAP Broadcast Defines.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_bap_bc_api_defs API Definitions
+ * \{
+ * \brief This section describes the BAP Broadcast API Definitions.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_bap_bc_cb Application Callback
+ * \{
+ * \brief This section describes the BAP Broadcast Application Callback.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_bap_bc_api_sequences API Sequences
+ * \{
+ * \brief This section describes the BAP Broadcast API Sequences
+ * (Broadcast Source, Broadcast Sink, Broadcast Assistant, Scan Delegator).
+ */
+
+/** \} */
+
+/** \} */
+
+/**
+ * \defgroup ga_bap_common_module Common
+ * \{
+ * \brief This section describes the interfaces & APIs offered by the EtherMind
+ * Basic Audio Profile (BAP) Common module to the CAP layer of the stack.
+ */
+
+/**
+ * \defgroup ga_bap_common_defines Defines
+ * \{
+ * \brief This section describes the common BAP Unicast and Broadcast Defines.
+ */
+
+/**
+ * \defgroup ga_bap_common_error_code Error Codes
+ * \{
+ * \brief This section lists the Error Codes that are provided as part of
+ * return of functionalities of BAP \ref ga_bap_uc_api_defs and
+ * \ref ga_bap_bc_api_defs.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_bap_common_constants Constants
+ * \{
+ * \brief This section describes the common BAP Unicast and Broadcast
+ * Constants.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_bap_common_structures Structures
+ * \{
+ * \brief This section lists the various data structures and typedefs for use
+ * by Unicast and Broadcast.
+ */
+
+/** \} */
+
+/** \} */
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_cas_module
+ * \{
+ */
+
+/**
+ * \defgroup ga_cas_defines Defines
  * \{
  * \brief This section describes the various Defines in EtherMind
  * GA CAP Layer.
  */
 
 /**
- * \defgroup ga_cap_constants Constants
+ * \defgroup ga_cas_error_code Error Codes
+ * \{
+ * \brief This section lists the Error Codes that are provided as part of
+ * return of functionalities of CAP \ref ga_cas_api_defs.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_cas_constants Constants
  * \{
  * \brief This section describes the various Constants in EtherMind
  * GA CAP Layer.
  */
 
 /**
- * \name GA Core Modules
+ * \name Core Modules
  * \{
  * \brief Identify BAP, VCP, MICP, CSIP
  */
@@ -139,7 +382,7 @@
 /** \} */
 
 /**
- * \name GA CAP Roles
+ * \name CAP Roles
  * \{
  * \brief Bitmasks Type : Initiator, Acceptor, Commander
  */
@@ -154,33 +397,38 @@
 /** \} */
 
 /**
- * \name GA CAP Announcement Type
+ * \name CAP Announcement Type
  * \{
  * \brief Type : Size(Octets): 1
  */
 
 /** CAP Announcement Type - General */
-#define CAS_GENERAL_ANNOUNCEMENT    0x00U
+#define CAS_GENERAL_ANNOUNCEMENT   0x00U
 /** CAP Announcement Type - Targeted */
-#define CAS_TARGETED_ANNOUNCEMENT   0x01U
+#define CAS_TARGETED_ANNOUNCEMENT  0x01U
 
 /** \} */
 
 /**
-* \name GA CAP Set Operations
-* \{
-* \brief Type : Size(Octets): 1
-*/
+ * \name CAP Set Operations
+ * \{
+ * \brief Type : Size(Octets): 1
+ */
 
+/** CAP Set Operation: Invalid */
 #define CAP_SETOP_INVALID           0x00U
+/** CAP Set Operation: Lock Release */
 #define CAP_SETOP_LOCKRELEASE       0x01U
+/** CAP Set Operation: Lock Request */
 #define CAP_SETOP_LOCKREQUEST       0x02U
+/** CAP Set Operation: Ordered Access */
 #define CAP_SETOP_ORDEREDACCESS     0x03U
 
 /** \} */
 
 /** \} */
 
+/** \} */
 /** \} */
 
 /**
@@ -189,21 +437,31 @@
  */
 
 /**
- * \defgroup ga_bap_defines Defines
+ * \addtogroup ga_bap_uc_module
  * \{
- * \brief This section describes the various Defines in EtherMind
- * GA BAP Layer.
  */
 
 /**
- * \defgroup ga_bap_constants Constants
+ * \addtogroup ga_bap_uc_defines
  * \{
- * \brief This section describes the various Constants in EtherMind
- * GA BAP Layer.
  */
 
 /**
- * \name GA Audio Role
+ * \defgroup ga_bap_uc_common_def UC - Common
+ * \{
+ * \brief This section describes the various Common Defines in EtherMind
+ * GA BAP Layer for UC Client and Server.
+ */
+
+/**
+ * \defgroup ga_bap_uc_common_constants Constants
+ * \{
+ * \brief This section describes the various Common Constants in EtherMind
+ * GA BAP Layer for UC Client and Server.
+ */
+
+/**
+ * \name Audio Role
  * \{
  * \brief Type : Size(Octets): 1
  */
@@ -214,9 +472,25 @@
 #define GA_ROLE_SOURCE              BAP_ROLE_SOURCE
 
 /** \} */
+/** \} */
+/** \} */
 
 /**
- * \name GA BAP Announcement Type
+ * \defgroup ga_bap_uc_client_server_ascs_def UC Client & Server - ASCS
+ * \{
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for UC Client and Server - ASCS.
+ */
+
+/**
+ * \defgroup ga_bap_uc_client_server_ascs_constants Constants
+ * \{
+ * \brief This section describes the various Constants in EtherMind
+ * GA BAP Layer for UC Client and Server - ASCS.
+ */
+
+/**
+ * \name BAP Announcement Type
  * \{
  * \brief Type : Size(Octets): 1
  */
@@ -227,9 +501,25 @@
 #define BAP_ASCS_TARGETED_ANNOUNCEMENT  0x01U
 
 /** \} */
+/** \} */
+/** \} */
 
 /**
- * \name GA Capabilities Type
+ * \defgroup ga_bap_uc_client_server_pacs_def UC Client & Server - PACS
+ * \{
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for UC Client and Server - PACS.
+ */
+
+/**
+ * \defgroup ga_bap_uc_client_server_pacs_constants Constants
+ * \{
+ * \brief This section describes the various Constants in EtherMind
+ * GA BAP Layer for UC Client and Server - PACS.
+ */
+
+/**
+ * \name Capabilities Type
  * \{
  * \brief Type : Size(Octets): 1
  */
@@ -244,13 +534,77 @@
 #define GA_CAP_TYPE_AVAIL_CONTEXTS  0x04U
 
 /** \} */
+/** \} */
+/** \} */
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_bc_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_bc_defines
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_bc_source_sink_common_def BC Source & Sink - Common
+ * \{
+ * \brief This section describes the various Common Defines in EtherMind
+ * GA BAP Layer for BC Source and Sink.
+ */
+
+/**
+ * \defgroup ga_bap_bc_source_sink_common_constants Constants
+ * \{
+ * \brief This section describes the various Common Constants in EtherMind
+ * GA BAP Layer for BC Source and Sink.
+ */
+
+/**
+ * \name Broadcast ID Size
+ * \{
+ */
 
 /** Broadcast_ID Length */
 #define GA_BC_ID_LEN                BAP_BC_ID_LEN
 
+/** \} */
+/** \} */
+/** \} */
+
+/** \} */
+/** \} */
 
 /**
- * \name GA Suspend/Release Reason Type
+ * \addtogroup ga_bap_uc_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_defines
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_uc_server_ascs_def UC Server - ASCS
+ * \{
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for Unicast Server - ASCS.
+ */
+
+/**
+ * \defgroup ga_bap_uc_server_ascs_constants Constants
+ * \{
+ * \brief This section describes the various Constants in EtherMind
+ * GA BAP Layer for Unicast Server - ASCS.
+ */
+
+/**
+ * \name Suspend/Release Reason Type
  * \{
  * \brief Type : Size(Octets): 1
  */
@@ -259,57 +613,62 @@
 
 /** ASE Suspend/Release reason used during Autonomous Proc(Server) - CIS Loss */
 #define GA_ASE_SUSPEND_RELEASE_REASON_CIS_LOSS 0x01
-/** \} */
 
 /** \} */
-
+/** \} */
+/** \} */
 
 /**
- * \defgroup ga_bap_api_evt_defs Events
+ * \defgroup ga_bap_uc_client_pacs_def UC Client - PACS
  * \{
- * \brief This section describes the Generic Audio Events.
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for Unicast Client - PACS.
  */
 
 /**
- * \defgroup ga_common_evt_defs GA Common Event
+ * \defgroup ga_bap_uc_client_pacs_evt_defs Events
  * \{
- * \brief This section describes the Generic Audio Common
- * Events.
+ * \brief This section describes the Generic Audio Events for
+ * Unicast Client - PACS.
  */
 
 /**
- * This event is notified once the discovery and configuration for
+ * \brief This event is notified once the discovery and configuration for
  * notification is done on the peer for PACS Service. The roles discovered on
- * the remote is notified in the callback \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref gac_cb ).
- *
- * The data is of type \ref ga_bap_constants and the length is 1B.
- * NOTE: If both Source and Sink PAC records are discovered on remote, the
- * data will include both roles ORred in a single event.
+ * the remote is notified in the callback \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
+ * The data is of type \ref ga_bap_uc_common_constants and the length is 1B.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \note If both Source and Sink PAC records are discovered on remote, the
+ *       data will include both roles ORred in a single event.
+ *
+ * \sa ga_bap_uc_common_constants
  */
 #define GA_SETUP_CNF                0x01U
 
 /**
- * This event is notified once the configuration for
+ * \brief This event is notified once the configuration for
  * notification is disabled on the peer for PACS and ASCS Service.
- * The context of the remote device is cleared.
- * Once complete, callback \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref gac_cb ).
- *
+ * The context of the remote device is cleared. \n
+ * Once complete, event is notified in the callback \ref GA_PROFILE_CB
+ * registered during \ref GA_uc_client_init().
  * The data is NULL and the length is 0B.
- * NOTE: If both PACS records and ASCS is discovered on the remote device,
- * the configuration disable and the context clear happens for both.
- * If ASCS is not done, then only PACS is cleared.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \note If both PACS records and ASCS is discovered on the remote device,
+ *       the configuration disable and the context clear happens for both. \n
+ *       If ASCS is not done, then only PACS is cleared.
  */
 #define GA_RELEASE_CNF              0x02U
 
 /**
- * This event is notified once the Capabilities of the peer for the requested
- * role is determined. The parameters shall be as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \brief This event is notified once the Capabilities of the peer for the
+ * requested role is determined. The parameters shall be as below and is
+ * notified via the callback \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
  *
  * PACS - Read request on the PACS char as per role requested is done in a
  * chained manner to determine number of PACS records, record details,
@@ -317,655 +676,687 @@
  * multiple times indicating the capability type with status as
  * \ref GA_CONTINUE and finally with \ref GA_SUCCESS.
  *
- * The data is of type \ref GA_CAP_ENDPOINT.
+ * The data is of type \ref GA_CAP_ENDPOINT. \n
  * Based on the role and the type defined in \ref GA_CAP_ENDPOINT, the data
- * parameters shall vary.
- * Capability Type: \ref ga_bap_constants
- * \ref GA_CAP_TYPE_CODECS :  data: Pointer to data with First byte indicating
- *                                 Number of PACS Records, followed by
- *                                 \ref GA_CODEC_INFO followed by \ref GA_METADATA.
- *                           datalen: Length of above.
- * \ref GA_CAP_TYPE_LOCATIONS : data: Pointer to \ref UINT32,
- *                             Represents Supported Context values as bitmask.
- *                             Refer \ref ga_bap_constants
- *                             datalen: \ref sizeof ( \ref UINT32 )
- * \ref GA_CAP_TYPE_SUPP_CONTEXTS : data: Pointer to \ref UINT16,
- *                                 Represents Supported Context values as bitmask.
- *                                 Refer \ref ga_bap_constants
- *                                 datalen: \ref sizeof ( \ref UINT16 )
- * \ref GA_CAP_TYPE_AVAIL_CONTEXTS : data: Pointer to \ref UINT16,
- *                                  Represents Available Context values as bitmask.
- *                                  Refer \ref ga_bap_constants
- *                                  datalen: \ref sizeof ( \ref UINT16 )
+ * parameters shall vary. \n
+ * Capability Type: \ref ga_bap_uc_client_server_pacs_constants \n
+ *    - \ref GA_CAP_TYPE_CODECS :
+ *         - data: Pointer to data with First byte indicating Number of PACS
+ *                 Records, followed by \ref GA_CODEC_INFO followed by
+ *                 \ref GA_METADATA.
+ *                 Refer \ref ga_bap_common_constants
+ *         - datalen: Length of above.
+ *         .
+ *    - \ref GA_CAP_TYPE_LOCATIONS :
+ *         - data: Pointer to \ref UINT32, \n
+ *                 Represents Supported Context values as bitmask.
+ *                 Refer \ref ga_common_constants
+ *         - datalen: \ref sizeof ( \ref UINT32 )
+ *         .
+ *    - \ref GA_CAP_TYPE_SUPP_CONTEXTS :
+ *         - data: Pointer to \ref UINT16, \n
+ *                 Represents Supported Context values as bitmask.
+ *                 Refer \ref ga_bap_common_constants
+ *         - datalen: \ref sizeof ( \ref UINT16 )
+ *         .
+ *    - \ref GA_CAP_TYPE_AVAIL_CONTEXTS :
+ *         - data: Pointer to \ref UINT16, \n
+ *                 Represents Available Context values as bitmask.
+ *                 Refer \ref ga_bap_common_constants
+ *         - datalen: \ref sizeof ( \ref UINT16 )
+ *         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_GET_CAPABILITIES_CNF     0x03U
 
 /** \} */
+/** \} */
 
 /**
- * \defgroup ga_unicast_client_evt_defs GA Unicast Client Event
+ * \defgroup ga_bap_uc_client_ascs_def UC Client - ASCS
  * \{
- * \brief This section describes the Generic Audio
- * Events for Unicast Client.
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for Unicast Client - ASCS.
  */
 
 /**
- * This event is notified once the discovery of ASCS Service, Char, Desc and
- * configuration of notification is complete along with reading of the
- * ASE Sink and ASE Source Char on the peer.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \defgroup ga_bap_uc_client_ascs_evt_defs Events
+ * \{
+ * \brief This section describes the Generic Audio Events for
+ * Unicast Client - ASCS.
+ */
+
+/**
+ * \brief This event is notified once the discovery of ASCS Service, Char, Desc
+ * and configuration of notification is complete along with reading of the
+ * ASE Sink and ASE Source Char on the peer. \n
+ * A Callback is made to \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
  *
  * The event is notified multiple times indicating the ASEs present on the
  * peer device with role and its ASE along with the status as
  * \ref GA_CONTINUE and finally with \ref GA_SUCCESS.
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be \ref GA_ASE_INFO_IN_IDLE.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
  */
 #define GA_SEP_DISCOVER_CNF         0x04U
 
 /**
- * This event is notified once the response for Config Codec operation is
- * received form the peer. In this event, the server exposed preferred QoS
- * parameters are notified in this format \ref GA_ASE_INFO_IN_CODEC_CONF.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \brief This event is notified once the response for Config Codec operation
+ * is received form the peer. In this event, the server exposed preferred QoS
+ * parameters are notified in this format \ref GA_ASE_INFO_IN_CODEC_CONF. \n
+ * A Callback is made to \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be \ref GA_ASE_INFO_IN_CODEC_CONF.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_uc_client_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_CONFIGURE_CNF        0x05U
 
 /**
- * This event is notified once the response for QoS Config operation is
+ * \brief This event is notified once the response for QoS Config operation is
  * received form the peer. In this event, the server provides the accepted QoS
- * parameters which is notified in this format \ref GA_ASE_INFO_IN_QOS_CONF.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * parameters which is notified in this format \ref GA_ASE_INFO_IN_QOS_CONF. \n
+ * A Callback is made to \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be \ref GA_ASE_INFO_IN_QOS_CONF.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_SETUP_CNF            0x06U
 
 /**
- * This event is notified once the response for Enable operation is
+ * \brief This event is notified once the response for Enable operation is
  * received form the peer. In this event, the server provides the Metadata
  * parameters which is notified in this format
- * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING. \n
+ * A Callback is made to \ref GA_PROFILE_CB registered during\
+ * \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be
  * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_START_CNF            0x07U
 
 /**
- * This event is notified once the response for Disable operation is
+ * \brief This event is notified once the response for Disable operation is
  * received form the peer. In this event, the server provides the Metadata
  * parameters which is notified in this format
- * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING. \n
+ * A Callback is made to \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be
  * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_SUSPEND_CNF          0x08U
 
 /**
- * This event is notified once the response for Update Metadata operation is
- * received form the peer. In this event, the server provides the Metadata
- * parameters which is notified in this format
- * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \brief This event is notified once the response for Update Metadata
+ * operation is received form the peer. In this event, the server provides the
+ * Metadata parameters which is notified in this format
+ * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING. \n
+ * A Callback is made to \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be
  * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_UPDATE_CNF           0x09U
 
 /**
- * This event is notified once the response for Release operation is
- * received form the peer.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \brief This event is notified once the response for Release operation is
+ * received form the peer. \n
+ * A Callback is made to \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be NULL.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
  */
 #define GA_SEP_RELEASE_CNF          0x0AU
 
 /**
- * This event is notified once the response for Receiver Start Ready operation
- * is received form the peer. In this event, the server provides the Metadata
- * parameters which is notified in this format
- * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \brief This event is notified once the response for Receiver Start Ready
+ * operation is received form the peer. In this event, the server provides the
+ * Metadata parameters which is notified in this format
+ * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING. \n
+ * A Callback is made to \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be
  * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
  *
  * \return \ref GA_SUCCESS (always)
  *
- * NOTE: This event is generated post calling \ref GA_sep_receiver_start_ready,
- * when Local Client ASE is a Sink.
+ * \note This event is generated post calling \ref GA_sep_receiver_start_ready,
+ *       when Local Client ASE is a Sink.
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_RX_START_READY_CNF   0x0BU
 
 /**
- * This event is notified once the response for Receiver Start Ready operation
- * is received form the peer. In this event, the server provides the Metadata
- * parameters which is notified in this format
- * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \brief This event is notified once the response for Receiver Start Ready
+ * operation is received form the peer. In this event, the server provides the
+ * Metadata parameters which is notified in this format
+ * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING. \n
+ * A Callback is made to \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be
  * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
  *
  * \return \ref GA_SUCCESS (always)
  *
- * NOTE: This event is generated post calling \ref GA_sep_receiver_stop_ready,
- * when Local Client ASE is a Sink.
+ * \note This event is generated post calling \ref GA_sep_receiver_stop_ready,
+ *       when Local Client ASE is a Sink.
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_RX_STOP_READY_CNF    0x0CU
 
 /** \} */
+/** \} */
 
 /**
- * \defgroup ga_unicast_server_evt_defs GA Unicast Server Event
+ * \addtogroup ga_bap_uc_server_ascs_def
  * \{
- * \brief This section describes the Generic Audio
- * Events for Unicast Server.
  */
 
 /**
- * This event is notified once the Codec Config opcode
+ * \defgroup ga_bap_uc_server_ascs_evt_defs Events
+ * \{
+ * \brief This section describes the Generic Audio Events for
+ * Unicast Server - ASCS.
+ */
+
+/**
+ * \brief This event is notified once the Codec Config opcode
  * is received form the peer. In this event, the client provides the Codec
  * conf parameters which is notified in this format
- * \ref GA_SEP_CONF.
+ * \ref GA_SEP_CONF. \n
  * Internally this event is generated once the ASE CP for Config Codec is
  * received, The Application shall set the response along with the
  * reason for the respective ASE CP. Post this the ASE Sink or ASE Source
- * Notification is done by the Stack.
+ * Notification is done by the Stack. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
  *
- * The data is of type \ref GA_SEP_INFO.
+ * The data is of type \ref GA_SEP_INFO. \n
  * The info inside \ref GA_SEP_INFO shall be \ref GA_SEP_CONF.
  *
- * \return \ref UINT16
- * \ref ga_bap_constants
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_common_constants
+ * \sa ga_bap_uc_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_CONFIGURE_IND        0x11U
 
-
 /**
- * This event is notified once the Codec QoS opcode
+ * \brief This event is notified once the Codec QoS opcode
  * is received form the peer. In this event, the client provides the Codec
  * conf parameters which is notified in this format
- * \ref GA_QOS_CONF.
+ * \ref GA_QOS_CONF. \n
  * Internally this event is generated once the ASE CP for Config QoS is
  * received, The Application shall set the response along with the
  * reason for the respective ASE CP. Post this the ASE Sink or ASE Source
- * Notification is done by the Stack.
+ * Notification is done by the Stack. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
  *
- * The data is of type \ref GA_SEP_INFO.
+ * The data is of type \ref GA_SEP_INFO. \n
  * The info inside \ref GA_SEP_INFO shall be \ref GA_QOS_CONF.
  *
- * \return \ref UINT16
- * \ref ga_bap_constants
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_SETUP_IND            0x12U
 
 /**
- * This event is notified once the Enable opcode
+ * \brief This event is notified once the Enable opcode
  * is received form the peer. In this event, the client provides the
  * Metadata parameters which is notified in this format
- * \ref GA_METADATA.
+ * \ref GA_METADATA. \n
  * Internally this event is generated once the ASE CP for Enable is
  * received, The Application shall set the response along with the
  * reason for the respective ASE CP. Post this the ASE Sink or ASE Source
- * Notification is done by the Stack.
+ * Notification is done by the Stack. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
  *
- * The data is of type \ref GA_SEP_INFO.
+ * The data is of type \ref GA_SEP_INFO. \n
  * The info inside \ref GA_SEP_INFO shall be \ref GA_METADATA.
  *
- * \return \ref UINT16
- * \ref ga_bap_constants
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_START_IND            0x13U
 
 /**
- * This event is notified once the Disable opcode
- * is received form the peer.
+ * \brief This event is notified once the Disable opcode
+ * is received form the peer. \n
  * Internally this event is generated once the ASE CP for Disable is
  * received, The Application shall set the response along with the
  * reason for the respective ASE CP. Post this the ASE Sink or ASE Source
- * Notification is done by the Stack.
+ * Notification is done by the Stack. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
  *
- * The data is of type \ref GA_SEP_INFO.
+ * The data is of type \ref GA_SEP_INFO. \n
  * The info inside \ref GA_SEP_INFO shall be NULL.
  *
- * \return \ref UINT16
- * \ref ga_bap_constants
+ * \return \ref GA_SUCCESS (always)
  */
 #define GA_SEP_SUSPEND_IND          0x14U
 
 /**
- * This event is notified once the Update opcode
+ * \brief This event is notified once the Update opcode
  * is received form the peer. In this event, the client provides the
  * Metadata parameters which is notified in this format
- * \ref GA_METADATA.
+ * \ref GA_METADATA. \n
  * Internally this event is generated once the ASE CP for Update is
  * received, The Application shall set the response along with the
  * reason for the respective ASE CP. Post this the ASE Sink or ASE Source
- * Notification is done by the Stack.
+ * Notification is done by the Stack. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
  *
- * The data is of type \ref GA_SEP_INFO.
+ * The data is of type \ref GA_SEP_INFO. \n
  * The info inside \ref GA_SEP_INFO shall be \ref GA_METADATA.
  *
- * \return \ref UINT16
- * \ref ga_bap_constants
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_UPDATE_IND           0x15U
 
 /**
- * This event is notified once the Release opcode
- * is received form the peer.
+ * \brief This event is notified once the Release opcode
+ * is received form the peer. \n
  * Internally this event is generated once the ASE CP for Release is
  * received, The Application shall set the response along with the
  * reason for the respective ASE CP. Post this the ASE Sink or ASE Source
- * Notification is done by the Stack.
+ * Notification is done by the Stack. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
  *
- * The data is of type \ref GA_SEP_INFO.
+ * The data is of type \ref GA_SEP_INFO. \n
  * The info inside \ref GA_SEP_INFO shall be NULL.
  *
- * \return \ref UINT16
- * \ref ga_bap_constants
+ * \return \ref GA_SUCCESS (always)
  */
 #define GA_SEP_RELEASE_IND          0x16U
 
 /**
- * This event is notified once the Receiver Start Ready opcode
- * is received form the peer Sink ASE.
+ * \brief This event is notified once the Receiver Start Ready opcode
+ * is received form the peer Sink ASE. \n
  * Internally this event is generated once the ASE CP for Release is
  * received, The Application shall set the response along with the
  * reason for the respective ASE CP. Post this the ASE Sink or ASE Source
- * Notification is done by the Stack.
+ * Notification is done by the Stack. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
  *
- * The data is of type \ref GA_SEP_INFO.
+ * The data is of type \ref GA_SEP_INFO. \n
  * The info inside \ref GA_SEP_INFO shall be NULL.
  *
- * \return \ref UINT16
- * \ref ga_bap_constants
+ * \return \ref GA_SUCCESS (always)
  */
 #define GA_SEP_RX_START_READY_IND   0x17U
 
 /**
- * This event is notified once the Receiver Stop Ready opcode
- * is received form the peer Sink ASE.
+ * \brief This event is notified once the Receiver Stop Ready opcode
+ * is received form the peer Sink ASE. \n
  * Internally this event is generated once the ASE CP for Release is
  * received, The Application shall set the response along with the
  * reason for the respective ASE CP. Post this the ASE Sink or ASE Source
- * Notification is done by the Stack.
+ * Notification is done by the Stack. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
  *
- * The data is of type \ref GA_SEP_INFO.
+ * The data is of type \ref GA_SEP_INFO. \n
  * The info inside \ref GA_SEP_INFO shall be NULL.
  *
- * \return \ref UINT16
- * \ref ga_bap_constants
+ * \return \ref GA_SUCCESS (always)
  */
 #define GA_SEP_RX_STOP_READY_IND    0x18U
 
-/**
- * This event is notified when the Client has triggered a write on the Sink Audio
- * Locations.
- * Internally this event is generated once the basic validation of the param is
- * complete and is accepted.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
- *
- * The data is of type \ref UINT32.
- *
- * \return \ref UINT16
- */
-#define GA_SINK_SET_AUDIO_LOCATIONS_IND        0x27U
-
-/**
- * This event is notified when the Client has triggered a write on the Source Audio
- * Locations.
- * Internally this event is generated once the basic validation of the param is
- * complete and is accepted.
- * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gas_cb ).
- *
- * The data is of type \ref UINT32.
- *
- * \return \ref UINT16
- */
-#define GA_SOURCE_SET_AUDIO_LOCATIONS_IND      0x28U
-
+/** \} */
 /** \} */
 
 /**
- * \addtogroup ga_unicast_client_evt_defs
+ * \addtogroup ga_bap_uc_client_ascs_def
  * \{
  */
 
 /**
- * This event is notified when there is a Autonomous Config Codec Operation
- * initiated by the Server. In this event, the server exposed preferred QoS
- * parameters are notified in this format \ref GA_ASE_INFO_IN_CODEC_CONF.
- * Also, this event shall get generated when Released Operation is performed
- * by the Server, also when the Server has Caching Support.
+ * \addtogroup ga_bap_uc_client_ascs_evt_defs
+ * \{
+ */
+
+/**
+ * \brief This event is notified when there is a Autonomous Config Codec
+ * Operation initiated by the Server. \n
+ * In this event, the server exposed preferred QoS parameters are notified in
+ * this format \ref GA_ASE_INFO_IN_CODEC_CONF. Also, this event shall get
+ * generated when Released Operation is performed by the Server, also when the
+ * Server has Caching Support. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The info inside \ref GA_ASE_INFO shall be \ref GA_ASE_INFO_IN_CODEC_CONF.
  *
  * \return \ref GA_SUCCESS (always)
- * \ref ga_bap_constants
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_uc_client_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_CONFIGURE_NTF        0x19U
 
 /**
- * This event is notified when there is a Autonomous Disable Operation
- * initiated by the Server on a Sink ASE(Server Local Role).
+ * \brief This event is notified when there is a Autonomous Disable Operation
+ * initiated by the Server on a Sink ASE(Server Local Role). \n
  * In this event, the server provides the accepted QoS parameters which
  * is notified in this format \ref GA_ASE_INFO_IN_QOS_CONF for this active
- * ASE establishment.
+ * ASE establishment. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The info inside \ref GA_ASE_INFO shall be \ref GA_ASE_INFO_IN_QOS_CONF.
  *
  * \return \ref GA_SUCCESS (always)
- * \ref ga_bap_constants
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_SETUP_NTF            0x20U
 
 /**
- * This event is notified when there is a Autonomous Disable Operation
- * initiated by the Server on a Source ASE(Server Local Role).
+ * \brief This event is notified when there is a Autonomous Disable Operation
+ * initiated by the Server on a Source ASE(Server Local Role). \n
  * In this event, the server provides the the Metadata
  * parameters which is notified in this format
- * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
+ * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The info inside \ref GA_ASE_INFO shall be
  * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_SUSPEND_NTF          0x21U
 
 /**
- * This event is notified when there is a Autonomous Update Metadata Operation
- * initiated by the Server.
+ * \brief This event is notified when there is a Autonomous Update Metadata
+ * Operation initiated by the Server. \n
  * In this event, the server provides the the Metadata
  * parameters which is notified in this format
- * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
+ * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The info inside \ref GA_ASE_INFO shall be
  * \ref GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_UPDATE_NTF           0x22U
 
 /**
- * This event is notified when there is a Autonomous Release Operation
- * initiated by the Server.
+ * \brief This event is notified when there is a Autonomous Release Operation
+ * initiated by the Server. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The info inside \ref GA_ASE_INFO shall be NULL.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
  */
 #define GA_SEP_RELEASE_NTF          0x23U
 
 /**
- * This event is notified when there is a Autonomous Receiver Start Ready
- * Operation initiated by the Server for a Sink ASE(Server Local Role).
+ * \brief This event is notified when there is a Autonomous
+ * Receiver Start Ready Operation initiated by the Server for a Sink ASE
+ * (Server Local Role). \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_client_init().
  *
- * The data is of type \ref GA_ASE_INFO.
+ * The data is of type \ref GA_ASE_INFO. \n
  * The data inside \ref GA_ASE_INFO shall be NULL.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
+ * \sa ga_bap_common_constants
  */
 #define GA_SEP_RX_START_READY_NTF   0x24U
 
 /**
- * This event is notified when there is a Released Operation initiated by the
- * Server. This is generated when the Server moves from Releasing, also when
- * the Server has No Caching Support.
+ * \brief This event is notified when there is a Released Operation initiated
+ * by the Server. This is generated when the Server moves from Releasing,
+ * also when the Server has No Caching Support. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref gac_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_client_init().
  *
  * The data is of type \ref GA_ASE_INFO.
  * The info inside \ref GA_ASE_INFO shall be NULL.
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_bap_uc_client_server_ascs_constants
  */
 #define GA_SEP_IDLE_NTF             0x25U
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_uc_client_pacs_def
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_client_pacs_evt_defs
+ * \{
+ */
 
 /* TODO: Comment */
 #define GA_CAPABILITIES_CHANGE_NTF  0x26U
 
 /** \} */
+/** \} */
 
 /**
- * This event is notified as result of a CAP discovery procedure
- * that is initiated by the application to discover CAS and its included
- * services if any. The event passes the parameters as below to
- * the application callback as in \ref GA_PROFILE_CB registerd with
- * \ref GA_register_callback.
- *
- * \param [in] ga_ep      Endpoint Address
- * \param [in] ga_event   \ref GA_CAP_DISCOVER_CNF
- * \param [in] ga_status  \ref GA_SUCCESS CAS Service found
- *                        \ref GA_CONTINUE when CAS is found
- *                        with Included Service Information or
- *                        ErrorCode if CAS Not found
- * \param [in] ga_data    \ref GA_BRR_SVC_INFO if status is
- *                        \ref GA_CONTINUE. NULL otherwise.
- * \param [in] ga_datalen \ref sizeof ( \ref GA_BRR_SVC_INFO) if status is
- *                        \ref GA_CONTINUE. 0 otherwise.
- *
- * \return \ref GA_SUCCESS (always)
- */
-#define GA_CAP_DISCOVER_CNF         0x30U
-
-/**
- * This event is notified when the application does a CAP Setup member
- * operation to setup and configure the CSIS member instance of the
- * peer CAS service. The event passes the parameters as below to
- * the application callback as in \ref GA_PROFILE_CB registerd with
- * \ref GA_register_callback.
- *
- * \param [in] ga_ep      Endpoint Address
- * \param [in] ga_event   \ref GA_CAP_SETUP_MEMBER_CNF
- * \param [in] ga_status  \ref GA_SUCCESS or any Error Code
- * \param [in] ga_data    If status is \ref GA_SUCCESS \n
- *                           - ga_data - Pointer to object of type \ref GA_SET_MEMBER \n
- *                           .
- *                        Else \n
- *                           - ga_data - NULL \n
- *                           .
- * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
- *                           - ga_datalen - \ref sizeof ( \ref GA_SET_MEMBER) \n
- *                           .
-                          Else \n
-                           - ga_datalen - 0 \n
-                           .
- * \return \ref GA_SUCCESS (always)
- */
-#define GA_CAP_SETUP_MEMBER_CNF     0x31U
-
-/**
- * This event is notified when the application does a CAP Release member
- * operation to release the CSIS member instance of the
- * peer CAS service. The event passes the parameters as below to
- * the application callback as in \ref GA_PROFILE_CB registerd with
- * \ref GA_register_callback.
- *
- * \param [in] ga_ep      Endpoint Address
- * \param [in] ga_event   \ref GA_CAP_RELEASE_MEMBER_CNF
- * \param [in] ga_status  \ref GA_SUCCESS or any Error Code
- * \param [in] ga_data    If status is \ref GA_SUCCESS,
- *                         - ga_data - Pointer to object of type \ref GA_CAS_CSIP_EVENT_INFO \n
-                             - data - NULL \n
-                             - datalen - 0 \n
-                             - context - \ref GA_CONTEXT
-                             .
-                           .
- *                        Else \n
-                           - ga_data - NULL \n
-                           .
- * \param [in] ga_datalen If status is \ref GA_SUCCESS, \ref GA_SET_MEMBER
-                           - ga_datalen - sizeof(\ref GA_SET_MEMBER) \n
-                           .
-                          Else \n
-                           - ga_datalen - 0 \n
-                           .
-
- *
- * \return \ref GA_SUCCESS (always)
- */
-#define GA_CAP_RELEASE_MEMBER_CNF   0x32U
-
-/**
- * This event is notified when the application does a CAP lock member
- * operation to lock the CSIS member instance of the
- * peer CAS service. The event passes the parameters as below to
- * the application callback as in \ref GA_PROFILE_CB registerd with
- * \ref GA_register_callback.
- *
- * \param [in] ga_ep      Endpoint Address
- * \param [in] ga_event   \ref GA_CAP_LOCK_MEMBER_CNF
- * \param [in] ga_status  \ref GA_SUCCESS or any Error Code
- * \param [in] ga_data    NULL
- * \param [in] ga_datalen 0
- *
- * \return \ref GA_SUCCESS (always)
- */
-#define GA_CAP_LOCK_MEMBER_CNF      0x33U
-
-/**
- * This event is notified a peer Set Coordinator Sets the Lock
- * Characteristic on the local CAS CSIS member.
- * The event passes the parameters as below to
- * the application callback as in \ref GA_PROFILE_CB registerd with
- * \ref GA_register_callback.
- *
- * \param [in] ga_ep      Endpoint Address
- * \param [in] ga_event   \ref GA_CAP_LOCK_MEMBER_IND
- * \param [in] ga_status  \ref GA_SUCCESS
- * \param [in] ga_data    Pointer to the value of Lock State
- * \param [in] ga_datalen 1
- *
- * \return \ref GA_SUCCESS (always)
- *
- * \note This is only informational to the application. The application
- * need not send any response.
- */
-#define GA_CAP_LOCK_MEMBER_IND      0x34U
-
-/**
- * This event is notified on completion of a Lock request procedure
- * initiated by the application. The event passes the parameters as below to
- * the application callback as in \ref GA_PROFILE_CB registerd with
- * \ref GA_register_callback.
- *
- * \param [in] ga_ep      Endpoint Address
- * \param [in] ga_event   \ref GA_CAP_SET_LOCKREQUEST_CNF
- * \param [in] ga_status  \ref GA_SUCCESS or Error Code
- * \param [in] ga_data    NULL
- * \param [in] ga_datalen 0
- *
- * \return \ref GA_SUCCESS (always)
- */
-#define GA_CAP_SET_LOCKREQUEST_CNF  0x35U
-
-/**
- * This event is notified on completion of a Lock release procedure
- * initiated by the application. The event passes the parameters as below to
- * the application callback as in \ref GA_PROFILE_CB registerd with
- * \ref GA_register_callback.
- *
- * \param [in] ga_ep      Endpoint Address
- * \param [in] ga_event   \ref GA_CAP_SET_LOCKRELEASE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS or Error Code
- * \param [in] ga_data    NULL
- * \param [in] ga_datalen 0
- *
- * \return \ref GA_SUCCESS (always)
- */
-#define GA_CAP_SET_LOCKRELEASE_CNF  0x36U
-
-/**
- * \defgroup ga_bc_src_evt_defs GA Broadcast Source Events
+ * \defgroup ga_bap_uc_server_pacs_def UC Server - PACS
  * \{
- * \brief This section describes the Generic Audio
- * Events for Broadcast Source.
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for Unicast Server - PACS.
  */
 
 /**
- * This event is notified when the EA for Broadcast Audio Announcement
- * and PA for Basic Audio Announcement is enabled successfully/failed.
+ * \defgroup ga_bap_uc_server_pacs_evt_defs Events
+ * \{
+ * \brief This section describes the Generic Audio Events for
+ * Unicast Server - PACS.
+ */
+
+/**
+ * \brief This event is notified when the Client has triggered a write on the
+ * Sink Audio Locations. \n
+ * Internally this event is generated once the basic validation of the param is
+ * complete and is accepted. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsrc_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
+ *
+ * The data is of type \ref UINT32.
+ *
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_common_constants
+ */
+#define GA_SINK_SET_AUDIO_LOCATIONS_IND        0x27U
+
+/**
+ * \brief This event is notified when the Client has triggered a write on the
+ * Source Audio Locations. \n
+ * Internally this event is generated once the basic validation of the param is
+ * complete and is accepted. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_uc_server_init().
+ *
+ * The data is of type \ref UINT32.
+ *
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_common_constants
+ */
+#define GA_SOURCE_SET_AUDIO_LOCATIONS_IND      0x28U
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_uc_client_pacs_def
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_client_pacs_evt_defs
+ * \{
+ */
+
+/**
+ * \brief This event is notified when a write response is received for Sink
+ * Audio Location characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
+ *
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_SINK_SET_AUDIO_LOCATIONS_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Write Response received \n
+ * \param [in] ga_data NULL \n
+ * \param [in] ga_datalen 0
+ *
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_common_constants
+ */
+#define GA_SINK_SET_AUDIO_LOCATIONS_CNF        0x29U
+
+/**
+ * \brief This event is notified when a write response is received for Source
+ * Audio Location characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_uc_client_init().
+ *
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_SOURCE_SET_AUDIO_LOCATIONS_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Write Response received \n
+ * \param [in] ga_data NULL \n
+ * \param [in] ga_datalen 0
+ *
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \sa ga_common_constants
+ */
+#define GA_SOURCE_SET_AUDIO_LOCATIONS_CNF      0x30U
+
+/** \} */
+/** \} */
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_bc_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_bc_defines
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_bc_source_def BC Source
+ * \{
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for Broadcast Source.
+ */
+
+/**
+ * \defgroup ga_bap_bc_source_evt_defs Events
+ * \{
+ * \brief This section describes the Generic Audio Events for
+ * Broadcast Source.
+ */
+
+/**
+ * \brief This event is notified when the EA for Broadcast Audio Announcement
+ * and PA for Basic Audio Announcement is enabled successfully/failed. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_source_init().
  *
  * The data is NULL and length is 0U.
  *
@@ -974,10 +1365,10 @@
 #define GA_BC_SETUP_ANNOUNCEMENT_CNF        BAP_BC_SETUP_ANNOUNCEMENT_CNF
 
 /**
- * This event is notified when the EA for Broadcast Audio Announcement
- * and PA for Basic Audio Announcement is disabled successfully/failed.
+ * \brief This event is notified when the EA for Broadcast Audio Announcement
+ * and PA for Basic Audio Announcement is disabled successfully/failed. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsrc_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_source_init().
  *
  * The data is NULL and length is 0U.
  *
@@ -986,9 +1377,10 @@
 #define GA_BC_END_ANNOUNCEMENT_CNF          BAP_BC_END_ANNOUNCEMENT_CNF
 
 /**
- * This event is notified when the Streaming has started successfully/failed.
+ * \brief This event is notified when the Streaming has started
+ * successfully/failed. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsrc_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_source_init().
  *
  * The data is of type \ref BAP_BC_START_PARAMS.
  *
@@ -997,9 +1389,10 @@
 #define GA_BC_START_CNF                     BAP_BC_START_CNF
 
 /**
- * This event is notified when the Streaming has stopped successfully/failed.
+ * \brief This event is notified when the Streaming has stopped
+ * successfully/failed. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsrc_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_source_init().
  *
  * The data is of type \ref BAP_BC_SUSPEND_PARAMS.
  *
@@ -1008,31 +1401,40 @@
 #define GA_BC_SUSPEND_CNF                   BAP_BC_SUSPEND_CNF
 
 /**
- * This event is notified when the Streaming has stopped without the
+ * \brief This event is notified when the Streaming has stopped without the
  * user triggering a Suspend. This can be caused if the controller
- * terminates the BIG.
+ * terminates the BIG. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsrc_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_source_init().
  *
  * The data is of type \ref BAP_BC_SUSPEND_PARAMS.
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_BC_SUSPEND_IND                   BAP_BC_SUSPEND_IND
+
+/** \} */
 /** \} */
 
 /**
- * \defgroup ga_bc_snk_evt_defs GA Broadcast Sink Events
+ * \defgroup ga_bap_bc_sink_def BC Sink
  * \{
- * \brief This section describes the Generic Audio
- * Events for Broadcast Sink.
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for Broadcast Sink.
  */
 
 /**
- * This event is notified when the device started succesfully/failed the scan
- * for Broadcast Audio Annoucements on EA from other devices.
+ * \defgroup ga_bap_bc_sink_evt_defs Events
+ * \{
+ * \brief This section describes the Generic Audio Events for
+ * Broadcast Sink.
+ */
+
+/**
+ * \brief This event is notified when the device started succesfully/failed
+ * the scan for Broadcast Audio Annoucements on EA from other devices. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is NULL and length is 0U.
  *
@@ -1041,10 +1443,10 @@
 #define GA_BC_SCAN_ANNOUNCEMENT_CNF         BAP_BC_SCAN_ANNOUNCEMENT_CNF
 
 /**
- * This event is notified when the device stopped succesfully/failed the scan
- * for Broadcast Audio Annoucements on EA from other devices.
+ * \brief This event is notified when the device stopped succesfully/failed
+ * the scan for Broadcast Audio Annoucements on EA from other devices. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is NULL and length is 0U.
  *
@@ -1053,126 +1455,401 @@
 #define GA_BC_SCAN_END_CNF                  BAP_BC_SCAN_END_CNF
 
 /**
- * This event is notified when the device creates/fail to create Sync to the
- * Broadcast Source identified during Broadcast Audio Annoucement Scan EA.
+ * \brief This event is notified when the device creates/fail to create Sync
+ * to the Broadcast Source identified during
+ * Broadcast Audio Announcement Scan EA. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is of type \ref BAP_BC_ASSOCIATE_PARAMS.
- * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
  */
 #define GA_BC_ASSOCIATE_CNF                 BAP_BC_ASSOCIATE_CNF
 
 /**
- * This event is notified when the device stops/fails to stop Sync to the
- * Broadcast Source identified during Broadcast Audio Annoucement Scan EA.
+ * \brief This event is notified when the device stops/fails to stop Sync to
+ * the Broadcast Source identified during Broadcast Audio Annoucement Scan EA. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is of type \ref BAP_BC_DISSOCIATE_PARAMS.
- * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
  */
 #define GA_BC_DISSOCIATE_CNF                BAP_BC_DISSOCIATE_CNF
 
 /**
- * This event is notified when the device lost Periodic Advertising Sync to the
- * Broadcast Source identified during Broadcast Audio Annoucement Scan EA.
+ * \brief This event is notified when the device lost Periodic Advertising Sync
+ * to the Broadcast Source identified during
+ * Broadcast Audio Annoucement Scan EA. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is of type \ref BAP_BC_DISSOCIATE_PARAMS.
- * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
  */
 #define GA_BC_DISSOCIATE_IND                BAP_BC_DISSOCIATE_IND
 
 /**
- * This event is notified when the device creates/fails to create the Broadcast
- * Sync to the Broadcast Source identified during Broadcast Audio Annoucement
- * Scan EA.
+ * \brief This event is notified when the device creates/fails to create the
+ * Broadcast Sync to the Broadcast Source identified during
+ * Broadcast Audio Annoucement Scan EA. \n
  * Once the Sync to Basic Audio Annoucement PA is complete, and when the
- * the BIG Create Sync is created/failed to create this event is generated.
- *
+ * the BIG Create Sync is created/failed to create this event is generated. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is of type \ref BAP_BC_ENABLE_PARAMS.
- * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
  */
 #define GA_BC_ENABLE_CNF                    BAP_BC_ENABLE_CNF
 
 /**
- * This event is notified when the device terminate/fails to terminate the
- * Broadcast Sync to the Broadcast Source identified during Broadcast Audio
- * Annoucement Scan EA.
+ * \brief This event is notified when the device terminate/fails to terminate
+ * the Broadcast Sync to the Broadcast Source identified during Broadcast Audio
+ * Annoucement Scan EA. \n
  * Once the Sync to Basic Audio Annoucement PA is complete, and when the
  * BIG Create Sync is created and when a successful/failed terminate of the
- * Broadcast Sync happens, this event is generated.
- *
+ * Broadcast Sync happens, this event is generated. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is of type \ref BAP_BC_DISABLE_PARAMS.
- * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
  */
 #define GA_BC_DISABLE_CNF                   BAP_BC_DISABLE_CNF
 
 /**
- * This event is notified when the device lost the Broadcast Sync to the Broadcast
- * Source identified during Broadcast Audio Annoucement Scan EA.
+ * \brief This event is notified when the device lost the Broadcast Sync to the
+ * Broadcast Source identified during Broadcast Audio Annoucement Scan EA. \n
  * Once the Sync to Basic Audio Annoucement PA is complete, and when the
  * BIG Create Sync is created and when a Loss to Broadcast Sync happens,
- * this event is generated.
- *
+ * this event is generated. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is of type \ref BAP_BC_DISABLE_PARAMS.
- * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
  */
 #define GA_BC_DISABLE_IND                   BAP_BC_DISABLE_IND
 
 /**
- * This event is notified when the device is receiving Broadcast Audio
- * Announcement EA from remote devices.
+ * \brief This event is notified when the device is receiving Broadcast Audio
+ * Announcement EA from remote devices. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is of type \ref BAP_BC_SOURCE_ANNOUNCEMENT_PARAMS.
- * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
  */
 #define GA_BC_SOURCE_ANNOUNCEMENT_IND       BAP_BC_SOURCE_ANNOUNCEMENT_IND
 
 /**
- * This event is notified when the device is receiving Basic Audio
- * Announcement PA from remote device.
+ * \brief This event is notified when the device is receiving Basic Audio
+ * Announcement PA from remote device. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is of type \ref BAP_BC_SOURCE_CONFIG_PARAMS.
- * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
  */
 #define GA_BC_SOURCE_CONFIG_IND             BAP_BC_SOURCE_CONFIG_IND
 
 /**
- * This event is notified when the device is receiving BigInfo Event
- * that gets generated post creating successful Broadcast Sync.
+ * \brief This event is notified when the device is receiving BigInfo Event
+ * that gets generated post creating successful Broadcast Sync. \n
  * A Callback is made with the parameters as below and is notified via
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref bcsnk_cb ).
+ * \ref GA_PROFILE_CB registered during \ref GA_bc_sink_init().
  *
  * The data is of type \ref BAP_BC_SOURCE_STREAM_PARAMS.
- * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
+ *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_broadcast_decode_event_params() to fetch the event decoded params.
  */
 #define GA_BC_SOURCE_STREAM_IND             BAP_BC_SOURCE_STREAM_IND
 
+/** \} */
+/** \} */
+
+/** \} */
+/** \} */
+
+/** \} */
+
+/**
+ * \addtogroup ga_cas_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_cas_defines
+ * \{
+ */
+
+/**
+ * \defgroup ga_cas_api_evt_defs Events
+ * \{
+ * \brief This section describes the Common Audio Service Events.
+ */
+
+/**
+ * \defgroup ga_cas_client_evt_defs Client
+ * \{
+ * \brief This section describes the Common Audio Service Events for Client.
+ */
+
+/**
+ * \name CAS Client Events - Setup
+ * \{
+ * \brief This section describes the Common Audio Service Setup
+ * Events for Client.
+ */
+
+/**
+ * \brief This event is notified as result of a CAP discovery procedure
+ * that is initiated by the application to discover CAS and its included
+ * services if any. The event passes the parameters as below to
+ * the application callback as in \ref GA_PROFILE_CB registered with
+ * \ref GA_register_callback().
+ *
+ * \param [in] ga_ep Endpoint Address
+ * \param [in] ga_event \ref GA_CAP_DISCOVER_CNF
+ * \param [in] ga_status If ga_status is \ref GA_CONTINUE : CAS is found\n
+ *                          - If CAS included CSIS is found: \ref GA_CONTINUE. \n
+ *                             - Operation complete: \ref GA_SUCCESS. \n
+ *                             .
+ *                          - Else,
+ *                             - If CAS included CSIS is not found:
+ *                               \ref GA_FAILURE. \n
+ *                             .
+ *                          .
+ *                       If ga_status is \ref GA_FAILURE : CAS service is not
+ *                       found.\n
+ * \param [in] ga_data If status is \ref GA_CONTINUE \n
+ *                        - ga_data: \ref GA_BRR_SVC_INFO.
+ *                        .
+ *                      Else \n
+ *                        - ga_data: NULL.
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_CONTINUE \n
+ *                           - ga_datalen: \ref sizeof ( \ref GA_BRR_SVC_INFO)
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0
+ *                           .
+ *
+ * \return \ref GA_SUCCESS (always)
+ */
+#define GA_CAP_DISCOVER_CNF         0x30U
+
+/**
+ * \brief This event is notified when the application does a CAP Setup member
+ * operation to configure the notification of the CSIS member instance on the
+ * peer. CSIS characteristics are read. The event passes the parameters as
+ * below to the application callback as in \ref GA_PROFILE_CB registered with
+ * \ref GA_register_callback().
+ *
+ * \param [in] ga_ep Endpoint Address
+ * \param [in] ga_event \ref GA_CAP_SETUP_MEMBER_CNF
+ * \param [in] ga_status \ref GA_SUCCESS or any Error Code
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref GA_SET_MEMBER.
+ *                                   Value of SIRK is valid, however values of
+ *                                   other chars is valid only if corresponding
+ *                                   read is successful. \n
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL. \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref GA_SET_MEMBER) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
+ * \return \ref GA_SUCCESS (always)
+ */
+#define GA_CAP_SETUP_MEMBER_CNF     0x31U
+
+/** \} */
+
+/**
+ * \name CAS Client Events - Release
+ * \{
+ * \brief This section describes the Common Audio Service Release
+ * Events for Client.
+ */
+
+/**
+ * \brief This event is notified when the application does a CAP Release member
+ * operation to release the CSIS member instance of the
+ * peer CAS service. The event passes the parameters as below to
+ * the application callback as in \ref GA_PROFILE_CB registered with
+ * \ref GA_register_callback().
+ *
+ * \param [in] ga_ep Endpoint Address
+ * \param [in] ga_event \ref GA_CAP_RELEASE_MEMBER_CNF
+ * \param [in] ga_status \ref GA_SUCCESS or any Error Code
+ * \param [in] ga_data If status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: NULL \n
+ *                           - datalen: 0 \n
+ *                           - handle: GA context for the peer endpoint. \n
+ *                           .
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *
+ * \return \ref GA_SUCCESS (always)
+ */
+#define GA_CAP_RELEASE_MEMBER_CNF   0x32U
+
+/** \} */
+
+/**
+ * \name CAS Client Events - Write
+ * \{
+ * \brief This section describes the Common Audio Service Write
+ * Events for Client.
+ */
+
+/**
+ * \brief This event is notified when the application does a CAP lock member
+ * operation to lock the CSIS member instance on the peer. The event passes the
+ * parameters as below to the application callback as in \ref GA_PROFILE_CB
+ * registered with \ref GA_register_callback().
+ *
+ * \param [in] ga_ep Endpoint Address
+ * \param [in] ga_event \ref GA_CAP_LOCK_MEMBER_CNF
+ * \param [in] ga_status \ref GA_SUCCESS or any Error Code
+ * \param [in] ga_data If status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: NULL \n
+ *                           - datalen: 0 \n
+ *                           - handle: GA context for the peer endpoint. \n
+ *                           .
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *
+ * \return \ref GA_SUCCESS (always)
+ */
+#define GA_CAP_LOCK_MEMBER_CNF      0x33U
+
+/**
+ * \brief This event is notified on completion of a Lock request procedure
+ * initiated by the application for all the Set Members. The event passes the
+ * parameters as below to the application callback as in \ref GA_PROFILE_CB
+ * registered with \ref GA_register_callback().
+ *
+ * \param [in] ga_ep Endpoint Address
+ * \param [in] ga_event \ref GA_CAP_SET_LOCKREQUEST_CNF
+ * \param [in] ga_status \ref GA_SUCCESS or Error Code
+ * \param [in] ga_data NULL
+ * \param [in] ga_datalen 0
+ *
+ * \return \ref GA_SUCCESS (always)
+ */
+#define GA_CAP_SET_LOCKREQUEST_CNF  0x35U
+
+/**
+ * \brief This event is notified on completion of a Lock release procedure
+ * initiated by the application. The event passes the parameters as below to
+ * the application callback as in \ref GA_PROFILE_CB registered with
+ * \ref GA_register_callback().
+ *
+ * \param [in] ga_ep Endpoint Address
+ * \param [in] ga_event \ref GA_CAP_SET_LOCKRELEASE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS or Error Code
+ * \param [in] ga_data NULL
+ * \param [in] ga_datalen 0
+ *
+ * \return \ref GA_SUCCESS (always)
+ */
+#define GA_CAP_SET_LOCKRELEASE_CNF  0x36U
+
+/** \} */
+/** \} */
+
+/**
+ * \defgroup ga_cas_server_evt_defs Server
+ * \{
+ * \brief This section describes the Common Audio Service Events for Server.
+ */
+
+/**
+ * \name CAS Server Events - Write
+ * \{
+ * \brief This section describes the Common Audio Service Write
+ * Events for Server.
+ */
+
+/**
+ * \brief This event is notified when a peer Set Coordinator Sets the Lock
+ * on the local CAS CSIS member. \n
+ * The event passes the parameters as below to
+ * the application callback as in \ref GA_PROFILE_CB registered with
+ * \ref GA_register_callback().
+ *
+ * \param [in] ga_ep Endpoint Address
+ * \param [in] ga_event \ref GA_CAP_LOCK_MEMBER_IND
+ * \param [in] ga_status \ref GA_SUCCESS
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: Pointer to object of type \ref UINT8 depicting
+ *                                    value of Lock \n
+ *                                    \ref ga_csip_set_member_lock \n
+ *                           - datalen: \ref sizeof ( \ref UINT8 ) \n
+ *                           - handle: CSIS Member Handle for CAP.\n
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
+ *
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \note This is only informational to the application. The application
+ * need not send any response.
+ */
+#define GA_CAP_LOCK_MEMBER_IND      0x34U
+
+/** \} */
 /** \} */
 /** \} */
 /** \} */
@@ -1191,43 +1868,61 @@
  */
 
 /**
+ * \defgroup ga_vcp_error_code Error Codes
+ * \{
+ * \brief This section lists the Error Codes that are provided as part of
+ * return of functionalities of VCP \ref ga_vcp_api_defs.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_vcp_constants Constants
+ * \{
+ * \brief This section describes the various Constants in EtherMind
+ * GA VCP Layer.
+ */
+
+/** \} */
+
+/**
  * \defgroup ga_vcp_api_evt_defs Events
  * \{
  * \brief This section describes the Volume Control Events.
  */
 
 /**
- * \defgroup ga_vcp_volcntrl_evt_defs VCP Volume Controller Events
+ * \defgroup ga_vcp_volcntrl_evt_defs Volume Controller
  * \{
  * \brief This section describes the Volume Control Profile
  * Events for Volume Controller.
  */
 
 /**
- * \name VCP Volume Controller APIs-Setup
+ * \name VCP Controller Events - Setup
  * \{
  * \brief This section describes the Volume Control Profile Setup
  * Events for Volume Controller.
  */
 
 /**
- * This event indicates the setup of a VCS Session.
+ * \brief This event indicates the setup of a VCS Session.
  * Callback is triggered once discovery of service, char and descriptors,
- * configuration for Notifications is complete.
- * Callback is triggered with the following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref vcc_cb )
+ * configuration for Notifications is complete. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_SETUP_CNF
- * \param [in] ga_status  \ref GA_SUCCESS Setup Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_data - NULL \n
- *                           .
- * \param [in] ga_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_datalen - 0 \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_SETUP_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Setup Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS or
+ *                     \ref GA_FAILURE, \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS or
+ *                        \ref GA_FAILURE, \n
+ *                           - ga_datalen: 0 \n
  *                           .
  *
  * \return \ref GA_SUCCESS (always)
@@ -1235,47 +1930,45 @@
 #define GA_VC_SETUP_CNF                                 0xA9U
 
 /**
- * This event is notified on discovery of secondary/included services VOCS and
- * AICS with peer device with the following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified on discovery of secondary/included services
+ * VOCS and AICS with peer device with the following values as parameters in
+ * the \ref GA_PROFILE_CB registered during \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_GET_CAPABILITIES_CNF
- * \param [in] ga_status  \ref GA_CONTINUE Service Handle range of discovered
- *                        VOCS(if any) and again for AICS(if any) \n
- *                        \ref GA_SUCCESS Service Discovery Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  If status is \ref GA_CONTINUE \n
- *                         - ga_data - Pointer to object of type
- *                           \ref GA_BRR_SVC_INFO \n
- *                         .
- * \param [in] ga_datalen  If status is \ref GA_CONTINUE \n
- *                            - ga_datalen - Size of \ref GA_BRR_SVC_INFO \n
- *                            .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_GET_CAPABILITIES_CNF
+ * \param [in] ga_status \ref GA_CONTINUE : Service Handle range of discovered
+ *                       VOCS(if any) and again for AICS(if any) \n
+ *                       \ref GA_SUCCESS : Service Discovery Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data If status is \ref GA_CONTINUE \n
+ *                        - ga_data: Pointer to object of type
+ *                          \ref GA_BRR_SVC_INFO \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_CONTINUE \n
+ *                           - ga_datalen: \ref sizeof ( \ref GA_BRR_SVC_INFO ) \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_VC_GET_CAPABILITIES_CNF                      0xAAU
 
 /**
- * This event indicates the setup of an VOCS/AICS Session as requested
- * during call to \ref GA_vc_set_capability().
- * The Char and Desc Discovery is
- * performed post which the Configuration of Notification of Char is done.
- * Callback is triggered with the following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref vcc_cb )
+ * \brief This event indicates the setup of an VOCS/AICS Session as requested
+ * during call to \ref GA_vc_set_capability(). \n
+ * The Char and Desc Discovery is performed post which the Configuration of
+ * Notification of Char is done. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_SET_CAPABILITY_CNF
- * \param [in] ga_status  \ref GA_SUCCESS Setup Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_data - NULL \n
- *                           .
- * \param [in] ga_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_datalen - 0 \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_SET_CAPABILITY_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Setup Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                           - ga_datalen: 0 \n
  *                           .
  *
  * \return \ref GA_SUCCESS (always)
@@ -1285,54 +1978,52 @@
 /** \} */
 
 /**
- * \name VCP Volume Controller APIs-Release
+ * \name VCP Controller Events - Release
  * \{
  * \brief This section describes the Volume Control Profile Release
  * Events for Volume Controller.
  */
 
 /**
- * This event is notified when a VCS Service context is released.
+ * \brief This event is notified when a VCS Service context is released.
  * Configuration of Notifications for char are disabled and followed by release
- * of VCS context.
- * Callback is triggered with the following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * of VCS context. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_RELEASE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS Release Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_data - NULL \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_RELEASE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Release Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                           - ga_datalen: 0 \n
  *                           .
- * \param [in] ga_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_datalen - 0 \n
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_VC_RELEASE_CNF                               0xAC
 
 /**
- * This event is notified after VOCS/AICS Service context is released as
- * requested by \ref GA_vc_release_capability().
+ * \brief This event is notified after VOCS/AICS Service context is released as
+ * requested by \ref GA_vc_release_capability(). \n
  * Configuration of Notifications for char are disabled followed by release
- * of VOCS/AICS context.
- * Callback is triggered with the following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * of VOCS/AICS context. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_RELEASE_CAPABILITY_CNF
- * \param [in] ga_status  \ref GA_SUCCESS Release Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_data - NULL \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_RELEASE_CAPABILITY_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Release Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                           - ga_datalen: 0 \n
  *                           .
- * \param [in] ga_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_datalen - 0 \n
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1341,49 +2032,53 @@
 /** \} */
 
 /**
- * \name VCP Volume Controller APIs-Read
+ * \name VCP Controller Events - Read
  * \{
  * \brief This section describes the Volume Control Profile Read
  * Events for Volume Controller.
  */
 
 /**
- * This event is notified when a read response is received for Volume State
- * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a read response is received for Volume
+ * State characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_GET_VOLUME_STATE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Volume_Setting ( \ref UINT8 ) \n
- *                                       \ref ga_vcp_vcs_vs_vol_setting
- *                                     - Mute ( \ref UINT8 )
- *                                       \ref ga_vcp_vcs_vs_mute \n
- *                                     - Change_Counter ( \ref UINT8 )
- *                                       \ref ga_vcp_vcs_vs_chng_cntr \n
- * \param [in] ga_datalen  3
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_GET_VOLUME_STATE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Volume_Setting ( \ref UINT8 )
+ *                          \ref ga_vcp_vcs_vs_vol_setting \n
+ *                        - Mute ( \ref UINT8 )
+ *                          \ref ga_vcp_vcs_vs_mute \n
+ *                        - Change_Counter ( \ref UINT8 )
+ *                          \ref ga_vcp_vcs_vs_chng_cntr \n
+ *                        .
+ * \param [in] ga_datalen 3
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_vcp_vcs_vs_char_val
  */
 #define GA_VC_GET_VOLUME_STATE_CNF                      VCS_EVENT_GET_VOLUME_STATE_CNF
 
 /**
- * This event is notified when a read response is received for Volume Flags
- * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a read response is received for
+ * Volume Flags characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_GET_VOLUME_FLAGS_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Volume_Setting_Persisted
- *                      ( \ref UINT8 ) \n
- *                      \ref ga_vcp_vcs_vol_setting_persisted
- * \param [in] ga_datalen  1
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_GET_VOLUME_FLAGS_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Volume_Setting_Persisted ( \ref UINT8 )
+ *                          \ref ga_vcp_vcs_vol_setting_persisted \n
+ *                        .
+ * \param [in] ga_datalen 1
  *
  * \return \ref GA_SUCCESS (always)
  * \sa ga_vcp_vcs_vol_setting_persisted
@@ -1393,151 +2088,163 @@
 /**
  * This event is notified when a read response is received for Volume Offset
  * State characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_GET_OFFSET_STATE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Volume_Offset ( \ref INT16 ) \n
- *                                     - Change_Counter ( \ref UINT8 ) \n
- * \param [in] ga_datalen  3
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_GET_OFFSET_STATE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Volume_Offset ( \ref INT16 ) \n
+ *                        - Change_Counter ( \ref UINT8 ) \n
+ *                        .
+ * \param [in] ga_datalen 3
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_vcp_vocs_cp_vo
  * \sa ga_vcp_vocs_cp_cc
  */
 #define GA_VC_VOCS_GET_OFFSET_STATE_CNF                 VOCS_EVENT_GET_OFFSET_STATE_CNF
 
 /**
- * This event is notified when a read response is received for Audio Location
- * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a read response is received for Audio
+ * Location characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_GET_AUDIO_LOCATION_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Audio Location ( \ref UINT32 ) \n
- * \param [in] ga_datalen  4
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_GET_AUDIO_LOCATION_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Audio Location ( \ref UINT32 ) \n
+ *                        .
+ * \param [in] ga_datalen 4
  *
  * \return \ref GA_SUCCESS (always)
- * \sa ga_bap_constants
+ *
+ * \sa ga_common_constants
  */
 #define GA_VC_VOCS_GET_AUDIO_LOCATION_CNF               VOCS_EVENT_GET_AUDIO_LOCATION_CNF
 
 /**
- * This event is notified when a read response is received for Audio Output
- * Description characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a read response is received for Audio
+ * Output Description characteristic from peer device with the following values
+ * as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_GET_AUDIO_OUT_DESC_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to UCHAR, Can be a UTF-8 String of 0 or more
- *                      characters \n
- * \param [in] ga_datalen  0 or Length of UTF-8 String.
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_GET_AUDIO_OUT_DESC_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to UCHAR, Can be a UTF-8 String of 0 or more
+ *                     characters \n
+ * \param [in] ga_datalen 0 or Length of UTF-8 String.
  *
  * \return \ref GA_SUCCESS (always)
- * \sa ga_bap_constants
  */
 #define GA_VC_VOCS_GET_AUDIO_OUT_DESC_CNF               VOCS_EVENT_GET_AUDIO_OUT_DESC_CNF
 
 /**
- * This event is notified when a read response is received for Audio Input
- * State characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a read response is received for Audio
+ * Input State characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_GET_INPUT_STATE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Gain_Setting ( \ref INT8 ) \n
- *                                     - Mute ( \ref UINT8 )
- *                                       \ref ga_vcp_aics_mute_field_values \n
- *                                     - Gain_Mode ( \ref UINT8 )
- *                                       \ref ga_vcp_aics_gain_mode_field_values \n
- *                                     - Change_Counter ( \ref UINT8 ) \n
- * \param [in] ga_datalen  4
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_GET_INPUT_STATE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Gain_Setting ( \ref INT8 ) \n
+ *                        - Mute ( \ref UINT8 )
+ *                          \ref ga_vcp_aics_mute_field_values \n
+ *                        - Gain_Mode ( \ref UINT8 )
+ *                          \ref ga_vcp_aics_gain_mode_field_values \n
+ *                        - Change_Counter ( \ref UINT8 ) \n
+ *                        .
+ * \param [in] ga_datalen 4
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_vcp_aics_mute_field_values
  * \sa ga_vcp_aics_gain_mode_field_values
  */
 #define GA_VC_AICS_GET_INPUT_STATE_CNF                  AICS_EVENT_GET_INPUT_STATE_CNF
 
 /**
- * This event is notified when a read response is received for Gain Setting
- * Properties characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a read response is received for Gain
+ * Setting Properties characteristic from peer device with the following values
+ * as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_GET_GAIN_SETTING_PROPRTY_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Gain_Setting_Units ( \ref UINT8 ) \n
- *                                     - Gain_Setting_Minimum ( \ref INT8 ) \n
- *                                     - Gain_Setting_Maximum ( \ref INT8 ) \n
- * \param [in] ga_datalen  3
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_GET_GAIN_SETTING_PROPRTY_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Gain_Setting_Units ( \ref UINT8 ) \n
+ *                        - Gain_Setting_Minimum ( \ref INT8 ) \n
+ *                        - Gain_Setting_Maximum ( \ref INT8 ) \n
+ *                        .
+ * \param [in] ga_datalen 3
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_vcp_aics_gain_setting
  */
 #define GA_VC_AICS_GET_GAIN_SETTING_PROPRTY_CNF         AICS_EVENT_GET_GAIN_SETTING_PROPRTY_CNF
 
 /**
- * This event is notified when a read response is received for Audio Input
- * Type characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a read response is received for Audio
+ * Input Type characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_GET_INPUT_TYPE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR.
- *                      Refer \ref ga_bap_constants
- * \param [in] ga_datalen  1
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_GET_INPUT_TYPE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR. Refer \ref ga_common_constants
+ * \param [in] ga_datalen 1
  *
  * \return \ref GA_SUCCESS (always)
- * \sa ga_bap_constants
+ *
+ * \sa ga_common_constants
  */
 #define GA_VC_AICS_GET_INPUT_TYPE_CNF                   AICS_EVENT_GET_INPUT_TYPE_CNF
 
 /**
- * This event is notified when a read response is received for Audio Input
- * Status characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a read response is received for Audio
+ * Input Status characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_GET_INPUT_STATUS_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer of type \ref UCHAR.
- *                      Refer \ref ga_vcp_aics_input_status
- * \param [in] ga_datalen  1
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_GET_INPUT_STATUS_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer of type \ref UCHAR.
+ *                     Refer \ref ga_vcp_aics_input_status
+ * \param [in] ga_datalen 1
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_vcp_aics_input_status
  */
 #define GA_VC_AICS_GET_INPUT_STATUS_CNF                 AICS_EVENT_GET_INPUT_STATUS_CNF
 
 /**
- * This event is notified when a read response is received for Audio Input
- * Description characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a read response is received for Audio
+ * Input Description characteristic from peer device with the following values
+ * as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_GET_AUDIO_INPUT_DESC_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to UCHAR, Can be a UTF-8 String of 0 or more
- *                      characters \n
- * \param [in] ga_datalen  0 or Length of UTF-8 String.
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_GET_AUDIO_INPUT_DESC_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to UCHAR, Can be a UTF-8 String of 0 or more
+ *                     characters \n
+ * \param [in] ga_datalen 0 or Length of UTF-8 String.
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1546,58 +2253,60 @@
 /** \} */
 
 /**
- * \name VCP Volume Controller APIs-Write
+ * \name VCP Controller Events - Write
  * \{
  * \brief This section describes the Volume Control Profile Write
  * Events for Volume Controller.
  */
 
 /**
- * This event is notified when a write response is received for Volume
+ * \brief This event is notified when a write response is received for Volume
  * Control Point characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_CP_WT_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Write Response received \n
- * \param [in] ga_data  NULL \n
- * \param [in] ga_datalen  0
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_CP_WT_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Write Response received \n
+ * \param [in] ga_data NULL \n
+ * \param [in] ga_datalen 0
  *
- * \return\ref GA_SUCCESS (always)
+ * \return \ref GA_SUCCESS (always)
  */
 #define GA_VC_CP_WT_CNF                                 VCS_EVENT_CP_WT_CNF
 
 /**
- * This event is notified when a write response is received for Volume Offset
- * Control Point characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a write response is received for Volume
+ * Offset Control Point characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_CP_WT_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Write Response received \n
- * \param [in] ga_data  NULL \n
- * \param [in] ga_datalen  0
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_CP_WT_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Write Response received \n
+ * \param [in] ga_data NULL \n
+ * \param [in] ga_datalen 0
  *
  * \return\ref GA_SUCCESS (always)
+ *
  * \sa ga_vcp_vocs_cp_opc
  */
 #define GA_VC_VOCS_CP_WT_CNF                            VOCS_EVENT_CP_WT_CNF
 
 /**
- * This event is notified when a write response is received for Audio Input
- * Control Point characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a write response is received for Audio
+ * Input Control Point characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_CP_WT_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Write Response received \n
- * \param [in] ga_data  NULL \n
- * \param [in] ga_datalen  0
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_CP_WT_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Write Response received \n
+ * \param [in] ga_data NULL \n
+ * \param [in] ga_datalen 0
  *
  * \return\ref GA_SUCCESS (always)
+ *
  * \sa ga_vcp_aics_cp_req_opc
  */
 #define GA_VC_AICS_CP_WT_CNF                            AICS_EVENT_CP_WT_CNF
@@ -1605,163 +2314,171 @@
 /** \} */
 
 /**
- * \name VCP Volume Controller APIs-Notification
+ * \name VCP Controller Events - Notification
  * \{
  * \brief This section describes the Volume Control Profile
  * Notification Events for Volume Controller.
  */
 
 /**
- * This event is notified when a notification is received for Volume State
+ * \brief This event is notified when a notification is received for Volume
  * State characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOLUME_STATE_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Volume_Setting ( \ref UINT8 ) \n
- *                                       \ref ga_vcp_vcs_vs_vol_setting
- *                                     - Mute ( \ref UINT8 )
- *                                       \ref ga_vcp_vcs_vs_mute \n
- *                                     - Change_Counter ( \ref UINT8 )
- *                                       \ref ga_vcp_vcs_vs_chng_cntr \n
- * \param [in] ga_datalen  3
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOLUME_STATE_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Volume_Setting ( \ref UINT8 )
+ *                          \ref ga_vcp_vcs_vs_vol_setting \n
+ *                        - Mute ( \ref UINT8 )
+ *                          \ref ga_vcp_vcs_vs_mute \n
+ *                        - Change_Counter ( \ref UINT8 )
+ *                          \ref ga_vcp_vcs_vs_chng_cntr \n
+ *                        .
+ * \param [in] ga_datalen 3
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_vcp_vcs_vs_char_val
  */
 #define GA_VC_VOLUME_STATE_NTF                          VCS_EVENT_VOLUME_STATE_NTF
 
 /**
- * This event is notified when a notification is received for Volume Flags
- * State characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a notification is received for Volume
+ * Flags characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOLUME_FLAGS_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Volume_Setting_Persisted
- *                      ( \ref UINT8 ) \n
- *                      \ref ga_vcp_vcs_vol_setting_persisted
- * \param [in] ga_datalen  1
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOLUME_FLAGS_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Volume_Setting_Persisted ( \ref UINT8 )
+ *                          \ref ga_vcp_vcs_vol_setting_persisted \n
+ *                        .
+ * \param [in] ga_datalen 1
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_vcp_vcs_vol_setting_persisted
  */
 #define GA_VC_VOLUME_FLAGS_NTF                          VCS_EVENT_VOLUME_FLAGS_NTF
 
 /**
- * This event is notified when a notification is received for Offset State
+ * \brief This event is notified when a notification is received for Offset State
  * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_OFFSET_STATE_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- *                      Includes Param - Volume_Setting ( \ref UINT8 ) \n
- *                                       \ref ga_vcp_vcs_vs_vol_setting
- *                                     - Mute ( \ref UINT8 )
- *                                       \ref ga_vcp_vcs_vs_mute \n
- *                                     - Change_Counter ( \ref UINT8 )
- *                                       \ref ga_vcp_vcs_vs_chng_cntr \n
- * \param [in] ga_datalen  3
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_OFFSET_STATE_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Volume_Offset ( \ref INT16 ) \n
+ *                        - Change_Counter ( \ref UINT8 ) \n
+ *                        .
+ * \param [in] ga_datalen 3
  *
  * \return \ref GA_SUCCESS (always)
- * \sa ga_bap_constants
  */
 #define GA_VC_VOCS_OFFSET_STATE_NTF                     VOCS_EVENT_OFFSET_STATE_NTF
 
 /**
- * This event is notified when a notification is received for Audio Location
- * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a notification is received for Audio
+ * Location characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_AUDIO_LOCATION_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Audio Location ( \ref UINT32 ) \n
- * \param [in] ga_datalen  4
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_AUDIO_LOCATION_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                         - Audio Location ( \ref UINT32 ) \n
+ *                         .
+ * \param [in] ga_datalen 4
  *
  * \return \ref GA_SUCCESS (always)
- * \sa ga_bap_constants
+ *
+ * \sa ga_common_constants
  */
 #define GA_VC_VOCS_AUDIO_LOCATION_NTF                   VOCS_EVENT_AUDIO_LOCATION_NTF
 
 /**
- * This event is notified when a notification is received for Audio Output
- * Description characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a notification is received for Audio
+ * Output Description characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_AUDIO_OUT_DESC_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer to UCHAR, Can be a UTF-8 String of 0 or more
- *                      characters \n
- * \param [in] ga_datalen  0 or Length of UTF-8 String.
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_AUDIO_OUT_DESC_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to \ref UCHAR, Can be a UTF-8 String of 0 or
+ *                     more characters \n
+ * \param [in] ga_datalen 0 or Length of UTF-8 String.
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_VC_VOCS_AUDIO_OUT_DESC_NTF                   VOCS_EVENT_AUDIO_OUT_DESC_NTF
 
 /**
- * This event is notified when a notification is received for Audio Input
- * State characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a notification is received for Audio
+ * Input State characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_INPUT_STATE_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Gain_Setting ( \ref INT8 ) \n
- *                                     - Mute ( \ref UINT8 )
- *                                       \ref ga_vcp_aics_mute_field_values \n
- *                                     - Gain_Mode ( \ref UINT8 )
- *                                       \ref ga_vcp_aics_gain_mode_field_values \n
- *                                     - Change_Counter ( \ref UINT8 ) \n
- * \param [in] ga_datalen  4
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_INPUT_STATE_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Gain_Setting ( \ref INT8 ) \n
+ *                        - Mute ( \ref UINT8 )
+ *                          \ref ga_vcp_aics_mute_field_values \n
+ *                        - Gain_Mode ( \ref UINT8 )
+ *                          \ref ga_vcp_aics_gain_mode_field_values \n
+ *                        - Change_Counter ( \ref UINT8 ) \n
+ *                        .
+ * \param [in] ga_datalen 4
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_VC_AICS_INPUT_STATE_NTF                      AICS_EVENT_CP_INPUT_STATE_NTF
 
 /**
- * This event is notified when a notification is received for Audio Input
- * Status characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a notification is received for Audio
+ * Input Status characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_INPUT_STATUS_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer of type \ref UCHAR.
- *                      Refer \ref ga_vcp_aics_input_status
- * \param [in] ga_datalen  1
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_INPUT_STATUS_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer of type \ref UCHAR.
+ *                     Refer \ref ga_vcp_aics_input_status
+ * \param [in] ga_datalen 1
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_VC_AICS_INPUT_STATUS_NTF                     AICS_EVENT_CP_INPUT_STATUS_NTF
 
 /**
- * This event is notified when a notification is received for Audio Input
- * Description characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcc_cb ).
+ * \brief This event is notified when a notification is received for Audio
+ * Input Description characteristic from peer device with the following values
+ * as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_AUDIO_INPUT_DESC_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer to UCHAR, Can be a UTF-8 String of 0 or more
- *                      characters \n
- * \param [in] ga_datalen  0 or Length of UTF-8 String.
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_AUDIO_INPUT_DESC_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to \ref UCHAR, Can be a UTF-8 String of 0 or
+ *                     more characters \n
+ * \param [in] ga_datalen 0 or Length of UTF-8 String.
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1772,222 +2489,241 @@
 /** \} */
 
 /**
- * \defgroup ga_vcp_vol_renderer_evt_defs VCP Volume Renderer Events
+ * \defgroup ga_vcp_vol_renderer_evt_defs Volume Renderer
  * \{
  * \brief This section describes the Volume Control Profile Events
  * for Volume Renderer.
  */
 
 /**
- * \name VCP Volume Renderer APIs-Read
+ * \name VCP Renderer Events - Read
  * \{
  * \brief This section describes the Volume Control Profile Read
  * Events for Volume Renderer.
  */
 
 /**
- * This event is notified when a read request is received for
+ * \brief This event is notified when a read request is received for
  * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcs_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_RD_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref VCP_EVENT_INFO
- *                      context - Use this while calling GA_vc_send_rsp() to
- *                                send response.
- *                      data - NULL
- *                      datalen - 0
- * \param [in] ga_datalen  \ref sizeof ( \ref VCP_EVENT_INFO).
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_RD_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref VCP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_vc_send_rsp() to send response. \n
+ *                        - data: NULL
+ *                        - datalen: 0
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref VCP_EVENT_INFO).
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_vc_send_rsp() has to be called to send the read response.
+ *
+ * \note \ref GA_vc_send_rsp() has to be called to send the read response.
  *       Refer to \ref GA_BRR_UUID inside \ref GA_BRR_CHR_CONTEXT in
  *       \ref VCP_EVENT_INFO.
- * \sa ga_bap_constants
+ *
+ * \sa ga_common_constants
  */
 #define GA_VC_RD_IND                                    VCS_EVENT_RD_IND
 
 /**
- * This event is notified when a read request is received for
+ * \brief This event is notified when a read request is received for
  * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcs_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_RD_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref VCP_EVENT_INFO
- *                      context - Use this while calling GA_vc_send_rsp() to
- *                                send response.
- *                      data - NULL
- *                      datalen - 0
- * \param [in] ga_datalen  \ref sizeof ( \ref VCP_EVENT_INFO).
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_RD_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref VCP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_vc_send_rsp() to send response.
+ *                        - data: NULL
+ *                        - datalen: 0
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref VCP_EVENT_INFO).
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_vc_send_rsp() has to be called to send the read response.
+ *
+ * \note \ref GA_vc_send_rsp() has to be called to send the read response.
  *       Refer to \ref GA_BRR_UUID inside \ref GA_BRR_CHR_CONTEXT in
  *       \ref VCP_EVENT_INFO.
- * \sa ga_bap_constants
+ *
+ * \sa ga_common_constants
  */
 #define GA_VC_VOCS_RD_IND                               VOCS_EVENT_RD_IND
 
 /**
- * This event is notified when a read request is received for
+ * \brief This event is notified when a read request is received for
  * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcs_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_RD_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref VCP_EVENT_INFO
- *                      context - Use this while calling GA_vc_send_rsp() to
- *                                send response.
- *                      data - NULL
- *                      datalen - 0
- * \param [in] ga_datalen  \ref sizeof ( \ref VCP_EVENT_INFO).
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_RD_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref VCP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_vc_send_rsp() to send response.
+ *                        - data: NULL
+ *                        - datalen: 0
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref VCP_EVENT_INFO).
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_vc_send_rsp() has to be called to send the read response.
+ * \note \ref GA_vc_send_rsp() has to be called to send the read response.
  */
 #define GA_VC_AICS_RD_IND                               AICS_EVENT_RD_IND
 
 /** \} */
 
 /**
- * \name VCP Volume Renderer APIs-Write
+ * \name VCP Renderer Events - Write
  * \{
  * \brief This section describes the Volume Control Profile Write
  * Events for Volume Renderer.
  */
 
 /**
- * This event is notified when a write request is received for Volume
+ * \brief This event is notified when a write request is received for Volume
  * Control Point characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcs_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_CP_WT_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref VCP_EVENT_INFO
- *                      context - Use this while calling GA_vc_send_rsp() to
- *                                send response.
- *                      data - Pointer to UCHAR, that includes Opcode followed
- *                             by Parameters.
- *                      datalen - Data length of the Parameter.
- * \param [in] ga_datalen  \ref sizeof ( \ref VCP_EVENT_INFO).
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_CP_WT_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref VCP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_vc_send_rsp() to send response.
+ *                        - data: Pointer to UCHAR, that includes Opcode
+ *                                followed by Parameters.
+ *                        - datalen: Data length of the Parameter.
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref VCP_EVENT_INFO).
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_vc_send_rsp() has to be called to send the write response.
+ *
+ * \note \ref GA_vc_send_rsp() has to be called to send the write response.
  */
 #define GA_VC_CP_WT_IND                                 VCS_EVENT_CP_WT_IND
 
 /**
- * This event is notified when a write request is received for Audio Location
- * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcs_cb ).
+ * \brief This event is notified when a write request is received for Audio
+ * Location characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_SET_AUDIO_LOCATION_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Audio Location ( \ref UINT32 ) \n
- * \param [in] ga_datalen  4
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_SET_AUDIO_LOCATION_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Audio Location ( \ref UINT32 ) \n
+ *                        .
+ * \param [in] ga_datalen 4
  *
  * \return \ref GA_SUCCESS (always)
- * \sa ga_bap_constants
+ *
  * \note Since it is WriteWithoutResponse request,
- *       There is no response expected for this event.
+ *       There is no response expected for this event. \n
  *       The Audio Location characteristic value is a bitmask that shall be
  *       set to a value that reflects the location of an audio output that
- *       is associated with the instance of VOCS
+ *       is associated with the instance of VOCS.
+ *
+ * \sa ga_common_constants
  */
 #define GA_VC_VOCS_SET_AUDIO_LOCATION_IND               VOCS_EVENT_SET_AUDIO_LOCATION_IND
 
 /**
- * This event is notified when a write request is received for Audio Output
- * Description characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcs_cb ).
+ * \brief This event is notified when a write request is received for Audio
+ * Output Description characteristic from peer device with the following values
+ * as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_SET_AUDIO_OUT_DESC_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] ga_data  Pointer to UCHAR, Can be a UTF-8 String of 0 or more
- *                      characters \n
- * \param [in] ga_datalen  0 or Length of UTF-8 String.
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_SET_AUDIO_OUT_DESC_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] ga_data Pointer to \ref UCHAR, Can be a UTF-8 String of 0 or
+ *                     more characters \n
+ * \param [in] ga_datalen 0 or Length of UTF-8 String.
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \note Since it is WriteWithoutResponse request,
- *       There is no response expected for this event.
+ *       there is no response expected for this event.
  */
 #define GA_VC_VOCS_SET_AUDIO_OUT_DESC_IND               VOCS_EVENT_SET_AUDIO_OUT_DESC_IND
 
 /**
- * This event is notified when a write request is received for Audio Input
- * Control Point characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcs_cb ).
+ * \brief This event is notified when a write request is received for Audio
+ * Input Control Point characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_VOCS_CP_WT_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref VCP_EVENT_INFO
- *                      context - Use this while calling GA_vc_send_rsp() to
- *                                send response.
- *                      data - Pointer to UCHAR, that includes Opcode followed
- *                             by Parameters (Change_Counter (1B),
- *                             Volume_Offset (2B)).
- *                      datalen - Data length of the Parameter.
- * \param [in] ga_datalen  \ref sizeof ( \ref VCP_EVENT_INFO).
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_VOCS_CP_WT_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref VCP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_vc_send_rsp() to send response.
+ *                        - data: Pointer to \ref UCHAR, that includes Opcode
+ *                                followed by Parameters (Change_Counter (1B),
+ *                                Volume_Offset (2B)).
+ *                        - datalen: Data length of the Parameter.
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref VCP_EVENT_INFO).
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_vc_send_rsp() has to be called to send the write response.
+ *
+ * \note \ref GA_vc_send_rsp() has to be called to send the write response.
  */
 #define GA_VC_VOCS_CP_WT_IND                            VOCS_EVENT_CP_WT_IND
 
 /**
- * This event is notified when a write without response request is received
- * for Audio Input Description characteristic from peer device with the
- * following values as parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcs_cb ).
+ * \brief This event is notified when a write without response request is
+ * received for Audio Input Description characteristic from peer device with
+ * the following values as parameters in the \ref GA_PROFILE_CB registered
+ * during \ref GA_vc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_SET_AUDIO_INPUT_DESC_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Write Without Response Request
- *                        received \n
- * \param [in] ga_data  Pointer to UCHAR, Can be a UTF-8 String of 0 or more
- *                      characters \n
- * \param [in] ga_datalen  0 or Length of UTF-8 String.
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_SET_AUDIO_INPUT_DESC_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Write Without Response Request
+ *                       received \n
+ * \param [in] ga_data Pointer to \ref UCHAR, Can be a UTF-8 String of 0 or
+ *                     more characters \n
+ * \param [in] ga_datalen 0 or Length of UTF-8 String.
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \note There is no response expected for this event.
  */
 #define GA_VC_AICS_SET_AUDIO_INPUT_DESC_IND             AICS_EVENT_SET_AUDIO_INPUT_DESC_IND
 
 /**
- * This event is notified when a write request is received for Audio Input
- * Control Point characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref vcs_cb ).
+ * \brief This event is notified when a write request is received for Audio
+ * Input Control Point characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_vc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_VC_AICS_CP_WT_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref VCP_EVENT_INFO
- *                      context - Use this while calling GA_vc_send_rsp() to
- *                                send response.
- *                      data - Pointer to UCHAR, that includes Opcode followed
- *                             by Parameters.
- *                      datalen - Data length of the Parameter.
- * \param [in] ga_datalen  \ref sizeof ( \ref VCP_EVENT_INFO).
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_VC_AICS_CP_WT_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref VCP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_vc_send_rsp() to send response.
+ *                        - data: Pointer to \ref UCHAR, that includes Opcode
+ *                                followed by Parameters.
+ *                        - datalen: Data length of the Parameter.
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref VCP_EVENT_INFO).
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_vc_send_rsp() has to be called to send the write response.
+ *
+ * \note \ref GA_vc_send_rsp() has to be called to send the write response.
  */
 #define GA_VC_AICS_CP_WT_IND                            AICS_EVENT_CP_WT_IND
 
@@ -2010,100 +2746,113 @@
  */
 
 /**
+ * \defgroup ga_micp_error_code Error Codes
+ * \{
+ * \brief This section lists the Error Codes that are provided as part of
+ * return of functionalities of MICP \ref ga_micp_api_defs.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_micp_constants Constants
+ * \{
+ * \brief This section describes the various Constants in EtherMind
+ * GA MICP Layer.
+ */
+
+/** \} */
+
+/**
  * \defgroup ga_micp_api_evt_defs Events
  * \{
  * \brief This section describes the Microphone Control Events.
  */
 
 /**
- * \defgroup ga_micp_cont_evt_defs MICP Microphone Controller Events
+ * \defgroup ga_micp_cont_evt_defs Microphone Controller
  * \{
  * \brief This section describes the Microphone Control Profile Events for
  * Microphone Controller.
  */
 
 /**
- * \name MICP Microphone Controller-Setup
+ * \name MICP Controller Events - Setup
  * \{
  * \brief This section describes the Microphone Control Profile Setup Events
  * for Microphone Controller.
  */
 
 /**
- * This event indicates the setup of a MICS Session.
+ * \brief This event indicates the setup of a MICS Session. \n
  * Callback is triggered once discovery of service, char and descriptors,
- * configuration for Notifications is complete.
- * Callback is triggered with the following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref micc_cb )
+ * configuration for Notifications is complete. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_SETUP_CNF
- * \param [in] ga_status  \ref GA_SUCCESS Setup Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  MICP Handle for the Device - \ref MICP_HANDLE \n
- *                      If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_data - NULL \n
- *                           .
- * \param [in] ga_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_datalen - 0 \n
- *                           .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_SETUP_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Setup Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data Pointer to Object of type \ref MICP_EVENT_INFO \n
+ *                     If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                        - srv_inst: MICP Handle for the Device \n
+ *                        - data: NULL \n
+ *                        - datalen: 0 \n
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref MICP_EVENT_INFO ) \n
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_MC_SETUP_CNF                                 MC_SETUP_MICS_CNF
 
 /**
- * This event is notified on discovery of secondary service AICS with peer
- * device with the following values as parameters in the \ref GA_CALLBACK
- * callback ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified on discovery of secondary service AICS with
+ * peer device with the following values as parameters in the
+ * \ref GA_PROFILE_CB registered during \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_GET_CAPABILITIES_CNF
- * \param [in] ga_status  \ref GA_CONTINUE Service Handle range of discovered
- *                        AICS \n
- *                        \ref GA_SUCCESS Service Discovery Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  MICP Handle for the Device - \ref MICP_HANDLE \n
- *                      If status is \ref GA_CONTINUE \n
- *                         - ga_data - Pointer to object of type
- *                           \ref GA_BRR_SVC_INFO \n
- *                         .
- *                      Else \n
- *                         - ga_data - NULL \n
- *                         .
- * \param [in] ga_datalen  If status is \ref GA_CONTINUE \n
- *                            - ga_datalen - Size of \ref GA_BRR_SVC_INFO \n
- *                            .
- *                         Else
- *                            - ga_datalen - NULL \n
- *                            .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_GET_CAPABILITIES_CNF
+ * \param [in] ga_status \ref GA_CONTINUE : Service Handle range of discovered
+ *                       AICS \n
+ *                       \ref GA_SUCCESS : Service Discovery Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data Pointer to Object of type \ref MICP_EVENT_INFO \n
+ *                     If status is \ref GA_CONTINUE \n
+ *                        - srv_inst: MICP Handle for the Device \n
+ *                        - data: Pointer to object of type
+ *                                \ref GA_BRR_SVC_INFO \n
+ *                        - datalen: \ref sizeof ( \ref GA_BRR_SVC_INFO ) \n
+ *                        .
+ *                     Else \n
+ *                        - srv_inst: MICP Handle for the Device \n
+ *                        - data: NULL \n
+ *                        - datalen: 0 \n
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref MICP_EVENT_INFO ) \n
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_MC_GET_CAPABILITIES_CNF                      MC_DISCOVER_MICS_OPTIONAL_SRVC_CNF
 
 /**
- * This event indicates the setup of an AICS Session.
+ * \brief This event indicates the setup of an AICS Session. \n
  * Callback is triggered once discovery of service, char and descriptors,
- * configuration for Notifications is complete.
- * Callback is triggered with the following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref micc_cb )
+ * configuration for Notifications is complete. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_SET_CAPABILITIES_CNF
- * \param [in] ga_status  \ref GA_SUCCESS Setup Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  MICP Handle for the Device - \ref MICP_HANDLE \n
- *                      If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_data - NULL \n
- *                           .
- * \param [in] ga_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_datalen - 0 \n
- *                           .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_SET_CAPABILITIES_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Setup Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data Pointer to Object of type \ref MICP_EVENT_INFO \n
+ *                     If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                        - srv_inst: MICP Handle for the Device \n
+ *                        - data: NULL \n
+ *                        - datalen: 0 \n
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref MICP_EVENT_INFO ) \n
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -2112,123 +2861,130 @@
 /** \} */
 
 /**
- * \name MICP Microphone Controller-Read
+ * \name MICP Controller Events - Read
  * \{
  * \brief This section describes the Microphone Control Profile Read Events
  * for Microphone Controller.
  */
 
 /**
- * This event is notified when a read response is received for Mute
- * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a read response is received for Mute
+ * characteristic from peer device with the following values as parameters in
+ * the \ref GA_PROFILE_CB registered during \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_GET_MUTE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR - Mute
- *                      \ref ga_micp_mics_mute_char_values
- * \param [in] ga_datalen  \ref sizeof ( \ref UINT8 )
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_GET_MUTE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR - Mute
+ *                     \ref ga_micp_mics_mute_char_values
+ * \param [in] ga_datalen \ref sizeof ( \ref UINT8 )
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_micp_mics_mute_char_values
  */
 #define GA_MC_GET_MUTE_CNF                              MC_EVENT_GET_MUTE_CNF
 
 /**
- * This event is notified when a read response is received for Audio Input
+ * \brief This event is notified when a read response is received for Audio Input
  * State characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_GET_INPUT_STATE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Gain_Setting ( \ref INT8 ) \n
- *                                     - Mute ( \ref UINT8 )
- *                                       \ref ga_micp_aics_mute_field_values \n
- *                                     - Gain_Mode ( \ref UINT8 )
- *                                       \ref ga_micp_aics_gain_mode_field_values \n
- *                                     - Change_Counter ( \ref UINT8 ) \n
- * \param [in] ga_datalen  4
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_GET_INPUT_STATE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Gain_Setting ( \ref INT8 ) \n
+ *                        - Mute ( \ref UINT8 )
+ *                          \ref ga_micp_aics_mute_field_values \n
+ *                        - Gain_Mode ( \ref UINT8 )
+ *                          \ref ga_micp_aics_gain_mode_field_values \n
+ *                        - Change_Counter ( \ref UINT8 ) \n
+ *                        .
+ * \param [in] ga_datalen 4
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_micp_aics_mute_field_values
  * \sa ga_micp_aics_gain_mode_field_values
  */
 #define GA_MC_AICS_GET_INPUT_STATE_CNF                  MC_AICS_EVENT_GET_INPUT_STATE_CNF
 
 /**
- * This event is notified when a read response is received for Gain Setting
- * Properties characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a read response is received for Gain
+ * Setting Properties characteristic from peer device with the following values
+ * as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_GET_GAIN_SETTING_PROPRTY_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Gain_Setting_Units ( \ref UINT8 ) \n
- *                                     - Gain_Setting_Minimum ( \ref INT8 ) \n
- *                                     - Gain_Setting_Maximum ( \ref INT8 ) \n
- * \param [in] ga_datalen  3
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_GET_GAIN_SETTING_PROPRTY_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                        - Gain_Setting_Units ( \ref UINT8 ) \n
+ *                        - Gain_Setting_Minimum ( \ref INT8 ) \n
+ *                        - Gain_Setting_Maximum ( \ref INT8 ) \n
+ *                        .
+ * \param [in] ga_datalen 3
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_micp_aics_gain_setting
  */
 #define GA_MC_AICS_GET_GAIN_SETTING_PROPRTY_CNF         MC_AICS_EVENT_GET_GAIN_SETTING_PROPRTY_CNF
 
 /**
- * This event is notified when a read response is received for Audio Input
- * Type characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a read response is received for Audio
+ * Input Type characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_GET_INPUT_TYPE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to \ref UCHAR.
- *                      Refer \ref ga_bap_constants
- * \param [in] ga_datalen  1
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_GET_INPUT_TYPE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR.
+ *                     Refer \ref ga_common_constants
+ * \param [in] ga_datalen 1
  *
  * \return \ref GA_SUCCESS (always)
  *
- * \sa ga_bap_constants
+ * \sa ga_common_constants
  */
 #define GA_MC_AICS_GET_INPUT_TYPE_CNF                   MC_AICS_EVENT_GET_INPUT_TYPE_CNF
 
 /**
- * This event is notified when a read response is received for Audio Input
- * Status characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a read response is received for Audio
+ * Input Status characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_GET_INPUT_STATUS_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer of type \ref UCHAR.
- *                      Refer \ref ga_micp_aics_input_status
- * \param [in] ga_datalen  1
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_GET_INPUT_STATUS_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer of type \ref UCHAR.
+ *                     Refer \ref ga_micp_aics_input_status
+ * \param [in] ga_datalen 1
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_micp_aics_input_status
  */
 #define GA_MC_AICS_GET_INPUT_STATUS_CNF                 MC_AICS_EVENT_GET_INPUT_STATUS_CNF
 
 /**
- * This event is notified when a read response is received for Audio Input
- * Description characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a read response is received for Audio
+ * Input Description characteristic from peer device with the following values
+ * as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_GET_AUDIO_INPUT_DESC_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data  Pointer to UCHAR, Can be a UTF-8 String of 0 or more
- *                      characters \n
- * \param [in] ga_datalen  0 or Length of UTF-8 String.
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_GET_AUDIO_INPUT_DESC_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data Pointer to \ref UCHAR, Can be a UTF-8 String of 0 or
+ *                     more characters \n
+ * \param [in] ga_datalen 0 or Length of UTF-8 String.
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -2237,42 +2993,43 @@
 /** \} */
 
 /**
- * \name MICP Microphone Controller-Write
+ * \name MICP Controller Events - Write
  * \{
  * \brief This section describes the Microphone Control Profile Write Events
  * for Microphone Controller.
  */
 
 /**
- * This event is notified when a write response is received for Mute
- * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a write response is received for Mute
+ * characteristic from peer device with the following values as parameters in
+ * the \ref GA_PROFILE_CB registered during \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_SET_MUTE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Write Response received \n
- * \param [in] ga_data  NULL \n
- * \param [in] ga_datalen  0
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_SET_MUTE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Write Response received \n
+ * \param [in] ga_data NULL \n
+ * \param [in] ga_datalen 0
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_micp_mics_mute_char_values
  */
 #define GA_MC_SET_MUTE_CNF                              MC_EVENT_SET_MUTE_CNF
 
 /**
- * This event is notified when a write response is received for Audio Input
- * Control Point characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a write response is received for Audio
+ * Input Control Point characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_CP_WT_CNF
- * \param [in] ga_data  \ref GA_SUCCESS : Write Response received \n
- * \param [in] ga_datalen  NULL \n
- * \param [in] ga_datalen  0
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_CP_WT_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Write Response received \n
+ * \param [in] ga_data NULL \n
+ * \param [in] ga_datalen 0
  *
  * \return\ref GA_SUCCESS (always)
+ *
  * \sa ga_micp_aics_cp_req_opc
  */
 #define GA_MC_AICS_CP_WT_CNF                            MC_AICS_EVENT_CP_WT_CNF
@@ -2280,81 +3037,84 @@
 /** \} */
 
 /**
- * \name MICP Microphone Controller-Notification
+ * \name MICP Controller Events - Notification
  * \{
  * \brief This section describes the Microphone Control Profile Notification
  * Events for Microphone Controller.
  */
 
 /**
- * This event is notified when a notification is received for Mute
+ * \brief This event is notified when a notification is received for Mute
  * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_MUTE_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer to \ref UCHAR - Mute
- *                      \ref ga_micp_mics_mute_char_values
- * \param [in] ga_datalen  \ref sizeof ( \ref UINT8 )
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_MUTE_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to \ref UCHAR - Mute
+ *                     \ref ga_micp_mics_mute_char_values
+ * \param [in] ga_datalen \ref sizeof ( \ref UINT8 )
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \sa ga_micp_mics_mute_char_values
  */
 #define GA_MC_MUTE_NTF                                  MC_EVENT_MUTE_NTF
 
 /**
- * This event is notified when a notification is received for Audio Input
- * State characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a notification is received for Audio
+ * Input State characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_INPUT_STATE_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer to \ref UCHAR with params as below:
- *                      Includes Param - Gain_Setting ( \ref INT8 ) \n
- *                                     - Mute ( \ref UINT8 )
- *                                       \ref ga_micp_aics_mute_field_values \n
- *                                     - Gain_Mode ( \ref UINT8 )
- *                                       \ref ga_micp_aics_gain_mode_field_values \n
- *                                     - Change_Counter ( \ref UINT8 ) \n
- * \param [in] ga_datalen  4
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_INPUT_STATE_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to \ref UCHAR with params as below: \n
+ *                     Includes Param \n
+ *                         - Gain_Setting ( \ref INT8 ) \n
+ *                         - Mute ( \ref UINT8 )
+ *                           \ref ga_micp_aics_mute_field_values \n
+ *                         - Gain_Mode ( \ref UINT8 )
+ *                           \ref ga_micp_aics_gain_mode_field_values \n
+ *                         - Change_Counter ( \ref UINT8 ) \n
+ *                         .
+ * \param [in] ga_datalen 4
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_MC_AICS_INPUT_STATE_NTF                      MC_AICS_EVENT_CP_INPUT_STATE_NTF
 
 /**
- * This event is notified when a notification is received for Audio Input
- * Status characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a notification is received for Audio
+ * Input Status characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_INPUT_STATUS_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer of type \ref UCHAR.
- *                      Refer \ref ga_micp_aics_input_status
- * \param [in] ga_datalen  1
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_INPUT_STATUS_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer of type \ref UCHAR.
+ *                     Refer \ref ga_micp_aics_input_status
+ * \param [in] ga_datalen 1
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_MC_AICS_INPUT_STATUS_NTF                     MC_AICS_EVENT_CP_INPUT_STATUS_NTF
 
 /**
- * This event is notified when a notification is received for Audio Input
- * Description characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * \brief This event is notified when a notification is received for Audio
+ * Input Description characteristic from peer device with the following values
+ * as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_AUDIO_INPUT_DESC_NTF
- * \param [in] ga_status  \ref GA_SUCCESS Notification received
- * \param [in] ga_data  Pointer to UCHAR, Can be a UTF-8 String of 0 or more
- *                      characters \n
- * \param [in] ga_datalen  0 or Length of UTF-8 String.
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_AUDIO_INPUT_DESC_NTF
+ * \param [in] ga_status \ref GA_SUCCESS Notification received
+ * \param [in] ga_data Pointer to UCHAR, Can be a UTF-8 String of 0 or more
+ *                     characters \n
+ * \param [in] ga_datalen 0 or Length of UTF-8 String.
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -2363,53 +3123,51 @@
 /** \} */
 
 /**
- * \name MICP Microphone Controller-Release
+ * \name MICP Controller Events - Release
  * \{
  * \brief This section describes the Microphone Control Profile Release Events
  * for Microphone Controller.
  */
 
 /**
- * This event is notified when a MICS Service context is released.
+ * \brief This event is notified when a MICS Service context is released.
  * Configuration of Notifications for char are disabled followed by release
- * of MICS context.
- * Callback is triggered with the following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * of MICS context. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_RELEASE_CNF
- * \param [in] ga_status  \ref GA_SUCCESS Setup Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_data - NULL \n
- *                           .
- * \param [in] ga_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_datalen - 0 \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_RELEASE_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Setup Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                          - ga_datalen: 0 \n
+ *                          .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_MC_RELEASE_CNF                               MC_RELEASE_MICS_CNF
 
 /**
- * This event is notified after AICS Service context is released.
+ * \brief This event is notified after AICS Service context is released.
  * Configuration of Notifications for char are disabled followed by release
- * of AICS context.
- * Callback is triggered with the following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref micc_cb ).
+ * of AICS context. \n
+ * A Callback is made with the parameters as below and is notified via
+ * \ref GA_PROFILE_CB registered during \ref GA_mc_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_RELEASE_CAPABILITY_CNF
- * \param [in] ga_status  \ref GA_SUCCESS Release Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ga_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_data - NULL \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_RELEASE_CAPABILITY_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Release Complete \n
+ *                       \ref GA_FAILURE : Others \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                           - ga_datalen: 0 \n
  *                           .
- * \param [in] ga_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ga_datalen - 0 \n
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -2420,133 +3178,142 @@
 /** \} */
 
 /**
- * \defgroup ga_micp_dev_evt_defs MICP Microphone Device Events
+ * \defgroup ga_micp_dev_evt_defs Microphone Device
  * \{
  * \brief This section describes the Microphone Control Profile Events
  * for Microphone Device.
  */
 
 /**
- * \name MICP Microphone Device-Read
+ * \name MICP Device Events - Read
  * \{
  * \brief This section describes the Microphone Control Profile Read Events
  * for Microphone Device.
  */
 
 /**
- * This event is notified when a read request is received for Mute
+ * \brief This event is notified when a read request is received for Mute
  * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref mics_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_RD_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref MICP_EVENT_INFO
- *                      context - Use this while calling GA_mc_send_rsp() to
- *                                send response.
- *                      data - NULL
- *                      datalen - 0
- * \param [in] ga_datalen  \ref sizeof ( \ref MICP_EVENT_INFO)
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_RD_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref MICP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_mc_send_rsp() to send response.
+ *                        - data: NULL
+ *                        - datalen: 0
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref MICP_EVENT_INFO)
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_mc_send_rsp() has to be called to send the read response.
- * Allowed values for Mute characteristics are defined in \ref
- * ga_micp_mics_mute_char_values
+ *
+ * \note \ref GA_mc_send_rsp() has to be called to send the read response. \n
+ *       Allowed values for Mute characteristics are defined in \ref
+ *       ga_micp_mics_mute_char_values.
  */
 #define GA_MC_RD_IND                                    MC_EVENT_GET_MUTE_IND
 
 /**
- * This event is notified when a read request is received for
+ * \brief This event is notified when a read request is received for
  * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref mics_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_RD_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref MICP_EVENT_INFO
- *                      context - Use this while calling GA_mc_send_rsp() to
- *                                send response.
- *                      data - NULL
- *                      datalen - 0
- * \param [in] ga_datalen  \ref sizeof ( \ref MICP_EVENT_INFO).
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_RD_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref MICP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_mc_send_rsp() to send response.
+ *                        - data: NULL
+ *                        - datalen: 0
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref MICP_EVENT_INFO).
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_mc_send_rsp() has to be called to send the read response.
+ *
+ * \note \ref GA_mc_send_rsp() has to be called to send the read response.
  */
 #define GA_MC_AICS_RD_IND                               MC_AICS_EVENT_RD_IND
 
 /** \} */
 
 /**
- * \name MICP Microphone Device-Write
+ * \name MICP Device Events - Write
  * \{
  * \brief This section describes the Microphone Control Profile Write Events
  * for Microphone Device.
  */
 
 /**
- * This event is notified when a write request is received for Mute
+ * \brief This event is notified when a write request is received for Mute
  * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref mics_cb ).
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_SET_MUTE_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref MICP_EVENT_INFO
- *                      context - Use this while calling GA_mc_send_rsp() to
- *                                send response.
- *                      data - UINT8 depicting value of Mute
- *                             \ref ga_micp_mics_mute_char_values
- *                      datalen - \ref sizeof ( \ref UINT8 )
- * \param [in] ga_datalen  \ref sizeof ( \ref MICP_EVENT_INFO)
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_SET_MUTE_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref MICP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_mc_send_rsp() to send response.
+ *                        - data: \ref UINT8 depicting value of Mute
+ *                                \ref ga_micp_mics_mute_char_values
+ *                        - datalen: \ref sizeof ( \ref UINT8 )
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref MICP_EVENT_INFO)
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_mc_send_rsp() has to be called to send the write response.
+ *
+ * \note \ref GA_mc_send_rsp() has to be called to send the write response.
  */
 #define GA_MC_SET_MUTE_IND                              MC_EVENT_SET_MUTE_IND
 
 /**
- * This event is notified when a write without response request is received
- * for Audio Input Description characteristic from peer device with the
- * following values as parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref mics_cb ).
+ * \brief This event is notified when a write without response request is
+ * received for Audio Input Description characteristic from peer device with
+ * the following values as parameters in the \ref GA_PROFILE_CB registered
+ * during \ref GA_mc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_SET_AUDIO_INPUT_DESC_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Write Without Response Request
- *                        received \n
- * \param [in] ga_data  Pointer to UCHAR, Can be a UTF-8 String of 0 or more
- *                      characters \n
- * \param [in] ga_datalen  0 or Length of UTF-8 String.
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_SET_AUDIO_INPUT_DESC_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Write Without Response Request
+ *                       received \n
+ * \param [in] ga_data Pointer to \ref UCHAR, Can be a UTF-8 String of 0 or
+ *                     more characters. \n
+ * \param [in] ga_datalen 0 or Length of UTF-8 String.
  *
  * \return \ref GA_SUCCESS (always)
- * \note Since it is WriteWithoutResponse request,
- *       There is no response expected for this event.
+ *
+ * \note Since it is WriteWithoutResponse request
+ *       there is no response expected for this event.
  */
 #define GA_MC_AICS_SET_AUDIO_INPUT_DESC_IND             MC_AICS_EVENT_SET_AUDIO_INPUT_DESC_IND
 
 /**
- * This event is notified when a write request is received for Audio Input
- * Control Point characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref mics_cb ).
+ * \brief This event is notified when a write request is received for Audio
+ * Input Control Point characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_mc_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_MC_AICS_CP_WT_IND
- * \param [in] ga_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] ga_data  Pointer to Object of type \ref MICP_EVENT_INFO
- *                      context - Use this while calling GA_mc_send_rsp() to
- *                                send response.
- *                      data - Pointer to UCHAR, that includes Opcode followed
- *                             by Parameters.
- *                      datalen - Data length of the Parameter.
- * \param [in] ga_datalen  \ref sizeof ( \ref MICP_EVENT_INFO).
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_MC_AICS_CP_WT_IND
+ * \param [in] ga_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] ga_data Pointer to Object of type \ref MICP_EVENT_INFO \n
+ *                        - context: Use this while calling
+ *                                   \ref GA_mc_send_rsp() to send response.
+ *                        - data: Pointer to \ref UCHAR, that includes Opcode
+ *                                followed by Parameters.
+ *                        - datalen: Data length of the Parameter.
+ *                        .
+ * \param [in] ga_datalen \ref sizeof ( \ref MICP_EVENT_INFO).
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_mc_send_rsp() has to be called to send the write response.
+ *
+ * \note \ref GA_mc_send_rsp() has to be called to send the write response.
  */
 #define GA_MC_AICS_CP_WT_IND                            MC_AICS_EVENT_CP_WT_IND
 
@@ -2555,14 +3322,14 @@
 /** \} */
 
 /**
- * This is an event to indicate random event. This event shall never be
+ * \brief This is an event to indicate random event. This event shall never be
  * generated.
  *
- * \param [in] ga_ep  NULL
- * \param [in] ga_event  \ref GA_EVENT_INVALID
- * \param [in] ga_status  \ref NULL \n
- * \param [in] ga_data  NULL \n
- * \param [in] ga_datalen  0 \n
+ * \param [in] ga_ep NULL
+ * \param [in] ga_event \ref GA_EVENT_INVALID
+ * \param [in] ga_status \ref NULL \n
+ * \param [in] ga_data NULL \n
+ * \param [in] ga_datalen 0 \n
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -2591,38 +3358,22 @@
  */
 
 /**
- * \defgroup ga_csip_setco_evt_defs CSIP SetCoordinator Event
+ * \defgroup ga_csip_setco_evt_defs SetCoordinator
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Events for SetCoordinator.
  */
 
 /**
- * This event is notified as result of RSI generation
+ * \brief This event is notified as result of RSI verification
  * procedure initiated by the application. The event passes the
  * parameters as below to the application callback as in
- * \ref GA_PROFILE_CB registerd with \ref GA_register_callback.
+ * \ref GA_PROFILE_CB registered during \ref GA_cs_client_init().
  *
- * \param [in] ga_ep      NULL
- * \param [in] ga_event   \ref GA_CS_RSI_CREATE_COMPLETE
- * \param [in] ga_status  \ref GA_SUCCESS
- * \param [in] ga_data    Pointer to the RSI Created
- * \param [in] ga_datalen 6
- *
- * \return \ref GA_SUCCESS (always)
- */
-#define GA_CS_RSI_CREATE_COMPLETE                      CSIP_RSI_CREATE_COMPLETE
-
-/**
- * This event is notified as result of RSI verification
- * procedure initiated by the application. The event passes the
- * parameters as below to the application callback as in
- * \ref GA_PROFILE_CB registerd with \ref GA_register_callback.
- *
- * \param [in] ga_ep      NULL
- * \param [in] ga_event   \ref GA_CS_RSI_VERIFY_COMPLETE
- * \param [in] ga_status  \ref GA_SUCCESS or Error Code
- * \param [in] ga_data    Pointer to the RSI given for verification
+ * \param [in] ga_ep NULL
+ * \param [in] ga_event \ref GA_CS_RSI_VERIFY_COMPLETE
+ * \param [in] ga_status \ref GA_SUCCESS or Error Code.
+ * \param [in] ga_data Pointer to the RSI given for verification.
  * \param [in] ga_datalen 6
  *
  * \return \ref GA_SUCCESS (always)
@@ -2630,41 +3381,40 @@
 #define GA_CS_RSI_VERIFY_COMPLETE                      CSIP_RSI_VERIFY_COMPLETE
 
 /**
- * \name CSIP SetCoordinator-Setup
+ * \name CSIP SetCoordinator Events - Setup
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Setup Events for SetCoordinator.
  */
 
 /**
- * This event is notified on discovery of CSIS service with the
- * following values as parameters in the
- * \ref GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified on discovery of CSIS service with the
+ * following values as parameters in the \ref GA_PROFILE_CB
+ * registered during \ref GA_cs_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_DISCOVER_CNF \n
- * \param [in] ga_status  \ref GA_SUCCESS : Service found \n
- *                        \ref GA_FAILURE : Service not found \n
- * \param [in] ga_data    If status is \ref GA_SUCCESS \n
- *                           - ga_data - Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                              - context - To be ignored by the application \n
- *                              - data - Pointer to object of type
- *                                       \ref GA_BRR_SVC_INFO \n
- *                                       Parameter depicts the Service Handle -
- *                                       Start and End. \n
- *                              - datalen - \ref sizeof ( \ref GA_BRR_SVC_INFO) \n
- *                              - handle - CSIS context Handle for the Device -
- *                                         \ref CSIP_HANDLE. \n.
- *                              .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_DISCOVER_CNF \n
+ * \param [in] ga_status \ref GA_SUCCESS : Service found \n
+ *                       \ref GA_FAILURE : Service not found \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: Pointer to object of type
+ *                                   \ref GA_BRR_SVC_INFO \n
+ *                                   Parameter depicts the Service Handle -
+ *                                   Start and End. \n
+ *                           - datalen: \ref sizeof ( \ref GA_BRR_SVC_INFO) \n
+ *                           - handle: CSIS context Handle for the Device. \n
  *                           .
- *                        Else \n
- *                           - ga_data - NULL \n
- *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
  * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
- *                           - ga_datalen - \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
  *                           .
  *                        Else \n
- *                           - ga_datalen - 0 \n
+ *                           - ga_datalen: 0 \n
  *                           .
  *
  * \return \ref GA_SUCCESS (always)
@@ -2672,34 +3422,33 @@
 #define GA_CS_DISCOVER_CNF                              CSIP_DISCOVER_CNF
 
 /**
- * This event is notified on successful setup of CSIP context with the peer
- * device with following values as parameters for \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified on successful setup of CSIP context with the
+ * peer device with following values as parameters in the \ref GA_PROFILE_CB
+ * registered during \ref GA_cs_client_init().
  * Char and Descriptor discovery is followed by Configuration of Notification
  * of any char if applicable.
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETUP_CNF \n
- * \param [in] ga_status  \ref GA_CONTINUE : Setup Ongoing \n
- *                        \ref GA_SUCCESS : Setup Done \n
- *                        \ref GA_FAILURE : Setup Failed \n
- * \param [in] ga_data    If status is \ref GA_SUCCESS \n
- *                           - ga_data - Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                              - context - To be ignored by the application \n
- *                              - data - NULL \n
- *                              - datalen - 0 \n
- *                              - handle - CSIS context Handle for the Device -
- *                                         \ref CSIP_HANDLE. \n.
- *                              .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETUP_CNF \n
+ * \param [in] ga_status \ref GA_CONTINUE : Setup Ongoing \n
+ *                       \ref GA_SUCCESS : Setup Done \n
+ *                       \ref GA_FAILURE : Setup Failed \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: NULL \n
+ *                           - datalen: 0 \n
+ *                           - handle: CSIS context Handle for the Device. \n
  *                           .
- *                        Else \n
- *                           - ga_data - NULL \n
- *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
  * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
- *                           - ga_datalen - \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
  *                           .
  *                        Else \n
- *                           - ga_datalen - 0 \n
+ *                           - ga_datalen: 0 \n
  *                           .
  *
  * \return \ref GA_SUCCESS (always)
@@ -2709,38 +3458,37 @@
 /** \} */
 
 /**
- * \name CSIP SetCoordinator-Read
+ * \name CSIP SetCoordinator Events - Read
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Read Events for SetCoordinator.
  */
 
 /**
- * This event is notified when a read response is received for Set Identity
- * Resolving Key characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified when a read response is received for Set
+ * Identity Resolving Key characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_cs_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SIRK_GET_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data    If status is \ref GA_SUCCESS \n
- *                           - ga_data - Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                              - context - To be ignored by the application \n
- *                              - data - Pointer to object of type \ref CSIP_SIRK \n
- *                              - datalen - \ref sizeof ( \ref CSIP_SIRK) \n
- *                              - handle - CSIS context Handle for the Device -
- *                                         \ref CSIP_HANDLE. \n.
- *                              .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SIRK_GET_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: Pointer to object of type \ref CSIP_SIRK \n
+ *                           - datalen: \ref sizeof ( \ref CSIP_SIRK) \n
+ *                           - handle: CSIS context Handle for the Device. \n
  *                           .
- *                        Else \n
- *                           - ga_data - NULL \n
- *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
  * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
- *                           - ga_datalen - \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
  *                           .
  *                        Else \n
- *                           - ga_datalen - 0 \n
+ *                           - ga_datalen: 0 \n
  *                           .
  *
  * \return \ref GA_SUCCESS (always)
@@ -2748,64 +3496,61 @@
 #define GA_CS_SIRK_GET_CNF                              CSIP_SIRK_GET_CNF
 
 /**
- * This event is notified when a read response is received for Coordinated
- * Set Size characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified when a read response is received for
+ * Coordinated Set Size characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_cs_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETSIZE_GET_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data    If status is \ref GA_SUCCESS \n
- *                           - ga_data - Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                              - context - To be ignored by the application \n
- *                              - data - Pointer to object of type \ref UINT8 (Size) \n
- *                              - datalen - \ref sizeof ( \ref UINT8 ) \n
- *                              - handle - CSIS context Handle for the Device -
- *                                         \ref CSIP_HANDLE. \n.
- *                              .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETSIZE_GET_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: Pointer to object of type \ref UINT8 (Size) \n
+ *                           - datalen: \ref sizeof ( \ref UINT8 ) \n
+ *                           - handle: CSIS context Handle for the Device. \n
  *                           .
- *                        Else \n
- *                           - ga_data - NULL \n
- *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
  * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
- *                           - ga_datalen - \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
  *                           .
  *                        Else \n
- *                           - ga_datalen - 0 \n
+ *                           - ga_datalen: 0 \n
  *                           .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_CS_SETSIZE_GET_CNF                           CSIP_SETSIZE_GET_CNF
 
-
 /**
- * This event is notified when a read response is received for Set Member
- * Lock characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified when a read response is received for Set
+ * Member Lock characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_cs_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETMEMBER_LOCK_GET_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data    If status is \ref GA_SUCCESS \n
- *                           - ga_data - Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                              - context - To be ignored by the application \n
- *                              - data - Pointer to object of type \ref UINT8 (Lock)\n
- *                              - datalen - \ref sizeof ( \ref UINT8 ) \n
- *                              - handle - CSIS context Handle for the Device -
- *                                         \ref CSIP_HANDLE. \n.
- *                              .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETMEMBER_LOCK_GET_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: Pointer to object of type \ref UINT8 (Lock)\n
+ *                           - datalen: \ref sizeof ( \ref UINT8 ) \n
+ *                           - handle: CSIS context Handle for the Device. \n
  *                           .
- *                        Else \n
- *                           - ga_data - NULL \n
- *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
  * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
- *                           - ga_datalen - \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
  *                           .
  *                        Else \n
- *                           - ga_datalen - 0 \n
+ *                           - ga_datalen: 0 \n
  *                           .
  *
  * \return \ref GA_SUCCESS (always)
@@ -2813,31 +3558,30 @@
 #define GA_CS_SETMEMBER_LOCK_GET_CNF                    CSIP_SETMEMBER_LOCK_GET_CNF
 
 /**
- * This event is notified when a read response is received for Set Member Rank
- * characteristic from peer device with the following values as parameters
- * in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified when a read response is received for
+ * Set Member Rank characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_cs_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETMEMBER_RANK_GET_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Read Response received \n
- * \param [in] ga_data    If status is \ref GA_SUCCESS \n
- *                           - ga_data - Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                              - context - To be ignored by the application \n
- *                              - data - Pointer to object of type \ref UINT8 (Rank)\n
- *                              - datalen - \ref sizeof ( \ref UINT8 ) \n
- *                              - handle - CSIS context Handle for the Device -
- *                                         \ref CSIP_HANDLE. \n.
- *                              .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETMEMBER_RANK_GET_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: Pointer to object of type \ref UINT8 (Rank)\n
+ *                           - datalen: \ref sizeof ( \ref UINT8 ) \n
+ *                           - handle: CSIS context Handle for the Device. \n
  *                           .
- *                        Else \n
- *                           - ga_data - NULL \n
- *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
  * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
- *                           - ga_datalen - \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
  *                           .
  *                        Else \n
- *                           - ga_datalen - 0 \n
+ *                           - ga_datalen: 0 \n
  *                           .
  *
  * \return \ref GA_SUCCESS (always)
@@ -2847,38 +3591,37 @@
 /** \} */
 
 /**
- * \name CSIP SetCoordinator-Write
+ * \name CSIP SetCoordinator Events - Write
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Write Events for SetCoordinator.
  */
 
 /**
- * This event is notified when a write response is received for Set Member
- * Lock characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified when a write response is received for Set
+ * Member Lock characteristic from peer device with the following values as
+ * parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_cs_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETMEMBER_LOCK_SET_CNF
- * \param [in] ga_status  \ref GA_SUCCESS : Write Response received \n
- * \param [in] ga_data    If status is \ref GA_SUCCESS \n
- *                           - ga_data - Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                              - context - To be ignored by the application \n
- *                              - data - NULL \n
- *                              - datalen - 0 \n
- *                              - handle - CSIS context Handle for the Device -
- *                                         \ref CSIP_HANDLE. \n.
- *                              .
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETMEMBER_LOCK_SET_CNF
+ * \param [in] ga_status \ref GA_SUCCESS : Write Response received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: NULL \n
+ *                           - datalen: 0 \n
+ *                           - handle: CSIS context Handle for the Device. \n
  *                           .
- *                        Else \n
- *                           - ga_data - NULL \n
- *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
  * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
- *                           - ga_datalen - \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
  *                           .
  *                        Else \n
- *                           - ga_datalen - 0 \n
+ *                           - ga_datalen: 0 \n
  *                           .
  *
  * \return \ref GA_SUCCESS (always)
@@ -2888,55 +3631,100 @@
 /** \} */
 
 /**
- * \name CSIP SetCoordinator-Notification
+ * \name CSIP SetCoordinator Events - Notification
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Notification Events for SetCoordinator.
  */
 
 /**
- * This event is notified when a notification is received for Set Identity
- * Resolving Key characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified when a notification is received for Set
+ * Identity Resolving Key characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_cs_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SIRK_NTF \n
- * \param [in] ga_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] ga_data  Pointer to object of type \ref CSIP_SIRK \n
- * \param [in] ga_datalen  \ref sizeof( \ref CSIP_SIRK) \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SIRK_NTF \n
+ * \param [in] ga_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: Pointer to object of type \ref CSIP_SIRK \n
+ *                           - datalen: \ref sizeof ( \ref CSIP_SIRK) \n
+ *                           - handle: CSIS context Handle for the Device. \n
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_CS_SIRK_NTF                                CSIP_SIRK_NTF
 
 /**
- * This event is notified when a notification is received for Coordinated Set
- * Size characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified when a notification is received for
+ * Coordinated Set Size characteristic from peer device with the following
+ * values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_cs_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETSIZE_NTF \n
- * \param [in] ga_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] ga_data  Pointer to object of type \ref UINT8 \n
- * \param [in] ga_datalen  \ref sizeof( \ref UINT8) \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETSIZE_NTF \n
+ * \param [in] ga_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: Pointer to object of type \ref UINT8 \n
+ *                           - datalen: \ref sizeof ( \ref UINT8) \n
+ *                           - handle: CSIS context Handle for the Device. \n
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define GA_CS_SETSIZE_NTF                             CSIP_SET_SIZE_NTF
 
 /**
- * This event is notified when a notification is received for Coordinated Set
- * Member Lock characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief This event is notified when a notification is received for
+ * Coordinated Set Member Lock characteristic from peer device with the
+ * following values as parameters in the \ref GA_PROFILE_CB registered during
+ * \ref GA_cs_client_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETMEMBER_LOCK_STATUS_NTF \n
- * \param [in] ga_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] ga_data  Pointer to object of type \ref UINT8 \n
- * \param [in] ga_datalen  \ref sizeof( \ref UINT8) \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETMEMBER_LOCK_STATUS_NTF \n
+ * \param [in] ga_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: Pointer to object of type \ref UINT8 \n
+ *                           - datalen: \ref sizeof ( \ref UINT8) \n
+ *                           - handle: CSIS context Handle for the Device. \n
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -2945,24 +3733,39 @@
 /** \} */
 
 /**
- * \name CSIP SetCoordinator-Release
+ * \name CSIP SetCoordinator Events - Release
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Release Events for SetCoordinator.
  */
 
 /**
- * The event is notified when CSIS context is released with the \ref
- * GA_CALLBACK callback ( \ref GA_PROFILE_CB \ref csic_cb ).
+ * \brief The event is notified when CSIS context is released with the
+ * \ref GA_PROFILE_CB registered during \ref GA_cs_client_init().
  * When the event is notified, notification is disabled and context will be
  * cleared.
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_RELEASE_CNF \n
- * \param [in] ga_status  \ref GA_SUCCESS : Release completed \n
- *                        \ref GA_FAILURE : Release Failed \n
- * \param [in] ga_data  NULL \n
- * \param [in] ga_datalen 0 \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_RELEASE_CNF \n
+ * \param [in] ga_status \ref GA_SUCCESS : Release completed \n
+ *                       \ref GA_FAILURE : Release Failed \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: To be ignored by the application \n
+ *                           - data: NULL \n
+ *                           - datalen: 0 \n
+ *                           - handle: CSIS context Handle for the Device. \n
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -2973,136 +3776,243 @@
 /** \} */
 
 /**
- * \defgroup ga_csip_setmem_evt_defs CSIP SetMember Event
+ * \defgroup ga_csip_setmem_evt_defs SetMember
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Events for SetMember.
  */
 
 /**
- * \name CSIP SetMember-Read
+ * \brief This event is notified as result of RSI generation
+ * procedure initiated by the application. The event passes the
+ * parameters as below to the application callback as in
+ * \ref GA_PROFILE_CB registered during \ref GA_cs_server_init().
+ *
+ * \param [in] ga_ep NULL
+ * \param [in] ga_event \ref GA_CS_RSI_CREATE_COMPLETE
+ * \param [in] ga_status \ref GA_SUCCESS
+ * \param [in] ga_data Pointer to the RSI Created
+ * \param [in] ga_datalen 6
+ *
+ * \return \ref GA_SUCCESS (always)
+ */
+#define GA_CS_RSI_CREATE_COMPLETE                      CSIP_RSI_CREATE_COMPLETE
+
+/**
+ * \name CSIP SetMember Events - Read
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Read Events for SetMember.
  */
 
 /**
- * This event is notified when a read request is received for Set Identity
- * Resolving Key characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csis_cb )
+ * \brief This event is notified when a read request is received for Set
+ * Identity Resolving Key characteristic from peer device with the following
+ * parameters as below to the application callback as in
+ * \ref GA_PROFILE_CB registered during \ref GA_cs_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SIRK_GET_IND \n
- * \param [in] ga_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] ga_data  Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                      context - Use this while calling GA_cs_send_response()
- *                                to send response.
- *                      data - NULL
- *                      datalen - 0
- * \param [in] ga_datalen  \ref sizeof( \ref CSIP_EVENT_INFO) \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SIRK_GET_IND \n
+ * \param [in] ga_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: Use this while calling
+ *                                      \ref GA_cs_send_response() to send
+ *                                      response. \n
+ *                           - data: NULL \n
+ *                           - datalen: 0 \n
+ *                           - handle: CSIS Member Handle for the Device. \n
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_cs_send_response() has to be called to send the read response.
+ *
+ * \note \ref GA_cs_send_response() has to be called to send the read response
+ *       if the event is notified for CSIS. \n
+ *       If the event is notified for CAS_CSIS, then this is only informational
+ *       to the application. The application need not send any response.
+ *       For CAS_CSIS, this event will be notified to application only if
+ *       \ref CAP_ENABLE_CSIS_READ_APP_CB flag is enabled.
  */
 #define GA_CS_SIRK_GET_IND                              CSIP_SIRK_GET_IND
 
 /**
- * This event is notified when a read request is received for Coordinated Set
- * Size characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csis_cb ).
+ * \brief This event is notified when a read request is received for
+ * Coordinated Set Size characteristic from peer device with the following
+ * parameters as below to the application callback as in
+ * \ref GA_PROFILE_CB registered during \ref GA_cs_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETSIZE_GET_IND \n
- * \param [in] ga_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] ga_data  Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                      context - Use this while calling GA_cs_send_response()
- *                                to send response.
- *                      data - NULL
- *                      datalen - 0
- * \param [in] ga_datalen  \ref sizeof( \ref CSIP_EVENT_INFO) \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETSIZE_GET_IND \n
+ * \param [in] ga_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: Use this while calling
+ *                                      \ref GA_cs_send_response() to send
+ *                                      response. \n
+ *                           - data: NULL \n
+ *                           - datalen: 0 \n
+ *                           - handle: CSIS Member Handle for the Device. \n
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_cs_send_response() has to be called to send the read response.
- * Allowed values for the Coordinated Set Size characteristic are
- * integers in the range 0x02 to 0xFF. Values 0x00 and 0x01 are Prohibited.
+ *
+ * \note \ref GA_cs_send_response() has to be called to send the read response
+ *       if the event is notified for CSIS. \n
+ *       Allowed values for the Coordinated Set Size characteristic are
+ *       integers in the range 0x01 to 0xFF. Value 0x00 is Prohibited. \n
+ *       If the event is notified for CAS_CSIS, then this is only informational
+ *       to the application. The application need not send any response.
+ *       For CAS_CSIS, this event will be notified to application only if
+ *       \ref CAP_ENABLE_CSIS_READ_APP_CB flag is enabled.
  */
 #define GA_CS_SETSIZE_GET_IND                           CSIP_SETSIZE_GET_IND
 
 /**
- * This event is notified when a read request is received for Coordinated Set
- * Member Lock characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csis_cb ).
+ * \brief This event is notified when a read request is received for
+ * Coordinated Set Member Lock characteristic from peer device with the
+ * parameters as below to the application callback as in
+ * \ref GA_PROFILE_CB registered during \ref GA_cs_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETMEMBER_LOCK_GET_IND \n
- * \param [in] ga_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] ga_data  Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                      context - Use this while calling GA_cs_send_response()
- *                                to send response.
- *                      data - NULL
- *                      datalen - 0
- * \param [in] ga_datalen  \ref sizeof( \ref CSIP_EVENT_INFO) \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETMEMBER_LOCK_GET_IND \n
+ * \param [in] ga_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: Use this while calling
+ *                                      \ref GA_cs_send_response() to send
+ *                                      response. \n
+ *                           - data: NULL \n
+ *                           - datalen: 0 \n
+ *                           - handle: CSIS Member Handle for the Device. \n
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_cs_send_response() has to be called to send the read response.
- * Allowed values for the Coordinated Set Member Lock characteristic are
- * defined as \ref ga_csip_set_member_lock.
+ *
+ * \note \ref GA_cs_send_response() has to be called to send the read response
+ *       if the event is notified for CSIS. \n
+ *       Allowed values for the Coordinated Set Member Lock characteristic are
+ *       defined as \ref ga_csip_set_member_lock. \n
+ *       If the event is notified for CAS_CSIS, then this is only informational
+ *       to the application. The application need not send any response.
+ *       For CAS_CSIS, this event will be notified to application only if
+ *       \ref CAP_ENABLE_CSIS_READ_APP_CB flag is enabled.
  */
 #define GA_CS_SETMEMBER_LOCK_GET_IND                    CSIP_SETMEMBER_LOCK_GET_IND
 
 /**
- * This event is notified when a read request is received for Coordinated Set
- * Member Rank characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csis_cb ).
+ * \brief This event is notified when a read request is received for
+ * Coordinated Set Member Rank characteristic from peer device with the
+ * parameters as below to the application callback as in
+ * \ref GA_PROFILE_CB registered during \ref GA_cs_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETMEMBER_RANK_GET_IND \n
- * \param [in] ga_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] ga_data  Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                      context - Use this while calling GA_cs_send_response()
- *                                to send response.
- *                      data - NULL
- *                      datalen - 0
- * \param [in] ga_datalen  \ref sizeof( \ref CSIP_EVENT_INFO) \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETMEMBER_RANK_GET_IND \n
+ * \param [in] ga_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: Use this while calling
+ *                                      \ref GA_cs_send_response() to send
+ *                                      response. \n
+ *                           - data: NULL \n
+ *                           - datalen: 0 \n
+ *                           - handle: CSIS Member Handle for the Device. \n
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
- * \note GA_cs_send_response() has to be called to send the read response.
- * Allowed values for the Set Member Rank characteristics are positive integer
- * numbers starting from 0x01.
+ *
+ * \note \ref GA_cs_send_response() has to be called to send the read response
+ *       if the event is notified for CSIS. \n
+ *       Allowed values for the Set Member Rank characteristics are positive
+ *       integer numbers starting from 0x01. \n
+ *       If the event is notified for CAS_CSIS, then this is only informational
+ *       to the application. The application need not send any response.
+ *       For CAS_CSIS, this event will be notified to application only if
+ *       \ref CAP_ENABLE_CSIS_READ_APP_CB flag is enabled.
  */
 #define GA_CS_SETMEMBER_RANK_GET_IND                    CSIP_SETMEMBER_RANK_GET_IND
 
 /** \} */
 
 /**
- * \name CSIP SetMember-Write
+ * \name CSIP SetMember Events - Write
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Write Events for SetMember.
  */
 
 /**
- * This event is notified when a write request is received for Set Member Lock
- * characteristic from peer device with the following values as
- * parameters in the \ref GA_CALLBACK callback
- * ( \ref GA_PROFILE_CB \ref csis_cb ).
+ * \brief This event is notified when a write request is received for
+ * Set Member Lock characteristic from peer device with the following values as
+ * parameters as below to the application callback as in
+ * \ref GA_PROFILE_CB registered during \ref GA_cs_server_init().
  *
- * \param [in] ga_ep  Pointer to peer device handle \ref
- * \param [in] ga_event  \ref GA_CS_SETMEMBER_LOCK_SET_IND \n
- * \param [in] ga_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] ga_data  Pointer to object of type \ref CSIP_EVENT_INFO \n
- *                      context - Use this while calling GA_cs_send_response()
- *                                to send response.
- *                      data - UINT8 depicting value of Lock
- *                             \ref ga_csip_set_member_lock
- *                      datalen - sizeof ( \ref UINT8 )
- * \param [in] ga_datalen  \ref sizeof( \ref CSIP_EVENT_INFO) \n
+ * \param [in] ga_ep Pointer to peer device handle \ref
+ * \param [in] ga_event \ref GA_CS_SETMEMBER_LOCK_SET_IND \n
+ * \param [in] ga_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] ga_data If status is \ref GA_SUCCESS \n
+ *                        - ga_data: Pointer to object of type \ref CSIP_EVENT_INFO \n
+ *                           - context: Use this while calling
+ *                                      \ref GA_cs_send_response() to send
+ *                                      response. \n
+ *                           - data: Pointer to object of type \ref UINT8
+ *                                   depicting value of Lock
+ *                                   \ref ga_csip_set_member_lock. \n
+ *                           - datale: \ref sizeof ( \ref UINT8 )
+ *                           - handle: CSIS Member Handle for the Device. \n.
+ *                           .
+ *                        .
+ *                     Else \n
+ *                        - ga_data: NULL \n
+ *                        .
+ * \param [in] ga_datalen If status is \ref GA_SUCCESS \n
+ *                           - ga_datalen: \ref sizeof ( \ref CSIP_EVENT_INFO) \n
+ *                           .
+ *                        Else \n
+ *                           - ga_datalen: 0 \n
+ *                           .
  *
  * \return \ref GA_SUCCESS (always)
+ *
  * \note \ref GA_cs_send_response() has to be called to send the
  *       write response.
  */
@@ -3116,10 +4026,10 @@
  * This is an event to indicate unknown event. This event shall never be
  * generated.
  *
- * \param [in] ga_ep  NULL
- * \param [in] ga_event  \ref CSIP_EVENT_INVALID
- * \param [in] ga_status  \ref NULL \n
- * \param [in] ga_data  NULL \n
+ * \param [in] ga_ep NULL
+ * \param [in] ga_event \ref CSIP_EVENT_INVALID
+ * \param [in] ga_status \ref NULL \n
+ * \param [in] ga_data NULL \n
  * \param [in] ga_datalen  0 \n
  *
  * \return \ref GA_SUCCESS (always)
@@ -3136,12 +4046,22 @@
  */
 
 /**
- * \addtogroup ga_bap_defines
+ * \addtogroup ga_bap_bc_module
  * \{
  */
 
 /**
- * \addtogroup ga_bap_constants
+ * \addtogroup ga_bap_bc_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_bc_source_sink_common_def
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_bc_source_sink_common_constants
  * \{
  */
 
@@ -3156,6 +4076,20 @@
 #define GA_BROADCAST_CODE_SIZE                      BAP_BC_CODE_SIZE
 
 /** \} */
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_bc_source_def
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_bc_source_constants Constants
+ * \{
+ * \brief This section describes the various Constants in EtherMind
+ * GA BAP Layer for BC Source.
+ */
 
 /**
  * \name Broadcast Profile Types
@@ -3171,6 +4105,31 @@
 #define GA_BCAST_SIG_PROFILE_PUBLIC_BROADCAST       1U
 
 /** \} */
+/** \} */
+/** \} */
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_uc_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_client_server_ascs_def
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_client_server_ascs_constants
+ * \{
+ */
 
 /**
  * \name ASE CP Response Codes
@@ -3216,25 +4175,24 @@
  * (i.e., the server has not exposed the requested configuration in any PAC
  * record).
  */
-
 #define GA_SEP_RSP_UNSUPP_AUDIO_CAPABILITIES    0x06U
 /**
  * ASE CP Response codes: The server has detected that it does not support one
  * or more configuration parameter values written by the client. Shall not be
  * used when the Reason value is 0x04(Framing).
- * Refer \ref ga_bap_constants for reason codes.
+ * Refer \ref ga_bap_uc_client_server_ascs_constants for reason codes.
  */
 #define GA_SEP_RSP_UNSUPP_CONFIG_PARAM_VAL      0x07U
 /**
  * ASE CP Response codes: The server has rejected one or more configuration
  * parameter values written by the client.
- * Refer \ref ga_bap_constants for reason codes.
+ * Refer \ref ga_bap_uc_client_server_ascs_constants for reason codes.
  */
 #define GA_SEP_RSP_REJECTED_CONFIG_PARAM_VAL    0x08U
 /**
  * ASE CP Response codes: The server has detected one or more invalid
  * configuration parameter values written by the client.
- * Refer \ref ga_bap_constants for reason codes.
+ * Refer \ref ga_bap_uc_client_server_ascs_constants for reason codes.
  */
 #define GA_SEP_RSP_INVALID_CONFIG_PARAM_VAL     0x09U
 /**
@@ -3381,6 +4339,8 @@
 /** \} */
 /** \} */
 /** \} */
+/** \} */
+/** \} */
 
 /**
  * \addtogroup ga_csip_module
@@ -3393,14 +4353,23 @@
  */
 
 /**
- * \defgroup ga_csip_error_codes Error Codes
+ * \defgroup ga_csip_constants Constants
+ * \{
+ * \brief This section describes the various Constants in EtherMind
+ * GA CSIP Layer.
+ */
+
+/** \} */
+
+/**
+ * \defgroup ga_csip_error_code Error Codes
  * \{
  * \brief This sections describes the Error Codes exposed and used
  * by the EtherMind GA CSIP Layer.
  */
 
 /**
- * \name Application error code
+ * \name CSIP - Application Error Codes
  * \{
  * \brief This section lists Application error codes,
  * As defined in CSIS Specification.
@@ -3527,22 +4496,111 @@ typedef UINT8 GA_CM_HANDLE;
  */
 
 /**
- * \addtogroup ga_bap_defines
+ * \addtogroup ga_bap_uc_module
  * \{
  */
 
 /**
- * \defgroup ga_bap_structures Structures
+ * \addtogroup ga_bap_uc_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_client_server_ascs_def
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_uc_client_server_ascs_structures Structures
  * \{
  * \brief This section lists the various data structures and typedefs for use
- * by the module.
+ * by UC Client and Server ASCS.
  */
 
 /** GA ASE States */
 typedef UINT8 GA_ASE_STATE;
 
+/** GA Channel Reference */
+typedef BAP_CHANNEL GA_CHANNEL;
+
+/** GA Content Information */
+typedef struct _GA_CONTENT_INFO
+{
+    /** Contexts for the content */
+    UINT16 contexts;
+
+    /** List of CCIDs */
+    UINT8 * ccid; /* SZ:^3 */
+
+    /** Number of CCIDs */
+    UINT8 num_ccid;
+
+} GA_CONTENT_INFO;
+
+/** Stream End point Configuration */
+typedef struct _GA_SEP_CONF
+{
+    /** Role */
+    UINT8 role;
+
+    /** Target Latency */
+    UINT8 target_latency;
+
+    /** Target Phy */
+    UINT8 target_phy;
+
+    /** Codec Capability */
+    GA_CODEC_INFO codec;
+
+} GA_SEP_CONF;
+
+/** \} */
+/** \} */
+/** \} */
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_common_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_common_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_common_structures
+ * \{
+ */
+
 /** GA Context Reference for an Endpoint */
 typedef UINT8 GA_CONTEXT;
+
+/** \} */
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_structures
+ * \{
+ */
 
 /** GA LC3 Codec Specific Capability */
 typedef struct _GA_LC3_CODEC_SPECIFIC_CAP
@@ -3602,6 +4660,46 @@ typedef struct _GA_LC3_CODEC_SPECIFIC_CONF
 
 } GA_LC3_CODEC_SPECIFIC_CONF;
 
+/** GA Codec Configuration */
+typedef struct _GA_CODEC_CONFIG
+{
+    /** Codec ID */
+    UINT8 id;
+
+    /** Codec Configuration */
+    void * conf;
+
+} GA_CODEC_CONFIG;
+
+/** GA QOS Configuration */
+typedef BAP_ASE_QOS_CONF GA_QOS_CONF;
+
+/** \} */
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_uc_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_client_server_pacs_def
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_uc_client_server_pacs_structures Structures
+ * \{
+ * \brief This section lists the various data structures and typedefs for use
+ * by UC Client and Server PACS.
+ */
+
 /** GA Supported Audio Capability */
 typedef struct _GA_AUDIO_CAP
 {
@@ -3617,47 +4715,67 @@ typedef struct _GA_AUDIO_CAP
 typedef struct _GA_PACS_AUDIO_RECORD
 {
     /**
-     * Sink Audio Locations, Refer \ref ga_bap_constants
+     * Sink Audio Locations, Refer \ref ga_common_constants
      */
     UINT32 sink_audio_locations;
 
     /**
-     * Source Audio Locations, Refer \ref ga_bap_constants
+     * Source Audio Locations, Refer \ref ga_common_constants
      */
     UINT32 src_audio_locations;
 
     /**
-     * Available Audio Contexts for the capability, Refer \ref ga_bap_constants
+     * Available Audio Contexts for the capability,
+     * Refer \ref ga_bap_common_constants
      */
     UINT16 avail_sink_contexts;
 
     /**
-     * Available Audio Contexts for the capability, Refer \ref ga_bap_constants
+     * Available Audio Contexts for the capability,
+     * Refer \ref ga_bap_common_constants
      */
     UINT16 avail_src_contexts;
 
     /**
-     * Supported Audio Contexts for the capability, Refer \ref ga_bap_constants
+     * Supported Audio Contexts for the capability,
+     * Refer \ref ga_bap_common_constants
      */
     UINT16 supp_sink_contexts;
 
     /**
-     * Supported Audio Contexts for the capability, Refer \ref ga_bap_constants
+     * Supported Audio Contexts for the capability,
+     * Refer \ref ga_bap_common_constants
      */
     UINT16 supp_src_contexts;
 
 } GA_PACS_AUDIO_RECORD;
 
-/** GA Codec Configuration */
-typedef struct _GA_CODEC_CONFIG
-{
-    /** Codec ID */
-    UINT8 id;
+/** \} */
+/** \} */
+/** \} */
+/** \} */
 
-    /** Codec Configuration */
-    void * conf;
+/**
+ * \addtogroup ga_bap_uc_module
+ * \{
+ */
 
-} GA_CODEC_CONFIG;
+/**
+ * \addtogroup ga_bap_uc_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_common_def
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_uc_common_structures Structures
+ * \{
+ * \brief This section lists the various data structures and typedefs for use
+ * by UC Client and Server.
+ */
 
 /** GA QOS Capability */
 typedef struct _GA_QOS_CAP
@@ -3686,42 +4804,20 @@ typedef struct _GA_QOS_CAP
 
 } GA_QOS_CAP;
 
-/** GA QOS Configuration */
-typedef BAP_ASE_QOS_CONF GA_QOS_CONF;
+/** \} */
+/** \} */
 
-/** GA Channel Reference */
-typedef BAP_CHANNEL GA_CHANNEL;
+/**
+ * \addtogroup ga_bap_uc_client_pacs_def
+ * \{
+ */
 
-/** GA Content Information */
-typedef struct _GA_CONTENT_INFO
-{
-    /** Contexts for the content */
-    UINT16 contexts;
-
-    /** List of CCIDs */
-    UINT8 * ccid;
-
-    /** Number of CCIDs */
-    UINT8 num_ccid;
-
-} GA_CONTENT_INFO;
-
-/** Stream End point Configuration */
-typedef struct _GA_SEP_CONF
-{
-    /** Role */
-    UINT8 role;
-
-    /** Target Latency */
-    UINT8 target_latency;
-
-    /** Target Phy */
-    UINT8 target_phy;
-
-    /** Codec Capability */
-    GA_CODEC_INFO codec;
-
-} GA_SEP_CONF;
+/**
+ * \defgroup ga_bap_uc_client_pacs_structures Structures
+ * \{
+ * \brief This section lists the various data structures and typedefs for use
+ * by UC Client - PACS.
+ */
 
 /** GA Endpoint Capability */
 typedef struct _GA_CAP_ENDPOINT
@@ -3731,24 +4827,25 @@ typedef struct _GA_CAP_ENDPOINT
      * If \ref GA_CAP_TYPE_CODECS
      *     data: Pointer to data with First byte indicating Number of PACS Records,
      *           followed by \ref GA_CODEC_INFO followed by \ref GA_METADATA.
+     *           Refer \ref ga_bap_common_constants
      *     data[0] -> No of PAC Records followed by params as above.
      *
      * If \ref GA_CAP_TYPE_LOCATIONS,
      *     data: Pointer to \ref UINT32, Represents Audio Location values as
      *           bitmask.
-     *           Refer \ref ga_bap_constants
+     *           Refer \ref ga_common_constants
      *
      * If \ref GA_CAP_TYPE_SUPP_CONTEXTS
      *     data: Pointer to \ref UINT16, Represents Supported Context values
      *           as bitmask.
-     *           Refer \ref ga_bap_constants
+     *           Refer \ref ga_bap_common_constants
      *
      * If \ref GA_CAP_TYPE_AVAIL_CONTEXTS,
      *     data: Pointer to \ref UINT16, Represents Supported Context values
      *           as bitmask.
-     *           Refer \ref ga_bap_constants
+     *           Refer \ref ga_bap_common_constants
      */
-    UCHAR * data;
+    UCHAR * data; /* SZ:^2 */
 
     /**
      * Capability data length:
@@ -3766,10 +4863,10 @@ typedef struct _GA_CAP_ENDPOINT
      */
     UINT16 datalen;
 
-    /** Peer role under consideration, Refer \ref ga_bap_constants */
+    /** Peer role under consideration, Refer \ref ga_bap_uc_common_constants */
     UINT8 role;
 
-    /** Capability type, Refer \ref ga_bap_constants */
+    /** Capability type, Refer \ref ga_bap_uc_client_server_pacs_constants */
     UINT8 type;
 
     /** Capability Record ID, Valid only for type \ref GA_CAP_TYPE_CODECS */
@@ -3777,11 +4874,26 @@ typedef struct _GA_CAP_ENDPOINT
 
 } GA_CAP_ENDPOINT;
 
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_uc_client_ascs_def
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_uc_client_ascs_structures Structures
+ * \{
+ * \brief This section lists the various data structures and typedefs for use
+ * by UC Client - ASCS.
+ */
+
 /** ASE Information */
 typedef struct _GA_ASE_INFO
 {
     /** ASE Info data */
-    UCHAR * data;
+    UCHAR * data; /* SZ:^2 */
 
     /** ASE Infor datalen */
     UINT16 datalen;
@@ -3793,17 +4905,6 @@ typedef struct _GA_ASE_INFO
     UINT8 ase_role;
 
 } GA_ASE_INFO;
-
-/** SEP Callback Information */
-typedef struct _GA_SEP_INFO
-{
-    /** Event specific information */
-    void * info;
-
-    /** SEP Id */
-    UINT8 sep_id;
-
-} GA_SEP_INFO;
 
 /** ASE Format referenced in \ref GA_SEP_DISCOVER_CNF */
 typedef struct _GA_ASE_INFO_IN_IDLE
@@ -3863,53 +4964,106 @@ typedef struct _GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING
     UINT8 metadata_length;
 
     /** LTV Formatted Metadata */
-    UINT8* metadata;
+    UINT8* metadata; /* SZ:^4 */
 
 } GA_ASE_INFO_IN_ENABLING_STREAMING_DISABLING;
 
 /** GA Stream Context information */
 typedef struct _GA_STREAM_CONTEXT
 {
-    /* Stream endpoint ID */
+    /** Stream endpoint ID */
     UINT8 sep_id;
 
-    /* ASE ID */
+    /** ASE ID */
     UINT8 ase_id;
 
-    /* ASE state */
+    /** ASE state */
     UINT8 ase_state;
 
 } GA_STREAM_CONTEXT;
 
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_uc_server_ascs_def
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_uc_server_ascs_structures Structures
+ * \{
+ * \brief This section lists the various data structures and typedefs for use
+ * by UC Server - ASCS.
+ */
+
+/** SEP Callback Information */
+typedef struct _GA_SEP_INFO
+{
+    /** Event specific information */
+    void * info;
+
+    /** SEP Id */
+    UINT8 sep_id;
+
+} GA_SEP_INFO;
+
+/** \} */
+/** \} */
+/** \} */
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_cas_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_cas_defines
+ * \{
+ */
+
+/**
+ * \defgroup ga_cas_structures Structures
+ * \{
+ * \brief This section lists the various data structures and typedefs for use
+ * by CAS.
+ */
+
 /** GA Set Member parameters */
 typedef struct _GA_SET_MEMBER
 {
-    /* Set SIRK, 1 octet type + 16 octet value */
+    /** Set SIRK, 1 octet type + 16 octet value */
     UCHAR sirk[1U + CSIP_SIRK_LEN];
 
-    /* Set Size */
+    /** Set Size */
     UINT8 size;
 
-    /* Set Member Rank */
+    /** Set Member Rank */
     UINT8 rank;
 
-    /* Set Member Lock */
+    /** Set Member Lock */
     UINT8 lock;
 
 } GA_SET_MEMBER;
 
 /** \} */
 /** \} */
+/** \} */
 
 /**
- *  \defgroup ga_cb Application Callback
- *  \{
- *  \brief This Section Describes the module Notification Callback interface offered
- *  to the application
+ * \addtogroup ga_common_module
+ * \{
  */
 
 /**
- * GA Profile Callback
+ * \addtogroup ga_common_cb
+ * \{
+ */
+
+/**
+ * \brief GA Profile Callback
  *
  * \param [in] ga_ep      Peer Device Info
  * \param [in] ga_event   Event type
@@ -3919,13 +5073,14 @@ typedef struct _GA_SET_MEMBER
  */
 typedef GA_RESULT (* GA_PROFILE_CB)
                   (
-                      GA_ENDPOINT * ga_ep,
-                      UINT8 ga_event,
-                      UINT16 ga_status,
-                      void * ga_data,
-                      UINT16 ga_datalen
+                      /* IN */ GA_ENDPOINT* ga_ep,
+                      /* IN */ UINT8 ga_event,
+                      /* IN */ UINT16 ga_status,
+                      /* IN:^5 */ void * ga_data,
+                      /* IN: */ UINT16 ga_datalen
                   );
 
+/** \} */
 /** \} */
 
 /* --------------------------------------------- Macros */
@@ -3933,25 +5088,85 @@ typedef GA_RESULT (* GA_PROFILE_CB)
 /* --------------------------------------------- APIs */
 
 /**
- * \defgroup ga_bap_api_sequences API Sequences
+ * \addtogroup ga_bap_module
  * \{
- * \brief This section describes the EtherMind GA CAP Layer API Sequences.
  */
 
 /**
- * \defgroup ga_bap_api_seq GA BAP API Sequences
+ * \addtogroup ga_bap_uc_module
  * \{
- * \brief This section describes the BAP API Sequences.
+ */
+
+/**
+ * \addtogroup ga_bap_uc_api_sequences
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_uc_ase_state_machine ASE State Machine
+ * \{
+ * \brief This section describes the BAP Unicast ASE state machine. \n
+ * As defined in ASCS Specification.
+ *
+ * \page ase_src_state_machine ASE Source State Machine
  * \image html ASE_Source_State_Machine.png
- * <b>ASE Source State Machine</b> \n
+ *
+ * \page ase_snk_state_machine ASE Sink State Machine
  * \image html ASE_Sink_State_Machine.png
- * <b>ASE Sink State Machine</b> \n
- * As defined in ASCS Specification. \n
- * MSC depicting the flow of APIs and Events.
- * \mscfile BAP.signalling
  */
 
 /** \} */
+
+/**
+ * \defgroup ga_bap_uc_api_seq API Sequences
+ * \{
+ * \brief This section describes the BAP Unicast API Sequences.
+ * MSC depicting the flow of APIs and Events.
+ *
+ * \page unidirectional_cis Unidirectional CIS
+ * \mscfile BAP_Unidirectional_CIS.signalling
+ *
+ * \page bidirectional_cis Bidirectional CIS
+ * \mscfile BAP_Bidirectional_CIS.signalling
+ */
+
+/** \} */
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_bc_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_bc_api_sequences
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_bc_api_seq API Sequences
+ * \{
+ * \brief This section describes the BAP Broadcast API Sequences.
+ * MSC depicting the flow of APIs and Events.
+ *
+ * \page bass_collc_src_with_past BASS Collocated Source(PAST Available)
+ * \mscfile BASS_Collocated_PAST_Available.signalling
+ *
+ * \page bass_collc_src_without_past BASS Collocated Source(PAST Not Available)
+ * \mscfile BASS_Collocated_PAST_Not_Available.signalling
+ *
+ * \page bass_non_collc_src_with_past BASS Non-Collocated Source(PAST Available)
+ * \mscfile BASS_NonCollocated_PAST_Available.signalling
+ *
+ * \page bass_non_collc_src_without_past BASS Non-Collocated Source(PAST Not Available)
+ * \mscfile BASS_NonCollocated_PAST_Not_Available.signalling
+ */
+
+/** \} */
+/** \} */
+/** \} */
+
 /** \} */
 
 #ifdef __cplusplus
@@ -3959,55 +5174,62 @@ extern "C" {
 #endif
 
 /**
- * \defgroup ga_bap_api_defs API Definitions
+ * \addtogroup ga_common_module
  * \{
- * \brief This section describes the Generic Audio APIs.
- * This section describes the BAP Procedure APIs.
  */
 
 /**
- * \defgroup ga_common_defs GA Common APIs
+ * \addtogroup ga_common_api_defs
  * \{
- * \brief This section describes the Generic Audio Common APIs.
+ */
+
+/**
+ * \name Common APIs - Init
+ * \{
+ * \brief This section describes the Generic Audio Common Init APIs.
  */
 
 /**
  *  \brief Initialize the Generic Audio (GA) layer.
  *
- *  \par Description
- *  This routine initializes the GA layer.
- *  \param None
+ *  \par Description:
+ *       This routine initializes the GA layer.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_init(void);
 
 /**
  *  \brief Register GA application callback
  *
- *  \par Description
- *  This routine registers the application callback with GA to deliver
- *  CAP and other generic events.
+ *  \par Description:
+ *       This routine registers the application callback with GA to deliver
+ *       CAP and other generic events. This is the common callback for both
+ *       CAP Client and CAP Server.
  *
- *  \param cb Application callback of type \ref GA_PROFILE_CB
+ *  \param [in] cb Application callback of type \ref GA_PROFILE_CB.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_register_callback
           (
               /* IN */ GA_PROFILE_CB cb
-          );
+          ); /* EXCLUDE */
 
 #ifdef GA_HAVE_DYNAMIC_CONFIG
 /**
  *  \brief Setup the configuration of the Generic Audio (GA) layer.
  *
- *  \par Description
- *  This routine initializes the default configuration for the GA components.
+ *  \par Description:
+ *       This routine initializes the default configuration for
+ *       the GA components.
  *
- *  \param None
+ *  \param [in] config Configuration for GA.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_configure
           (
@@ -4018,44 +5240,64 @@ GA_RESULT GA_configure
 /**
  *  \brief Prepare the roles for Generic Audio (GA) CAP layer.
  *
- *  \par Description
- *  This routine sets the role requirements of the application at the
- *  GA CAP layer. In case of support for Acceptor role, the application
- *  can also specify if it is a member of a Coordinated set with the
- *  parameters in \ref GA_SET_MEMBER
+ *  \par Description:
+ *       This routine sets the role requirements of the application at the
+ *       GA CAP layer. In case of support for Acceptor role, the application
+ *       can also specify if it is a member of a Coordinated set with the
+ *       parameters in \ref GA_SET_MEMBER.
  *
- *  \param [in] role Bitmask of CAP roles to be supported
- *  \param [in] member Member information of type \ref GA_SET_MEMBER
- *  if Acceptor is part of a Coordinated Set, otherwise NULL.
+ *  \param [in] role Bitmask of CAP roles to be supported.
+ *  \param [in] member Member information of type \ref GA_SET_MEMBER if
+ *                     Acceptor is part of a Coordinated Set, otherwise NULL.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
-GA_RESULT GA_prepare(UINT8 role, GA_SET_MEMBER * member);
+GA_RESULT GA_prepare
+          (
+              /* IN */ UINT8 role,
+              /* IN */ GA_SET_MEMBER * member
+          );
+
+/** \} */
+
+/**
+ * \name Common APIs - De-Init
+ * \{
+ * \brief This section describes the Generic Audio Common De-Init APIs.
+ */
 
 /**
  *  \brief Shutdown the Generic Audio (GA) layer.
  *
- *  \par Description
- *  This routine shuts down the GA layer and cleans up all data.
+ *  \par Description:
+ *       This routine shuts down the GA layer and cleans up all data.
  *
- *  \param None
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_shutdown(void);
+
+/** \} */
+
+/**
+ * \name Common APIs - Init
+ * \{
+ */
 
 /**
  *  \brief Initialize the GA core module specified for the role.
  *
- *  \par Description
- *  This routine initializes the given GA core module for the specified
- *  role, and saves the application callback provided.
+ *  \par Description:
+ *       This routine initializes the given GA core module for the specified
+ *       role, and saves the application callback provided.
  *
- *  \param [in] id GA Module ID
- *  \param [in] role GA Specific role for the module
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
+ *  \param [in] id GA Module ID.
+ *  \param [in] role GA Specific role for the module.
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_module_init
           (
@@ -4064,17 +5306,25 @@ GA_RESULT GA_module_init
               /* IN */ GA_PROFILE_CB cb
           );
 
+/** \} */
+
+/**
+ * \name Common APIs - De-Init
+ * \{
+ */
+
 /**
  *  \brief Shutdown the GA core module specified for the role.
  *
- *  \par Description
- *  This routine shuts down the given GA core module for the specified
- *  role.
+ *  \par Description:
+ *       This routine shuts down the given GA core module for the specified
+ *       role.
  *
- *  \param [in] id GA Module ID
- *  \param [in] role GA Specific role for the module
+ *  \param [in] id GA Module ID.
+ *  \param [in] role GA Specific role for the module.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_module_shutdown
           (
@@ -4084,112 +5334,253 @@ GA_RESULT GA_module_shutdown
 
 /** \} */
 
+/** \} */
+/** \} */
+
 /**
- * \defgroup ga_server_defs GA Server APIs
+ * \addtogroup ga_bap_module
  * \{
- * \brief This section describes the Generic Audio APIs
- * for Server.
  */
 
 /**
- * \name GA Server-Setup
+ * \addtogroup ga_bap_uc_module
  * \{
- * \brief This section describes the Generic Audio Setup
- * APIs for Server.
  */
 
 /**
- *  \brief Initialize the GA Unicast Server.
- *
- *  \par Description
- *  This routine initializes GA Unicast Server
- *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ * \addtogroup ga_bap_uc_api_defs
+ * \{
  */
-#define GA_uc_server_init(cb)       GA_module_init(GA_MODULE_BAP, BAP_ROLE_SERVER, (cb))
+
+#ifdef BAP_PACS_SERVER
+/**
+ * \defgroup ga_bap_server_api_defs BAP Server
+ * \{
+ * \brief This section describes the various APIs for UC Server.
+ */
 
 /**
- *  \brief Shutdown the GA Unicast Server.
- *
- *  \par Description
- *  This routine shuts down GA Unicast Server
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ * \name BAP Server APIs - Init
+ * \{
+ * \brief This section describes the Generic Audio Init APIs for BAP Server.
  */
-#define GA_uc_server_shutdown()   GA_module_shutdown(GA_MODULE_BAP, BAP_ROLE_SERVER)
+
+/**
+ *  \brief Initialize the GA BAP PAC Server.
+ *
+ *  \par Description:
+ *       This routine initializes GA BAP PAC Server.
+ *
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_bap_server_init(                                  \
+            /* IN - GA_PROFILE_CB */ cb                      \
+        )                                                    \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_SERVER,                                 \
+            (cb)                                             \
+        )
+
+/** \} */
+
+/**
+ * \name BAP Server APIs - De-Init
+ * \{
+ * \brief This section describes the Generic Audio De-Init APIs for BAP Server.
+ */
+
+/**
+ *  \brief Shutdown the GA BAP PAC Server.
+ *
+ *  \par Description:
+ *       This routine shuts down GA BAP PAC Server. If there is an active
+ *       Unicast and/or Broadcast[with SD role] ongoing, this function
+ *       will return a failure.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_bap_server_shutdown()                             \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_SERVER                                  \
+        )
+
+/** \} */
+/** \} */
+
+/**
+ * \defgroup ga_bap_uc_server_pacs_api_defs UC Server - PACS
+ * \{
+ * \brief This section describes the various APIs for UC Server - PACS.
+ */
+
+/**
+ * \name UC Server PACS APIs - Setup
+ * \{
+ * \brief This section describes the Generic Audio Setup APIs for Server PACS.
+ */
 
 /**
  *  \brief Register the GA capabilities.
  *
- *  \par Description
- *  This routine registers the audio capabilities of the application profile
- *  residing over the GA layer.
+ *  \par Description:
+ *       This routine registers the audio capabilities of the application
+ *       profile residing over the GA layer.
  *
- *  \param [in] role \ref GA_ROLE_SOURCE or \ref GA_ROLE_SINK role for this capability
- *  \param [in] cap_count Count of capabilitites supported for this role
- *  \param [in] audio_cap Reference to \ref GA_AUDIO_CAP data giving the audio capability for this role
+ *  \param [in] role \ref GA_ROLE_SOURCE or \ref GA_ROLE_SINK role for this
+ *                   capability.
+ *  \param [in] cap_count Count of capabilitites supported for this role.
+ *  \param [in] audio_cap Reference to \ref GA_AUDIO_CAP data giving the audio
+ *                        capability for this role.
  *  \param[out] record_id Record ID of the registered capabilities.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_register_audio_capabilities
           (
-              /* IN */ UINT8 role,
-              /* IN */ UINT8 cap_count,
-              /* IN */ GA_AUDIO_CAP * audio_cap,
-              /* OUT */ UINT8* record_id
+              /* IN */    UINT8 role,
+              /* IN */    UINT8 cap_count,
+              /* IN:^2 */ GA_AUDIO_CAP * audio_cap,
+              /* OUT */   UINT8* record_id
           );
 
 /**
  *  \brief Register the GA Audio Contexts and Locations.
  *
- *  \par Description
- *  This routine registers the audio capabilities of the application profile
- *  residing over the GA layer.
+ *  \par Description:
+ *       This routine registers the audio capabilities of the application
+ *       profile residing over the GA layer.
  *
  *  \param [in] role \ref GA_ROLE_SOURCE or \ref GA_ROLE_SINK role for this
- *              capability
+ *                   capability.
  *
- *  \param [in] avail_audio_contexts Available Audio contexts for this role
- *              Represented as Bitmask field.
- *              \ref ga_bap_constants
+ *  \param [in] aac Available Audio contexts for this role.
+ *                  Represented as Bitmask field.
+ *                  \ref ga_bap_common_constants.
  *
- *  \param [in] supp_audio_contexts Supported Audio contexts for this role
- *              Represented as Bitmask field.
- *              \ref ga_bap_constants
+ *  \param [in] sac Supported Audio contexts for this role.
+ *                  Represented as Bitmask field.
+ *                  \ref ga_bap_common_constants.
  *
- *  \param [in] locations Locations for this role
- *              Represented as Bitmask field.
- *              \ref ga_bap_constants
+ *  \param [in] loc Locations for this role.
+ *                  Represented as Bitmask field.
+ *                  \ref ga_common_constants.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \note This API will append the 'Unspecified Audio Context' type to
+ *        the capabilities bitmask of the Supported Audio Contexts as
+ *        mandated by the specification
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_register_audio_contexts_and_locations(role, aac, sac, loc) \
-        BAP_register_audio_contexts_and_locations((role), (aac), (sac), (loc))
+#define GA_register_audio_contexts_and_locations(                              \
+            /* IN - UINT8 */  role,                                            \
+            /* IN - UINT16 */ aac,                                             \
+            /* IN - UINT16 */ sac,                                             \
+            /* IN - UINT32 */ loc                                              \
+        )                                                                      \
+        BAP_register_audio_contexts_and_locations                              \
+        (                                                                      \
+            (role),                                                            \
+            (aac),                                                             \
+            (sac),                                                             \
+            (loc)                                                              \
+        )
 
 /** \} */
+/** \} */
+#endif /* BAP_PACS_SERVER */
 
+#ifdef BAP_UCS
 /**
- * \name GA Unicast Server-BAP Procedures
+ * \defgroup ga_bap_uc_server_ascs_api_defs UC Server - ASCS
  * \{
- * \brief This section describes the Generic Audio BAP Procedures
- * APIs for Unicast Server.
+ * \brief This section describes the various APIs for UC Server - ASCS.
  */
 
+/**
+ * \name UC Server ASCS APIs - BAP Procedures
+ * \{
+ * \brief This section describes the Generic Audio BAP Procedures
+ * APIs for Unicast Server ASCS.
+ */
+
+/**
+ *  \brief Initialize the Unicast Server.
+ *
+ *  \par Description:
+ *       This routine initializes Unicast Server.
+ *       Ensure to call GA_bap_server_init() this routine to initialize
+ *       the BAP server module before invoking this API, else this will
+ *       return a failure.
+ *
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_uc_server_init(                                  \
+            /* IN - GA_PROFILE_CB */ cb                     \
+        )                                                   \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_UCS,                                    \
+            (cb)                                             \
+        )
+
+/**
+ *  \brief Shutdown the Unicast Server.
+ *
+ *  \par Description:
+ *       This routine shuts down Unicast Server.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_uc_server_shutdown()                              \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_UCS                                     \
+        )
 /**
  *  \brief Register GA Streaming Endpoint.
  *
- *  \par Description
- *  This routine registers a GA streaming endpoint for a given SEP configuration
- *  and QOS capability.
+ *  \par Description:
+ *       This routine registers a GA streaming endpoint for a given SEP
+ *       configuration and QOS capability.
  *
- *  \param [in] sep_conf Role and Codec configuration for the SEP
- *  \param [in] qos_cap Preferred QOS capability for the SEP
- *  \param [out] ase_id Endpoint identifier for future reference on successful registration
+ *  \param [in] role Role for the SEP.
+ *  \param [in] codec Codec configuration for the SEP.
+ *  \param [in] qos_cap Preferred QOS capability for the SEP,
+ *  \param [out] ase_id Endpoint identifier for future reference on successful
+ *                      registration.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_register_audio_sep
           (
@@ -4202,14 +5593,17 @@ GA_RESULT GA_register_audio_sep
 /**
  *  \brief Update QOS Capabilities of GA Streaming Endpoint.
  *
- *  \par Description
- *  This routine updates the QOS capabilities registered with
- *  a GA streaming endpoint.
+ *  \par Description:
+ *       This routine updates the QOS capabilities registered with
+ *       a GA streaming endpoint.
  *
- *  \param [in] ase_id Endpoint identifier
- *  \param [in] qos_cap Preferred QOS capability for the SEP
+ *  \param [in] ase_id Endpoint identifier.
+ *  \param [in] qos_cap Preferred QOS capability for the SEP.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_update_audio_sep_qos_capabilities
           (
@@ -4220,394 +5614,651 @@ GA_RESULT GA_update_audio_sep_qos_capabilities
 /**
  *  \brief Send Auto configure for a given set of ASEs of a device.
  *
- *  \par Description
- *  This routine transitins the ASE state to Codec Configured state.
+ *  \par Description:
+ *       This routine transitins the ASE state to Codec Configured state.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
- *  \param [in] codec_info Codec Info of ASE IDs
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
+ *  \param [in] codec_info Codec Info of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_notify_ase_configure
           (
-              /* IN */ GA_ENDPOINT* device,
-              /* IN */ UINT8 ase_count,
-              /* IN */ UINT8* ase_index,
-              /* IN */ GA_CODEC_INFO * codec_info
+              /* IN */    GA_ENDPOINT* device,
+              /* IN */    UINT8 ase_count,
+              /* IN:^2 */ UINT8* ase_index,
+              /* IN:^2 */ GA_CODEC_INFO * codec_info
           );
 
 /**
  *  \brief Send Auto ASE Receiver Ready when local Server is a Sink ASE.
  *
- *  \par Description
- *  This routine is to be called once the CIS is established with the remote
- *  Src ASE and when the Local Sink is ready for receiving Audio data.
+ *  \par Description:
+ *       This routine is to be called once the CIS is established with the
+ *       remote Src ASE and when the Local Sink is ready for receiving
+ *       Audio data.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_notify_ase_receiver_start_ready
           (
-              /* IN */ GA_ENDPOINT * device,
-              /* IN */ UINT8 ase_count,
-              /* IN */ UINT8* ase_index
+              /* IN */    GA_ENDPOINT * device,
+              /* IN */    UINT8 ase_count,
+              /* IN:^2 */ UINT8* ase_index
           );
 
 /**
  *  \brief Suspend a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine disables the given set of one or more ASE IDs of
- *  the GA Endpoint.
+ *  \par Description:
+ *       This routine disables the given set of one or more ASE IDs of
+ *       the GA Endpoint.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
- *  \param [in] reason Reason for suspend \ref ga_cap_constants GA Suspend Reason Type
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
+ *  \param [in] reason Reason for suspend \ref ga_cas_constants
+ *                     GA Suspend Reason Type.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_notify_ase_suspend_with_reason
           (
-              /* IN */ GA_ENDPOINT* device,
-              /* IN */ UINT8 ase_count,
-              /* IN */ UINT8* ase_index,
-              /* IN */ UINT8  reason
+              /* IN */    GA_ENDPOINT* device,
+              /* IN */    UINT8 ase_count,
+              /* IN:^2 */ UINT8* ase_index,
+              /* IN */    UINT8  reason
           );
 
 /**
  *  \brief Suspend a given set of ASEs of a GA endpoint due to CIS Loss.
  *
- *  \par Description
- *  This routine disables the given set of one or more ASE IDs of
- *  the GA Endpoint whenever CIS Disconnection is detected.
+ *  \par Description:
+ *       This routine disables the given set of one or more ASE IDs of
+ *       the GA Endpoint whenever CIS Disconnection is detected.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_notify_ase_suspend_on_CIS_loss(device, ase_count, ase_index) \
-        GA_notify_ase_suspend_with_reason(device, ase_count, ase_index, GA_ASE_SUSPEND_RELEASE_REASON_CIS_LOSS)
+#define GA_notify_ase_suspend_on_CIS_loss(                                     \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT8 */ ase_count,                                        \
+            /* IN:^2 - UINT8* */ ase_index                                     \
+        )                                                                      \
+        GA_notify_ase_suspend_with_reason                                      \
+        (                                                                      \
+            (device),                                                          \
+            (ase_count),                                                       \
+            (ase_index),                                                       \
+            GA_ASE_SUSPEND_RELEASE_REASON_CIS_LOSS                             \
+        )
 
 /**
  *  \brief Suspend a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine disables the given set of one or more ASE IDs of
- *  the GA Endpoint. This routine is called for ASE Control Point for
- *  Auto Disable.
+ *  \par Description:
+ *       This routine disables the given set of one or more ASE IDs of
+ *       the GA Endpoint. This routine is called for ASE Control Point for
+ *       Auto Disable.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
- *  \param [in] reason Reason for suspend \ref GA_ASE_SUSPEND_RELEASE_REASON_NONE
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_notify_ase_suspend(device, ase_count, ase_index) \
-        GA_notify_ase_suspend_with_reason(device, ase_count, ase_index, GA_ASE_SUSPEND_RELEASE_REASON_NONE)
+#define GA_notify_ase_suspend(                                                 \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT8 */ ase_count,                                        \
+            /* IN:^2 - UINT8* */ ase_index                                     \
+        )                                                                      \
+        GA_notify_ase_suspend_with_reason                                      \
+        (                                                                      \
+            (device),                                                          \
+            (ase_count),                                                       \
+            (ase_index),                                                       \
+            GA_ASE_SUSPEND_RELEASE_REASON_NONE                                 \
+        )
 
 /**
  *  \brief Update a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine updates the given set of one or more ASE IDs of
- *  the GA Endpoint with new set of Content Control Information.
+ *  \par Description:
+ *       This routine updates the given set of one or more ASE IDs of
+ *       the GA Endpoint with new set of Content Control Information.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
  *  \param [in] ase_content List of Content Control information for
- *  every endpoint included
+ *                          every endpoint included.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_notify_ase_update
           (
-              /* IN */ GA_ENDPOINT* device,
-              /* IN */ UINT8 ase_count,
-              /* IN */ UINT8* ase_index,
-              /* IN */ GA_CONTENT_INFO* ase_content
+              /* IN */    GA_ENDPOINT* device,
+              /* IN */    UINT8 ase_count,
+              /* IN:^2 */ UINT8* ase_index,
+              /* IN:^2 */ GA_CONTENT_INFO* ase_content
           );
 
 /**
  *  \brief Release a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine indicates the release on the given set of one or more ASE IDs
- *  of the GA Endpoint.
+ *  \par Description:
+ *       This routine indicates the release on the given set of one or more
+ *       ASE IDs of the GA Endpoint.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
- *  \param [in] reason Reason for suspend \ref ga_cap_constants GA Suspend/Release Reason Type
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
+ *  \param [in] reason Reason for suspend \ref ga_cas_constants
+ *                     GA Suspend/Release Reason Type.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_notify_ase_release_with_reason
           (
-              /* IN */ GA_ENDPOINT* device,
-              /* IN */ UINT8 ase_count,
-              /* IN */ UINT8* ase_index,
-              /* IN */ UINT8  reason
+              /* IN */    GA_ENDPOINT* device,
+              /* IN */    UINT8 ase_count,
+              /* IN:^2 */ UINT8* ase_index,
+              /* IN */    UINT8  reason
           );
 
 /**
  *  \brief Release a given set of ASEs of a GA endpoint due to CIS Loss.
  *
- *  \par Description
- *  This routine indicates the release on the given set of one or
- *  more ASE IDs to the GA Endpoint whenever CIS Disconnection is detected.
+ *  \par Description:
+ *       This routine indicates the release on the given set of one or more
+ *       ASE IDs to the GA Endpoint whenever CIS Disconnection is detected.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_notify_ase_release_on_CIS_loss(device, ase_count, ase_index) \
-        GA_notify_ase_release_with_reason(device, ase_count, ase_index, GA_ASE_SUSPEND_RELEASE_REASON_CIS_LOSS)
+#define GA_notify_ase_release_on_CIS_loss(                                     \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT8 */ ase_count,                                        \
+            /* IN:^2 - UINT8* */ ase_index                                     \
+        )                                                                      \
+        GA_notify_ase_release_with_reason                                      \
+        (                                                                      \
+            (device),                                                          \
+            (ase_count),                                                       \
+            (ase_index),                                                       \
+            GA_ASE_SUSPEND_RELEASE_REASON_CIS_LOSS                             \
+        )
 
 /**
  *  \brief Release a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine indicates the release on the given set of one or
- *  more ASE IDs to the GA Endpoint.
+ *  \par Description:
+ *       This routine indicates the release on the given set of one or
+ *       more ASE IDs to the GA Endpoint.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
- *  \param [in] reason Reason for suspend \ref GA_ASE_SUSPEND_RELEASE_REASON_NONE
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_notify_ase_release(device, ase_count, ase_index) \
-        GA_notify_ase_release_with_reason(device, ase_count, ase_index, GA_ASE_SUSPEND_RELEASE_REASON_NONE)
+#define GA_notify_ase_release(                                                 \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT8 */ ase_count,                                        \
+            /* IN:^2 - UINT8* */ ase_index                                     \
+        )                                                                      \
+        GA_notify_ase_release_with_reason                                      \
+        (                                                                      \
+            (device),                                                          \
+            (ase_count),                                                       \
+            (ase_index),                                                       \
+            GA_ASE_SUSPEND_RELEASE_REASON_NONE                                 \
+        )
 
 /**
- *  \brief Indicate release completion of a given set of ASEs
- *  to a GA endpoint.
+ *  \brief Indicate release completion of a given set of ASEs to a GA endpoint.
  *
- *  \par Description
- *  This routine indicates the release completion on the given set
- *  of one or more ASE IDs to the GA Endpoint.
+ *  \par Description:
+ *       This routine indicates the release completion on the given set
+ *       of one or more ASE IDs to the GA Endpoint.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [in] ase_count Number of Endpoints included
- *  \param [in] ase_index List of ASE IDs
+ *  \param [in] device Peer Endpoint address.
+ *  \param [in] ase_count Number of Endpoints included.
+ *  \param [in] ase_index List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_notify_release_complete
           (
-              /* IN */ GA_ENDPOINT* device,
-              /* IN */ UINT8 ase_count,
-              /* IN */ UINT8* ase_index
+              /* IN */    GA_ENDPOINT* device,
+              /* IN */    UINT8 ase_count,
+              /* IN:^2 */ UINT8* ase_index
           );
+
+/**
+ *  \brief Notify SEP state updates to an Endpoint.
+ *
+ *  \par Description:
+ *       This routine notifies updates in all SEP states to the endpoint
+ *       specified. To notify to all connected endpoints, the parameter is
+ *       given NULL.
+ *
+ *  \param [in] device Endpoint to be notified. NULL if all connected endpoints
+ *                     to be notified.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+GA_RESULT GA_sep_notify_updates
+          (
+              /* IN */ GA_ENDPOINT * device
+          );
+
+/** \} */
+/** \} */
+#endif /* BAP_UCS */
+
+#ifdef BAP_PACS_SERVER
+/**
+ * \addtogroup ga_bap_uc_server_pacs_api_defs
+ * \{
+ */
+
+/**
+ * \name UC Server PACS APIs - Update/Notify
+ * \{
+ * \brief This section describes the Generic Audio Update/Notify APIs for
+ * UC Server PACS.
+ */
 
 /**
  *  \brief Update and/or Notify Audio Capabilities for Source when changed.
  *
- *  \par Description
- *  This routine updates and/or notifies the Source Audio Capabilities.
+ *  \par Description:
+ *       This routine updates and/or notifies the Source Audio Capabilities.
  *
- *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device.
+ *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device. \n
  *                     NULL here updates the value locally
- *  \param [in] role \ref GA_ROLE_SINK or \ref GA_ROLE_SOURCE
- *  \param [in] record_id ID of the registered Source PAC record
- *  \param [in] pcap Address of \ref GA_AUDIO_CAP holding the audio capabilities.
+ *  \param [in] role \ref GA_ROLE_SINK or \ref GA_ROLE_SOURCE.
+ *  \param [in] record_id ID of the registered Source PAC record.
+ *  \param [in] pcap Address of \ref GA_AUDIO_CAP holding the audio
+ *                   capabilities. \n
  *                   NULL here notifies the existing value to peer
  *  \param [in] pcap_count Capability count, Indicates number of records in a
- *                         single instance
+ *                         single instance.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note Both parameters to the API cannot be of NULL value
+ *  \note Both parameters to the API cannot be of NULL value.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_update_audio_capability
           (
-              GA_ENDPOINT  * device,
-              UINT8          role,
-              UINT8          record_id,
-              GA_AUDIO_CAP * pcap,
-              UINT8          pcap_count
+              /* IN */    GA_ENDPOINT  * device,
+              /* IN */    UINT8          role,
+              /* IN */    UINT8          record_id,
+              /* IN:^5 */ GA_AUDIO_CAP * pcap,
+              /* IN */    UINT8          pcap_count
           );
 
 /**
  *  \brief Update and/or Notify Supported Audio Contexts for Source when changed.
  *
- *  \par Description
- *  This routine updates and/or notifies the Source Supported Audio Contexts.
+ *  \par Description:
+ *       This routine updates and/or notifies the
+ *       Source Supported Audio Contexts.
  *
- *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device.
- *                     NULL here updates the value locally
- *  \param [in] audio_contexts Address of UINT16 type holding Supported Audio Contexts.
- *                             NULL here notifies the existing value to peer
+ *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device. \n
+ *                     NULL here updates the value locally.
+ *  \param [in] audio_contexts Address of UINT16 type holding
+ *                             Supported Audio Contexts. \n
+ *                             NULL here notifies the existing value to peer.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note Both parameters to the API cannot be of NULL value
+ *  \note Both parameters to the API cannot be of NULL value.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_update_source_supported_audio_contexts(device, audio_contexts) \
-        BAP_update_and_notify_source_capabilities \
-        ((device), GA_CHAR_PACS_SUPPORTED_AUDIO_CONTEXTS, 0U, (audio_contexts), sizeof(UINT16))
+#define GA_update_source_supported_audio_contexts(                             \
+             /* IN - GA_ENDPOINT* */ device,                                   \
+             /* IN - UINT16* */ audio_contexts                                 \
+        )                                                                      \
+        BAP_update_and_notify_source_capabilities                              \
+        (                                                                      \
+            (device),                                                          \
+            GA_CHAR_PACS_SUPPORTED_AUDIO_CONTEXTS,                             \
+            0U,                                                                \
+            (audio_contexts),                                                  \
+            sizeof(UINT16)                                                     \
+        )
 
 /**
  *  \brief Update and/or Notify Available Audio Contexts for Source when changed.
  *
- *  \par Description
- *  This routine updates and/or Notifies the Source Available Audio Contexts.
+ *  \par Description:
+ *       This routine updates and/or Notifies the
+ *       Source Available Audio Contexts.
  *
- *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device.
- *                     NULL here updates the value locally
- *  \param [in] audio_contexts Address of UINT16 type holding Available Audio Contexts.
- *                             NULL here notifies the existing value to peer
+ *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device. \n
+ *                     NULL here updates the value locally.
+ *  \param [in] audio_contexts Address of UINT16 type holding
+ *                             Available Audio Contexts. \n
+ *                             NULL here notifies the existing value to peer.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note Both parameters to the API cannot be of NULL value
+ *  \note Both parameters to the API cannot be of NULL value.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_update_source_available_audio_contexts(device, audio_contexts) \
-        BAP_update_and_notify_source_capabilities \
-        ((device), GA_CHAR_PACS_AVAILABLE_AUDIO_CONTEXTS, 0U, (audio_contexts), sizeof(UINT16))
+#define GA_update_source_available_audio_contexts(                             \
+             /* IN - GA_ENDPOINT* */ device,                                   \
+             /* IN - UINT16* */ audio_contexts                                 \
+        )                                                                      \
+        BAP_update_and_notify_source_capabilities                              \
+        (                                                                      \
+            (device),                                                          \
+            GA_CHAR_PACS_AVAILABLE_AUDIO_CONTEXTS,                             \
+            0U,                                                                \
+            (audio_contexts),                                                  \
+            sizeof(UINT16)                                                     \
+        )
 
 /**
  *  \brief Update and/or Notify Audio locations for Source when changed.
  *
- *  \par Description
- *  This routine updates and/or notifies the Source Audio locations.
+ *  \par Description:
+ *       This routine updates and/or notifies the Source Audio locations.
  *
- *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device.
- *                     NULL here updates the value locally
- *  \param [in] audio_locations Address of UINT32 type holding Audio Locations.
- *                             NULL here notifies the existing value to peer
+ *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device. \n
+ *                     NULL here updates the value locally.
+ *  \param [in] audio_locations Address of UINT32 type holding Audio Locations. \n
+ *                             NULL here notifies the existing value to peer.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note Both parameters to the API cannot be of NULL value
+ *  \note Both parameters to the API cannot be of NULL value.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_update_source_audio_locations(device, audio_locations) \
-        BAP_update_and_notify_source_capabilities \
-        ((device), GA_CHAR_PACS_SOURCE_AUDIO_LOCATIONS, 0U, (audio_locations), sizeof(UINT32))
+#define GA_update_source_audio_locations(                                      \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT32* */ audio_locations                                 \
+        )                                                                      \
+        BAP_update_and_notify_source_capabilities                              \
+        (                                                                      \
+            (device),                                                          \
+            GA_CHAR_PACS_SOURCE_AUDIO_LOCATIONS,                               \
+            0U,                                                                \
+            (audio_locations),                                                 \
+            sizeof(UINT32)                                                     \
+        )
 
 /**
  *  \brief Update and/or Notify Audio Capabilities for Source when changed.
  *
- *  \par Description
- *  This routine updates and/or notifies the Source Audio Capabilities.
+ *  \par Description:
+ *       This routine updates and/or notifies the Source Audio Capabilities.
  *
- *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device.
- *                     NULL here updates the value locally
- *  \param [in] record_id ID of the registered Source PAC record
- *  \param [in] cap Address of \ref GA_AUDIO_CAP holding the audio capabilities.
- *                   NULL here notifies the existing value to peer
+ *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device. \n
+ *                     NULL here updates the value locally.
+ *  \param [in] record_id ID of the registered Source PAC record.
+ *  \param [in] cap Address of \ref GA_AUDIO_CAP holding the audio
+ *                  capabilities. \n
+ *                  NULL here notifies the existing value to peer.
  *  \param [in] cap_count Capability count, Indicates number of records in a
- *                        single instance
+ *                        single instance.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note Both parameters to the API cannot be of NULL value
+ *  \note Both parameters to the API cannot be of NULL value.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_update_source_audio_capability(device, record_id, cap, cap_count) \
-        GA_update_audio_capability(device, GA_ROLE_SOURCE, record_id, cap, cap_count)
+#define GA_update_source_audio_capability(                                     \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT8 */ record_id,                                        \
+            /* IN:^4 - GA_AUDIO_CAP* */ cap,                                   \
+            /* IN - UINT8 */cap_count                                         \
+        )                                                                      \
+        GA_update_audio_capability                                             \
+        (                                                                      \
+            (device),                                                          \
+            GA_ROLE_SOURCE,                                                    \
+            (record_id),                                                       \
+            (cap),                                                             \
+            (cap_count)                                                        \
+        )
 
 /**
  *  \brief Update and/or Notify Supported Audio Contexts for Sink when changed.
  *
- *  \par Description
- *  This routine updates and/or notifies the Sink Supported Audio Contexts.
+ *  \par Description:
+ *       This routine updates and/or notifies the
+ *       Sink Supported Audio Contexts.
  *
- *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device.
- *                     NULL here updates the value locally
- *  \param [in] audio_contexts Address of UINT16 type holding Supported Audio Contexts.
- *                             NULL here notifies the existing value to peer
+ *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device. \n
+ *                     NULL here updates the value locally.
+ *  \param [in] audio_contexts Address of UINT16 type holding
+ *                             Supported Audio Contexts. \n
+ *                             NULL here notifies the existing value to peer.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note Both parameters to the API cannot be of NULL value
+ *  \note Both parameters to the API cannot be of NULL value.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_update_sink_supported_audio_contexts(device, audio_contexts) \
-        BAP_update_and_notify_sink_capabilities \
-        ((device), GA_CHAR_PACS_SUPPORTED_AUDIO_CONTEXTS, 0U, (audio_contexts), sizeof(UINT16))
+#define GA_update_sink_supported_audio_contexts(                               \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT16 */ audio_contexts                                   \
+        )                                                                      \
+        BAP_update_and_notify_sink_capabilities                                \
+        (                                                                      \
+            (device),                                                          \
+            GA_CHAR_PACS_SUPPORTED_AUDIO_CONTEXTS,                             \
+            0U,                                                                \
+            (audio_contexts),                                                  \
+            sizeof(UINT16)                                                     \
+        )
 
 /**
  *  \brief Update and/or Notify Available Audio Contexts for Sink when changed.
  *
- *  \par Description
- *  This routine updates and/or notifies the Sink Available Audio Contexts.
+ *  \par Description:
+ *       This routine updates and/or notifies the
+ *       Sink Available Audio Contexts.
  *
- *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device.
- *                     NULL here updates the value locally
- *  \param [in] audio_contexts Address of UINT16 type holding Available Audio Contexts.
- *                             NULL here notifies the existing value to peer
+ *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device. \n
+ *                     NULL here updates the value locally.
+ *  \param [in] audio_contexts Address of UINT16 type holding
+ *                             Available Audio Contexts. \n
+ *                             NULL here notifies the existing value to peer.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note Both parameters to the API cannot be of NULL value
+ *  \note Both parameters to the API cannot be of NULL value.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_update_sink_available_audio_contexts(device, audio_contexts) \
-        BAP_update_and_notify_sink_capabilities \
-        ((device), GA_CHAR_PACS_AVAILABLE_AUDIO_CONTEXTS, 0U, (audio_contexts), sizeof(UINT16))
+#define GA_update_sink_available_audio_contexts(                               \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT16* */ audio_contexts                                  \
+        )                                                                      \
+        BAP_update_and_notify_sink_capabilities                                \
+        (                                                                      \
+            (device),                                                          \
+            GA_CHAR_PACS_AVAILABLE_AUDIO_CONTEXTS,                             \
+            0U,                                                                \
+            (audio_contexts),                                                  \
+            sizeof(UINT16)                                                     \
+        )
 
 /**
  *  \brief Update and/or Notify Audio locations for Sink when changed.
  *
- *  \par Description
- *  This routine updates and/or notifies the Sink Audio locations.
+ *  \par Description:
+ *       This routine updates and/or notifies the Sink Audio locations.
  *
- *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device.
- *                     NULL here updates the value locally
- *  \param [in] audio_locations Address of UINT32 type holding Audio Locations.
- *                             NULL here notifies the existing value to peer
+ *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device. \n
+ *                     NULL here updates the value locally.
+ *  \param [in] audio_locations Address of UINT32 type holding Audio Locations. \n
+ *                             NULL here notifies the existing value to peer.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note Both parameters to the API cannot be of NULL value
+ *  \note Both parameters to the API cannot be of NULL value.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_update_sink_audio_locations(device, audio_locations) \
-        BAP_update_and_notify_sink_capabilities \
-        ((device), GA_CHAR_PACS_SINK_AUDIO_LOCATIONS, 0U, (audio_locations), sizeof(UINT32))
+#define GA_update_sink_audio_locations(                                        \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT32* */ audio_locations                                 \
+        )                                                                      \
+        BAP_update_and_notify_sink_capabilities                                \
+        (                                                                      \
+            (device),                                                          \
+            GA_CHAR_PACS_SINK_AUDIO_LOCATIONS,                                 \
+            0U,                                                                \
+            (audio_locations),                                                 \
+            sizeof(UINT32)                                                     \
+        )
 
  /**
  *  \brief Update and/or Notify Audio Capabilities for Sink when changed.
  *
- *  \par Description
- *  This routine updates and/or notifies the Sink Audio Capabilities.
+ *  \par Description:
+ *       This routine updates and/or notifies the Sink Audio Capabilities.
  *
- *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device.
- *                     NULL here updates the value locally
- *  \param [in] record_id ID of the registered Sink PAC record
- *  \param [in] cap Address of \ref GA_AUDIO_CAP holding the audio capabilities.
- *                   NULL here notifies the existing value to peer
+ *  \param [in] device Address of \ref GA_ENDPOINT type holding peer device. \n
+ *                     NULL here updates the value locally.
+ *  \param [in] record_id ID of the registered Sink PAC record.
+ *  \param [in] cap Address of \ref GA_AUDIO_CAP holding the audio
+ *                  capabilities. \n
+ *                  NULL here notifies the existing value to peer.
  *  \param [in] cap_count Capability count, Indicates number of records in a
- *                        single instance
+ *                        single instance.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note Both parameters to the API cannot be of NULL value
+ *  \note Both parameters to the API cannot be of NULL value.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_update_sink_audio_capability(device, record_id, cap, cap_count) \
-        GA_update_audio_capability(device, GA_ROLE_SINK, record_id, cap, cap_count)
+#define GA_update_sink_audio_capability(                                       \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT8 */ record_id,                                        \
+            /* IN:^4 - GA_AUDIO_CAP* */ cap,                                   \
+            /* IN - UINT8 */cap_count                                          \
+        )                                                                      \
+        GA_update_audio_capability                                             \
+        (                                                                      \
+            (device),                                                          \
+            GA_ROLE_SINK,                                                      \
+            (record_id),                                                       \
+            (cap),                                                             \
+            (cap_count)                                                        \
+        )
+
+/** \} */
+/** \} */
+#endif /* BAP_PACS_SERVER */
+
+/** \} */
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_cas_module
+ * \{
+ */
+
+/**
+ * \defgroup ga_cas_api_defs API Definitions
+ * \{
+ * \brief This section describes the CAS Procedure APIs.
+ */
+
+/**
+ * \defgroup ga_cas_server_defs Server
+ * \{
+ * \brief This section describes the Common Audio Service APIs for Server.
+ */
+
+/**
+ * \name CAS Server APIs - Init
+ * \{
+ * \brief This section describes the Common Audio Service Init
+ * APIs for Server.
+ */
 
 /**
  *  \brief Register a GA content control service.
  *
- *  \par Description
- *  This routine registers a supported content control service to the GA layer and
- *  obtains a unique identifier CCID.
+ *  \par Description:
+ *       This routine registers a supported content control service to the
+ *       GA layer and obtains a unique identifier CCID.
  *
- *  \param [in] ccs_uuid UUID of the Content Control Service registered
- *  \param [out] ccid Content Control Identifier allocated for the service
+ *  \param [in] ccs_uuid UUID of the Content Control Service registered.
+ *  \param [out] ccid Content Control Identifier allocated for the service.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_register_content_service
           (
@@ -4615,19 +6266,30 @@ GA_RESULT GA_register_content_service
               /* OUT */ UINT8 * ccid
           );
 
+/** \} */
+
+#ifdef CAP_CSIP_MEMBER
+/**
+ * \name CAS Server APIs - Update/Notify
+ * \{
+ * \brief This section describes the Common Audio Service Update/Notify
+ * APIs for Server.
+ */
+
 /**
  *  \brief Update/Notify the CAP Member attribute.
  *
- *  \par Description
- *  This routine updates and/or notifies the given attribute to the
- *  peer endpoint specified
+ *  \par Description:
+ *       This routine updates and/or notifies the given attribute to the
+ *       peer endpoint specified.
  *
- *  \param [in] device Peer Endpoint
- *  \param [in] attribute Attribute to update/notify
+ *  \param [in] device Peer Endpoint.
+ *  \param [in] attribute Attribute to update/notify.
  *  \param [in] info \ref GA_SET_MEMBER with the attribute to be
- *  updated/notified
+ *                   updated/notified.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_cap_member_update
           (
@@ -4639,147 +6301,175 @@ GA_RESULT GA_cap_member_update
 /**
  *  \brief Update/Notify the CAP Member SIRK.
  *
- *  \par Description
- *  This routine updates and/or notifies the given SIRK to the
- *  peer endpoint specified
+ *  \par Description:
+ *       This routine updates and/or notifies the given SIRK to the
+ *       peer endpoint specified.
  *
- *  \param [in] device Peer Endpoint
+ *  \param [in] device Peer Endpoint.
  *  \param [in] info \ref GA_SET_MEMBER with the SIRK to be
- *  updated/notified
+ *                   updated/notified.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
-#define GA_cap_member_sirk_update(device, info) \
-        GA_cap_member_update((device), GA_CHAR_CSIS_SIRK, (info))
+#define GA_cap_member_sirk_update(                                      \
+            /* IN - GA_ENDPOINT* */ device,                             \
+            /* IN - GA_SET_MEMBER* */ info                              \
+        )                                                               \
+        GA_cap_member_update                                            \
+        (                                                               \
+            (device),                                                   \
+            GA_CHAR_CSIS_SIRK,                                          \
+            (info)                                                      \
+        )
 
 /**
  *  \brief Update/Notify the CAP Member Size.
  *
- *  \par Description
- *  This routine updates and/or notifies the given Size to the
- *  peer endpoint specified
+ *  \par Description:
+ *       This routine updates and/or notifies the given Size to the
+ *       peer endpoint specified.
  *
- *  \param [in] device Peer Endpoint
+ *  \param [in] device Peer Endpoint.
  *  \param [in] info \ref GA_SET_MEMBER with the Size to be
- *  updated/notified
+ *                   updated/notified.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
-#define GA_cap_member_size_update(device, info) \
-        GA_cap_member_update((device), GA_CHAR_CSIS_SIZE, (info))
+#define GA_cap_member_size_update(                                      \
+            /* IN - GA_ENDPOINT* */ device,                             \
+            /* IN - GA_SET_MEMBER* */ info                              \
+        )                                                               \
+        GA_cap_member_update                                            \
+        (                                                               \
+            (device),                                                   \
+            GA_CHAR_CSIS_SIZE,                                          \
+            (info)                                                      \
+        )
 
 /**
  *  \brief Update the CAP Member Rank.
  *
- *  \par Description
- *  This routine updates the given Rank to the
- *  peer endpoint specified
+ *  \par Description:
+ *       This routine updates the given Rank to the
+ *       peer endpoint specified.
  *
  *  \param [in] info \ref GA_SET_MEMBER with the Rank to be
- *  updated/notified
+ *                   updated/notified.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
-#define GA_cap_member_rank_update(info) \
-        GA_cap_member_update(NULL, GA_CHAR_CSIS_RANK, (info))
+#define GA_cap_member_rank_update(                                      \
+            /* IN - GA_SET_MEMBER* */ info                              \
+        )                                                               \
+        GA_cap_member_update                                            \
+        (                                                               \
+            NULL,                                                       \
+            GA_CHAR_CSIS_RANK,                                          \
+            (info)                                                      \
+        )
 
 /**
  *  \brief Notify the CAP Member Lock.
  *
- *  \par Description
- *  This routine notifies the given Lock to the
- *  peer endpoint specified
+ *  \par Description:
+ *       This routine notifies the given Lock to the
+ *       peer endpoint specified.
  *
- *  \param [in] device Peer Endpoint
+ *  \param [in] device Peer Endpoint.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
-#define GA_cap_member_lock_update(device) \
-        GA_cap_member_update((device), GA_CHAR_CSIS_LOCK, NULL)
+#define GA_cap_member_lock_update(                                      \
+            /* IN - GA_ENDPOINT* */ device                              \
+        )                                                               \
+        GA_cap_member_update                                            \
+        (                                                               \
+            (device),                                                   \
+            GA_CHAR_CSIS_LOCK,                                          \
+            NULL                                                        \
+        )
 
 #ifdef CAP_SIMULATE_RANDOM_DEVICE_LOCKING
 /**
  *  \brief Update the CAP Member Lock for testing.
  *
- *  \par Description
- *  This routine updates the given Lock state to the CAP member
- *  as if from the device specified
+ *  \par Description:
+ *       This routine updates the given Lock state to the CAP member
+ *       as if from the device specified
  *
- *  \param [in] device Fake Endpoint to simulate the Coordinator doing the lock
- *  \param [in] info \ref GA_SET_MEMBER with the lock to be updated
+ *  \param [in] device Fake Endpoint to simulate the Coordinator doing the lock.
+ *  \param [in] info \ref GA_SET_MEMBER with the lock to be updated.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
-#define GA_cap_member_device_lock(device, info) \
-        GA_cap_member_update((device), GA_CHAR_CSIS_LOCK, (info))
+#define GA_cap_member_device_lock(                                      \
+            /* IN - GA_ENDPOINT* */ device,                             \
+            /* IN - GA_SET_MEMBER* */ info                              \
+        )                                                               \
+        GA_cap_member_update                                            \
+        (                                                               \
+            (device),                                                   \
+            GA_CHAR_CSIS_LOCK,                                          \
+            (info)                                                      \
+        )
 #endif /* CAP_SIMULATE_RANDOM_DEVICE_LOCKING */
 
-
-/**
- *  \brief Notify SEP state updates to an Endpoint.
- *
- *  \par Description
- *  This routine notifies updates in all SEP states to the endpoint specified.
- *  To notify to all connected endpoints, the parameter is given NULL.
- *
- *  \param [in] device Endpoint to be notified. NULL if all connected endpoints
- *  to be notified.
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-GA_RESULT GA_sep_notify_updates
-          (
-              /* IN */ GA_ENDPOINT * device
-          );
-
 /** \} */
+#endif /* CAP_CSIP_MEMBER */
 /** \} */
 
 /**
- * \defgroup ga_client_defs GA Client APIs
+ * \defgroup ga_cas_client_defs Client
  * \{
- * \brief This section describes the Generic Audio APIs
- * for Client.
+ * \brief This section describes the Common Audio Service APIs for Client.
  */
 
 /**
- * \name GA Client-Setup
+ * \name CAS Client APIs - Setup
  * \{
- * \brief This section describes the Generic Audio Setup
+ * \brief This section describes the Common Audio Service Setup
  * APIs for Client.
  */
 
 /**
- *  \brief Discover CAS and included members if any
+ *  \brief Discover CAS and included members if any.
  *
- *  \par Description
- *  This routine discovers the CAS service in the peer endpoint, and also
- *  any included member services. On successful procedure start, this API
- *  generates the \ref CAP_DISCOVER_CNF event to the application.
+ *  \par Description:
+ *       This routine discovers the CAS service in the peer endpoint, and also
+ *       any included member services. On successful procedure start, this API
+ *       generates the \ref GA_CAP_DISCOVER_CNF event to the application.
  *
- *  \param [in] device Peer Endpoint
+ *  \param [in] device Peer Endpoint.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_cap_discover
           (
               /* IN */ GA_ENDPOINT * device
           );
 
+#ifdef CAP_CSIP_COORDINATOR
 /**
- *  \brief Setup the CAS member instance on the peer device
+ *  \brief Setup the CAS member instance on the peer device.
  *
- *  \par Description
- *  This routine is used to setup and configure the CAS member identified
- *  by the service info and range on the peer device. On successful start
- *  of procedure, this API generates the \ref CAP_SETUP_MEMBER_CNF event
- *  to the application.
+ *  \par Description:
+ *       This routine is used to setup and configure the CAS member identified
+ *       by the service info and range on the peer device. On successful start
+ *       of procedure, this API generates the \ref GA_CAP_SETUP_MEMBER_CNF
+ *       event to the application.
  *
- *  \param [in] device Peer Endpoint
- *  \param [in] info Member Service information to setup
- *  \param [out] context GA Context allocated
+ *  \param [in] device Peer Endpoint.
+ *  \param [in] info Member Service information to setup.
+ *  \param [out] context GA Context allocated.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_cap_setup_member
           (
@@ -4787,66 +6477,233 @@ GA_RESULT GA_cap_setup_member
               /* IN */  GA_BRR_SVC_INFO * info,
               /* OUT */ GA_CONTEXT * context
           );
+#endif /* CAP_CSIP_COORDINATOR */
 
 /**
- *  \brief Release/Close the CAS member context
+ * \cond EXCLUDE_PART
+ */
+#ifdef CSIP_SUPPORT_CONTEXT_MANAGE
+/**
+ *  \brief To manage the GA CAP CoordinatedSet characteristic handles of a device.
  *
- *  \par Description
- *  This routine is used to release/close the CAS member context. On successful
- *  start of release procedure, this API generates the \ref CAP_RELEASE_MEMBER_CNF
- *  event to the application. Closing does not produce any event.
+ *  \par Description:
+ *       The routine enables the application to get/set the service and
+ *       characteristic handle ranges from/to a device context.
  *
- *  \param [in] context GA context
- *  \param [in] free GA_FALSE to release, GA_TRUE to close
+ *  \param [in] set
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
+ *  \param [in] device
+ *         Remote device endpoint.
+ *  \param [in, out] context
+ *         Context for the endpoint.
+ *  \param [in, out] range
+ *         Service range array for CAP CSIS.
+ *  \param [in, out] info
+ *         Array of characteristic handles for CAP CSIS.
+ *  \param [in, out] info_count
+ *         Count of characteristics handles in above parameter.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ */
+GA_RESULT GA_manage_cs_context_info
+          (
+              /* IN         */ UINT8              set,
+              /* IN         */ GA_ENDPOINT      * device,
+              /* IN, OUT    */ GA_CONTEXT       * context,
+              /* IN, OUT    */ GA_BRR_SVC_RANGE ** range,
+              /* IN, OUT:^6 */ GA_CHAR_INFO     ** info,
+              /* IN, OUT    */ UINT16           * info_count
+          );
+
+/**
+ *  \brief To set the GA CAP CoordinatedSet characteristic handles of a device.
+ *
+ *  \par Description:
+ *       The routine enables the application to set the service and
+ *       characteristic handle ranges to a device context.
+ *
+ *  \param [in] d
+ *         Remote device endpoint.
+ *  \param [out] h
+ *         Context handle for the endpoint.
+ *  \param [in] r
+ *         Service range array for CAP CSIS.
+ *  \param [in] i
+ *         Array of characteristic handles for CAP CSIS.
+ *  \param [in] c
+ *         Count of characteristics handles in above parameter.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ */
+#define GA_set_cs_context_info(                                         \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* OUT - GA_CONTEXT* */ h,                                  \
+            /* IN - GA_BRR_SVC_RANGE** */r,                             \
+            /* IN:^5 - GA_CHAR_INFO** */i,                              \
+            /* IN - UINT16* */c                                         \
+        )                                                               \
+        GA_manage_cs_context_info                                       \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
+
+/**
+ *  \brief To get the GA CAP CoordinatedSet characteristic handles of a device.
+ *
+ *  \par Description:
+ *       The routine enables the application to get the service and
+ *       characteristic handle ranges from a device context.
+ *
+ *  \param [in] d
+ *         Remote device endpoint.
+ *  \param [in] h
+ *         Context handle for the endpoint.
+ *  \param [out] r
+ *         Service range array for CAP CSIS.
+ *  \param [out] i
+ *         Array of characteristic handles for CAP CSIS.
+ *  \param [out] c
+ *         Count of characteristics handles in above parameter.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ */
+#define GA_get_cs_context_info(                                         \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - GA_CONTEXT* */ h,                                  \
+            /* OUT - GA_BRR_SVC_RANGE** */r,                            \
+            /* OUT:^5 - GA_CHAR_INFO** */i,                             \
+            /* OUT - UINT16* */c                                        \
+        )                                                               \
+        GA_manage_cs_context_info                                       \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
+#endif /* CSIP_SUPPORT_CONTEXT_MANAGE */
+
+/**
+ * \endcond
+ */
+
+/** \} */
+
+/**
+ * \name CAS Client APIs - Release
+ * \{
+ * \brief This section describes the Common Audio Service Release
+ * APIs for Client.
+ */
+
+/**
+ *  \brief Close or Release the given CAS member context.
+ *
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_cap_setup_member if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
+ *
+ *  \param [in] context
+ *         GA context.
+ *
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref GA_CAP_RELEASE_MEMBER_CNF is notified on
+ *          completion with status as success or failure.
  */
 GA_RESULT GA_cap_terminate_member
           (
               /* IN */ GA_CONTEXT * context,
-              /* IN */ UINT8 free
+              /* IN */ UINT8 release
           );
 
 /**
- *  \brief Release the CAS member context
+ *  \brief Release the given CAS member context.
  *
- *  \par Description
- *  This routine is used to release the CAS member context. On successful
- *  start of procedure, this API generates the \ref CAP_RELEASE_MEMBER_CNF
- *  event to the application.
+ *  \par Description:
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_cap_setup_member if required for the same
+ *       device again.
  *
- *  \param [in] context GA context
+ *  \param [in] context
+ *         GA Context for the endpoint to be released.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref GA_CAP_RELEASE_MEMBER_CNF is notified on
+ *          completion with status as success or failure.
  */
-#define GA_cap_release_member(context) \
-    GA_cap_terminate_member((context), GA_FALSE)
+#define GA_cap_release_member(                               \
+            /* IN - GA_CONTEXT* */context                    \
+        )                                                    \
+        GA_cap_terminate_member                              \
+        (                                                    \
+            (context),                                       \
+            GA_TRUE                                          \
+        )
 
 /**
- *  \brief Close the CAS member context
+ *  \brief Free the given CAS member context.
  *
- *  \par Description
- *  This routine is used to close the CAS member context. This API
- *  does not produce any event.
+ *  \par Description:
+ *       This routine frees up the given context of the CAS member.
  *
- *  \param [in] context GA context
+ *  \param [in] context
+ *         GA Context for the endpoint to be freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
-#define GA_cap_close_member(context) \
-    GA_cap_terminate_member((context), GA_TRUE)
+#define GA_cap_close_member(                                 \
+            /* IN - GA_CONTEXT* */context                    \
+        )                                                    \
+        GA_cap_terminate_member                              \
+        (                                                    \
+            (context),                                       \
+            GA_FALSE                                         \
+        )
+
+/** \} */
+
+#ifdef CAP_CSIP_COORDINATOR
+/**
+ * \name CAS Client APIs - Write
+ * \{
+ * \brief This section describes the Common Audio Service Write
+ * APIs for Client.
+ */
 
 /**
- *  \brief Lock/Unlock the CAS member of the endpoint in the given context
+ *  \brief Lock/Unlock the CAS member of the endpoint in the given context.
  *
- *  \par Description
- *  This routine sets the lock attribure to the CAS member of the peer
- *  endpoint referred in the context.
+ *  \par Description:
+ *       This routine sets the lock attribure to the CAS member of the peer
+ *       endpoint referred in the context.
  *
- *  \param [in] context GA context
- *  \param [in] lock 1 - Unlocked, 2 - Locked (as in CSIS specification)
+ *  \param [in] context GA context.
+ *  \param [in] lock 1 - Unlocked, 2 - Locked (as in CSIS specification).
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  */
 GA_RESULT GA_cap_lock_member
           (
@@ -4854,50 +6711,147 @@ GA_RESULT GA_cap_lock_member
               /* IN */ UINT8 lock
           );
 
+/** \} */
+#endif /* CAP_CSIP_COORDINATOR */
+
+/** \} */
+/** \} */
+/** \} */
 
 /**
- *  \brief Initialize the GA Unicast Client.
- *
- *  \par Description
- *  This routine initializes GA Unicast Client
- *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ * \addtogroup ga_bap_module
+ * \{
  */
-#define GA_uc_client_init(cb)       GA_module_init(GA_MODULE_BAP, BAP_ROLE_CLIENT, (cb))
 
 /**
- *  \brief Shutdown the GA Unicast Client.
- *
- *  \par Description
- *  This routine shuts down GA Unicast Client
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ * \addtogroup ga_bap_uc_module
+ * \{
  */
-#define GA_uc_client_shutdown()   GA_module_shutdown(GA_MODULE_BAP, BAP_ROLE_CLIENT)
+
+/**
+ * \addtogroup ga_bap_uc_api_defs
+ * \{
+ */
+
+#ifdef BAP_PACS_CLIENT
+/**
+ * \defgroup ga_bap_client_api_defs BAP Client
+ * \{
+ * \brief This section describes the various APIs for BAP Client.
+ */
+
+/**
+ * \name BAP Client APIs - Init
+ * \{
+ * \brief This section describes the Generic Audio Init APIs for BAP Client.
+ */
+
+/**
+ *  \brief Initialize the GA BAP PAC Client.
+ *
+ *  \par Description:
+ *       This routine initializes GA BAP PAC Client.
+ *
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_bap_client_init(                                  \
+            /* IN - GA_PROFILE_CB */ cb                      \
+        )                                                    \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_CLIENT,                                 \
+            (cb)                                             \
+        )
+
+/** \} */
+
+/**
+ * \name UC Client APIs - De-Init
+ * \{
+ * \brief This section describes the Generic Audio De-Init APIs for UC Client.
+ */
+
+/**
+ *  \brief Shutdown the GA BAP PAC Client.
+ *
+ *  \par Description:
+ *       This routine shuts down GA BAP PAC Client. If there is an active
+ *       Unicast and/or Broadcast[with BA role] ongoing, this routine
+ *       will return a failure.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_bap_client_shutdown()                             \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_CLIENT                                  \
+        )
+
+/** \} */
+/** \} */
+
+/**
+ * \defgroup ga_bap_uc_client_pacs_api_defs UC Client - PACS
+ * \{
+ * \brief This section describes the various APIs for UC Client - PACS.
+ */
+
+/**
+ * \name UC Client PACS APIs - Setup
+ * \{
+ * \brief This section describes the Generic Audio Setup APIs for
+ * UC Client PACS.
+ */
 
 /**
  *  \brief Setup a GA context for a peer endpoint.
  *
- *  \par Description
- *  This routine allocates a GA context for a peer endpoint, discovers the
- *  audio roles supported on the peer endpoint.
- *  The PACS Service, Char, Desc discovery is done and configuration of
- *  notification on the remote is performed.
+ *  \par Description:
+ *       This routine allocates a GA context for a peer endpoint, discovers the
+ *       audio roles supported on the peer endpoint. \n
+ *       The PACS Service, Char, Desc discovery is done and configuration of
+ *       notification on the remote is performed.
  *
- *  \param [in] device Peer Endpoint address
- *  \param [out] context Allocated GA context for the peer endpoint
+ *  \param [in] device Peer Endpoint address.
+ *  \param [out] context Allocated GA context for the peer endpoint.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure returns the \ref GA_SETUP_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_setup
           (
               /* IN */ GA_ENDPOINT * device,
               /* OUT */ GA_CONTEXT * context
           );
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_client_api_defs
+ * \{
+ */
+
+/**
+ * \name UC Client APIs - Setup
+ * \{
+ * \brief This section describes the Generic Audio Setup APIs for
+ * UC Client.
+ */
 
 /**
  * \cond EXCLUDE_PART
@@ -4906,201 +6860,198 @@ GA_RESULT GA_setup
 /**
  *  \brief To enable configuration for Characteristic Notifications.
  *
- *  \par Description
- *       The routine enables to configure notifications for individual characteristics
- *       of BAP related service.
+ *  \par Description:
+ *       The routine enables to configure notifications for individual
+ *       characteristics of BAP related service.
  *
  *  \param [in] config
- *              Bitmask for characteristics IDs.
+ *         Bitmask for characteristics IDs.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_update_ntf_configuration(config) \
-        BAP_update_ntf_configuration((config))
+#define GA_update_ntf_configuration(                         \
+            /* IN - UINT32 */ config                         \
+        )                                                    \
+        BAP_update_ntf_configuration                         \
+        (                                                    \
+            (config)                                         \
+        )
 #endif /* BAP_SUPPORT_CONFIG_SELECTION */
-
-/**
- *  \brief To manage the GA CAP CoordinatedSet characteristic handles of a device.
- *
- *  \par Description
- *       The routine enables the application to get/set the service and
- *       characteristic handle ranges from/to a device context.
- *
- *  \param [in] set
- *              GA_TRUE for Context SET and GA_FALSE for Context GET
- *  \param [in] device
- *              Remote device endpoint
- *  \param [in] handle
- *              Context handle for the endpoint
- *  \param [in] range
- *              Service range array for CAP CSIS
- *  \param [in] info
- *              Array of characteristic handles for CAP CSIS
- *  \param [in] info_count
- *              Count of characteristics handles in above parameter
- *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
- */
-GA_RESULT GA_manage_cs_context_info
-          (
-              /* IN     */ UINT8              set,
-              /* IN     */ GA_ENDPOINT      * device,
-              /* INOUT  */ BAP_HANDLE       * handle,
-              /* INOUT  */ GA_BRR_SVC_RANGE ** range,
-              /* INOUT  */ GA_CHAR_INFO     ** info,
-              /* INOUT  */ UINT16           * info_count
-          );
-
-/**
- *  \brief To set the GA CAP CoordinatedSet characteristic handles of a device.
- *
- *  \par Description
- *       The routine enables the application to set the service and
- *       characteristic handle ranges to a device context.
- *
- *  \param [in] d
- *              Remote device endpoint
- *  \param [in] h
- *              Context handle for the endpoint
- *  \param [in] r
- *              Service range array for CAP CSIS
- *  \param [in] i
- *              Array of characteristic handles for CAP CSIS
- *  \param [in] c
- *              Count of characteristics handles in above parameter
- *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
- */
-#define GA_set_cs_context_info(d, h, r, i, c) \
-        GA_manage_cs_context_info(GA_TRUE, (d), (h), (r), (i), (c))
-
-/**
- *  \brief To get the GA CAP  CoordinatedSet characteristic handles of a device.
- *
- *  \par Description
- *       The routine enables the application to get the service and
- *       characteristic handle ranges from a device context.
- *
- *  \param [in] d
- *              Remote device endpoint
- *  \param [in] h
- *              Context handle for the endpoint
- *  \param [in] r
- *              Service range array for CAP CSIS
- *  \param [in] i
- *              Array of characteristic handles for CAP CSIS
- *  \param [in] c
- *              Count of characteristics handles in above parameter
- *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
- */
-#define GA_get_cs_context_info(d, h, r, i, c) \
-        GA_manage_cs_context_info(GA_FALSE, (d), (h), (r), (i), (c))
 
 #ifdef BAP_SUPPORT_CONTEXT_MANAGE
 /**
  *  \brief To manage the GA BAP characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to get/set the service and
  *       characteristic handle ranges from/to a device context.
  *
  *  \param [in] set
- *              GA_TRUE for Context SET and GA_FALSE for Context GET
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
  *  \param [in] device
- *              Remote device endpoint
- *  \param [in] handle
- *              Context handle for the endpoint
- *  \param [in] range
- *              Service range array for PACS and ASCS
- *  \param [in] info
- *              Array of characteristic handles for PACS and ASCS
- *  \param [in] info_count
- *              Count of characteristics handles in above parameter
+ *         Remote device endpoint.
+ *  \param [in, out] handle
+ *         Context handle for the endpoint.
+ *  \param [in, out] range
+ *         Service range array for PACS and ASCS.
+ *  \param [in, out] info
+ *         Array of characteristic handles for PACS and ASCS.
+ *  \param [in, out] info_count
+ *         Count of characteristics handles in above parameter.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_manage_context_info
           (
-              /* IN     */ UINT8              set,
-              /* IN     */ GA_ENDPOINT      * device,
-              /* INOUT  */ BAP_HANDLE       * handle,
-              /* INOUT  */ GA_BRR_SVC_RANGE ** range,
-              /* INOUT  */ GA_CHAR_INFO     ** info,
-              /* INOUT  */ UINT16           * info_count
+              /* IN         */ UINT8 set,
+              /* IN         */ GA_ENDPOINT * device,
+              /* IN, OUT    */ BAP_HANDLE * handle,
+              /* IN, OUT    */ GA_BRR_SVC_RANGE ** range,
+              /* IN, OUT:^6 */ GA_CHAR_INFO ** info,
+              /* IN, OUT    */ UINT16 * info_count
           );
 
 /**
  *  \brief To set the GA BAP characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to set the service and
  *       characteristic handle ranges to a device context.
  *
  *  \param [in] d
- *              Remote device endpoint
- *  \param [in] h
- *              Context handle for the endpoint
+ *         Remote device endpoint.
+ *  \param [out] h
+ *         Context handle for the endpoint.
  *  \param [in] r
- *              Service range array for PACS and ASCS
+ *         Service range array for PACS and ASCS.
  *  \param [in] i
- *              Array of characteristic handles for PACS and ASCS
+ *         Array of characteristic handles for PACS and ASCS.
  *  \param [in] c
- *              Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_set_context_info(d, h, r, i, c) \
-        GA_manage_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_set_context_info(                                            \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* OUT - GA_CONTEXT* */ h,                                   \
+            /* IN - GA_BRR_SVC_RANGE** */r,                             \
+            /* IN:^5 - GA_CHAR_INFO** */i,                              \
+            /* IN - UINT16* */c                                         \
+        )                                                               \
+        GA_manage_context_info                                          \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To get the GA BAP characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to get the service and
  *       characteristic handle ranges from a device context.
  *
  *  \param [in] d
- *              Remote device endpoint
+ *         Remote device endpoint.
  *  \param [in] h
- *              Context handle for the endpoint
- *  \param [in] r
- *              Service range array for PACS and ASCS
- *  \param [in] i
- *              Array of characteristic handles for PACS and ASCS
- *  \param [in] c
- *              Count of characteristics handles in above parameter
+ *         Context handle for the endpoint.
+ *  \param [out] r
+ *         Service range array for PACS and ASCS.
+ *  \param [out] i
+ *         Array of characteristic handles for PACS and ASCS.
+ *  \param [out] c
+ *         Count of characteristics handles in above parameter.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_get_context_info(d, h, r, i, c) \
-        GA_manage_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_get_context_info(                                            \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - GA_CONTEXT* */ h,                                   \
+            /* OUT - GA_BRR_SVC_RANGE** */r,                            \
+            /* OUT:^5 - GA_CHAR_INFO** */i,                             \
+            /* OUT - UINT16* */c                                        \
+        )                                                               \
+        GA_manage_context_info                                          \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
+#endif /* BAP_SUPPORT_CONTEXT_MANAGE */
+/**
+ * \endcond
+ */
 
+/** \} */
+/** \} */
+#endif /* BAP_PACS_CLIENT */
+
+#ifdef BAP_UCC
+/**
+ * \defgroup ga_bap_uc_client_ascs_api_defs UC Client - ASCS
+ * \{
+ * \brief This section describes the various APIs for UC Client - ASCS.
+ */
+
+/**
+ * \name UC Client ASCS APIs - Setup
+ * \{
+ * \brief This section describes the Generic Audio Setup APIs for
+ * UC Client ASCS.
+ */
+
+/**
+ * \cond EXCLUDE_PART
+ */
+
+#ifdef BAP_SUPPORT_CONTEXT_MANAGE
 /**
  *  \brief To manage the GA stream context of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to get/set the stream contexts
  *       of a given device context.
  *
  *  \param [in] set
- *              GA_TRUE for Context SET and GA_FALSE for Context GET
- *  \param [in] context
- *              Context handle for the endpoint
- *  \param [in] sc_context
- *              Allocated array of GA_STREAM_CONTEXT *
- *  \param [in] sc_count
- *              Count of GA_STREAM_CONTEXT * allocated
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
+ *  \param [in, out] context
+ *         Context handle for the endpoint.
+ *  \param [in, out] sc_context
+ *         Allocated array of \ref GA_STREAM_CONTEXT.
+ *  \param [in, out] sc_count
+ *         Count of \ref GA_STREAM_CONTEXT allocated.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_manage_stream_context
           (
-              /* IN     */ UINT8               set,
-              /* INOUT  */ GA_CONTEXT        * context,
-              /* INOUT  */ GA_STREAM_CONTEXT * sc_context,
-              /* INOUT  */ UINT16            * sc_count
+              /* IN         */ UINT8               set,
+              /* IN, OUT    */ GA_CONTEXT        * context,
+              /* IN, OUT:^4 */ GA_STREAM_CONTEXT * sc_context,
+              /* IN, OUT    */ UINT16            * sc_count
           );
 
 /**
@@ -5111,112 +7062,200 @@ GA_RESULT GA_manage_stream_context
  *       of a given device context.
  *
  *  \param [in] context
- *              Context handle for the endpoint
+ *         Context handle for the endpoint.
  *  \param [in] sc_context
- *              Allocated array of GA_STREAM_CONTEXT *
+ *         Allocated array of \ref GA_STREAM_CONTEXT.
  *  \param [in] sc_count
- *              Count of GA_STREAM_CONTEXT * allocated
+ *         Count of \ref GA_STREAM_CONTEXT allocated.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_set_stream_context(context, sc_context, sc_count) \
-        GA_manage_stream_context(GA_TRUE, context, sc_context, sc_count)
+#define GA_set_stream_context(                                          \
+            /* IN - GA_CONTEXT* */ context,                             \
+            /* IN:^3 - GA_STREAM_CONTEXT* */ sc_context,                \
+            /* IN - UINT16* */ sc_count                                 \
+        )                                                               \
+        GA_manage_stream_context                                        \
+        (                                                               \
+            GA_TRUE,                                                    \
+            context,                                                    \
+            sc_context,                                                 \
+            sc_count                                                    \
+        )
 
- /**
-  *  \brief To get the GA stream context of a device.
-  *
-  *  \par Description
-  *       The routine enables the application to get the stream contexts
-  *       of a given device context.
-  *
-  *  \param [in] context
-  *              Context handle for the endpoint
-  *  \param [out] sc_context
-  *              Allocated array of GA_STREAM_CONTEXT *
-  *  \param [inout] sc_count
-  *              Count of GA_STREAM_CONTEXT * allocated
-  *
-  *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
-  */
-#define GA_get_stream_context(context, sc_context, sc_count) \
-        GA_manage_stream_context(GA_FALSE, context, sc_context, sc_count)
+/**
+ *  \brief To get the GA stream context of a device.
+ *
+ *  \par Description:
+ *       The routine enables the application to get the stream contexts
+ *       of a given device context.
+ *
+ *  \param [in] context
+ *         Context handle for the endpoint.
+ *  \param [out] sc_context
+ *         Allocated array of \ref GA_STREAM_CONTEXT.
+ *  \param [out] sc_count
+ *         Count of \ref GA_STREAM_CONTEXT allocated.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_get_stream_context(                                          \
+            /* IN - GA_CONTEXT* */ context,                             \
+            /* OUT:^3 - GA_STREAM_CONTEXT* */ sc_context,               \
+            /* OUT - UINT16* */ sc_count                                \
+        )                                                               \
+        GA_manage_stream_context                                        \
+        (                                                               \
+            GA_FALSE,                                                   \
+            context,                                                    \
+            sc_context,                                                 \
+            sc_count                                                    \
+        )
+
 #endif /* BAP_SUPPORT_CONTEXT_MANAGE */
 
 /**
  * \endcond
  */
 
+/** \} */
+/** \} */
+#endif /* BAP_UCC */
+
+#ifdef BAP_PACS_CLIENT
 /**
- *  \brief Release or free the given GA context.
+ * \addtogroup ga_bap_client_api_defs
+ * \{
+ */
+
+/**
+ * \name UC Client APIs - Release
+ * \{
+ * \brief This section describes the Generic Audio Release APIs for UC Client.
+ */
+
+/**
+ *  \brief Close or Release the given GA context.
  *
- *  \par Description
- *  When 'free' is set to \ref GA_FALSE, this routine initiates the release
- *  procedure for the context. Once release is done, the context is freed up
- *  and the setup must be freshly done by calling GA_setup() if required for
- *  the same device again.
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_setup() for PACS and \ref GA_sep_discover() for ASCS if
+ *       required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
  *
- *  If the 'free' parameter is set to \ref GA_TRUE,
- *  this API just frees up the context without the release procedure.
+ *  \param [in] context
+ *         GA Context for the endpoint to be released/freed.
  *
- *  \param [in] context Context to be released/freed
- *  \param [in] free Indicate free only without release
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_RELEASE_CNF is notified on
  *          completion with status as success or failure.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_terminate
           (
               /* IN */ GA_CONTEXT * context,
-              /* IN */ UCHAR free
+              /* IN */ UCHAR        release
           );
 
 /**
  *  \brief Release the given GA context.
  *
- *  \par Description
- *  This routine initiates the release procedure for the context. Once release
- *  is done, the context is freed up and the setup must be freshly done by
- *  calling GA_setup() if required for the same device again.
+ *  \par Description:
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_setup() for PACS and \ref GA_sep_discover()
+ *       for ASCS if required for the same device again.
  *
- *  \param [in] context Context to be released
+ *  \param [in] ctx
+ *         GA Context for the endpoint to be released.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_RELEASE_CNF is notified on
  *          completion with status as success or failure.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_release(ctx) \
-        GA_terminate((ctx), GA_FALSE)
+#define GA_release(                                          \
+            /* IN - GA_CONTEXT* */ ctx                       \
+        )                                                    \
+        GA_terminate                                         \
+        (                                                    \
+            (ctx),                                           \
+            GA_TRUE                                          \
+        )
 
 /**
  *  \brief Free the given GA context.
  *
- *  \par Description
- *  This routine frees up the given context of the GA layer.
+ *  \par Description:
+ *       This routine frees up the given context of the GA.
  *
- *  \param [in] context Context to be freed
+ *  \param [in] ctx
+ *         GA Context for the endpoint to be freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_close(ctx) \
-        GA_terminate((ctx), GA_TRUE)
+#define GA_close(                                            \
+            /* IN - GA_CONTEXT* */ ctx                       \
+        )                                                    \
+        GA_terminate                                         \
+        (                                                    \
+            (ctx),                                           \
+            GA_FALSE                                         \
+        )
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_uc_client_pacs_api_defs
+ * \{
+ */
+
+/**
+ * \name UC Client PACS APIs - Setup
+ * \{
+ */
 
 /**
  *  \brief Get the capabilities of a GA endpoint.
  *
- *  \par Description
- *  This routine gets the capabilities for a GA endpoint. Internally based on
- *  the role specified, the values of the PACS Chars is done by read operation.
+ *  \par Description:
+ *       This routine gets the capabilities for a GA endpoint. Internally based
+ *       on the role specified, the values of the PACS Chars is done by read
+ *       operation.
  *
- *  \param [in] context Context of the peer endpoint that is setup
- *  \param [in] role Role on the endpoint for which the capabilities is required
+ *  \param [in] context Context of the peer endpoint that is setup.
+ *  \param [in] role Role on the endpoint for which the capabilities is required.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure returns the \ref GA_GET_CAPABILITIES_CNF event
  *        multiple times with \ref GA_CONTINUE and finally with
- *        \ref GA_SUCCESS.
+ *        \ref GA_SUCCESS. \n
  *        The role provided as part of \ref GA_SETUP_CNF shall be used here.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_get_capabilities
           (
@@ -5227,30 +7266,177 @@ GA_RESULT GA_get_capabilities
 /** \} */
 
 /**
- * \name GA Unicast Client-BAP Procedures
+ * \name UC Client PACS APIs - Write
+ * \{
+ */
+
+/**
+ *  \brief To perform Write operation on Audio Location Characteristic.
+ *
+ *  \par Description:
+ *       This function triggers write request.
+ *
+ *  \param [in] context
+ *         Context of the peer endpoint that is setup.
+ *
+ *  \param [in] role
+ *         Role on the endpoint for which the write should happen.
+ *
+ *  \param [in] audio_locations
+ *         UINT32 type holding Audio Locations.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *
+ *  \sa ga_bap_common_error_code
+ *  \sa ga_common_constants
+ */
+GA_RESULT GA_set_audio_location
+          (
+              /* IN */ GA_CONTEXT * context,
+              /* IN */ UINT8        role,
+              /* IN */ UINT32       audio_locations
+          );
+
+/**
+ *  \brief To set Source Audio Location.
+ *
+ *  \par Description:
+ *       This routine enables to set Source Audio Location.
+ *
+ *  \param [in] ctx
+ *         Context of the peer endpoint that is setup.
+ *
+ *  \param [in] audio_locations
+ *         UINT32 type holding Audio Locations.
+ *
+ *  \return \ref GA_SUCCESS on success, or, an Error Code
+ *           describing the cause of failure. \n
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_set_source_audio_location(                        \
+            /* IN - GA_CONTEXT* */ ctx,                      \
+            /* IN - UINT32 */ audio_locations                \
+        )                                                    \
+        GA_set_audio_location                                \
+        (                                                    \
+            (ctx),                                           \
+            GA_ROLE_SOURCE,                                  \
+            (audio_locations)                                \
+        )
+
+/**
+ *  \brief To set Sink Audio Location.
+ *
+ *  \par Description:
+ *       This routine enables to set Sink Audio Location.
+ *
+ *  \param [in] ctx
+ *         Context of the peer endpoint that is setup.
+ *
+ *  \param [in] audio_locations
+ *         UINT32 type holding Audio Locations.
+ *
+ *  \return \ref GA_SUCCESS on success, or, an Error Code
+ *           describing the cause of failure. \n
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_set_sink_audio_location(                          \
+            /* IN - GA_CONTEXT* */ ctx,                      \
+            /* IN - UINT32 */ audio_locations                \
+        )                                                    \
+        GA_set_audio_location                                \
+        (                                                    \
+            (ctx),                                           \
+            GA_ROLE_SINK,                                    \
+            (audio_locations)                                \
+        )
+
+/** \} */
+/** \} */
+#endif /* BAP_PACS_CLIENT */
+
+#ifdef BAP_UCC
+/**
+ * \addtogroup ga_bap_uc_client_ascs_api_defs
+ * \{
+ */
+
+/**
+ * \name UC Client ASCS APIs - BAP Procedures
  * \{
  * \brief This section describes the Generic Audio BAP Procedures
  * APIs for Unicast Client.
  */
 
 /**
+ *  \brief Initialize the Unicast Client.
+ *
+ *  \par Description:
+ *       This routine initializes Unicast Client.
+ *       Ensure to call GA_bap_client_init() to initialize the
+ *       BAP client module before invoking this API, else this
+ *       will return a failure.
+ *
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_uc_client_init(                                   \
+            /* IN - GA_PROFILE_CB */ cb                      \
+        )                                                    \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_UCC,                                    \
+            (cb)                                             \
+        )
+
+/**
+ *  \brief Shutdown the Unicast Client.
+ *
+ *  \par Description:
+ *       This routine shuts down Unicast Client.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_uc_client_shutdown()                              \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_UCC                                     \
+        )
+
+/**
  *  \brief Discover the Audio Stream Endpoints (ASE) of a GA endpoint.
  *
- *  \par Description
- *  This routine discovers the available audio stream endpoints on a GA endpoint
- *  that is setup previously. Internally ASCS Service, Char, Desc is done
- *  post which the notification is enabled for the applicable ASCS
- *  Char. Read on the ASE Source and ASE Sink is done to fetch the current
- *  state of the ASE. The event \ref GA_SEP_DISCOVER_CNF is notified based on
- *  the number of ASCS Source and/or Sink Char are discovered.
+ *  \par Description:
+ *       This routine discovers the available audio stream endpoints on a
+ *       GA endpoint that is setup previously. Internally ASCS Service,
+ *       Char, Desc is done post which the notification is enabled for the
+ *       applicable ASCS Char. Read on the ASE Source and ASE Sink is done to
+ *       fetch the current state of the ASE. The event \ref GA_SEP_DISCOVER_CNF
+ *       is notified based on the number of ASCS Source and/or Sink Char are
+ *       discovered.
  *
- *  \param [in] context Context of the peer endpoint that is setup
+ *  \param [in] context Context of the peer endpoint that is setup.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure returns the \ref GA_SEP_DISCOVER_CNF event
  *        multiple times with \ref GA_CONTINUE and finally with
  *        \ref GA_SUCCESS.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_sep_discover
           (
@@ -5260,521 +7446,796 @@ GA_RESULT GA_sep_discover
 /**
  *  \brief Configure a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine configures the given set of one or more ASE IDs of the
- *  GA Endpoint with the requested Codec Configuration.
- *  This call shall only submit codec configuration parameters that are
- *  supported by the peer received via \ref GA_GET_CAPABILITIES_CNF.
- *  Internally, an ASE CP is performed and post receiving of the response
- *  and the notification of the ASE Sink/ASE Source, an event
- *  \ref GA_SEP_CONFIGURE_CNF is generated.
+ *  \par Description:
+ *       This routine configures the given set of one or more ASE IDs of the
+ *       GA Endpoint with the requested Codec Configuration.
+ *       This call shall only submit codec configuration parameters that are
+ *       supported by the peer received via \ref GA_GET_CAPABILITIES_CNF.
+ *       Internally, an ASE CP is performed and post receiving of the response
+ *       and the notification of the ASE Sink/ASE Source, an event
+ *       \ref GA_SEP_CONFIGURE_CNF is generated.
  *
- *  \param [in] context Context of the peer endpoint that is setup
- *  \param [in] sep_count Number of Endpoints included
- *  \param [in] sep_id List of ASE IDs
- *  \param [in] sep_role List of roles for every endpoint included
- *  \param [in] sep_codec List of Codec Configurations for every endpoint included
+ *  \param [in] context Context of the peer endpoint that is setup.
+ *  \param [in] sep_count Number of Endpoints included.
+ *  \param [in] sep_id List of ASE IDs.
+ *  \param [in] sep_role List of roles for every endpoint included.
+ *  \param [in] sep_codec List of Codec Configurations for every endpoint included.
  *  \param [in] sep_phy List of Phy for the ASE IDs.
  *  \param [in] sep_latency List of Latency for the ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note This procedure returns the \ref GA_SEP_CONFIGURE_CNF event
+ *  \note This procedure returns the \ref GA_SEP_CONFIGURE_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_sep_configure
           (
               /* IN */ GA_CONTEXT * context,
               /* IN */ UINT8 sep_count,
-              /* IN */ UINT8 * sep_id,
-              /* IN */ UINT8 * sep_role,
-              /* IN */ GA_CODEC_INFO * sep_codec,
-              /* IN */ UINT8 * sep_phy,
-              /* IN */ UINT8 * sep_latency
+              /* IN:^2 */ UINT8 * sep_id,
+              /* IN:^2 */ UINT8 * sep_role,
+              /* IN:^2 */ GA_CODEC_INFO * sep_codec,
+              /* IN:^2 */ UINT8 * sep_phy,
+              /* IN:^2 */ UINT8 * sep_latency
           );
 
 /**
  *  \brief Setup a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine sets up the QOS configuration on the given set of one or
- *  more ASE IDs of the GA Endpoint.
- *  This call shall submit the parameters provided by the peer in the event
- *  \ref GA_SEP_CONFIGURE_CNF.
- *  Internally, an ASE CP is performed and post receiving of the response
- *  and the notification of the ASE Sink/ASE Source, an event
- *  \ref GA_SEP_SETUP_CNF is generated.
+ *  \par Description:
+ *       This routine sets up the QOS configuration on the given set of one or
+ *       more ASE IDs of the GA Endpoint.
+ *       This call shall submit the parameters provided by the peer in the
+ *       event \ref GA_SEP_CONFIGURE_CNF.
+ *       Internally, an ASE CP is performed and post receiving of the response
+ *       and the notification of the ASE Sink/ASE Source, an event
+ *       \ref GA_SEP_SETUP_CNF is generated.
  *
- *  \param [in] context Context of the peer endpoint that is setup
- *  \param [in] sep_count Number of Endpoints included
- *  \param [in] sep_id List of ASE IDs
- *  \param [in] sep_qos List of QOS Configurations for every endpoint included
+ *  \param [in] context Context of the peer endpoint that is setup.
+ *  \param [in] sep_count Number of Endpoints included.
+ *  \param [in] sep_id List of ASE IDs.
+ *  \param [in] sep_qos List of QOS Configurations for every endpoint included.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note This procedure returns the \ref GA_SEP_SETUP_CNF event
+ *  \note This procedure returns the \ref GA_SEP_SETUP_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_sep_setup
           (
               /* IN */ GA_CONTEXT * context,
               /* IN */ UINT8 sep_count,
-              /* IN */ UINT8 * sep_id,
-              /* IN */ GA_QOS_CONF * sep_qos
+              /* IN:^2 */ UINT8 * sep_id,
+              /* IN:^2 */ GA_QOS_CONF * sep_qos
           );
 
 /**
  *  \brief Start a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine enables the given set of one or more ASE IDs of
- *  the GA Endpoint.
- *  This call shall request the Metadata from peer for this ASE.
- *  Internally, an ASE CP is performed and post receiving of the response
- *  and the notification of the ASE Sink/ASE Source, an event
- *  \ref GA_SEP_START_CNF is generated.
+ *  \par Description:
+ *       This routine enables the given set of one or more ASE IDs of
+ *       the GA Endpoint.
+ *       This call shall request the Metadata from peer for this ASE.
+ *       Internally, an ASE CP is performed and post receiving of the response
+ *       and the notification of the ASE Sink/ASE Source, an event
+ *       \ref GA_SEP_START_CNF is generated.
  *
- *  \param [in] context Context of the peer endpoint that is setup
- *  \param [in] sep_count Number of Endpoints included
- *  \param [in] sep_id List of ASE IDs
+ *  \param [in] context Context of the peer endpoint that is setup.
+ *  \param [in] sep_count Number of Endpoints included.
+ *  \param [in] sep_id List of ASE IDs.
  *  \param [in] sep_content List of Content Control information for
- *  every endpoint included
+ *                          every endpoint included.
+ *                          If contexts is not required, Set it to
+ *                          \ref GA_CONTEXT_TYPE_PROHIBITED.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note This procedure returns the \ref GA_SEP_START_CNF event
+ *  \note This procedure returns the \ref GA_SEP_START_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_sep_start
           (
               /* IN */ GA_CONTEXT * context,
               /* IN */ UINT8 sep_count,
-              /* IN */ UINT8 * sep_id,
-              /* IN */ GA_CONTENT_INFO * sep_content
+              /* IN:^2 */ UINT8 * sep_id,
+              /* IN:^2 */ GA_CONTENT_INFO * sep_content
           );
 
 /**
  *  \brief Receiver Start Ready to receive Audio data for a given set of ASEs
  *         of a GA endpoint.
  *
- *  \par Description
- *  This routine indicates the given set of one or more ASE IDs of
- *  the GA Endpoint is ready to receive audio data and completes coupling an
- *  ASE to a CIS.
- *  Internally, an ASE CP is performed and post receiving of the response
- *  and the notification of the ASE Sink/ASE Source, an event
- *  \ref GA_SEP_RX_START_READY_CNF is generated.
+ *  \par Description:
+ *       This routine indicates the given set of one or more ASE IDs of
+ *       the GA Endpoint is ready to receive audio data and completes coupling
+ *       an ASE to a CIS.
+ *       Internally, an ASE CP is performed and post receiving of the response
+ *       and the notification of the ASE Sink/ASE Source, an event
+ *       \ref GA_SEP_RX_START_READY_CNF is generated.
  *
- *  \param [in] context Context of the peer endpoint that is setup
- *  \param [in] sep_count Number of Endpoints included
- *  \param [in] sep_id List of ASE IDs
+ *  \param [in] context Context of the peer endpoint that is setup.
+ *  \param [in] sep_count Number of Endpoints included.
+ *  \param [in] sep_id List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note This procedure returns the \ref GA_SEP_RX_START_READY_CNF event
+ *  \note This procedure returns the \ref GA_SEP_RX_START_READY_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_sep_receiver_start_ready
           (
-              GA_CONTEXT * context,
-              UINT8 sep_count,
-              UINT8 * sep_id
+              /* IN */ GA_CONTEXT * context,
+              /* IN */ UINT8 sep_count,
+              /* IN:^2 */ UINT8 * sep_id
           );
 
 /**
  *  \brief Receiver Stop Ready to receive Audio data for a given set of ASEs
  *         of a GA endpoint.
  *
- *  \par Description
- *  This routine indicates the given set of one or more ASE IDs of
- *  the GA Endpoint is ready to stop receiving audio data and completes
- *  decoupling an ASE to a CIS.
- *  Internally, an ASE CP is performed and post receiving of the response
- *  and the notification of the ASE Sink/ASE Source, an event
- *  \ref GA_SEP_RX_STOP_READY_CNF is generated.
+ *  \par Description:
+ *       This routine indicates the given set of one or more ASE IDs of
+ *       the GA Endpoint is ready to stop receiving audio data and completes
+ *       decoupling an ASE to a CIS.
+ *       Internally, an ASE CP is performed and post receiving of the response
+ *       and the notification of the ASE Sink/ASE Source, an event
+ *       \ref GA_SEP_RX_STOP_READY_CNF is generated.
  *
- *  \param [in] context Context of the peer endpoint that is setup
- *  \param [in] sep_count Number of Endpoints included
- *  \param [in] sep_id List of ASE IDs
+ *  \param [in] context Context of the peer endpoint that is setup.
+ *  \param [in] sep_count Number of Endpoints included.
+ *  \param [in] sep_id List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note This procedure returns the \ref GA_SEP_RX_STOP_READY_CNF event
+ *  \note This procedure returns the \ref GA_SEP_RX_STOP_READY_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_sep_receiver_stop_ready
           (
-              GA_CONTEXT * context,
-              UINT8 sep_count,
-              UINT8 * sep_id
+              /* IN */ GA_CONTEXT* context,
+              /* IN */ UINT8 sep_count,
+              /* IN:^2 */ UINT8* sep_id
           );
 
 /**
  *  \brief Update a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine updates the given set of one or more ASE IDs of
- *  the GA Endpoint with new set of Content Control Information.
+ *  \par Description:
+ *       This routine updates the given set of one or more ASE IDs of
+ *       the GA Endpoint with new set of Content Control Information.
  *
- *  \param [in] context Context of the peer endpoint that is setup
- *  \param [in] sep_count Number of Endpoints included
- *  \param [in] sep_id List of ASE IDs
+ *  \param [in] context Context of the peer endpoint that is setup.
+ *  \param [in] sep_count Number of Endpoints included.
+ *  \param [in] sep_id List of ASE IDs.
  *  \param [in] sep_content List of Content Control information for
- *  every endpoint included
+ *                          every endpoint included.
+ *                          If contexts is not required, Set it to
+ *                          \ref GA_CONTEXT_TYPE_PROHIBITED.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note This procedure returns the \ref GA_SEP_UPDATE_CNF event
+ *  \note This procedure returns the \ref GA_SEP_UPDATE_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_sep_update
           (
               /* IN */ GA_CONTEXT * context,
               /* IN */ UINT8 sep_count,
-              /* IN */ UINT8 * sep_id,
-              /* IN */ GA_CONTENT_INFO * sep_content
+              /* IN:^2 */ UINT8 * sep_id,
+              /* IN:^2 */ GA_CONTENT_INFO * sep_content
           );
 
 /**
  *  \brief Suspend a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine disables the given set of one or more ASE IDs of
- *  the GA Endpoint. This call starts decoupling a Source/Sink ASE from a CIS
- *  for one or more Source ASE/Sink ASEs.
- *  Internally, an ASE CP is performed and post receiving of the response
- *  and the notification of the ASE Sink/ASE Source, an event
- *  \ref GA_SEP_SUSPEND_CNF is generated.
+ *  \par Description:
+ *       This routine disables the given set of one or more ASE IDs of
+ *       the GA Endpoint. This call starts decoupling a Source/Sink ASE from a
+ *       CIS for one or more Source ASE/Sink ASEs.
+ *       Internally, an ASE CP is performed and post receiving of the response
+ *       and the notification of the ASE Sink/ASE Source, an event
+ *       \ref GA_SEP_SUSPEND_CNF is generated.
  *
- *  \param [in] context Context of the peer endpoint that is setup
- *  \param [in] sep_count Number of Endpoints included
- *  \param [in] sep_id List of ASE IDs
+ *  \param [in] context Context of the peer endpoint that is setup.
+ *  \param [in] sep_count Number of Endpoints included.
+ *  \param [in] sep_id List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note This procedure returns the \ref GA_SEP_SUSPEND_CNF event
+ *  \note This procedure returns the \ref GA_SEP_SUSPEND_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_sep_suspend
           (
               /* IN */ GA_CONTEXT * context,
               /* IN */ UINT8 sep_count,
-              /* IN */ UINT8 * sep_id
+              /* IN:^2 */ UINT8 * sep_id
           );
 
 /**
  *  \brief Release a given set of ASEs of a GA endpoint.
  *
- *  \par Description
- *  This routine releases the given set of one or more ASE IDs of
- *  the GA Endpoint. This call releases resources associated with an ASE,
- *  immediately decouples the ASE from any previously coupled CIS, and tears
- *  down any CIS previously established for the ASE for one or more ASEs.
- *  Internally, an ASE CP is performed and post receiving of the response
- *  and the notification of the ASE Sink/ASE Source, an event
- *  \ref GA_SEP_RELEASE_CNF is generated.
+ *  \par Description:
+ *       This routine releases the given set of one or more ASE IDs of
+ *       the GA Endpoint. This call releases resources associated with an ASE,
+ *       immediately decouples the ASE from any previously coupled CIS, and
+ *       tears down any CIS previously established for the ASE for one or more
+ *       ASEs. Internally, an ASE CP is performed and post receiving of the
+ *       response and the notification of the ASE Sink/ASE Source, an event
+ *       \ref GA_SEP_RELEASE_CNF is generated.
  *
- *  \param [in] context Context of the peer endpoint that is setup
- *  \param [in] sep_count Number of Endpoints included
- *  \param [in] sep_id List of ASE IDs
+ *  \param [in] context Context of the peer endpoint that is setup.
+ *  \param [in] sep_count Number of Endpoints included.
+ *  \param [in] sep_id List of ASE IDs.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note This procedure returns the \ref GA_SEP_RELEASE_CNF event
+ *  \note This procedure returns the \ref GA_SEP_RELEASE_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 GA_RESULT GA_sep_release
           (
               /* IN */ GA_CONTEXT * context,
               /* IN */ UINT8 sep_count,
-              /* IN */ UINT8 * sep_id
+              /* IN:^2 */ UINT8 * sep_id
           );
+
+/** \} */
+/** \} */
+#endif /* BAP_UCC */
 
 /** \} */
 /** \} */
 
 /**
- * \defgroup ga_bc_src_api_defs GA Broadcast Source APIs
+ * \addtogroup ga_bap_bc_module
  * \{
- * \brief This section describes the Generic Audio APIs
+ */
+
+/**
+ * \addtogroup ga_bap_bc_api_defs
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_bc_src_api_defs BC Source
+ * \{
+ * \brief This section describes the Generic Audio APIs for Broadcast Source.
+ */
+
+/**
+ * \name BC Source APIs - Init
+ * \{
+ * \brief This section describes the Generic Audio Init APIs
  * for Broadcast Source.
  */
 
 /**
  *  \brief Initialize the GA Broadcast Source.
  *
- *  \par Description
- *  This routine initializes GA Broadcast Source
+ *  \par Description:
+ *       This routine initializes GA Broadcast Source.
  *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_bc_source_init(cb)       GA_module_init(GA_MODULE_BAP, BAP_ROLE_BCSRC, (cb))
-
-/**
- *  \brief Shutdown the GA Broadcast Source
- *
- *  \par Description
- *  This routine shuts down GA Broadcast Source
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_bc_source_shutdown()   GA_module_shutdown(GA_MODULE_BAP, BAP_ROLE_BCSRC)
-
-/**
- *  \brief Allocate a Broadcast Source session.
- *
- *  \par Description
- *  This routine allocates a Broadcast Source session at the GA and provides
- *  a session identifier on successful allocation.
- *
- *  \param [out] ssn Session Identifier for Broadcast Source
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_broadcast_alloc_session(ssn) \
-        BAP_broadcast_alloc_session((ssn))
-
-/**
- *  \brief Free the Broadcast Source session.
- *
- *  \par Description
- *  This routine frees the Broadcast Source session at the GA identified
- *  by the Session Identifier.
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_broadcast_free_session(ssn) \
-        BAP_broadcast_free_session((ssn))
-
-/**
- *  \brief Configure a Broadcast Source session.
- *
- *  \par Description
- *  This routine configures a Broadcast Source session identified by
- *  the session identifier with some of the broadcast parameters.
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *  \param [in] phy The Physical channel to be used for the Broadcast
- *  of streams on this session. This can take any of the valid values
- *  from \ref ga_pref_phy
- *  \param [in] packing Recommendation for a preferred arrangement of
- *  multiple BIS subevents. 0 - Sequential, 1 - Interleaved
- *  \param [in] broadcast_code Address to 16 octet broadcast code if
- *  encryption is to be enabled, else NULL
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_broadcast_configure_session(ssn, phy, packing, broadcast_code) \
-        BAP_broadcast_configure_session((ssn), (phy), (packing), (broadcast_code))
-
-/**
- *  \brief Register a Source Endpoint.
- *
- *  \par Description
- *  This routine registers a source endpoint with a given configuration
- *  on to a Broadcast session.
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *  \param [in] codec Codec Information for the endpoint
- *  \param [in] meta Metadata Information for the endpoint
- *  \param [in] nstream Number of media streams at this endpoint
- *  \param [in] stream Array of stream specific codec information if any
- *  \param [out] sep Endpoint ID allocated
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_broadcast_register_sep(ssn, codec, meta, nstream, stream, sep) \
-        BAP_broadcast_register_sep((ssn), (codec), (meta), (nstream), (stream), (sep))
-
-/**
- *  \brief Update a Source Endpoint.
- *
- *  \par Description
- *  This routine updates a source endpoint with a given configuration
- *  on to a Broadcast session.
- *
- *  \param [in] sep Endpoint ID
- *  \param [in] ssn Session Identifier for Broadcast Source
- *  \param [in] codec Codec Information for the endpoint
- *  \param [in] meta Metadata Information for the endpoint
- *  \param [in] nstream Number of media streams at this endpoint
- *  \param [in] stream Array of stream specific codec information if any
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_broadcast_update_sep(sep, ssn, codec, meta, nstream, stream) \
-        BAP_broadcast_update_sep((sep), (ssn), (codec), (meta), (nstream), (stream))
-
-/**
- *  \brief Register an Advertising Set Handle to a Broadcast Source session.
- *
- *  \par Description
- *  This routine registers an advertising set handle to be used by
- *  the broadcast session
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *  \param [in] advset The advertising handle to be used during EA
- *  and PA broadcast
- *
- *  \note Application should ensure that a valid handle is registered
- *  before trying to setup announcements
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_broadcast_register_advset(ssn, advset) \
-        BAP_broadcast_register_advset_info((ssn), (advset), NULL, 0U, NULL, 0U)
-
-/**
- *  \brief Register an Advertising Set Handle to a Broadcast Source session.
- *
- *  \par Description
- *  This routine registers an advertising set handle to be used by
- *  the broadcast session
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *  \param [in] advset The advertising handle to be used during EA
- *  and PA broadcast
- *  \param [in] sd Service Data of the application profile
- *  \param [in] sdlen Length of Service Data
- *  \param [in] sd Additional Adv Data of the application profile
- *  \param [in] sdlen Length of Additional Adv Data
- *
- *  \note Application should ensure that a valid handle is registered
- *  before trying to setup announcements
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_broadcast_register_advset_info(ssn, advset, sd, sdlen, ad, adlen) \
-        BAP_broadcast_register_advset_info((ssn), (advset), (sd), (sdlen), (ad), (adlen))
-
-/**
- *  \brief Unregister an Advertising Set Handle from a Broadcast Source session.
- *
- *  \par Description
- *  This routine unregisters the Advertising Set handle from a session
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_broadcast_unregister_advset(ssn) \
-        BAP_broadcast_register_advset_info((ssn), BAP_BC_INVALID_ADVSET_HANDLE, NULL, 0U, NULL, 0U)
-
-/**
- *  \brief Setup Audio Announcement for a Broadcast Source session
- *
- *  \par Description
- *  This routine initiates the audio announcement on a given session with
- *  the given configurations. This procedure moves the broadcast session
- *  into CONFIGURED state.
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *  \param [in] broadcast_id 3 octet broadcast id to identify the announcement
- *  \param [in] type SQ or HQ specifier. Currently unused.
- *  \param [in] presentation_delay The presentation delay information for the
- *  session to the Broadcast Sinks
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *
- *  \note This procedure triggers the \ref GA_BC_SETUP_ANNOUNCEMENT_CNF event.
- */
-#define GA_broadcast_setup_announcement(ssn, broadcast_id, type, presentation_delay) \
-        BAP_broadcast_setup_announcement((ssn), (broadcast_id), (type), (presentation_delay))
-
-/**
- *  \brief End Audio Announcement for a Broadcast Source session
- *
- *  \par Description
- *  This routine terminates an ongoing announcement in a Broadcast Source
- *  session. This procedure moves the broadcast session into IDLE state.
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *
- *  \note This procedure triggers the \ref GA_BC_END_ANNOUNCEMENT_CNF event.
- */
-#define GA_broadcast_end_announcement(ssn) \
-        BAP_broadcast_end_announcement((ssn))
-
-/**
- *  \brief Start the Isochronous Stream on Broadcast Source session.
- *
- *  \par Description
- *  This routine sets up the Broadcast Isochronous stream with the given
- *  configuration on the session where the announcements are started.
- *  This procedure moves the broadcast session into STREAMING state.
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *  \param [in] sdu_interval SDU frame interval in uSec
- *  \param [in] max_sdu Maximum SDU size requirement for application
- *  \param [in] max_latency Maximum latency requirement for application
- *  \param [in] rtn SDU retransmission recommendation
- *  \param [in] framing SDU framing requirement for application
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *
- *  \note This procedure triggers the \ref GA_BC_START_CNF event.
- */
-#define GA_broadcast_start(ssn, sdu_interval, max_sdu, max_latency, rtn, framing) \
-        BAP_broadcast_start((ssn), (sdu_interval), (max_sdu), (max_latency), (rtn), (framing))
-
-/**
- *  \brief Suspend the Isochronous stream on a Broadcast Source session.
- *
- *  \par Description
- *  This routine suspends an active Isochronous stream on a Broadcast
- *  Source session identified by  the session identifier. This procedure
- *  moves the broadcast session into CONFIGURED state.
- *
- *  \param [in] ssn Session Identifier for Broadcast Source
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *
- *  \note This procedure triggers the \ref GA_BC_SUSPEND_CNF event.
- */
-#define GA_broadcast_suspend(ssn) \
-        BAP_broadcast_suspend((ssn))
+#define GA_bc_source_init(                                   \
+            /* IN - GA_PROFILE_CB */ cb                      \
+        )                                                    \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_BCSRC,                                  \
+            (cb)                                             \
+        )
 
 /** \} */
 
 /**
- * \defgroup ga_bc_snk_api_defs GA Broadcast Sink APIs
+ * \name BC Source APIs - De-Init
  * \{
- * \brief This section describes the Generic Audio APIs
+ * \brief This section describes the Generic Audio De-Init APIs
+ * for Broadcast Source.
+ */
+
+/**
+ *  \brief Shutdown the GA Broadcast Source
+ *
+ *  \par Description:
+ *       This routine shuts down GA Broadcast Source.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_bc_source_shutdown()                              \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_BCSRC                                   \
+        )
+
+/** \} */
+
+/**
+ *  \brief Allocate a Broadcast Source session.
+ *
+ *  \par Description:
+ *       This routine allocates a Broadcast Source session at the GA and
+ *       provides a session identifier on successful allocation.
+ *
+ *  \param [out] ssn Session Identifier for Broadcast Source.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_alloc_session(                          \
+            /* OUT - UINT8* */ ssn                           \
+        )                                                    \
+        BAP_broadcast_alloc_session                          \
+        (                                                    \
+            (ssn)                                            \
+        )
+
+/**
+ *  \brief Free the Broadcast Source session.
+ *
+ *  \par Description:
+ *       This routine frees the Broadcast Source session at the GA identified
+ *       by the Session Identifier.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_free_session(                           \
+            /* IN - UINT8 */ ssn                             \
+        )                                                    \
+        BAP_broadcast_free_session                           \
+        (                                                    \
+            (ssn)                                            \
+        )
+
+/**
+ *  \brief Configure a Broadcast Source session.
+ *
+ *  \par Description:
+ *       This routine configures a Broadcast Source session identified by
+ *       the session identifier with some of the broadcast parameters.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *  \param [in] phy The Physical channel to be used for the Broadcast of
+ *                  streams on this session. This can take any of the valid
+ *                  values from \ref ga_bap_common_constants.
+ *  \param [in] packing Recommendation for a preferred arrangement of
+ *                      multiple BIS subevents. \n
+ *                      0 - Sequential, 1 - Interleaved.
+ *  \param [in] broadcast_code Address to 16 octet broadcast code if
+ *                             encryption is to be enabled, else NULL.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_configure_session(                                             \
+            /* IN - UINT8 */ ssn,                                                   \
+            /* IN - UINT8 */ phy,                                                   \
+            /* IN - UINT8 */ packing,                                               \
+            /* IN:16 - UINT8* */ broadcast_code                                     \
+        )                                                                           \
+        BAP_broadcast_configure_session                                             \
+        (                                                                           \
+            (ssn),                                                                  \
+            (phy),                                                                  \
+            (packing),                                                              \
+            (broadcast_code)                                                        \
+        )
+
+/**
+ *  \brief Register a Source Endpoint.
+ *
+ *  \par Description:
+ *       This routine registers a source endpoint with a given configuration
+ *       on to a Broadcast session.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *  \param [in] codec Codec Information for the endpoint.
+ *  \param [in] meta Metadata Information for the endpoint.
+ *  \param [in] nstream Number of media streams at this endpoint.
+ *  \param [in] stream Array of stream specific codec information if any.
+ *  \param [out] sep Endpoint ID allocated.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_register_sep(                                                  \
+            /* IN - UINT8 */ ssn,                                                   \
+            /* IN - GA_CODEC_INFO* */ codec,                                        \
+            /* IN - GA_METADATA* */ meta,                                           \
+            /* IN - UINT8 */ nstream,                                               \
+            /* IN:^4 - GA_CODEC_IE* */ stream,                                      \
+            /* OUT - UINT8* */ sep                                                  \
+        )                                                                           \
+        BAP_broadcast_register_sep                                                  \
+        (                                                                           \
+            (ssn),                                                                  \
+            (codec),                                                                \
+            (meta),                                                                 \
+            (nstream),                                                              \
+            (stream),                                                               \
+            (sep)                                                                   \
+        )
+
+/**
+ *  \brief Update a Source Endpoint.
+ *
+ *  \par Description:
+ *       This routine updates a source endpoint with a given configuration
+ *       on to a Broadcast session.
+ *
+ *  \param [in] sep Endpoint ID.
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *  \param [in] codec Codec Information for the endpoint.
+ *  \param [in] meta Metadata Information for the endpoint.
+ *  \param [in] nstream Number of media streams at this endpoint.
+ *  \param [in] stream Array of stream specific codec information if any.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_update_sep(                                                    \
+            /* IN - UINT8 */ sep,                                                   \
+            /* IN - UINT8 */ ssn,                                                   \
+            /* IN - GA_CODEC_INFO* */ codec,                                        \
+            /* IN - GA_METADATA* */ meta,                                           \
+            /* IN - UINT8 */ nstream,                                               \
+            /* IN:^5 - GA_CODEC_IE* */ stream                                       \
+        )                                                                           \
+        BAP_broadcast_update_sep                                                    \
+        (                                                                           \
+            (sep),                                                                  \
+            (ssn),                                                                  \
+            (codec),                                                                \
+            (meta),                                                                 \
+            (nstream),                                                              \
+            (stream)                                                                \
+        )
+
+/**
+ *  \brief Register an Advertising Set Handle to a Broadcast Source session.
+ *
+ *  \par Description:
+ *       This routine registers an advertising set handle to be used by
+ *       the broadcast session.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *  \param [in] advset The advertising handle to be used during EA
+ *                     and PA broadcast.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \note Application should ensure that a valid handle is registered
+ *        before trying to setup announcements.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_register_advset(                                               \
+            /* IN - UINT8 */ ssn,                                                   \
+            /* IN - UINT8 */ advset                                                 \
+        )                                                                           \
+        BAP_broadcast_register_advset_info                                          \
+        (                                                                           \
+            (ssn),                                                                  \
+            (advset),                                                               \
+            NULL,                                                                   \
+            0U,                                                                     \
+            NULL,                                                                   \
+            0U                                                                      \
+        )
+
+/**
+ *  \brief Register an Advertising Set Handle to a Broadcast Source session.
+ *
+ *  \par Description:
+ *       This routine registers an advertising set handle to be used by
+ *       the broadcast session.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *  \param [in] advset The advertising handle to be used during EA
+ *                     and PA broadcast.
+ *  \param [in] sd Service Data of the application profile.
+ *  \param [in] sdlen Length of Service Data.
+ *  \param [in] ad Additional Adv Data of the application profile.
+ *  \param [in] adlen Length of Additional Adv Data.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \note Application should ensure that a valid handle is registered
+ *        before trying to setup announcements.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_register_advset_info(                                          \
+            /* IN - UINT8 */ ssn,                                                   \
+            /* IN - UINT8 */ advset,                                                \
+            /* IN:^4 - UCHAR* */ sd,                                                \
+            /* IN - UINT16 */ sdlen,                                                \
+            /* IN:^6 - UCHAR* */ ad,                                                \
+            /* IN - UINT16 */ adlen                                                 \
+        )                                                                           \
+        BAP_broadcast_register_advset_info                                          \
+        (                                                                           \
+            (ssn),                                                                  \
+            (advset),                                                               \
+            (sd),                                                                   \
+            (sdlen),                                                                \
+            (ad),                                                                   \
+            (adlen)                                                                 \
+        )
+
+/**
+ *  \brief Unregister an Advertising Set Handle from a Broadcast Source session.
+ *
+ *  \par Description:
+ *       This routine unregisters the Advertising Set handle from a session.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_unregister_advset(                                             \
+            /* IN - UINT8 */ ssn                                                    \
+        )                                                                           \
+        BAP_broadcast_register_advset_info                                          \
+        (                                                                           \
+            (ssn),                                                                  \
+            BAP_BC_INVALID_ADVSET_HANDLE,                                           \
+            NULL,                                                                   \
+            0U,                                                                     \
+            NULL,                                                                   \
+            0U                                                                      \
+        )
+
+/**
+ *  \brief Setup Audio Announcement for a Broadcast Source session
+ *
+ *  \par Description:
+ *       This routine initiates the audio announcement on a given session with
+ *       the given configurations. This procedure moves the broadcast session
+ *       into CONFIGURED state.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *  \param [in] broadcast_id 3 octet broadcast id to identify the announcement.
+ *  \param [in] type SQ or HQ specifier. Currently unused.
+ *  \param [in] presentation_delay The presentation delay information for the
+ *                                 session to the Broadcast Sinks.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \note This procedure triggers the \ref GA_BC_SETUP_ANNOUNCEMENT_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_setup_announcement(                                            \
+            /* IN - UINT8 */ ssn,                                                   \
+            /* IN - UINT32 */ broadcast_id,                                         \
+            /* IN - UINT8 */ type,                                                  \
+            /* IN - UINT32 */ presentation_delay                                    \
+        )                                                                           \
+        BAP_broadcast_setup_announcement                                            \
+        (                                                                           \
+            (ssn),                                                                  \
+            (broadcast_id),                                                         \
+            (type),                                                                 \
+            (presentation_delay)                                                    \
+        )
+
+/**
+ *  \brief End Audio Announcement for a Broadcast Source session
+ *
+ *  \par Description:
+ *       This routine terminates an ongoing announcement in a Broadcast Source
+ *       session. This procedure moves the broadcast session into IDLE state.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \note This procedure triggers the \ref GA_BC_END_ANNOUNCEMENT_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_end_announcement(                       \
+            /* IN - UINT8 */ ssn                             \
+        )                                                    \
+        BAP_broadcast_end_announcement                       \
+        (                                                    \
+            (ssn)                                            \
+        )
+
+/**
+ *  \brief Start the Isochronous Stream on Broadcast Source session.
+ *
+ *  \par Description:
+ *       This routine sets up the Broadcast Isochronous stream with the given
+ *       configuration on the session where the announcements are started.
+ *       This procedure moves the broadcast session into STREAMING state.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *  \param [in] sdu_interval SDU frame interval in uSec.
+ *  \param [in] max_sdu Maximum SDU size requirement for application.
+ *  \param [in] max_latency Maximum latency requirement for application.
+ *  \param [in] rtn SDU retransmission recommendation.
+ *  \param [in] framing SDU framing requirement for application.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \note This procedure triggers the \ref GA_BC_START_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_start(                                                         \
+            /* IN - UINT8 */ ssn,                                                   \
+            /* IN - UINT32 */ sdu_interval,                                         \
+            /* IN - UINT16 */ max_sdu,                                              \
+            /* IN - UINT16 */ max_latency,                                          \
+            /* IN - UINT8 */ rtn,                                                   \
+            /* IN - UINT8 */ framing                                                \
+        )                                                                           \
+        BAP_broadcast_start                                                         \
+        (                                                                           \
+            (ssn),                                                                  \
+            (sdu_interval),                                                         \
+            (max_sdu),                                                              \
+            (max_latency),                                                          \
+            (rtn),                                                                  \
+            (framing)                                                               \
+        )
+
+/**
+ *  \brief Suspend the Isochronous stream on a Broadcast Source session.
+ *
+ *  \par Description:
+ *       This routine suspends an active Isochronous stream on a Broadcast
+ *       Source session identified by  the session identifier. This procedure
+ *       moves the broadcast session into CONFIGURED state.
+ *
+ *  \param [in] ssn Session Identifier for Broadcast Source.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \note This procedure triggers the \ref GA_BC_SUSPEND_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_suspend(                                \
+            /* IN - UINT8 */ ssn                             \
+        )                                                    \
+        BAP_broadcast_suspend                                \
+        (                                                    \
+            (ssn)                                            \
+        )
+
+/** \} */
+
+/**
+ * \defgroup ga_bap_bc_snk_api_defs BC Sink
+ * \{
+ * \brief This section describes the Generic Audio APIs for Broadcast Sink.
+ */
+
+/**
+ * \name BC Sink APIs - Init
+ * \{
+ * \brief This section describes the Generic Audio Init APIs
  * for Broadcast Sink.
  */
 
 /**
  *  \brief Initialize the GA Broadcast Sink.
  *
- *  \par Description
- *  This routine initializes GA Broadcast Sink
+ *  \par Description:
+ *       This routine initializes GA Broadcast Sink.
  *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_bc_sink_init(cb)       GA_module_init(GA_MODULE_BAP, BAP_ROLE_BCSNK, (cb))
+#define GA_bc_sink_init(                                   \
+            /* IN - GA_PROFILE_CB */ cb                      \
+        )                                                    \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_BCSNK,                                  \
+            (cb)                                             \
+        )
+
+/** \} */
+
+/**
+ * \name BC Sink APIs - De-Init
+ * \{
+ * \brief This section describes the Generic Audio Init APIs
+ * for Broadcast Sink.
+ */
 
 /**
  *  \brief Shutdown the GA Broadcast Sink.
  *
- *  \par Description
- *  This routine shuts down GA Broadcast Sink
+ *  \par Description:
+ *       This routine shuts down GA Broadcast Sink.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_bc_sink_shutdown()   GA_module_shutdown(GA_MODULE_BAP, BAP_ROLE_BCSNK)
+#define GA_bc_sink_shutdown()                                \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_BAP,                                   \
+            BAP_ROLE_BCSNK                                   \
+        )
+
+/** \} */
 
 /**
  *  \brief Scan for Broadcast Audio announcements.
  *
- *  \par Description
- *  This routine is used by a Broadcast Sink to start scanning for
- *  Broadcast Audio announcements
+ *  \par Description:
+ *       This routine is used by a Broadcast Sink to start scanning for
+ *       Broadcast Audio announcements.
  *
- *  \param None
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure triggers the \ref GA_BC_SCAN_ANNOUNCEMENT_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  *  \sa GA_BC_SOURCE_ANNOUNCEMENT_IND
  */
 #define GA_broadcast_scan_announcement() \
@@ -5783,15 +8244,16 @@ GA_RESULT GA_sep_release
 /**
  *  \brief Stop scanning for Announcements.
  *
- *  \par Description
- *  This routine is used by Broadcast Sink to stop scanning for
- *  Broadcast Audio Announcements
+ *  \par Description:
+ *       This routine is used by Broadcast Sink to stop scanning for
+ *       Broadcast Audio Announcements.
  *
- *  \param None
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure triggers the \ref GA_BC_SCAN_END_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
 #define GA_broadcast_scan_end() \
         BAP_broadcast_scan_end()
@@ -5799,106 +8261,178 @@ GA_RESULT GA_sep_release
 /**
  *  \brief Associate to a Broadcast Audio announcement.
  *
- *  \par Description
- *  This routine sets up an periodic sync of the Broadcast sink device
- *  with the selected source of Broadcast Audio announcement.
+ *  \par Description:
+ *       This routine sets up an periodic sync of the Broadcast sink device
+ *       with the selected source of Broadcast Audio announcement.
  *
- *  \param [in] sid The advertising Source ID as received in the announcement
- *  \param [in] device The source endpoint device address
+ *  \param [in] sid The advertising Source ID as received in the announcement.
+ *  \param [in] device The source endpoint device address.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure triggers the \ref GA_BC_ASSOCIATE_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  *  \sa GA_BC_SOURCE_CONFIG_IND
  */
-#define GA_broadcast_associate(sid, device) \
-        BAP_broadcast_associate((sid), (device))
+#define GA_broadcast_associate(                                                \
+            /* IN - UINT8 */ sid,                                              \
+            /* IN - GA_ENDPOINT* */ device                                     \
+        )                                                                      \
+        BAP_broadcast_associate                                                \
+        (                                                                      \
+            (sid),                                                             \
+            (device)                                                           \
+        )
 
+/**
+ *  \brief Cancel any pending associate to a Broadcast Audio announcement.
+ *
+ *  \par Description:
+ *       This routine cancels any pending periodic advertising sync which
+ *       has not been established.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \note This procedure triggers the \ref GA_BC_ASSOCIATE_CNF event with
+ *        error_code OPERATION CANCELLED BY HOST (0x44), if the controller has
+ *        successfully cancelled a pending periodic advertising create sync
+ *        command.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+#define GA_broadcast_associate_cancel() \
+        BAP_broadcast_associate_cancel()
 /**
  *  \brief Update Associate Info of a Broadcast Audio announcement.
  *
- *  \par Description
- *  This routine updates the Associate Info.
+ *  \par Description:
+ *       This routine updates the Associate Info.
  *
- *  \param [in] sid The advertising Source ID as received in the announcement
- *  \param [in] device The source endpoint device address
+ *  \param [in] sid The advertising Source ID as received in the announcement.
+ *  \param [in] device The source endpoint device address.
  *  \param [in] sync_handle SyncHandle received as part of PAST or by any other
- *              accepted method.
+ *                          accepted method.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_broadcast_update_associate_info(sid, device, sync_handle) \
-        BAP_update_associate_info((sid), (device), (sync_handle))
+#define GA_broadcast_update_associate_info(                                    \
+            /* IN - UINT8 */ sid,                                              \
+            /* IN - GA_ENDPOINT* */ device,                                    \
+            /* IN - UINT16 */ sync_handle                                      \
+        )                                                                      \
+        BAP_update_associate_info                                              \
+        (                                                                      \
+            (sid),                                                             \
+            (device),                                                          \
+            (sync_handle)                                                      \
+        )
 
 /**
  *  \brief Dissociate from a Broadcast Audio Announcement.
  *
- *  \par Description
- *  This routine terminates the periodic sync on the Broadcast sink
- *  with the source of the announcement.
+ *  \par Description:
+ *       This routine terminates the periodic sync on the Broadcast sink
+ *       with the source of the announcement.
  *
  *  \param [in] sync_handle The SyncHandle as received in a successful
- *  GA_BC_ASSOCIATE_CNF event.
+ *                          \ref GA_BC_ASSOCIATE_CNF event.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure triggers the \ref GA_BC_DISSOCIATE_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_broadcast_dissociate(sync_handle) \
-        BAP_broadcast_dissociate((sync_handle))
+#define GA_broadcast_dissociate(                                               \
+            /* IN - UINT16 */ sync_handle                                      \
+        )                                                                      \
+        BAP_broadcast_dissociate                                               \
+        (                                                                      \
+            (sync_handle)                                                      \
+        )
 
 /**
  *  \brief Enable streaming mode at Broadcast Sink.
  *
- *  \par Description
- *  This routine establishes a sync with the Broadcast stream of the
- *  audio announcement source with the given configuration. This
- *  procedure puts the Broadcast Sink in STREAMING state.
+ *  \par Description:
+ *       This routine establishes a sync with the Broadcast stream of the
+ *       audio announcement source with the given configuration. This
+ *       procedure puts the Broadcast Sink in STREAMING state.
  *
  *  \param [in] sync_handle The SyncHandle as received in a successful
- *  GA_BC_ASSOCIATE_CNF event
+ *                          \ref GA_BC_ASSOCIATE_CNF event.
  *  \param [in] broadcast_code Address to 16 octet broadcast code if
- *  encryption is enabled at source, else NULL
- *  \param [in] bis_count Number of streams to be synchronized
- *  \param [in] bis Array of bis_count number of stream ID to be synchronized
+ *                             encryption is enabled at source, else NULL.
+ *  \param [in] bis_count Number of streams to be synchronized.
+ *  \param [in] bis Array of bis_count number of stream ID to be synchronized.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure triggers the \ref GA_BC_ENABLE_CNF event.
+ *
+ *  \sa ga_bap_common_error_code
  *  \sa GA_BC_SOURCE_STREAM_IND
  */
-#define GA_broadcast_enable(sync_handle, broadcast_code, bis_count, bis) \
-        BAP_broadcast_enable((sync_handle), (broadcast_code), (bis_count), (bis))
+#define GA_broadcast_enable(                                                   \
+            /* IN - UINT16 */ sync_handle,                                     \
+            /* IN:16 - UCHAR* */ broadcast_code,                               \
+            /* IN - UINT8 */ bis_count,                                        \
+            /* IN:^3 - UINT8* */ bis                                           \
+        )                                                                      \
+        BAP_broadcast_enable                                                   \
+        (                                                                      \
+            (sync_handle),                                                     \
+            (broadcast_code),                                                  \
+            (bis_count),                                                       \
+            (bis)                                                              \
+        )
 
 /**
  *  \brief Disable streaming mode at Broadcast Sink.
  *
- *  \par Description
- *  This routine terminates sync with the Broadcast stream of the
- *  audio announcement source. This procedure puts the Broadcast Sink.
+ *  \par Description:
+ *       This routine terminates sync with the Broadcast stream of the
+ *       audio announcement source. This procedure puts the Broadcast Sink.
  *
  *  \param [in] sync_handle The SyncHandle as received in a successful
- *  GA_BC_ASSOCIATE_CNF event
+ *                          \ref GA_BC_ASSOCIATE_CNF event.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure triggers the \ref GA_BC_DISABLE_CNF event.
  */
-#define GA_broadcast_disable(sync_handle) \
-        BAP_broadcast_disable((sync_handle))
+#define GA_broadcast_disable(                                                  \
+            /* IN - UINT16 */ sync_handle                                      \
+        )                                                                      \
+        BAP_broadcast_disable                                                  \
+        (                                                                      \
+            (sync_handle)                                                      \
+        )
 
 /**
  *  \brief Utility to decode broadcast event parameters.
  *
- *  \par Description
- *  This routine helps with decoding of the Broadcast event parameters
- *  for each of the event type received at the application
+ *  \par Description:
+ *       This routine helps with decoding of the Broadcast event parameters
+ *       for each of the event type received at the application.
  *
- *  \param [in] ev_type Broadcast Event Type
- *  \param [in] ev_data Broadcast Event Data
- *  \param [out] param Address to one of Broadcast event param structures
+ *  \param [in] ev_type Broadcast Event Type.
+ *  \param [in] ev_data Broadcast Event Data.
+ *  \param [out] param Address to one of Broadcast event param structures.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  *  \sa GA_BC_SOURCE_ANNOUNCEMENT_IND
  *  \sa GA_BC_ASSOCIATE_CNF
  *  \sa GA_BC_SOURCE_CONFIG_IND
@@ -5909,52 +8443,119 @@ GA_RESULT GA_sep_release
  *  \sa GA_BC_DISABLE_IND
  *  \sa GA_BC_DISABLE_CNF
  */
-#define GA_broadcast_decode_event_params(ev_type, ev_data, param) \
-        BAP_broadcast_decode_event_params((ev_type), (ev_data), (param))
+#define GA_broadcast_decode_event_params(                                      \
+            /* IN - UINT8 */ ev_type,                                          \
+            /* IN - UCHAR* */ ev_data,                                         \
+            /* OUT - void* */ param                                            \
+        )                                                                      \
+        BAP_broadcast_decode_event_params                                      \
+        (                                                                      \
+            (ev_type),                                                         \
+            (ev_data),                                                         \
+            (param)                                                            \
+        )
 
 /**
  *  \brief Utility to decode Broadcast Audio Announcement
  *
- *  \par Description
- *  This routine helps with decoding of the Broadcast Audio
- *  Announcements received at the application.
+ *  \par Description:
+ *       This routine helps with decoding of the Broadcast Audio
+ *       Announcements received at the application.
  *
- *  \param [in] data
- *  \param [out] param
+ *  \param [in] data Advertisement data of Broadcast Source.
+ *  \param [in] data_len Advertisement data length of Broadcast Source.
+ *  \param [out] param Address to \ref BAP_BROADCAST_ANNOUNCEMENT param
+ *                     structure.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_broadcast_decode_broadcast_announcement(data, data_len, param) \
-        BAP_broadcast_decode_broadcast_announcement((data), (data_len), (param))
+#define GA_broadcast_decode_broadcast_announcement(                            \
+            /* IN:^2 - UCHAR* */ data,                                         \
+            /* IN - UINT16 */ data_len,                                        \
+            /* OUT - BAP_BROADCAST_ANNOUNCEMENT* */ param                      \
+        )                                                                      \
+        BAP_broadcast_decode_broadcast_announcement                            \
+        (                                                                      \
+            (data),                                                            \
+            (data_len),                                                        \
+            (param)                                                            \
+        )
 
 /**
  *  \brief Utility to decode Basic Audio Announcement
  *
- *  \par Description
- *  This routine helps with decoding of the Basic Audio
- *  Announcements received at the application.
+ *  \par Description:
+ *       This routine helps with decoding of the Basic Audio
+ *       Announcements received at the application.
+ *       Ensure to move the pointer 'data' to point to the Data Type
+ *       GA_ADTYPE_SERVICE_DATA.
  *
  *  \param [in] data
- *  \param [out] param
+ *  \param [out] delay
  *  \param [out] nsg
+ *  \param [out] len
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \note API checks only for Type \ref GA_ADTYPE_SERVICE_DATA, and always
+ *        returns \ref GA_FAILURE for other Types.
+ *        API also checks for minimum Length as 16 for GA_ADTYPE_SERVICE_DATA
+ *        which is the Basic Audio Annoucement, and return \ref GA_FAILURE if
+ *        not abiding by this.
+ *
+ *  \sa ga_bap_common_error_code
  */
-#define GA_broadcast_decode_basic_announcement_info(data, delay, nsg, len) \
-        BAP_broadcast_decode_basic_announcement_info((data), (delay), (nsg), (len))
+#define GA_broadcast_decode_basic_announcement_info(                           \
+            /* IN - UCHAR* */ data,                                            \
+            /* OUT - UINT32* */ delay,                                         \
+            /* OUT - UINT8* */ nsg,                                            \
+            /* OUT - UINT8* */ len                                             \
+        )                                                                      \
+        BAP_broadcast_decode_basic_announcement_info                           \
+        (                                                                      \
+            (data),                                                            \
+            (delay),                                                           \
+            (nsg),                                                             \
+            (len)                                                              \
+        )
 
-#define GA_broadcast_decode_basic_announcement_level_1(data, param, nbis, len) \
-        BAP_broadcast_decode_basic_announcement_level_1((data), (param), (nbis), (len))
+#define GA_broadcast_decode_basic_announcement_level_1(                        \
+            /* IN - UCHAR* */ data,                                            \
+            /* OUT - BAP_BASIC_ANNOUNCEMENT_LEVEL_1* */ param,                 \
+            /* OUT - UINT8* */ nbis,                                           \
+            /* OUT - UINT8* */ len                                             \
+        )                                                                      \
+        BAP_broadcast_decode_basic_announcement_level_1                        \
+        (                                                                      \
+            (data),                                                            \
+            (param),                                                           \
+            (nbis),                                                            \
+            (len)                                                              \
+        )
 
-#define GA_broadcast_decode_basic_announcement_level_2(data, param, len) \
-        BAP_broadcast_decode_basic_announcement_level_2((data), (param), (len))
+#define GA_broadcast_decode_basic_announcement_level_2(                        \
+            /* IN - UCHAR* */ data,                                            \
+            /* OUT - BAP_BASIC_ANNOUNCEMENT_LEVEL_2* */ param,                 \
+            /* OUT - UINT8* */ len                                             \
+        )                                                                      \
+        BAP_broadcast_decode_basic_announcement_level_2                        \
+        (                                                                      \
+            (data),                                                            \
+            (param),                                                           \
+            (len)                                                              \
+        )
 
 /** \} */
 
+/** \} */
 /** \} */
 /** \} */
 /* ================ VCP Related ================ */
-
+#ifdef GA_VCP
 /**
  * \addtogroup ga_vcp_module
  * \{
@@ -5967,7 +8568,7 @@ GA_RESULT GA_sep_release
  */
 
 /**
- * \defgroup ga_vcp_api_seq VCP API Sequences
+ * \defgroup ga_vcp_api_seq API Sequences
  * \{
  * \brief This section describes the Volume Control Profile API Sequences.
  * MSC depicting the flow of APIs and Events.
@@ -5984,45 +8585,83 @@ GA_RESULT GA_sep_release
  */
 
 /**
- * \defgroup ga_vcp_volcntrl_defs VCP Volume Controller APIs
+ * \defgroup ga_vcp_volcntrl_defs Volume Controller
  * \{
  * \brief This section describes the Volume Control Profile APIs
  * for Volume Controller.
  */
 
+#ifdef VCP_CONTROLLER
 /**
- * \name VCP Volume Controller-Setup
+ * \name VCP Controller APIs - Init
  * \{
- * \brief This section describes the Volume Control Profile Setup
+ * \brief This section describes the Volume Control Profile Init
  * APIs for Volume Controller.
  */
 
 /**
  *  \brief Initialize the GA Volume Control Client.
  *
- *  \par Description
- *  This routine initializes GA Volume Control Client
+ *  \par Description:
+ *       This routine initializes GA Volume Control Client.
  *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_client_init(cb)       GA_module_init(GA_MODULE_VCP, VCP_ROLE_CLIENT, (cb))
+#define GA_vc_client_init(                                   \
+            /* IN - GA_PROFILE_CB */ cb                      \
+        )                                                    \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_VCP,                                   \
+            VCP_ROLE_CLIENT,                                 \
+            (cb)                                             \
+        )
+
+/** \} */
+
+/**
+ * \name VCP Controller APIs - De-Init
+ * \{
+ * \brief This section describes the Volume Control Profile De-Init
+ * APIs for Volume Controller.
+ */
 
 /**
  *  \brief Shutdown the GA Volume Control Client
  *
- *  \par Description
- *  This routine shuts down GA Volume Control Client
+ *  \par Description:
+ *       This routine shuts down GA Volume Control Client.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_client_shutdown()   GA_module_shutdown(GA_MODULE_VCP, VCP_ROLE_CLIENT)
+#define GA_vc_client_shutdown()                              \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_VCP,                                   \
+            VCP_ROLE_CLIENT                                  \
+        )
+
+/** \} */
+
+/**
+ * \name VCP Controller APIs - Setup
+ * \{
+ * \brief This section describes the Volume Control Profile Setup
+ * APIs for Volume Controller.
+ */
 
 /**
  *  \brief To Setup Volume Control Service(VCS) Context
  *
- *  \par Description
+ *  \par Description:
  *       This function enables to setup VCS context with given device.
  *       Internally, Service, Characterstics and Descriptors Discovery is
  *       done and Notifications are enabled. Application/Upper Layer is
@@ -6030,12 +8669,13 @@ GA_RESULT GA_sep_release
  *       transactions on VCP with peer device.
  *
  *  \param [in] device
- *              Peer Device with which the context is setup.
+ *         Peer Device with which the context is setup.
  *
  *  \param [out] vctx
- *               Context Allocated for GA VCP with the peer device.
+ *         Context Allocated for GA VCP with the peer device.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_VC_SETUP_CNF is notified on
  *          completion with status as success or failure.
  *
@@ -6055,22 +8695,34 @@ GA_RESULT GA_vc_setup
 /**
  *  \brief To enable configuration for Characteristic Notifications.
  *
- *  \par Description
- *       The routine enables to configure notifications for individual characteristics
- *       of a given service.
+ *  \par Description:
+ *       The routine enables to configure notifications for individual
+ *       characteristics of a given service.
  *
  *  \param [in] s_type
- *               - \ref VCP_SERVICE_TYPE_VCS
- *               - \ref VCP_SERVICE_TYPE_VOCS
- *               - \ref VCP_SERVICE_TYPE_AICS
+ *         Service type \n
+ *            - \ref VCP_SERVICE_TYPE_VCS.
+ *            - \ref VCP_SERVICE_TYPE_VOCS.
+ *            - \ref VCP_SERVICE_TYPE_AICS.
+ *            .
  *
  *  \param [in] config
- *              Bitmask for characteristics IDs.
+ *         Bitmask for characteristics IDs.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_update_ntf_configuration(s_type, config) \
-        VCP_update_ntf_configuration((s_type), (config))
+#define GA_vc_update_ntf_configuration(                                 \
+            /* IN - UCHAR */ s_type,                                    \
+            /* IN - UINT32 */ config                                    \
+        )                                                               \
+        VCP_update_ntf_configuration                                    \
+        (                                                               \
+            (s_type),                                                   \
+            (config)                                                    \
+        )
 #endif /* VCP_SUPPORT_CONFIG_SELECTION */
 
 #ifdef VCP_SUPPORT_CONTEXT_MANAGE
@@ -6081,33 +8733,36 @@ GA_RESULT GA_vc_setup
  *       This function enables to manage the context information of VCS.
  *
  *  \param [in] set
- *              GA_TRUE for Context SET and GA_FALSE for Context GET
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
  *
  *  \param [in] device
  *         Remote Device Address.
  *
- *  \param [inout] handle
+ *  \param [in, out] handle
  *         VCP Handle which is allocated during VCS context setup.
  *
- *  \param [inout] range
+ *  \param [in, out] range
  *         VCS characteristics handle range.
  *
- *  \param [inout] info
- *          VCS characteristics information.
+ *  \param [in, out] info
+ *         VCS characteristics information.
  *
- *  \param [inout] info_count
- *          VCS characteristics count.
+ *  \param [in, out] info_count
+ *         VCS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
 GA_RESULT GA_vc_manage_context_info
           (
-              /* IN     */ UINT8              set,
-              /* IN     */ GA_ENDPOINT      * device,
-              /* INOUT  */ GA_VC_CONTEXT    * vctx,
-              /* INOUT  */ GA_BRR_SVC_RANGE ** range,
-              /* INOUT  */ GA_CHAR_INFO     ** info,
-              /* INOUT  */ UINT16           * info_count
+              /* IN         */ UINT8              set,
+              /* IN         */ GA_ENDPOINT      * device,
+              /* IN, OUT    */ GA_VC_CONTEXT    * vctx,
+              /* IN, OUT    */ GA_BRR_SVC_RANGE ** range,
+              /* IN, OUT:^6 */ GA_CHAR_INFO     ** info,
+              /* IN, OUT    */ UINT16           * info_count
           );
 
 /**
@@ -6119,22 +8774,39 @@ GA_RESULT GA_vc_manage_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [in] h
  *         VCP Handle which is allocated during VCS context setup.
  *
- *  \param [inout] r
+ *  \param [out] r
  *         VCS characteristics handle range.
  *
- *  \param [inout] i
- *          VCS characteristics information.
+ *  \param [out] i
+ *         VCS characteristics information.
  *
- *  \param [inout] c
- *          VCS characteristics count.
+ *  \param [out] c
+ *         VCS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_get_context_info(d, h, r, i, c) \
-        GA_vc_manage_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_vc_get_context_info(                                         \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - GA_VC_CONTEXT* */ h,                                \
+            /* OUT - GA_BRR_SVC_RANGE** */ r,                           \
+            /* OUT:^5 - GA_CHAR_INFO** */ i,                            \
+            /* OUT - UINT16* */ c                                       \
+        )                                                               \
+        GA_vc_manage_context_info                                       \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To save the VCS Context Information.
@@ -6145,22 +8817,39 @@ GA_RESULT GA_vc_manage_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [out] h
  *         VCP Handle which is allocated during VCS context setup.
  *
- *  \param [inout] r
+ *  \param [in] r
  *         VCS characteristics handle range.
  *
- *  \param [inout] i
- *          VCS characteristics information.
+ *  \param [in] i
+ *         VCS characteristics information.
  *
- *  \param [inout] c
- *          VCS characteristics count.
+ *  \param [in] c
+ *         VCS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_context_info(d, h, r, i, c) \
-        GA_vc_manage_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_vc_set_context_info(                                         \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* OUT - GA_VC_CONTEXT* */ h,                               \
+            /* IN - GA_BRR_SVC_RANGE** */ r,                            \
+            /* IN:^5 - GA_CHAR_INFO** */ i,                             \
+            /* IN - UINT16* */ c                                        \
+        )                                                               \
+        GA_vc_manage_context_info                                       \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To manage the VOCS Context Information.
@@ -6169,33 +8858,36 @@ GA_RESULT GA_vc_manage_context_info
  *       This function enables to manage the context information of VOCS.
  *
  *  \param [in] set
- *         GA_TRUE for Context SET and GA_FALSE for Context GET
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
  *
  *  \param [in] device
  *         Remote Device Address.
  *
- *  \param [inout] vocs_ctx
+ *  \param [in, out] vocs_ctx
  *         VOCS Handle which is allocated during VOCS context setup.
  *
- *  \param [inout] range
+ *  \param [in, out] range
  *         VOCS characteristics handle range.
  *
- *  \param [inout] info
+ *  \param [in, out] info
  *         VOCS characteristics information.
  *
- *  \param [inout] info_coun
+ *  \param [in, out] info_coun
  *         VOCS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
 GA_RESULT GA_vc_manage_vocs_context_info
           (
-              /* IN     */ UINT8                 set,
-              /* IN     */ GA_ENDPOINT        *  device,
-              /* INOUT  */ GA_VC_CONTEXT      *  vocs_ctx,
-              /* INOUT  */ GA_BRR_SVC_RANGE   ** range,
-              /* INOUT  */ GA_CHAR_INFO       ** info,
-              /* INOUT  */ UINT16             * info_count
+              /* IN         */ UINT8                 set,
+              /* IN         */ GA_ENDPOINT        *  device,
+              /* IN, OUT    */ GA_VC_CONTEXT     *  vocs_ctx,
+              /* IN, OUT    */ GA_BRR_SVC_RANGE  ** range,
+              /* IN, OUT:^6 */ GA_CHAR_INFO      ** info,
+              /* IN, OUT    */ UINT16            * info_count
           );
 
 /**
@@ -6207,22 +8899,39 @@ GA_RESULT GA_vc_manage_vocs_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [in] h
  *         VOCS Handle which is allocated during VOCS context setup.
  *
- *  \param [inout] r
+ *  \param [out] r
  *         VOCS characteristics handle range.
  *
- *  \param [inout] i
+ *  \param [out] i
  *         VOCS characteristics information.
  *
- *  \param [inout] c
+ *  \param [out] c
  *         VOCS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_get_vocs_context_info(d, h, r, i, c) \
-        GA_vc_manage_vocs_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_vc_get_vocs_context_info(                                    \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - GA_VC_CONTEXT* */ h,                                \
+            /* OUT - GA_BRR_SVC_RANGE** */ r,                           \
+            /* OUT:^5 - GA_CHAR_INFO** */ i,                            \
+            /* OUT - UINT16* */ c                                       \
+        )                                                               \
+        GA_vc_manage_vocs_context_info                                  \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To retrieve the VOCS Context Information.
@@ -6233,22 +8942,39 @@ GA_RESULT GA_vc_manage_vocs_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [out] h
  *         VOCS Handle which is allocated during VOCS context setup.
  *
- *  \param [inout] r
+ *  \param [in] r
  *         VOCS characteristics handle range.
  *
- *  \param [inout] i
+ *  \param [in] i
  *         VOCS characteristics information.
  *
- *  \param [inout] c
+ *  \param [in] c
  *         VOCS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_vocs_context_info(d, h, r, i, c) \
-        GA_vc_manage_vocs_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_vc_set_vocs_context_info(                                    \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* OUT - GA_VC_CONTEXT* */ h,                               \
+            /* IN - GA_BRR_SVC_RANGE** */ r,                            \
+            /* IN:^5 - GA_CHAR_INFO** */ i,                             \
+            /* IN - UINT16* */ c                                        \
+        )                                                               \
+        GA_vc_manage_vocs_context_info                                  \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To manage the AICS Context Information.
@@ -6257,33 +8983,36 @@ GA_RESULT GA_vc_manage_vocs_context_info
  *       This function enables to manage the context information of AICS.
  *
  *  \param [in] set
- *         GA_TRUE for Context SET and GA_FALSE for Context GET
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
  *
  *  \param [in] device
  *         Remote Device Address.
  *
- *  \param [inout] vocs_ctx
- *         VOCS Handle which is allocated during AICS context setup.
+ *  \param [in, out] aics_ctx
+ *         AICS Handle which is allocated during AICS context setup.
  *
- *  \param [inout] range
+ *  \param [in, out] range
  *         AICS characteristics handle range.
  *
- *  \param [inout] info
+ *  \param [in, out] info
  *         AICS characteristics information.
  *
- *  \param [inout] info_coun
+ *  \param [in, out] info_coun
  *         AICS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
 GA_RESULT GA_vc_manage_aics_context_info
           (
-              /* IN     */ UINT8                 set,
-              /* IN     */ GA_ENDPOINT        *  device,
-              /* INOUT  */ GA_VC_CONTEXT      *  aics_ctx,
-              /* INOUT  */ GA_BRR_SVC_RANGE   ** range,
-              /* INOUT  */ GA_CHAR_INFO       ** info,
-              /* INOUT  */ UINT16             * info_count
+              /* IN         */ UINT8                 set,
+              /* IN         */ GA_ENDPOINT        *  device,
+              /* IN, OUT    */ GA_VC_CONTEXT      *  aics_ctx,
+              /* IN, OUT    */ GA_BRR_SVC_RANGE   ** range,
+              /* IN, OUT:^6 */ GA_CHAR_INFO       ** info,
+              /* IN, OUT    */ UINT16             * info_count
           );
 
 /**
@@ -6295,22 +9024,39 @@ GA_RESULT GA_vc_manage_aics_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [in] h
  *         AICS Handle which is allocated during AICS context setup.
  *
- *  \param [inout] r
+ *  \param [out] r
  *         AICS characteristics handle range.
  *
- *  \param [inout] i
+ *  \param [out] i
  *         AICS characteristics information.
  *
- *  \param [inout] c
+ *  \param [out] c
  *         AICS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_get_aics_context_info(d, h, r, i, c) \
-        GA_vc_manage_aics_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_vc_get_aics_context_info(                                    \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - GA_VC_CONTEXT* */ h,                                \
+            /* OUT - GA_BRR_SVC_RANGE** */ r,                           \
+            /* OUT:^5 - GA_CHAR_INFO** */ i,                            \
+            /* OUT - UINT16* */ c                                       \
+        )                                                               \
+        GA_vc_manage_aics_context_info                                  \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To save the AICS Context Information.
@@ -6321,22 +9067,39 @@ GA_RESULT GA_vc_manage_aics_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [out] h
  *         AICS Handle which is allocated during AICS context setup.
  *
- *  \param [inout] r
+ *  \param [in] r
  *         AICS characteristics handle range.
  *
- *  \param [inout] i
+ *  \param [in] i
  *         AICS characteristics information.
  *
- *  \param [inout] c
+ *  \param [in] c
  *         AICS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_aics_context_info(d, h, r, i, c) \
-        GA_vc_manage_aics_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_vc_set_aics_context_info(                                    \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* OUT - GA_VC_CONTEXT* */ h,                               \
+            /* IN - GA_BRR_SVC_RANGE** */ r,                            \
+            /* IN:^5 - GA_CHAR_INFO** */ i,                             \
+            /* IN - UINT16* */ c                                        \
+        )                                                               \
+        GA_vc_manage_aics_context_info                                  \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 #endif /* VCP_SUPPORT_CONTEXT_MANAGE */
 
 /**
@@ -6347,19 +9110,20 @@ GA_RESULT GA_vc_manage_aics_context_info
  *  \brief To Discover the Included Service - VOCS and AICS from the
  *         remote device.
  *
- *  \par Description
+ *  \par Description:
  *       This function enables to discover the optional included services -
  *       VOCS and AICS from the remote device.
  *
  *  \param [in] vctx
- *              Context associated with VCP.
+ *         Context associated with VCP.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note This procedure returns the \ref GA_VC_GET_CAPABILITIES_CNF event
  *        for each optional service with event status \ref GA_CONTINUE.
  *        On completion of this procedure, \ref GA_VC_GET_CAPABILITIES_CNF
- *        event is notified with event status \ref GA_SUCCESS.
+ *        event is notified with event status \ref GA_SUCCESS. \n
  *        Application/Upper Layer is expected to use the information returned
  *        along with \ref GA_VC_GET_CAPABILITIES_CNF event for setting up the
  *        optional capabilities.
@@ -6375,21 +9139,22 @@ GA_RESULT GA_vc_get_capabilities
 /**
  *  \brief Setup GA VCP optional capabiliy with the peer device.
  *
- *  \par Description
+ *  \par Description:
  *       This routine allocates a VCP optional service context with a peer
  *       endpoint, discovers the optional(VOCS, AICS) service charactersicstic
  *       and configure for notification.
  *
- *  \param [in] vcp_cntx
- *              VCP Context
+ *  \param [in] vctx
+ *         VCP Context
  *
  *  \param [in] svc
- *              Optional Service(VOCS/AICS) Service details to Setup.
+ *         Optional Service(VOCS/AICS) Service details to Setup.
  *
- *  \param [out] opt_context
- *              Context Allocated for optional service.
+ *  \param [out] cctx
+ *         Context Allocated for optional service.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_VC_SET_CAPABILITY_CNF is notified on
  *          completion with status as success or failure.
  *
@@ -6403,28 +9168,39 @@ GA_RESULT GA_vc_set_capability
               /* OUT */ GA_VC_CONTEXT   * cctx
           );
 
+/** \} */
+
 /**
- *  \brief To Release or Free a Volume Control Profile (VCP) context.
+ * \name VCP Controller APIs - Release
+ * \{
+ * \brief This section describes the Volume Control Profile Release
+ * APIs for Volume Controller.
+ */
+
+/**
+ *  \brief Close or Release the given VCP context.
  *
- *  \par Description
- *  When 'free' is set to \ref GA_FALSE, this routine initiates the release
- *  procedure for the context. Once release is done, the context is freed up
- *  and the setup must be freshly done by calling GA_vc_setup() if required for
- *  the same device again.
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_vc_setup() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure. Any associated
+ *       VOCS and AICS contexts should be freed by the application before
+ *       calling this function.
  *
- *  If the 'free' parameter is set to \ref GA_TRUE,
- *  this API just frees up the context without the release procedure.
+ *  \param [in] vctx
+ *         VCP Context for the endpoint to be released/freed.
  *
- *  \param [in] context Context Allocated for GA VCP with the peer device.
- *  \param [in] free Indicate free only without release
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_VC_RELEASE_CNF is notified on
  *          completion with status as success or failure.
- *
- *  \note Before releasing the context for VCP, the application is expected to
- *        release context of all the included optional service(VOCS/AICS)
- *        instances.
  *
  *  \sa GA_VC_RELEASE_CNF
  *  \sa ga_vcp_error_code
@@ -6432,77 +9208,90 @@ GA_RESULT GA_vc_set_capability
 GA_RESULT GA_vc_terminate
           (
               /* IN */ GA_VC_CONTEXT * vctx,
-              /* IN */ UCHAR free
+              /* IN */ UCHAR           release
           );
 
 /**
- *  \brief To Release a Volume Control Profile (VCP) context.
+ *  \brief Release the given VCP context.
  *
- *  \par Description
- *       This function enables to release context of given VCP
- *       service handle. It disable the configuration for notifications and
- *       releases the context for VCS.
+ *  \par Description:
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_vc_setup() if required for the same
+ *       device again. \n Any associated VOCS and AICS contexts should be
+ *       released/freed by the application before calling this function.
  *
- *  \param [in] context
- *               Context Allocated for GA VCP with the peer device.
+ *  \param [in] ctx
+ *         VCP Context for the endpoint to be released.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_VC_RELEASE_CNF is notified on
  *          completion with status as success or failure.
- *
- *  \note Before releasing the context for VCP, the application is expected to
- *        release context of all the included optional service(VOCS/AICS)
- *        instances.
  *
  *  \sa GA_VC_RELEASE_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_release(ctx) \
-        GA_vc_terminate((ctx), GA_FALSE)
+#define GA_vc_release(                                       \
+            /* IN - GA_VC_CONTEXT* */ ctx                    \
+        )                                                    \
+        GA_vc_terminate                                      \
+        (                                                    \
+            (ctx),                                           \
+            GA_TRUE                                          \
+        )
 
 /**
- *  \brief To Free a Volume Control Profile (VCP) context.
+ *  \brief Free the given VCP context.
  *
- *  \par Description
- *       This function frees the context of given VCP service handle.
+ *  \par Description:
+ *       This routine frees up the given context of the VCP. Any associated
+ *       VOCS and AICS contexts should be released/freed by the application
+ *       before calling this function.
  *
- *  \param [in] context
- *               Context Allocated for GA VCP with the peer device.
+ *  \param [in] ctx
+ *         VCP Context for the endpoint to be freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
- *
- *  \note Before freeing the context for VCP, the application is expected to
- *        free context of all the included optional service(VOCS/AICS)
- *        instances.
  */
-#define GA_vc_close(ctx) \
-        GA_vc_terminate((ctx), GA_TRUE)
+#define GA_vc_close(                                         \
+            /* IN - GA_VC_CONTEXT* */ ctx                    \
+        )                                                    \
+        GA_vc_terminate                                      \
+        (                                                    \
+            (ctx),                                           \
+            GA_FALSE                                         \
+        )
 
 /**
- *  \brief To Release/Free a VCP-VOCS or VCP-AICS context.
+ *  \brief Close or Release the given VOCS/AICS context.
  *
- *  \par Description
- *  When 'free' is set to \ref GA_FALSE, this routine initiates the release
- *  procedure for the context. Once release is done, the context is freed up
- *  and the setup must be freshly done by calling GA_vc_set_capability() if required for
- *  the same device again.
- *
- *  If the 'free' parameter is set to \ref GA_TRUE,
- *  this API just frees up the context without the release procedure.
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_vc_set_capability() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
  *
  *  \param [in] vcp_srvc_type
- *              VCP optional service type
- *               - \ref VCP_SERVICE_TYPE_VOCS
- *               - \ref VCP_SERVICE_TYPE_AICS
+ *          VCP optional service type \n
+ *             - \ref VCP_SERVICE_TYPE_VOCS
+ *             - \ref VCP_SERVICE_TYPE_AICS
+ *             .
  *
- *  \param [in] context
- *              Context Allocated for GA VCP Capability with the peer device.
+ *  \param [in] vctx
+ *         VOCS/AICS Context for the endpoint to be released/freed.
  *
- *  \param [in] free Indicate free only without release
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_VC_RELEASE_CAPABILITY_CNF is notified
  *          on completion with status as success or failure.
  *
@@ -6513,65 +9302,81 @@ GA_RESULT GA_vc_terminate_capability
           (
               /* IN */ UCHAR           vcp_srvc_type,
               /* IN */ GA_VC_CONTEXT * vctx,
-              /* IN */ UCHAR free
+              /* IN */ UCHAR           release
           );
 
 /**
- *  \brief To Release a VCP-VOCS or VCP-AICS context.
+ *  \brief Release the given VOCS/AICS context.
  *
- *  \par Description
- *       This function enables to release context of given VCP VOCS
- *       or VCP AICS service context. It disable the configuration for
- *       notifications and releases the context for VOCS/AICS.
- *       Once release is done, the context is freed up and the setup
- *       must be freshly done by calling GA_vc_set_capability() if
- *       required for the same device again.
+ *  \par Description:
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_vc_set_capability() if required for the
+ *       same device again.
  *
  *  \param [in] vcp_srvc_type
- *              VCP optional service type
- *               - \ref VCP_SERVICE_TYPE_VOCS
- *               - \ref VCP_SERVICE_TYPE_AICS
+ *         VCP optional service type \n
+ *            - \ref VCP_SERVICE_TYPE_VOCS
+ *            - \ref VCP_SERVICE_TYPE_AICS
+ *            .
  *
- *  \param [in] context
- *              Context Allocated for GA VCP Capability with the peer device.
+ *  \param [in] vctx
+ *         VOCS/AICS Context for the endpoint to be released.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_VC_RELEASE_CAPABILITY_CNF is notified
  *          on completion with status as success or failure.
  *
  *  \sa GA_VC_RELEASE_CAPABILITY_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_release_capability(vcp_srvc_type, vctx) \
-        GA_vc_terminate_capability((vcp_srvc_type), (vctx), GA_FALSE)
+#define GA_vc_release_capability(                                       \
+            /* IN - UCHAR */ vcp_srvc_type,                             \
+            /* IN - GA_VC_CONTEXT* */ vctx                              \
+        )                                                               \
+        GA_vc_terminate_capability                                      \
+        (                                                               \
+            (vcp_srvc_type),                                            \
+            (vctx),                                                     \
+            GA_TRUE                                                     \
+        )
 
 /**
- *  \brief To Free a VCP-VOCS or VCP-AICS context.
+ *  \brief Free the given VOCS/AICS context.
  *
- *  \par Description
- *       This function enables to free context of given VCP VOCS
- *       or VCP AICS service context. It disable the configuration for
- *       notifications and releases the context for VOCS/AICS.
+ *  \par Description:
+ *       This routine frees up the given context of the VOCS/AICS.
  *
  *  \param [in] vcp_srvc_type
- *              VCP optional service type
- *               - \ref VCP_SERVICE_TYPE_VOCS
- *               - \ref VCP_SERVICE_TYPE_AICS
+ *         VCP optional service type \n
+ *            - \ref VCP_SERVICE_TYPE_VOCS
+ *            - \ref VCP_SERVICE_TYPE_AICS
+ *            .
  *
- *  \param [in] context
- *              Context Allocated for GA VCP Capability with the peer device.
+ *  \param [in] vctx
+ *         VOCS/AICS Context for the endpoint to be freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_close_capability(vcp_srvc_type, vctx) \
-        GA_vc_terminate_capability((vcp_srvc_type), (vctx), GA_TRUE)
+#define GA_vc_close_capability(                                         \
+            /* IN - UCHAR */ vcp_srvc_type,                             \
+            /* IN - GA_VC_CONTEXT* */ vctx                              \
+        )                                                               \
+        GA_vc_terminate_capability                                      \
+        (                                                               \
+            (vcp_srvc_type),                                            \
+            (vctx),                                                     \
+            GA_FALSE                                                    \
+        )
 
 /** \} */
 
 /**
- * \name VCP Volume Controller-Read
+ * \name VCP Controller APIs - Read
  * \{
  * \brief This section describes the Volume Control Profile Read APIs
  * for Volume Controller.
@@ -6580,14 +9385,14 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To get Volume State Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Volume State Information.
  *
  *  \param [in] s_ctx
- *              Context Allocated for GA VCP with the peer device.
+ *         Context Allocated for GA VCP with the peer device.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *           describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_GET_VOLUME_STATE_CNF event with associated data
  *          through the registered callback.
@@ -6595,24 +9400,26 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_GET_VOLUME_STATE_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_get_volume_state(s_ctx)                              \
+#define GA_vc_get_volume_state(                                    \
+            /* IN - VCP_HANDLE */ s_ctx                            \
+        )                                                          \
         VCP_read_request                                           \
         (                                                          \
-             (s_ctx),                                              \
-             (GA_VC_GET_VOLUME_STATE_CNF)                          \
+            (s_ctx),                                               \
+            (GA_VC_GET_VOLUME_STATE_CNF)                           \
         )
 
 /**
  *  \brief To get Volume Flags Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Volume Flags Information.
  *
  *  \param [in] s_ctx
- *              Context Allocated for GA VCP with the peer device.
+ *         Context Allocated for GA VCP with the peer device.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *           describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_GET_VOLUME_FLAGS_CNF event with associated data
  *          through the registered callback.
@@ -6620,24 +9427,26 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_GET_VOLUME_FLAGS_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_get_volume_flags(s_ctx)                              \
+#define GA_vc_get_volume_flags(                                    \
+            /* IN - VCP_HANDLE */ s_ctx                            \
+        )                                                          \
         VCP_read_request                                           \
         (                                                          \
-             (s_ctx),                                              \
-             (GA_VC_GET_VOLUME_FLAGS_CNF)                          \
+            (s_ctx),                                               \
+            (GA_VC_GET_VOLUME_FLAGS_CNF)                           \
         )
 
 /**
  *  \brief To get Volume Offset State Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Volume Offset State Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with VOCS.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *          describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_VOCS_GET_OFFSET_STATE_CNF event with associated
  *          data through the registered callback.
@@ -6645,24 +9454,26 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_VOCS_GET_OFFSET_STATE_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_vocs_get_volume_offset_state(s_ctx)                      \
+#define GA_vc_vocs_get_volume_offset_state(                            \
+            /* IN - VCP_VOCS_HANDLE */ s_ctx                           \
+        )                                                              \
         VCP_vocs_read_request                                          \
         (                                                              \
-             (s_ctx),                                                  \
-             (GA_VC_VOCS_GET_OFFSET_STATE_CNF)                         \
+            (s_ctx),                                                   \
+            (GA_VC_VOCS_GET_OFFSET_STATE_CNF)                          \
         )
 
 /**
  *  \brief To get Audio Location Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Audio Location Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with VOCS.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *          describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_VOCS_GET_AUDIO_LOCATION_CNF event with associated
  *          data through the registered callback.
@@ -6670,24 +9481,26 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_VOCS_GET_AUDIO_LOCATION_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_vocs_get_audio_location(s_ctx)                           \
+#define GA_vc_vocs_get_audio_location(                                 \
+            /* IN - VCP_VOCS_HANDLE */ s_ctx                           \
+        )                                                              \
         VCP_vocs_read_request                                          \
         (                                                              \
-             (s_ctx),                                                  \
-             (GA_VC_VOCS_GET_AUDIO_LOCATION_CNF)                       \
+            (s_ctx),                                                   \
+            (GA_VC_VOCS_GET_AUDIO_LOCATION_CNF)                        \
         )
 
 /**
  *  \brief To get Audio Output Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Audio Output Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with VOCS.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *          describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_VOCS_GET_AUDIO_OUT_DESC_CNF event with associated
  *          data through the registered callback.
@@ -6695,24 +9508,26 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_VOCS_GET_AUDIO_OUT_DESC_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_vocs_get_audio_out_description(s_ctx)                    \
+#define GA_vc_vocs_get_audio_out_description(                          \
+            /* IN - VCP_VOCS_HANDLE */ s_ctx                           \
+        )                                                              \
         VCP_vocs_read_request                                          \
         (                                                              \
-             (s_ctx),                                                  \
-             (GA_VC_VOCS_GET_AUDIO_OUT_DESC_CNF)                       \
+            (s_ctx),                                                   \
+            (GA_VC_VOCS_GET_AUDIO_OUT_DESC_CNF)                        \
         )
 
 /**
  *  \brief To get Audio Input State Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Audio Input State Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *          describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_AICS_GET_INPUT_STATE_CNF event with associated
  *          data through the registered callback.
@@ -6720,24 +9535,26 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_AICS_GET_INPUT_STATE_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_get_input_state(s_ctx)                              \
+#define GA_vc_aics_get_input_state(                                    \
+            /* IN - VCP_AICS_HANDLE */ s_ctx                           \
+        )                                                              \
         VCP_aics_read_request                                          \
         (                                                              \
-             (s_ctx),                                                  \
-             (GA_VC_AICS_GET_INPUT_STATE_CNF)                          \
+            (s_ctx),                                                   \
+            (GA_VC_AICS_GET_INPUT_STATE_CNF)                           \
         )
 
 /**
  *  \brief To get Gain Setting Properties Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Gain Setting Properties Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *          describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_AICS_GET_GAIN_SETTING_PROPRTY_CNF event with associated
  *          data through the registered callback.
@@ -6745,24 +9562,26 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_AICS_GET_GAIN_SETTING_PROPRTY_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_get_gain_setting_proprty(s_ctx)                     \
+#define GA_vc_aics_get_gain_setting_proprty(                           \
+            /* IN - VCP_AICS_HANDLE */ s_ctx                           \
+        )                                                              \
         VCP_aics_read_request                                          \
         (                                                              \
-             (s_ctx),                                                  \
-             (GA_VC_AICS_GET_GAIN_SETTING_PROPRTY_CNF)                 \
+            (s_ctx),                                                   \
+            (GA_VC_AICS_GET_GAIN_SETTING_PROPRTY_CNF)                  \
         )
 
 /**
  *  \brief To get Audio Input Type Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Audio Input Type Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *          describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_AICS_GET_INPUT_TYPE_CNF event with associated
  *          data through the registered callback.
@@ -6770,24 +9589,26 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_AICS_GET_INPUT_TYPE_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_get_input_type(s_ctx)                               \
+#define GA_vc_aics_get_input_type(                                     \
+            /* IN - VCP_AICS_HANDLE */ s_ctx                           \
+        )                                                              \
         VCP_aics_read_request                                          \
         (                                                              \
-             (s_ctx),                                                  \
-             (GA_VC_AICS_GET_INPUT_TYPE_CNF)                           \
+            (s_ctx),                                                   \
+            (GA_VC_AICS_GET_INPUT_TYPE_CNF)                            \
         )
 
 /**
  *  \brief To get Audio Input Status Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Audio Input State Status Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *          describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_AICS_GET_INPUT_STATUS_CNF event with associated
  *          data through the registered callback.
@@ -6795,24 +9616,26 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_AICS_GET_INPUT_STATUS_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_get_input_status(s_ctx)                             \
+#define GA_vc_aics_get_input_status(                                   \
+            /* IN - VCP_AICS_HANDLE */ s_ctx                           \
+        )                                                              \
         VCP_aics_read_request                                          \
         (                                                              \
-             (s_ctx),                                                  \
-             (GA_VC_AICS_GET_INPUT_STATUS_CNF)                         \
+            (s_ctx),                                                   \
+            (GA_VC_AICS_GET_INPUT_STATUS_CNF)                          \
         )
 
 /**
  *  \brief To get Audio Input Description Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Audio Input Description Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *          describing the cause of failure.
+ *          describing the cause of failure. \n
  *          On completion of this procedure, the module returns the
  *          \ref GA_VC_AICS_GET_AUDIO_INPUT_DESC_CNF event with associated
  *          data through the registered callback.
@@ -6820,17 +9643,19 @@ GA_RESULT GA_vc_terminate_capability
  *  \sa GA_VC_AICS_GET_AUDIO_INPUT_DESC_CNF
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_get_audio_input_description(s_ctx)                  \
+#define GA_vc_aics_get_audio_input_description(                        \
+            /* IN - VCP_AICS_HANDLE */ s_ctx                           \
+        )                                                              \
         VCP_aics_read_request                                          \
         (                                                              \
-             (s_ctx),                                                  \
-             (GA_VC_AICS_GET_AUDIO_INPUT_DESC_CNF)                     \
+            (s_ctx),                                                   \
+            (GA_VC_AICS_GET_AUDIO_INPUT_DESC_CNF)                      \
         )
 
 /** \} */
 
 /**
- * \name VCP Volume Controller-Write
+ * \name VCP Controller APIs - Write
  * \{
  * \brief This section describes the Volume Control Profile Write
  * APIs for Volume Controller.
@@ -6843,118 +9668,135 @@ GA_RESULT GA_vc_terminate_capability
  *       This routine enables to set Relative Volume Down.
  *
  *  \param [in] sh
- *         VCP Context
+ *         VCP Context.
  *
  *  \param [in] val
- *              Data for Relative Volume Down.
- *              - Change_Counter
+ *         Data for Relative Volume Down. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
- *              Data length for Relative Volume Down.
+ *         Data length for Relative Volume Down.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_CP_WT_CNF is notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_rel_vol_down(sh, val, len)                           \
+#define GA_vc_set_rel_vol_down(                                        \
+            /* IN - VCP_HANDLE */ sh,                                  \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         VCP_cp_request                                                 \
         (                                                              \
-             (sh),                                                     \
-             (VCS_CP_OP_RELATIVE_VOL_DOWN),                            \
-             (val),                                                    \
-             (len)                                                     \
+            (sh),                                                      \
+            (VCS_CP_OP_RELATIVE_VOL_DOWN),                             \
+            (val),                                                     \
+            (len)                                                      \
         )
 
 /**
- *  \brief
- *  To set Relative Volume Up.
+ *  \brief To set Relative Volume Up.
  *
  *  \par Description:
  *       This routine enables to set Relative Volume Up.
  *
  *  \param [in] sh
- *         VCP Context
+ *         VCP Context.
  *
  *  \param [in] val
- *              Data for Relative Volume Up.
- *              - Change_Counter
+ *         Data for Relative Volume Up. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
- *              Data length for Relative Volume Up.
+ *         Data length for Relative Volume Up.
  *
  *  \return  \ref GA_SUCCESS on success, or, an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_CP_WT_CNF is notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_rel_vol_up(sh, val, len)                             \
+#define GA_vc_set_rel_vol_up(                                          \
+            /* IN - VCP_HANDLE */ sh,                                  \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         VCP_cp_request                                                 \
         (                                                              \
-             (sh),                                                     \
-             (VCS_CP_OP_RELATIVE_VOL_UP),                              \
-             (val),                                                    \
-             (len)                                                     \
+            (sh),                                                      \
+            (VCS_CP_OP_RELATIVE_VOL_UP),                               \
+            (val),                                                     \
+            (len)                                                      \
         )
 
 /**
- *  \brief
- *  To set UnMute and Relative Volume Down.
+ *  \brief To set UnMute and Relative Volume Down.
  *
  *  \par Description:
  *       This routine enables to set Unmute and Relative Volume Down.
  *
  *  \param [in] sh
- *         VCP Context
+ *         VCP Context.
  *
  *  \param [in] val
- *              Data for Unmute & Relative Volume Down.
- *              - Change_Counter
+ *         Data for Unmute & Relative Volume Down. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
- *              Data length for Unmute & Relative Volume Down.
+ *         Data length for Unmute & Relative Volume Down.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_CP_WT_CNF is notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_unmute_rel_vol_down(sh, val, len)                    \
+#define GA_vc_set_unmute_rel_vol_down(                                 \
+            /* IN - VCP_HANDLE */ sh,                                  \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         VCP_cp_request                                                 \
         (                                                              \
-             (sh),                                                     \
-             (VCS_CP_OP_UNMUTE_RELATIVE_VOL_DOWN),                     \
-             (val),                                                    \
-             (len)                                                     \
+            (sh),                                                      \
+            (VCS_CP_OP_UNMUTE_RELATIVE_VOL_DOWN),                      \
+            (val),                                                     \
+            (len)                                                      \
         )
 
 /**
- *  \brief
- *  To set UnMute and Relative Volume Up.
+ *  \brief To set UnMute and Relative Volume Up.
  *
  *  \par Description:
  *       This routine enables to set Unmute and Relative Volume Up.
  *
  *  \param [in] sh
- *         VCP Context
+ *         VCP Context.
  *
  *  \param [in] val
- *              Data for Unmute & Relative Volume Up.
- *              - Change_Counter
+ *         Data for Unmute & Relative Volume Up. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
- *              Data length for Unmute & Relative Volume Up.
+ *         Data length for Unmute & Relative Volume Up.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_CP_WT_CNF is notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_unmute_rel_vol_up(sh, val, len)                      \
+#define GA_vc_set_unmute_rel_vol_up(                                   \
+            /* IN - VCP_HANDLE */ sh,                                  \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         VCP_cp_request                                                 \
         (                                                              \
              (sh),                                                     \
@@ -6964,30 +9806,34 @@ GA_RESULT GA_vc_terminate_capability
         )
 
 /**
- *  \brief
- *  To set Absolute Volume.
+ *  \brief To set Absolute Volume.
  *
  *  \par Description:
  *       This routine enables to set Absolution Volume.
  *
  *  \param [in] sh
- *         VCP Context
+ *         VCP Context.
  *
  *  \param [in] val
- *              Data to set absolute volume.
- *              - Change_Counter
- *              - Volume_Setting
+ *         Data to set absolute volume. \n
+ *            - Change_Counter.
+ *            - Volume_Setting.
+ *            .
  *
  *  \param [in] len
- *              Data length of set absolute volume information.
+ *         Data length of set absolute volume information.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_CP_WT_CNF is notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_abs_volume(sh, val, len)                             \
+#define GA_vc_set_abs_volume(                                          \
+            /* IN - VCP_HANDLE */ sh,                                  \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         VCP_cp_request                                                 \
         (                                                              \
              (sh),                                                     \
@@ -6997,29 +9843,33 @@ GA_RESULT GA_vc_terminate_capability
         )
 
 /**
- *  \brief
- *  To set Unmute.
+ *  \brief To set Unmute.
  *
  *  \par Description:
  *       This routine enables to Unmute.
  *
  *  \param [in] sh
- *         VCP Context
+ *         VCP Context.
  *
  *  \param [in] val
- *              Data to Unmute.
- *               - Change_Counter
+ *         Data to Unmute. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
- *              Data length of Unmute information.
+ *         Data length of Unmute information.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_CP_WT_CNF is notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_unmute(sh, val, len)                                 \
+#define GA_vc_set_unmute(                                              \
+            /* IN - VCP_HANDLE */ sh,                                  \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         VCP_cp_request                                                 \
         (                                                              \
              (sh),                                                     \
@@ -7029,29 +9879,33 @@ GA_RESULT GA_vc_terminate_capability
         )
 
 /**
- *  \brief
- *  To set Mute.
+ *  \brief To set Mute.
  *
  *  \par Description:
  *       This routine enables to Mute.
  *
  *  \param [in] sh
- *         VCP Context
+ *         VCP Context.
  *
  *  \param [in] val
- *              Data to Mute.
- *              - Change_Counter
+ *         Data to Mute. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
- *              Data length of Mute information.
+ *         Data length of Mute information.
  *
  *  \return \ref GA_SUCCESS on success, or, an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_CP_WT_CNF is notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_set_mute(sh, val, len)                                   \
+#define GA_vc_set_mute(                                                \
+            /* IN - VCP_HANDLE */ sh,                                  \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         VCP_cp_request                                                 \
         (                                                              \
              (sh),                                                     \
@@ -7064,7 +9918,7 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To set Audio Location Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Audio Location Information.
  *
  *  \param [in] s_ctx
@@ -7073,14 +9927,18 @@ GA_RESULT GA_vc_terminate_capability
  *  \param [in] al
  *         Audio Location Value.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note Since it is WriteWithoutResponse request,
- *       There is no response expected for this event.
+ *        there is no response expected for this event.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_vocs_set_audio_location(s_ctx, al)                       \
+#define GA_vc_vocs_set_audio_location(                                 \
+            /* IN - VCP_VOCS_HANDLE */ s_ctx,                          \
+            /* IN - UINT32 */ al                                       \
+        )                                                              \
         VCP_vocs_set_audio_location                                    \
         (                                                              \
              (s_ctx),                                                  \
@@ -7090,7 +9948,7 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To set Audio Output Description Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Audio Output Description Information.
  *
  *  \param [in] s_ctx
@@ -7102,14 +9960,19 @@ GA_RESULT GA_vc_terminate_capability
  *  \param [in] aodl
  *         Audio Output Description Length.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note Since it is WriteWithoutResponse request,
- *       There is no response expected for this event.
+ *        there is no response expected for this event.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_vocs_set_audio_output_description(s_ctx, aod, aodl)      \
+#define GA_vc_vocs_set_audio_output_description(                       \
+            /* IN - VCP_VOCS_HANDLE */ s_ctx,                          \
+            /* IN:^3 - UCHAR* */ aod,                                  \
+            /* IN - UCHAR */ aodl                                      \
+        )                                                              \
         VCP_vocs_set_audio_output_description                          \
         (                                                              \
              (s_ctx),                                                  \
@@ -7120,27 +9983,32 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To Set Volume Offset Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Volume Offset Information.
  *
  *  \param [in] sh
  *         Context Handle associated with VOCS.
  *
  *  \param [in] val
- *          Volume Ofset Information.
- *              - Change_Counter
- *              - Volume_Offset
+ *         Volume Ofset Information. \n
+ *            - Change_Counter.
+ *            - Volume_Offset.
+ *            .
  *
  *  \param [in] len
  *         Length of Volume Flag Information.
  *
  *  \return \ref GA_SUCCESS on success or an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_VOCS_CP_WT_CNF is notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_vocs_set_volume_offset(sh, val, len)                     \
+#define GA_vc_vocs_set_volume_offset(                                  \
+            /* IN - VCP_VOCS_HANDLE */ sh,                             \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UCHAR */ len                                       \
+        )                                                              \
         VCP_vocs_cp_request                                            \
         (                                                              \
              (sh),                                                     \
@@ -7152,7 +10020,7 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To set Audio Input Description Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Audio Input Description Information.
  *
  *  \param [in] s_ctx
@@ -7164,14 +10032,19 @@ GA_RESULT GA_vc_terminate_capability
  *  \param [in] aidl
  *         Audio Input Description Length.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note Since it is WriteWithoutResponse request,
- *       There is no response expected for this event.
+ *        there is no response expected for this event.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_set_audio_input_description(s_ctx, aid, aidl)       \
+#define GA_vc_aics_set_audio_input_description(                        \
+            /* IN - VCP_AICS_HANDLE */ s_ctx,                          \
+            /* IN:^3 - UCHAR* */ aid,                                  \
+            /* IN - UCHAR */ aidl                                      \
+        )                                                              \
         VCP_aics_set_audio_input_description                           \
         (                                                              \
              (s_ctx),                                                  \
@@ -7182,28 +10055,33 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To Set Gain Setting Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Gain Setting Information.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Gain Setting Information.
- *              - Change_Counter
- *              - Gain_setting
+ *         Gain Setting Information. \n
+ *            - Change_Counter.
+ *            - Gain_setting.
+ *            .
  *
  *  \param [in] len
  *         Length of Gain Setting Information.
  *
  *  \return \ref GA_SUCCESS on success or an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_AICS_CP_WT_CNF
  *           will be notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_set_gain_setting(sh, val, len)                      \
+#define GA_vc_aics_set_gain_setting(                                   \
+            /* IN - VCP_AICS_HANDLE */ sh,                             \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UCHAR */ len                                       \
+        )                                                              \
         VCP_aics_cp_request                                            \
         (                                                              \
              (sh),                                                     \
@@ -7215,27 +10093,32 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To Unmute.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to Unmute.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Unmute Information.
- *              - Change_Counter
+ *         Unmute Information. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
  *         Length of Unmute Information.
  *
  *  \return \ref GA_SUCCESS on success or an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_AICS_CP_WT_CNF
  *           will be notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_unmute(sh, val, len)                                \
+#define GA_vc_aics_unmute(                                             \
+            /* IN - VCP_AICS_HANDLE */ sh,                             \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UCHAR */ len                                       \
+        )                                                              \
         VCP_aics_cp_request                                            \
         (                                                              \
              (sh),                                                     \
@@ -7247,27 +10130,32 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To Mute.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to Mute.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Mute Information.
- *              - Change_Counter
+ *         Mute Information. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
  *         Length of Mute Information.
  *
  *  \return \ref GA_SUCCESS on success or an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_AICS_CP_WT_CNF
  *           will be notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_mute(sh, val, len)                                  \
+#define GA_vc_aics_mute(                                               \
+            /* IN - VCP_AICS_HANDLE */ sh,                             \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UCHAR */ len                                       \
+        )                                                              \
         VCP_aics_cp_request                                            \
         (                                                              \
              (sh),                                                     \
@@ -7279,27 +10167,32 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To set Manual Gain Mode.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to Set Manual Gain Mode.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Set Manual Gain Mode Information.
- *              - Change_Counter
+ *         Set Manual Gain Mode Information. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
  *         Length of Set Manual Gain Mode Information.
  *
  *  \return \ref GA_SUCCESS on success or an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_AICS_CP_WT_CNF
  *           will be notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_set_manual_gain_mode(sh, val, len)                  \
+#define GA_vc_aics_set_manual_gain_mode(                               \
+            /* IN - VCP_AICS_HANDLE */ sh,                             \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UCHAR */ len                                       \
+        )                                                              \
         VCP_aics_cp_request                                            \
         (                                                              \
              (sh),                                                     \
@@ -7311,27 +10204,32 @@ GA_RESULT GA_vc_terminate_capability
 /**
  *  \brief To set Automatic Gain Mode.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to Set Automatic Gain Mode.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Set Automatic Gain Mode Information.
- *              - Change_Counter
+ *         Set Automatic Gain Mode Information. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
  *         Length of Set Automatic Gain Mode Information.
  *
  *  \return \ref GA_SUCCESS on success or an Error Code
- *           describing the cause of failure.
+ *           describing the cause of failure. \n
  *           If \ref GA_SUCCESS, \ref GA_VC_AICS_CP_WT_CNF
  *           will be notified.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_aics_set_auto_gain_mode(sh, val, len)                    \
+#define GA_vc_aics_set_auto_gain_mode(                                 \
+            /* IN - VCP_AICS_HANDLE */ sh,                             \
+            /* IN:^3 - UCHAR* */ val,                                  \
+            /* IN - UCHAR */ len                                       \
+        )                                                              \
         VCP_aics_cp_request                                            \
         (                                                              \
              (sh),                                                     \
@@ -7342,42 +10240,79 @@ GA_RESULT GA_vc_terminate_capability
 
 /** \} */
 /** \} */
+#endif /* VCP_CONTROLLER */
 
+#ifdef VCP_RENDERER
 /**
- * \defgroup ga_vcp_vol_renderer_defs VCP Volume Renderer APIs
+ * \defgroup ga_vcp_vol_renderer_defs Volume Renderer
  * \{
  * \brief This section describes the Volume Control Profile APIs
  * for Volume Renderer.
  */
 
 /**
- * \name VCP Volume Renderer-Init/Deinit
+ * \name VCP Renderer APIs - Init
  * \{
- * \brief This section describes the Volume Control Profile Init/Deinit APIs
- * for Volume Renderer.
+ * \brief This section describes the Volume Control Profile Init
+ * APIs for Volume Renderer.
  */
 
 /**
  *  \brief Initialize the GA Volume Control Server.
  *
- *  \par Description
- *  This routine initializes GA Volume Control Server
+ *  \par Description:
+ *       This routine initializes GA Volume Control Server.
  *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_server_init(cb)       GA_module_init(GA_MODULE_VCP, VCP_ROLE_SERVER, (cb))
+#define GA_vc_server_init(                                   \
+            /* IN - GA_PROFILE_CB */ cb                      \
+        )                                                    \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_VCP,                                   \
+            VCP_ROLE_SERVER,                                 \
+            (cb)                                             \
+        )
+
+/** \} */
+
+/**
+ * \name VCP Renderer APIs - De-Init
+ * \{
+ * \brief This section describes the Volume Control Profile De-Init
+ * APIs for Volume Renderer.
+ */
 
 /**
  *  \brief Shutdown the GA Volume Control Server.
  *
- *  \par Description
- *  This routine shuts down GA Volume Control Server
+ *  \par Description:
+ *       This routine shuts down GA Volume Control Server.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_vcp_error_code
  */
-#define GA_vc_server_shutdown()   GA_module_shutdown(GA_MODULE_VCP, VCP_ROLE_SERVER)
+#define GA_vc_server_shutdown()                              \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_VCP,                                   \
+            VCP_ROLE_SERVER                                  \
+        )
+
+/** \} */
+
+/**
+ * \name VCP Renderer APIs - Init
+ * \{
+ */
 
 /**
  *  \brief To register optional services with VCP Renderer.
@@ -7387,14 +10322,16 @@ GA_RESULT GA_vc_terminate_capability
  *       with VCP Render module.
  *
  *  \param [in] srvc_type
- *         Flag indicating Service type.
- *         - \ref VCP_SERVICE_TYPE_VOCS
- *         - \ref VCP_SERVICE_TYPE_AICS
+ *         Flag indicating Service type. \n
+ *            - \ref VCP_SERVICE_TYPE_VOCS.
+ *            - \ref VCP_SERVICE_TYPE_AICS.
+ *            .
  *
  *  \param [out] handle
  *         Allocated Service Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
@@ -7404,6 +10341,13 @@ GA_RESULT GA_vc_register
               /* OUT */ GA_VR_HANDLE * handle
           );
 
+/** \} */
+
+/**
+ * \name VCP Renderer APIs - De-Init
+ * \{
+ */
+
 /**
  *  \brief To unregister optional services with VCP Renderer.
  *
@@ -7411,15 +10355,17 @@ GA_RESULT GA_vc_register
  *       This function enables to unregister optional (VOCS/AICS) service
  *       with VCP Renderer module.
  *
- *  \param [in] srvc_type
- *         Flag indicating Service type.
- *         - \ref VCP_SERVICE_TYPE_VOCS
- *         - \ref VCP_SERVICE_TYPE_AICS
+ *  \param [in] vc_type
+ *         Flag indicating Service type. \n
+ *            - \ref VCP_SERVICE_TYPE_VOCS.
+ *            - \ref VCP_SERVICE_TYPE_AICS.
+ *            .
  *
  *  \param [out] handle
  *         Allocated Service Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
@@ -7432,7 +10378,7 @@ GA_RESULT GA_vc_unregister
 /** \} */
 
 /**
- * \name VCP Volume Renderer-Read/Write
+ * \name VCP Renderer APIs - Read/Write
  * \{
  * \brief This section describes the Volume Control Profile Read/Write
  * APIs for Volume Renderer.
@@ -7449,24 +10395,32 @@ GA_RESULT GA_vc_unregister
  *         Peer Device Address Information.
  *
  *  \param [in] et
- *         Event type indicating response for read or write.
- *           - \ref GA_RSP_TYPE_RD
- *           - \ref GA_RSP_TYPE_WT
+ *         Event type indicating response for read or write. \n
+ *            - \ref GA_RSP_TYPE_RD.
+ *            - \ref GA_RSP_TYPE_WT.
+ *            .
  *
  *  \param [in] es
  *         Response status for the read/write operation.
  *
  *  \param [in] rd
- *         Response information for read/write operatios \ref VCP_RSP_INF.
+ *         Response information for read/write operatios \ref VCP_RSP_INFO.
  *
  *  \param [in] rdl
  *         Response information size.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_send_rsp(d, et, es, rd, rdl)                             \
+#define GA_vc_send_rsp(                                                \
+            /* IN - GA_ENDPOINT* */ d,                                 \
+            /* IN - UCHAR */ et,                                       \
+            /* IN - UINT16 */ es,                                      \
+            /* IN:^5 - VCP_RSP_INFO* */ rd,                             \
+            /* IN - UCHAR */ rdl                                       \
+        )                                                              \
         VCP_send_rsp                                                   \
         (                                                              \
             (d),                                                       \
@@ -7479,7 +10433,7 @@ GA_RESULT GA_vc_unregister
 /** \} */
 
 /**
- * \name VCP Volume Renderer-Notify
+ * \name VCP Renderer APIs - Notify
  * \{
  * \brief This section describes the Volume Control Profile Notify
  * APIs for Volume Renderer.
@@ -7489,36 +10443,45 @@ GA_RESULT GA_vc_unregister
  *  \brief To Notify Charateristic Values from Volume renderer to connected
  *         Volume Controller.
  *
- *  \par Description
+ *  \par Description:
  *       This routine enables to notify updated char value to specified
  *       remote device.
  *
  *  \param [in] d
- *          Endpoint to be notified.
+ *         Endpoint to be notified.
  *
- *   \param [in] si
- *           Associated Service Handle.
+ *  \param [in] si
+ *         Associated Service Handle.
  *
- *   \param [in] st
- *           Flag to indicate Service Type.
- *           - \ref VCP_SERVICE_TYPE_VCS
- *           - \ref VCP_SERVICE_TYPE_VOCS
- *           - \ref VCP_SERVICE_TYPE_AICS
+ *  \param [in] st
+ *         Flag to indicate Service Type. \n
+ *            - \ref VCP_SERVICE_TYPE_VCS.
+ *            - \ref VCP_SERVICE_TYPE_VOCS.
+ *            - \ref VCP_SERVICE_TYPE_AICS.
+ *            .
  *
  *  \param [in] cuid
- *              characteristic to be notified.
+ *         characteristic to be notified.
  *
  *  \param [in] cd
- *              characteristic data to be notificed.
+ *         characteristic data to be notificed.
  *
  *  \param [in] cdl
- *              characteristic data length.
+ *         characteristic data length.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_notify(d, si, st, cuid, cd, cdl)        \
+#define GA_vc_notify(                                 \
+            /* IN - GA_ENDPOINT* */ d,                \
+            /* IN - UCHAR */ si,                      \
+            /* IN - UCHAR */ st,                      \
+            /* IN - UINT16 */ cuid,                   \
+            /* IN:^6 - UCHAR* */ cd,                  \
+            /* IN - UCHAR */ cdl                      \
+        )                                             \
         VCP_notify_char                               \
         (                                             \
             (d),                                      \
@@ -7532,30 +10495,35 @@ GA_RESULT GA_vc_unregister
 /**
  *  \brief Notify Volume state Information.
  *
- *  \par Description
- *       This routine enables to notify Volume state information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Volume state information to the
+ *       specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
  *
  *  \param [in] c_info
- *              Volume data Information.
+ *         Volume data Information.
  *
  *  \param [in] c_info_len
- *              Length of Volume State Information.
+ *         Length of Volume State Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_notify_vcs_volume_state(ep, c_info, c_info_len)        \
+#define GA_vc_notify_vcs_volume_state(                               \
+            /* IN - GA_ENDPOINT* */ ep,                              \
+            /* IN:^3 - UCHAR* */ c_info,                             \
+            /* IN - UCHAR */ c_info_len                              \
+        )                                                            \
         GA_vc_notify                                                 \
         (                                                            \
              (ep),                                                   \
              (0x00),                                                 \
              (VCP_SERVICE_TYPE_VCS),                                 \
-             (GA_CHAR_VCS_VOLUME_STATE),                            \
+             (GA_CHAR_VCS_VOLUME_STATE),                             \
              (c_info),                                               \
              (c_info_len)                                            \
         )
@@ -7563,24 +10531,29 @@ GA_RESULT GA_vc_unregister
 /**
  *  \brief Notify Volume Flag Information.
  *
- *  \par Description
- *       This routine enables to notify Volume Flag information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Volume Flag information to the
+ *       specified peer device.
  *
-*  \param [in] ep
+ *  \param [in] ep
  *         Device Endpoint Address to be notified.
  *
  *  \param [in] c_info
- *              Volume Flag Information.
+ *         Volume Flag Information.
  *
  *  \param [in] c_info_len
- *              Length of Volume Flag Information.
+ *         Length of Volume Flag Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_notify_vcs_volume_flag(ep, c_info, c_info_len)         \
+#define GA_vc_notify_vcs_volume_flag(                                \
+            /* IN - GA_ENDPOINT* */ ep,                              \
+            /* IN:^3 - UCHAR* */ c_info,                             \
+            /* IN - UCHAR */ c_info_len                              \
+        )                                                            \
         GA_vc_notify                                                 \
         (                                                            \
              (ep),                                                   \
@@ -7594,7 +10567,7 @@ GA_RESULT GA_vc_unregister
 /**
  *  \brief Notify Volume Offset State Information.
  *
- *  \par Description
+ *  \par Description:
  *       This routine enables to notify Volume Offset Information to the specified
  *       peer device.
  *
@@ -7605,24 +10578,31 @@ GA_RESULT GA_vc_unregister
  *         Service Instance associated with VOCS.
  *
  *  \param [in] c_info
- *         Volume Offset State Information.
- *           - Volume_Offset
- *           - Change_Counter
+ *         Volume Offset State Information. \n
+ *            - Volume_Offset.
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] c_info_len
  *         Length of Volume Offset State Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_notify_vocs_volume_offset(ep, si, c_info, c_info_len)  \
+#define GA_vc_notify_vocs_volume_offset(                             \
+            /* IN - GA_ENDPOINT* */ ep,                              \
+            /* IN - UCHAR */ si,                                     \
+            /* IN:^4 - UCHAR* */ c_info,                             \
+            /* IN - UCHAR */ c_info_len                              \
+        )                                                            \
         GA_vc_notify                                                 \
         (                                                            \
              (ep),                                                   \
              (si),                                                   \
              VCP_SERVICE_TYPE_VOCS,                                  \
-             (GA_CHAR_VOCS_OFFSET_STATE),                           \
+             (GA_CHAR_VOCS_OFFSET_STATE),                            \
              (c_info),                                               \
              (c_info_len)                                            \
         )
@@ -7630,9 +10610,9 @@ GA_RESULT GA_vc_unregister
 /**
  *  \brief Notify Audio Location Information.
  *
- *  \par Description
- *       This routine enables to notify Audio Location Information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Audio Location Information to the
+ *       specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
@@ -7646,17 +10626,23 @@ GA_RESULT GA_vc_unregister
  *  \param [in] c_info_len
  *         Length of Audio Location Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_notify_vocs_audio_location(ep, si, c_info, c_info_len) \
+#define GA_vc_notify_vocs_audio_location(                            \
+            /* IN - GA_ENDPOINT* */ ep,                              \
+            /* IN - UCHAR */ si,                                     \
+            /* IN:^4 - UCHAR* */ c_info,                             \
+            /* IN - UCHAR */ c_info_len                              \
+        )                                                            \
         GA_vc_notify                                                 \
         (                                                            \
              (ep),                                                   \
              (si),                                                   \
              VCP_SERVICE_TYPE_VOCS,                                  \
-             (GA_CHAR_VOCS_AUDIO_LOCATION),                         \
+             (GA_CHAR_VOCS_AUDIO_LOCATION),                          \
              (c_info),                                               \
              (c_info_len)                                            \
         )
@@ -7664,9 +10650,9 @@ GA_RESULT GA_vc_unregister
 /**
  *  \brief Notify Audio Output Description Information.
  *
- *  \par Description
- *       This routine enables to notify Audio Output Description Information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Audio Output Description Information
+ *        to the specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
@@ -7680,17 +10666,23 @@ GA_RESULT GA_vc_unregister
  *  \param [in] c_info_len
  *         Length of Audio Location Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_notify_vocs_audio_out_desc(ep, si, c_info, c_info_len) \
+#define GA_vc_notify_vocs_audio_out_desc(                            \
+            /* IN - GA_ENDPOINT* */ ep,                              \
+            /* IN - UCHAR */ si,                                     \
+            /* IN:^4 - UCHAR* */ c_info,                             \
+            /* IN - UCHAR */ c_info_len                              \
+        )                                                            \
         GA_vc_notify                                                 \
         (                                                            \
              (ep),                                                   \
              (si),                                                   \
              VCP_SERVICE_TYPE_VOCS,                                  \
-             (GA_CHAR_VOCS_AUDIO_OUTPUT_DESC),               \
+             (GA_CHAR_VOCS_AUDIO_OUTPUT_DESC),                       \
              (c_info),                                               \
              (c_info_len)                                            \
         )
@@ -7698,9 +10690,9 @@ GA_RESULT GA_vc_unregister
 /**
  *  \brief Notify Audio Input state Information.
  *
- *  \par Description
- *       This routine enables to notify Audio Input State Information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Audio Input State Information to the
+ *       specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
@@ -7709,20 +10701,27 @@ GA_RESULT GA_vc_unregister
  *         Service Instance associated with AICS.
  *
  *  \param [in] c_info
- *         Audio Input State Information.
- *          - Gain_Setting
- *          - Mute
- *          - Gain_Mode
- *          - Change_Counter
+ *         Audio Input State Information. \n
+ *            - Gain_Setting.
+ *            - Mute.
+ *            - Gain_Mode.
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] c_info_len
  *         Length of Audio Input State Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_notify_aics_audio_input_state(ep, si, c_info, c_info_len) \
+#define GA_vc_notify_aics_audio_input_state(                            \
+            /* IN - GA_ENDPOINT* */ ep,                                 \
+            /* IN - UCHAR */ si,                                        \
+            /* IN:^4 - UCHAR* */ c_info,                                \
+            /* IN - UCHAR */ c_info_len                                 \
+        )                                                               \
         GA_vc_notify                                                    \
         (                                                               \
              (ep),                                                      \
@@ -7736,9 +10735,9 @@ GA_RESULT GA_vc_unregister
 /**
  *  \brief Notify Audio Input Status Information.
  *
- *  \par Description
- *       This routine enables to notify Audio Input Status Information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Audio Input Status Information to the
+ *       specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
@@ -7752,17 +10751,23 @@ GA_RESULT GA_vc_unregister
  *  \param [in] c_info_len
  *         Length of Audio Input Status Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_notify_aics_audio_input_status(ep, si, c_info, c_info_len)\
+#define GA_vc_notify_aics_audio_input_status(                           \
+            /* IN - GA_ENDPOINT* */ ep,                                 \
+            /* IN - UCHAR */ si,                                        \
+            /* IN:^4 - UCHAR* */ c_info,                                \
+            /* IN - UCHAR */ c_info_len                                 \
+        )                                                               \
         GA_vc_notify                                                    \
         (                                                               \
              (ep),                                                      \
              (si),                                                      \
              VCP_SERVICE_TYPE_AICS,                                     \
-             (GA_CHAR_AICS_INPUT_STATUS),                              \
+             (GA_CHAR_AICS_INPUT_STATUS),                               \
              (c_info),                                                  \
              (c_info_len)                                               \
         )
@@ -7770,9 +10775,9 @@ GA_RESULT GA_vc_unregister
 /**
  *  \brief Notify Audio Input Description Information.
  *
- *  \par Description
- *       This routine enables to notify Audio Input Description Information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Audio Input Description Information
+ *       to the specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
@@ -7786,11 +10791,17 @@ GA_RESULT GA_vc_unregister
  *  \param [in] c_info_len
  *         Length of Audio Input Description Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_vcp_error_code
  */
-#define GA_vc_notify_aics_audio_input_desc(ep, si, c_info, c_info_len)  \
+#define GA_vc_notify_aics_audio_input_desc(                             \
+            /* IN - GA_ENDPOINT* */ ep,                                 \
+            /* IN - UCHAR */ si,                                        \
+            /* IN:^4 - UCHAR* */ c_info,                                \
+            /* IN - UCHAR */ c_info_len                                 \
+        )                                                               \
         GA_vc_notify                                                    \
         (                                                               \
              (ep),                                                      \
@@ -7803,11 +10814,13 @@ GA_RESULT GA_vc_unregister
 
 /** \} */
 /** \} */
+#endif /* VCP_RENDERER */
 /** \} */
 /** \} */
+#endif /* GA_VCP */
 
 /* =====  MICP Related Defines ============= */
-
+#ifdef GA_MICP
 /**
  * \addtogroup ga_micp_module
  * \{
@@ -7820,7 +10833,7 @@ GA_RESULT GA_vc_unregister
  */
 
 /**
- * \defgroup ga_micp_api_seq MICP API Sequences
+ * \defgroup ga_micp_api_seq API Sequences
  * \{
  * \brief This section describes the Microphone Control Profile API Sequences.
  * MSC depicting the flow of APIs and Events.
@@ -7836,44 +10849,82 @@ GA_RESULT GA_vc_unregister
  * \brief This section describes the Microphone Control Profile APIs.
  */
 
+#ifdef MICP_CONTROLLER
 /**
- * \defgroup ga_micp_cont_defs MICP Microphone Controller API
+ * \defgroup ga_micp_cont_defs Microphone Controller
  * \{
  * \brief This section describes the Microphone Control Profile APIs
  * for Microphone Controller.
  */
 
 /**
- * \name MICP Microphone Controller APIs-Setup
+ * \name MICP Controller APIs - Init
+ * \{
+ * \brief This section describes the Microphone Control Profile Init
+ * APIs for Microphone Controller.
+ */
+
+/**
+ *  \brief Initialize the GA Microphone Control Client.
+ *
+ *  \par Description:
+ *       This routine initializes GA Microphone Control Client.
+ *
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
+ */
+#define GA_mc_client_init(                                   \
+            /* IN - GA_PROFILE_CB */ cb                      \
+        )                                                    \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_MICP,                                  \
+            MICP_ROLE_CLIENT,                                \
+            (cb)                                             \
+        )
+
+/** \} */
+
+/**
+ * \name MICP Controller APIs - De-Init
+ * \{
+ * \brief This section describes the Microphone Control Profile Init
+ * APIs for Microphone Controller.
+ */
+
+/**
+ *  \brief Shutdown the GA Microphone Control Client.
+ *
+ *  \par Description:
+ *       This routine shuts down GA Microphone Control Client.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
+ */
+#define GA_mc_client_shutdown()                              \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_MICP,                                  \
+            MICP_ROLE_CLIENT                                 \
+        )
+
+/** \} */
+
+/**
+ * \name MICP Controller APIs - Setup
  * \{
  * \brief This section describes the Microphone Control Profile Setup APIs
  * for Microphone Controller.
  */
 
 /**
- *  \brief Initialize the GA Microphone Control Client
- *
- *  \par Description
- *  This routine initializes GA Microphone Control Client
- *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_mc_client_init(cb)       GA_module_init(GA_MODULE_MICP, MICP_ROLE_CLIENT, (cb))
-
-/**
- *  \brief Shutdown the GA Microphone Control Client.
- *
- *  \par Description
- *  This routine shuts down GA Microphone Control Client
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_mc_client_shutdown()   GA_module_shutdown(GA_MODULE_MICP, MICP_ROLE_CLIENT)
-
-/**
- *  \brief To Setup Microphone Control Service(MICS) Context
+ *  \brief To Setup Microphone Control Service(MICS) Context.
  *
  *  \par Description:
  *       This function enables to setup MICS context with given device.
@@ -7885,10 +10936,11 @@ GA_RESULT GA_vc_unregister
  *  \param [in] device
  *        Peer Device with which the context needs to be set-up.
  *
- *  \param [out] mics_ctx
+ *  \param [out] mc_ctx
  *        Allocated MICS Context Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_MC_SETUP_CNF is notified on
  *          completion with status as success or failure.
  *
@@ -7908,21 +10960,33 @@ GA_RESULT GA_mc_setup
 /**
  *  \brief To enable configuration for Characteristic Notifications.
  *
- *  \par Description
- *       The routine enables to configure notifications for individual characteristics
- *       of a given service.
+ *  \par Description:
+ *       The routine enables to configure notifications for individual
+ *       characteristics of a given service.
  *
  *  \param [in] s_type
- *               - \ref MICP_SERVICE_TYPE_MICS
- *               - \ref MICP_SERVICE_TYPE_AICS
+ *         Service type \n
+ *            - \ref MICP_SERVICE_TYPE_MICS.
+ *            - \ref MICP_SERVICE_TYPE_AICS.
+ *            .
  *
  *  \param [in] config
- *              Bitmask for characteristics IDs.
+ *         Bitmask for characteristics IDs.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
  */
-#define GA_mc_update_ntf_configuration(s_type, config)           \
-        MICP_update_ntf_configuration((s_type), (config))
+#define GA_mc_update_ntf_configuration(                                 \
+            /* IN - UCHAR */ s_type,                                    \
+            /* IN - UINT32 */ config                                    \
+        )                                                               \
+        MICP_update_ntf_configuration                                   \
+        (                                                               \
+            (s_type),                                                   \
+            (config)                                                    \
+        )
 #endif /* MICP_SUPPORT_CONFIG_SELECTION */
 
 #ifdef MICP_SUPPORT_CONTEXT_MANAGE
@@ -7933,33 +10997,36 @@ GA_RESULT GA_mc_setup
  *       This function enables to manage the context information of MICS.
  *
  *  \param [in] set
- *              GA_TRUE for Context SET and GA_FALSE for Context GET
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
  *
  *  \param [in] device
  *         Remote Device Address.
  *
- *  \param [inout] mctx
+ *  \param [in, out] mctx
  *         MICP Handle which is allocated during MICS context setup.
  *
- *  \param [inout] range
+ *  \param [in, out] range
  *         AICS characteristics handle range.
  *
- *  \param [inout] info
+ *  \param [in, out] info
  *         AICS characteristics information.
  *
- *  \param [inout] info_count
+ *  \param [in, out] info_count
  *         AICS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
  */
 GA_RESULT GA_mc_manage_context_info
           (
-              /* IN     */ UINT8              set,
-              /* IN     */ GA_ENDPOINT       * device,
-              /* INOUT  */ GA_MC_CONTEXT     * mctx,
-              /* INOUT  */ GA_BRR_SVC_RANGE  ** range,
-              /* INOUT  */ GA_CHAR_INFO      ** info,
-              /* INOUT  */ UINT16            * info_count
+              /* IN         */ UINT8              set,
+              /* IN         */ GA_ENDPOINT       * device,
+              /* IN, OUT    */ GA_MC_CONTEXT     * mctx,
+              /* IN, OUT    */ GA_BRR_SVC_RANGE  ** range,
+              /* IN, OUT:^6 */ GA_CHAR_INFO      ** info,
+              /* IN, OUT    */ UINT16            * info_count
           );
 
 /**
@@ -7971,22 +11038,39 @@ GA_RESULT GA_mc_manage_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [in] h
  *         MICP Handle which is allocated during MICS context setup.
  *
- *  \param [inout] r
+ *  \param [out] r
  *         MICS characteristics handle range.
  *
- *  \param [inout] i
+ *  \param [out] i
  *         MICS characteristics information.
  *
- *  \param [inout] c
+ *  \param [out] c
  *         MICS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
  */
-#define GA_mc_get_context_info(d, h, r, i, c) \
-        GA_mc_manage_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_mc_get_context_info(                                         \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - GA_MC_CONTEXT* */ h,                                \
+            /* OUT - GA_BRR_SVC_RANGE** */r,                            \
+            /* OUT:^5 - GA_CHAR_INFO** */i,                             \
+            /* OUT - UINT16* */c                                        \
+        )                                                               \
+        GA_mc_manage_context_info                                       \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To save the MICS Context Information.
@@ -7997,22 +11081,39 @@ GA_RESULT GA_mc_manage_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [out] h
  *         MICP Handle which is allocated during MICS context setup.
  *
- *  \param [inout] r
+ *  \param [out] r
  *         MICS characteristics handle range.
  *
- *  \param [inout] i
+ *  \param [out] i
  *         MICS characteristics information.
  *
- *  \param [inout] c
+ *  \param [out] c
  *         MICS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
  */
-#define GA_mc_set_context_info(d, h, r, i, c) \
-        GA_mc_manage_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_mc_set_context_info(                                         \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* OUT - GA_MC_CONTEXT* */ h,                               \
+            /* OUT - GA_BRR_SVC_RANGE** */r,                            \
+            /* OUT:^5 - GA_CHAR_INFO** */i,                             \
+            /* OUT - UINT16* */c                                        \
+        )                                                               \
+        GA_mc_manage_context_info                                       \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To manage the AICS Context Information.
@@ -8021,33 +11122,36 @@ GA_RESULT GA_mc_manage_context_info
  *       This function enables to manage the context information of AICS.
  *
  *  \param [in] set
- *         GA_TRUE for Context SET and GA_FALSE for Context GET
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
  *
  *  \param [in] device
  *         Remote Device Address.
  *
- *  \param [inout] aics_ctx
+ *  \param [in, out] aics_ctx
  *         AICS Handle which is allocated during AICS context setup.
  *
- *  \param [inout] range
+ *  \param [in, out] range
  *         AICS characteristics handle range.
  *
- *  \param [inout] info
+ *  \param [in, out] info
  *         AICS characteristics information.
  *
- *  \param [inout] info_count
+ *  \param [in, out] info_count
  *         AICS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
  */
 GA_RESULT GA_mc_manage_aics_context_info
           (
-              /* IN     */ UINT8                 set,
-              /* IN     */ GA_ENDPOINT        *  device,
-              /* INOUT  */ GA_MC_CONTEXT      *  aics_ctx,
-              /* INOUT  */ GA_BRR_SVC_RANGE   ** range,
-              /* INOUT  */ GA_CHAR_INFO       ** info,
-              /* INOUT  */ UINT16             * info_count
+              /* IN         */ UINT8                 set,
+              /* IN         */ GA_ENDPOINT        *  device,
+              /* IN, OUT    */ GA_MC_CONTEXT      *  aics_ctx,
+              /* IN, OUT    */ GA_BRR_SVC_RANGE   ** range,
+              /* IN, OUT:^6 */ GA_CHAR_INFO       ** info,
+              /* IN, OUT    */ UINT16             * info_count
           );
 
 /**
@@ -8059,22 +11163,39 @@ GA_RESULT GA_mc_manage_aics_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [in] h
  *         AICS Handle which is allocated during AICS context setup.
  *
- *  \param [inout] r
+ *  \param [out] r
  *         AICS characteristics handle range.
  *
- *  \param [inout] i
+ *  \param [out] i
  *         AICS characteristics information.
  *
- *  \param [inout] c
+ *  \param [out] c
  *         AICS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
  */
-#define GA_mc_get_aics_context_info(d, h, r, i, c) \
-        GA_mc_manage_aics_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_mc_get_aics_context_info(                                    \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - GA_MC_CONTEXT* */ h,                                \
+            /* OUT - GA_BRR_SVC_RANGE** */r,                            \
+            /* OUT:^5 - GA_CHAR_INFO** */i,                             \
+            /* OUT - UINT16* */c                                        \
+        )                                                               \
+        GA_mc_manage_aics_context_info                                  \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To save the AICS Context Information.
@@ -8085,22 +11206,39 @@ GA_RESULT GA_mc_manage_aics_context_info
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] aics_h
+ *  \param [out] aics_h
  *         AICS Handle which is allocated during AICS context setup.
  *
- *  \param [inout] r
+ *  \param [out] r
  *         AICS characteristics handle range.
  *
- *  \param [inout] i
+ *  \param [out] i
  *         AICS characteristics information.
  *
- *  \param [inout] c
+ *  \param [out] c
  *         AICS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
  */
-#define GA_mc_set_aics_context_info(d, h, r, i, c) \
-        GA_mc_manage_aics_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_mc_set_aics_context_info(                                    \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* OUT - GA_MC_CONTEXT* */ h,                               \
+            /* OUT - GA_BRR_SVC_RANGE** */r,                            \
+            /* OUT:^5 - GA_CHAR_INFO** */i,                             \
+            /* OUT - UINT16* */c                                        \
+        )                                                               \
+        GA_mc_manage_aics_context_info                                  \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 #endif /* MICP_SUPPORT_CONTEXT_MANAGE */
 
 /**
@@ -8111,27 +11249,27 @@ GA_RESULT GA_mc_manage_aics_context_info
  *  \brief Get the Optional MICP capabilities from the peer device.
  *
  *  \par Description:
- *       This function enables to discover the optional included services (i.e. AICS)
- *       from the remote device.
+ *       This function enables to discover the optional included services
+ *       (i.e. AICS) from the remote device.
  *
- *  \param [in] micp_cntx
+ *  \param [in] mc_cntx
  *         Context associated with MICP.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_MC_GET_CAPABILITIES_CNF is
  *          notified.
  *
  *  \note This procedure returns the \ref GA_MC_GET_CAPABILITIES_CNF event for
  *        each optional service instance discovered with event status
- *        \ref GA_CONTINUE.
+ *        \ref GA_CONTINUE. \n
  *        On completion of this procedure, \ref GA_MC_GET_CAPABILITIES_CNF
- *        event is notified with event status \ref GA_SUCCESS.
+ *        event is notified with event status \ref GA_SUCCESS. \n
  *        Application/Upper Layer is expected use the information returned along with
  *        \ref GA_MC_GET_CAPABILITIES_CNF event for setting up the optional
- *        capabilities.
- *
+ *        capabilities. \n
  *        The device must have performed MICP setup before calling
- *        this function.
+ *        this function. \n
  *        If AICS context has to be setup, \ref GA_mc_set_capability() has to
  *        be called with the service handle range received as part of this
  *        event.
@@ -8147,21 +11285,22 @@ GA_RESULT GA_mc_get_capabilities
 /**
  *  \brief Setup MICP optional capabiliy with the peer device.
  *
- *  \par Description
- *       This routine allocates a MICP optional service context with a peer endpoint,
- *       discovers the optional(AICS) service charactersicstics and configures
- *       for notification.
+ *  \par Description:
+ *       This routine allocates a MICP optional service context with a peer
+ *       endpoint, discovers the optional(AICS) service charactersicstics and
+ *       configures for notification.
  *
  *  \param [in] mctx
- *              MICP Context
+ *         MICP Context.
  *
  *  \param [in] svc
- *              Optional Service(AICS) Service details to Setup.
+ *         Optional Service(AICS) Service details to Setup.
  *
  *  \param [out] cctx
- *              Context Allocated for optional service.
+ *         Context Allocated for optional service.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref GA_MC_SET_CAPABILITIES_CNF is
  *          notified.
  *
@@ -8175,144 +11314,192 @@ GA_RESULT GA_mc_set_capability
               /* OUT */ GA_MC_CONTEXT   * cctx
           );
 
+/** \} */
+
 /**
- *  \brief To release/free a MICS Context.
+ * \name MICP Controller APIs - Release
+ * \{
+ * \brief This section describes the Microphone Control Profile Release APIs
+ * for Microphone Controller.
+ */
+
+/**
+ *  \brief Close or Release the given MICP context.
  *
  *  \par Description:
- *  When 'free' is set to \ref GA_FALSE, this routine initiates the release
- *  procedure for the context. Once release is done, the context is freed up
- *  and the setup must be freshly done by calling GA_mc_setup() if required for
- *  the same device again.
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_mc_setup() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure. Any associated
+ *       AICS contexts should be freed by the application before
+ *       calling this function.
  *
- *  \param [in] mctx Allocated MICS Context Handle.
- *  \param [in] free Indicate free only without release
+ *  \param [in] mctx
+ *         MICP Context for the endpoint to be released/freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \note
- *   1. Before releasing the context for MICS, the application is expected to release
- *       context of all the included optional AICS service instances.
- *   2. On completion of this procedure, the module returns the \ref GA_MC_RELEASE_CNF event
- *      through the registered callback.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *          If \ref GA_SUCCESS, \ref GA_MC_RELEASE_CNF is notified on
+ *          completion with status as success or failure.
+ *
+ *  \sa GA_MC_RELEASE_CNF
+ *  \sa ga_micp_error_code
  */
 GA_RESULT GA_mc_terminate
           (
               /* IN */ GA_MC_CONTEXT * mctx,
-              /* IN */ UCHAR free
+              /* IN */ UCHAR           release
           );
 
 /**
- *  \brief To release a MICS Context.
+ *  \brief Release the given MICP context.
  *
  *  \par Description:
- *       This function enables to release an allocated context.
- *       Internally, it clears the context and disable the config for notifications.
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_mc_setup() if required for the same
+ *       device again. \n Any associated AICS contexts should be released/freed
+ *       by the application before calling this function.
  *
  *  \param [in] mctx
- *        Allocated MICS Context Handle.
+ *         MICP Context for the endpoint to be released.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *          If \ref GA_SUCCESS, \ref GA_MC_RELEASE_CNF is notified on
+ *          completion with status as success or failure.
  *
- *  \note
- *   1. Before releasing the context for MICS, the application is expected to release
- *       context of all the included optional AICS service instances.
- *   2. On completion of this procedure, the module returns the \ref GA_MC_RELEASE_CNF event
- *      through the registered callback.
+ *  \sa GA_MC_RELEASE_CNF
+ *  \sa ga_micp_error_code
  */
-#define GA_mc_release(mctx) \
-        GA_mc_terminate((mctx), GA_FALSE)
+#define GA_mc_release(                                       \
+            /* IN - GA_MC_CONTEXT* */ mctx                   \
+        )                                                    \
+        GA_mc_terminate                                      \
+        (                                                    \
+            (mctx),                                          \
+            GA_TRUE                                          \
+        )
 
 /**
- *  \brief To free a MICS Context.
+ *  \brief Free the given MICP context.
  *
  *  \par Description:
- *       This function enables to free an allocated context.
- *       Internally, it clears the context and disable the config for notifications.
+ *       This routine frees up the given context of the MICP. Any associated
+ *       AICS contexts should be released/freed by the application before
+ *       calling this function.
  *
  *  \param [in] mctx
- *        Allocated MICS Context Handle.
+ *         MICP Context for the endpoint to be freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note
- *   1. Before freeing the context for MICS, the application is expected to release
- *       context of all the included optional AICS service instances.
+ *  \sa ga_micp_error_code
  */
-#define GA_mc_close(mctx) \
-        GA_mc_terminate((mctx), GA_TRUE)
+#define GA_mc_close(                                         \
+            /* IN - GA_MC_CONTEXT* */ mctx                   \
+        )                                                    \
+        GA_mc_terminate                                      \
+        (                                                    \
+            (mctx),                                          \
+            GA_FALSE                                         \
+        )
 
 /**
- *  \brief To release/free a MICS Optional Service Context.
+ *  \brief Close or Release the given AICS context.
  *
  *  \par Description:
- *  When 'free' is set to \ref GA_FALSE, this routine initiates the release
- *  procedure for the context. Once release is done, the context is freed up
- *  and the setup must be freshly done by calling GA_mc_set_capability() if
- *  required for the same device again.
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_mc_set_capability() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
  *
- *  If the 'free' parameter is set to \ref GA_TRUE,
- *  this API just frees up the context without the release procedure.
+ *  \param [in] micp_aics_cntx
+ *         AICS Context for the endpoint to be released/freed.
  *
- *  \param [in] micp_aics_cntx Allocated AICS Context Handle.
- *  \param [in] free Indicate free only without release
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *
- *  \note \ref GA_MC_RELEASE_CAPABILITY_CNF is notified once release is
- *        complete.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *          If \ref GA_SUCCESS, \ref GA_MC_RELEASE_CAPABILITY_CNF is notified
+ *          on completion with status as success or failure.
  *
  *  \sa GA_MC_RELEASE_CAPABILITY_CNF
  *  \sa ga_micp_error_code
  */
 GA_RESULT GA_mc_terminate_capability
           (
-              /* IN */ GA_CONTEXT * micp_aics_cntx,
-              /* IN */ UCHAR free
+              /* IN */ GA_MC_CONTEXT * micp_aics_cntx,
+              /* IN */ UCHAR           release
           );
 
 /**
- *  \brief To release a MICS Optional Service Context.
+ *  \brief Release the given AICS context.
  *
  *  \par Description:
- *       This function enables to release an allocated context of MICS optional
- *       Service - AICS. Internally, it clears the context and disables the
- *       config for notifications. Once release is done, the context is freed up
- *       and the setup must be freshly done by calling GA_mc_set_capability() if
- *       required for the same device again.
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_mc_set_capability() if required for the
+ *       same device again.
  *
- *  \param [in] micp_aics_cntx Allocated AICS Context Handle.
+ *  \param [in] micp_aics_cntx
+ *         AICS Context for the endpoint to be released.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *
- *  \note \ref GA_MC_RELEASE_CAPABILITY_CNF is notified once release is
- *        complete.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *          If \ref GA_SUCCESS, \ref GA_MC_RELEASE_CAPABILITY_CNF is notified
+ *          on completion with status as success or failure.
  *
  *  \sa GA_MC_RELEASE_CAPABILITY_CNF
  *  \sa ga_micp_error_code
  */
-#define GA_mc_release_capability(micp_aics_cntx) \
-        GA_mc_terminate_capability((micp_aics_cntx), GA_FALSE)
+#define GA_mc_release_capability(                                       \
+            /* IN - GA_MC_CONTEXT* */ micp_aics_cntx                    \
+        )                                                               \
+        GA_mc_terminate_capability                                      \
+        (                                                               \
+            (micp_aics_cntx),                                           \
+            GA_TRUE                                                     \
+        )
 
 /**
- *  \brief To free a MICS Optional Service Context.
+ *  \brief Free the given AICS context.
  *
  *  \par Description:
- *       This function enables to free an allocated context of MICS optional
- *       Service - AICS.
+ *       This routine frees up the given context of the AICS.
  *
- *  \param [in] micp_aics_cntx Allocated AICS Context Handle.
+ *  \param [in] micp_aics_cntx
+ *         AICS Context for the endpoint to be freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_micp_error_code
  */
-#define GA_mc_close_capability(micp_aics_cntx) \
-        GA_mc_terminate_capability((micp_aics_cntx), GA_TRUE)
+#define GA_mc_close_capability(                                         \
+            /* IN - GA_MC_CONTEXT* */ micp_aics_cntx                    \
+        )                                                               \
+        GA_mc_terminate_capability                                      \
+        (                                                               \
+            (micp_aics_cntx),                                           \
+            GA_FALSE                                                    \
+        )
 
 /** \} */
 
 /**
- * \name MICP Microphone Controller APIs-Read
+ * \name MICP Controller APIs - Read
  * \{
  * \brief This section describes the Microphone Control Profile Read APIs
  * for Microphone Controller.
@@ -8321,20 +11508,23 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To get Mute Status Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Mute Status Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with MICS.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, Char is Mute \ref GA_MC_GET_MUTE_CNF is
  *          notified with associated data through the registered callback.
  *
  *  \sa GA_MC_GET_MUTE_CNF
  *  \sa ga_micp_error_code
  */
-#define GA_mc_mics_get_mute(s_ctx)                                      \
+#define GA_mc_mics_get_mute(                                            \
+            /* IN - MICP_HANDLE */ s_ctx                                \
+        )                                                               \
         MICP_read_request                                               \
         (                                                               \
              (s_ctx),                                                   \
@@ -8344,20 +11534,23 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To get Input State Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Input State Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_GET_INPUT_STATE_CNF is notified
  *          through the registered callback.
  *
  *  \sa ga_micp_cont_defs
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_get_input_state(s_ctx)                              \
+#define GA_mc_aics_get_input_state(                                    \
+            /* IN - MICP_AICS_HANDLE */ s_ctx                          \
+        )                                                              \
         MICP_aics_read_request                                         \
         (                                                              \
              (s_ctx),                                                  \
@@ -8367,20 +11560,23 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To get Gain Setting Property Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Gain Setting Property Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_GET_GAIN_SETTING_PROPRTY_CNF is
  *          notified through the registered callback.
  *
  *  \sa ga_micp_cont_defs
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_get_gain_setting_proprty(s_ctx)                     \
+#define GA_mc_aics_get_gain_setting_proprty(                           \
+            /* IN - MICP_AICS_HANDLE */ s_ctx                          \
+        )                                                              \
         MICP_aics_read_request                                         \
         (                                                              \
              (s_ctx),                                                  \
@@ -8390,20 +11586,23 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To get Input Type Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Input Type Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_GET_INPUT_TYPE_CNF is
  *          notified through the registered callback.
  *
  *  \sa ga_micp_cont_defs
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_get_input_type(s_ctx)                               \
+#define GA_mc_aics_get_input_type(                                     \
+            /* IN - MICP_AICS_HANDLE */ s_ctx                          \
+        )                                                              \
         MICP_aics_read_request                                         \
         (                                                              \
              (s_ctx),                                                  \
@@ -8413,20 +11612,23 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To get Input Status Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Input State Status Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_GET_INPUT_STATUS_CNF is
  *          notified through the registered callback.
  *
  *  \sa ga_micp_cont_defs
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_get_input_status(s_ctx)                             \
+#define GA_mc_aics_get_input_status(                                   \
+            /* IN - MICP_AICS_HANDLE */ s_ctx                          \
+        )                                                              \
         MICP_aics_read_request                                         \
         (                                                              \
              (s_ctx),                                                  \
@@ -8436,20 +11638,23 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To get Audio Input Description Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to get Audio Input Description Information.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with AICS.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_GET_AUDIO_INPUT_DESC_CNF is
  *          notified through the registered callback.
  *
  *  \sa ga_micp_cont_defs
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_get_audio_input_description(s_ctx)                  \
+#define GA_mc_aics_get_audio_input_description(                        \
+            /* IN - MICP_AICS_HANDLE */ s_ctx                          \
+        )                                                              \
         MICP_aics_read_request                                         \
         (                                                              \
              (s_ctx),                                                  \
@@ -8459,7 +11664,7 @@ GA_RESULT GA_mc_terminate_capability
 /** \} */
 
 /**
- * \name MICP Microphone Controller APIs-Write
+ * \name MICP Controller APIs - Write
  * \{
  * \brief This section describes the Microphone Control Profile Write APIs
  * for Microphone Controller.
@@ -8468,20 +11673,23 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To Set Mute Status as Unmuted
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Mute Status as Unmuted.
  *
  *  \param [in] s_ctx
  *         Context Handle associated with MICS.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_SET_MUTE_CNF is notified
  *          through the registered callback.
  *
  *  \sa MICS_CHR_VAL_NOT_MUTED
  *  \sa ga_micp_error_code
  */
-#define GA_mc_mics_set_unmute(s_ctx)                                    \
+#define GA_mc_mics_set_unmute(                                          \
+            /* IN - MICP_HANDLE */ s_ctx                                \
+        )                                                               \
         MICP_set_mute                                                   \
         (                                                               \
              (s_ctx),                                                   \
@@ -8491,20 +11699,23 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To Set Mute Status as Muted
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Mute Status as Muted
  *
  *  \param [in] s_ctx
  *         Context Handle associated with MICS.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_SET_MUTE_CNF is notified
  *          through the registered callback.
  *
  *  \sa MICS_CHR_VAL_MUTED
  *  \sa ga_micp_error_code
  */
-#define GA_mc_mics_set_mute(s_ctx)                                      \
+#define GA_mc_mics_set_mute(                                            \
+            /* IN - MICP_HANDLE */ s_ctx                                \
+        )                                                               \
         MICP_set_mute                                                   \
         (                                                               \
              (s_ctx),                                                   \
@@ -8514,20 +11725,23 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To Set Mute Status as Disabled
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Mute Status as Disabled
  *
  *  \param [in] s_ctx
  *         Context Handle associated with MICS.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_SET_MUTE_CNF is notified
  *          through the registered callback.
  *
  *  \sa MICS_CHR_VAL_DISABLED
  *  \sa ga_micp_error_code
  */
-#define GA_mc_mics_set_mute_disable(s_ctx)                              \
+#define GA_mc_mics_set_mute_disable(                                    \
+            /* IN - MICP_HANDLE */ s_ctx                                \
+        )                                                               \
         MICP_set_mute                                                   \
         (                                                               \
              (s_ctx),                                                   \
@@ -8537,7 +11751,7 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To set Audio Input Description Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Audio Input Description Information.
  *
  *  \param [in] s_ctx
@@ -8549,14 +11763,19 @@ GA_RESULT GA_mc_terminate_capability
  *  \param [in] aidl
  *         Audio Input Description Length.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note Since it is WriteWithoutResponse request,
- *       There is no response expected for this event.
+ *        there is no response expected for this event.
  *
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_set_audio_input_description(s_ctx, aid, aidl)       \
+#define GA_mc_aics_set_audio_input_description(                        \
+            /* IN - MICP_AICS_HANDLE */ s_ctx,                         \
+            /* IN:^3 - UCHAR* */ aid,                                  \
+            /* IN - UCHAR */ aidl                                      \
+        )                                                              \
         MICP_aics_set_audio_input_description                          \
         (                                                              \
              (s_ctx),                                                  \
@@ -8567,26 +11786,33 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To Set Gain Setting Information.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to set Gain Setting Information.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Gain Setting Information.
- *              - Change_Counter
- *              - Gain_setting
+ *         Gain Setting Information. \n
+ *            - Change_Counter.
+ *            - Gain_setting.
+ *            .
  *
  *  \param [in] len
  *         Length of Gain Setting Information.
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_CP_WT_CNF is
  *          notified through the registered callback.
  *
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_set_gain_setting(sh, val, len)                      \
+#define GA_mc_aics_set_gain_setting(                                   \
+            /* IN - MICP_AICS_HANDLE */ sh,                            \
+            /* IN:^3 - UCHAR* */ val,                                   \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         MICP_aics_cp_request                                           \
         (                                                              \
              (sh),                                                     \
@@ -8598,26 +11824,32 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To Unmute.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to Unmute.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Unmute Information.
- *              - Change_Counter
+ *         Unmute Information. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
  *         Length of Unmute Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_CP_WT_CNF is
  *          notified through the registered callback.
  *
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_unmute(sh, val, len)                                \
+#define GA_mc_aics_unmute(                                   \
+            /* IN - MICP_AICS_HANDLE */ sh,                            \
+            /* IN:^3 - UCHAR* */ val,                                   \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         MICP_aics_cp_request                                           \
         (                                                              \
              (sh),                                                     \
@@ -8629,26 +11861,32 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To Mute.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to Mute.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Mute Information.
- *              - Change_Counter
+ *         Mute Information. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
  *         Length of Mute Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_CP_WT_CNF is
  *          notified through the registered callback.
  *
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_mute(sh, val, len)                                  \
+#define GA_mc_aics_mute(                                   \
+            /* IN - MICP_AICS_HANDLE */ sh,                            \
+            /* IN:^3 - UCHAR* */ val,                                   \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         MICP_aics_cp_request                                           \
         (                                                              \
              (sh),                                                     \
@@ -8660,27 +11898,32 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To set Manual Gain Mode.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to Set Manual Gain Mode.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Set Manual Gain Mode Information.
- *              - Change_Counter
+ *         Set Manual Gain Mode Information. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
  *         Length of Set Manual Gain Mode Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_CP_WT_CNF is
  *          notified through the registered callback.
  *
  *  \sa ga_micp_error_code
  */
-
-#define GA_mc_aics_set_manual_gain_mode(sh, val, len)                  \
+#define GA_mc_aics_set_manual_gain_mode(                               \
+            /* IN - MICP_AICS_HANDLE */ sh,                            \
+            /* IN:^3 - UCHAR* */ val,                                   \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         MICP_aics_cp_request                                           \
         (                                                              \
              (sh),                                                     \
@@ -8692,26 +11935,32 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To set Automatic Gain Mode.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables to Set Automatic Gain Mode.
  *
  *  \param [in] sh
  *         Context Handle associated with AICS.
  *
  *  \param [in] val
- *          Set Automatic Gain Mode Information.
- *              - Change_Counter
+ *         Set Automatic Gain Mode Information. \n
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] len
  *         Length of Set Automatic Gain Mode Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS \ref GA_MC_AICS_CP_WT_CNF is
  *          notified through the registered callback.
  *
  *  \sa ga_micp_error_code
  */
-#define GA_mc_aics_set_auto_gain_mode(sh, val, len)                    \
+#define GA_mc_aics_set_auto_gain_mode(                                 \
+            /* IN - MICP_AICS_HANDLE */ sh,                            \
+            /* IN:^3 - UCHAR* */ val,                                   \
+            /* IN - UINT16 */ len                                      \
+        )                                                              \
         MICP_aics_cp_request                                           \
         (                                                              \
              (sh),                                                     \
@@ -8722,42 +11971,79 @@ GA_RESULT GA_mc_terminate_capability
 
 /** \} */
 /** \} */
+#endif /* MICP_CONTROLLER */
 
+#ifdef MICP_DEVICE
 /**
- * \defgroup ga_micp_dev_defs MICP Microphone Device APIs
+ * \defgroup ga_micp_dev_defs Microphone Device
  * \{
  * \brief This section describes the Microphone Control Profile APIs
  * for Microphone Device.
  */
 
 /**
- * \name MICP Microphone Device APIs-Init/Deinit
+ * \name MICP Device APIs - Init
  * \{
- * \brief This section describes the Microphone Control Profile Init/Deinit APIs
+ * \brief This section describes the Microphone Control Profile Init APIs
  * for Microphone Device.
  */
 
 /**
  *  \brief Initialize the GA Microphone Control Server.
  *
- *  \par Description
- *  This routine initializes GA Microphone Control Server
+ *  \par Description:
+ *       This routine initializes GA Microphone Control Server.
  *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
  */
-#define GA_mc_server_init(cb)       GA_module_init(GA_MODULE_MICP, MICP_ROLE_SERVER, (cb))
+#define GA_mc_server_init(                                   \
+            /* IN - GA_PROFILE_CB */ cb                      \
+        )                                                    \
+        GA_module_init                                       \
+        (                                                    \
+            GA_MODULE_MICP,                                  \
+            MICP_ROLE_SERVER,                                \
+            (cb)                                             \
+        )
+
+/** \} */
+
+/**
+ * \name MICP Device APIs - De-Init
+ * \{
+ * \brief This section describes the Microphone Control Profile De-Init APIs
+ * for Microphone Device.
+ */
 
 /**
  *  \brief Shutdown the GA Microphone Control Server.
  *
- *  \par Description
- *  This routine shuts down GA Microphone Control Server
+ *  \par Description:
+ *       This routine shuts down GA Microphone Control Server.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_micp_error_code
  */
-#define GA_mc_server_shutdown()   GA_module_shutdown(GA_MODULE_MICP, MICP_ROLE_SERVER)
+#define GA_mc_server_shutdown()                              \
+        GA_module_shutdown                                   \
+        (                                                    \
+            GA_MODULE_MICP,                                  \
+            MICP_ROLE_SERVER                                 \
+        )
+
+/** \} */
+
+/**
+ * \name MICP Device APIs - Init
+ * \{
+ */
 
 /**
  *  \brief To register optional AICS service with MICS.
@@ -8767,15 +12053,27 @@ GA_RESULT GA_mc_terminate_capability
  *       It will include the AICS service and add its characteristics.
  *
  *  \param [out] aics_hndle
- *       Allocated service Handle.
+ *         Allocated service Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_micp_error_code
  */
-#define GA_mc_register_aics(aics_hndle)                      \
-        MICP_register_aics((aics_hndle))
+#define GA_mc_register_aics(                                 \
+            /* IN - UCHAR* */ aics_hndle                     \
+        )                                                    \
+        MICP_register_aics                                   \
+        (                                                    \
+            (aics_hndle)                                     \
+        )
 
+/** \} */
+
+/**
+ * \name MICP Device APIs - De-Init
+ * \{
+ */
 
 /**
  *  \brief To unregister optional AICS service with MICS.
@@ -8784,19 +12082,25 @@ GA_RESULT GA_mc_terminate_capability
  *       This function enables to unregister optional AICS service.
  *
  *  \param [in] aics_hndle
- *       Allocated service Handle.
+ *         Allocated service Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_micp_error_code
  */
-#define GA_mc_unregister_aics(aics_hndle)                   \
-        MICP_unregister_aics((aics_hndle))
+#define GA_mc_unregister_aics(                              \
+            /* IN - UCHAR */ aics_hndle                     \
+        )                                                   \
+        MICP_unregister_aics                                \
+        (                                                   \
+            (aics_hndle)                                    \
+        )
 
 /** \} */
 
 /**
- * \name MICP Microphone Device APIs-Read/Write
+ * \name MICP Device APIs - Read/Write
  * \{
  * \brief This section describes the Microphone Control Profile Read/Write APIs
  * for Microphone Device.
@@ -8806,30 +12110,39 @@ GA_RESULT GA_mc_terminate_capability
  *  \brief To send response to incoming request.
  *
  *  \par Description:
- *       This function enables to send response to incoming request from the peer.
+ *       This function enables to send response to incoming request
+ *       from the peer.
  *
  *  \param [in] d
  *         Peer Device Address Information.
  *
  *  \param [in] et
- *         Event type indicating response for read or write.
- *           - \ref GA_RSP_TYPE_RD
- *           - \ref GA_RSP_TYPE_WT
+ *         Event type indicating response for read or write. \n
+ *            - \ref GA_RSP_TYPE_RD.
+ *            - \ref GA_RSP_TYPE_WT.
+ *            .
  *
  *  \param [in] es
  *         Response status for the read/write operation.
  *
  *  \param [in] rd
- *         Response information for read/write operatios \ref MICP_RSP_INF.
+ *         Response information for read/write operatios \ref MICP_RSP_INFO.
  *
  *  \param [in] rdl
  *         Response information size.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_micp_error_code
  */
-#define GA_mc_send_rsp(d, et, es, rd, rdl)                             \
+#define GA_mc_send_rsp(                                                \
+            /* IN - GA_ENDPOINT* */ d,                                 \
+            /* IN - UCHAR */ et,                                       \
+            /* IN - UINT16 */ es,                                      \
+            /* IN:^5 - MICP_RSP_INFO* */ rd,                            \
+            /* IN - UCHAR */ rdl                                       \
+        )                                                              \
         MICP_send_rsp                                                  \
         (                                                              \
             (d),                                                       \
@@ -8842,7 +12155,7 @@ GA_RESULT GA_mc_terminate_capability
 /** \} */
 
 /**
- * \name MICP Microphone Device APIs-Notify
+ * \name MICP Device APIs - Notify
  * \{
  * \brief This section describes the Microphone Control Profile Profile Notify
  * APIs for Microphone Device.
@@ -8851,9 +12164,9 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief Notify Mute Status Information.
  *
- *  \par Description
- *       This routine enables to notify MICS Mute state Information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify MICS Mute state Information to the
+ *       specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
@@ -8864,12 +12177,17 @@ GA_RESULT GA_mc_terminate_capability
  *  \param [in] c_info_len
  *         Length of Mute Status Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_micp_dev_defs
  *  \sa ga_micp_error_code
  */
-#define GA_mcd_notify_mics_mute_status(ep, c_info, c_info_len)           \
+#define GA_mcd_notify_mics_mute_status(                                  \
+            /* IN - GA_ENDPOINT* */ ep,                                  \
+            /* IN:^3 - UCHAR* */ c_info,                                  \
+            /* IN - UCHAR */ c_info_len                                  \
+        )                                                                \
         MICP_notify_char                                                 \
         (                                                                \
              (ep),                                                       \
@@ -8883,9 +12201,9 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief Notify Audio Input state Information.
  *
- *  \par Description
- *       This routine enables to notify Audio Input State Information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Audio Input State Information to the
+ *       specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
@@ -8894,21 +12212,28 @@ GA_RESULT GA_mc_terminate_capability
  *         Service Instance associated with AICS.
  *
  *  \param [in] c_info
- *         Audio Input State Information.
- *          - Gain_Setting
- *          - Mute
- *          - Gain_Mode
- *          - Change_Counter
+ *         Audio Input State Information. \n
+ *            - Gain_Setting.
+ *            - Mute.
+ *            - Gain_Mode.
+ *            - Change_Counter.
+ *            .
  *
  *  \param [in] c_info_len
  *         Length of Audio Input State Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_micp_dev_defs
  *  \sa ga_micp_error_code
  */
-#define GA_mcd_notify_aics_audio_input_state(ep, si, c_info, c_info_len)  \
+#define GA_mcd_notify_aics_audio_input_state(                             \
+            /* IN - GA_ENDPOINT* */ ep,                                   \
+            /* IN - UCHAR */ si,                                          \
+            /* IN:^4 - UCHAR* */ c_info,                                   \
+            /* IN - UCHAR */ c_info_len                                   \
+        )                                                                 \
         MICP_notify_char                                                  \
         (                                                                 \
              (ep),                                                        \
@@ -8922,9 +12247,9 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief Notify Audio Input Status Information.
  *
- *  \par Description
- *       This routine enables to notify Audio Input Status Information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Audio Input Status Information to the
+ *       specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
@@ -8938,12 +12263,18 @@ GA_RESULT GA_mc_terminate_capability
  *  \param [in] c_info_len
  *         Length of Audio Input Status Information.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_micp_dev_defs
  *  \sa ga_micp_error_code
  */
-#define GA_mcd_notify_aics_audio_input_status(ep, si, c_info, c_info_len) \
+#define GA_mcd_notify_aics_audio_input_status(                            \
+            /* IN - GA_ENDPOINT* */ ep,                                   \
+            /* IN - UCHAR */ si,                                          \
+            /* IN:^4 - UCHAR* */ c_info,                                   \
+            /* IN - UCHAR */ c_info_len                                   \
+        )                                                                 \
         MICP_notify_char                                                  \
         (                                                                 \
              (ep),                                                        \
@@ -8957,9 +12288,9 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief Notify Audio Input Description Information.
  *
- *  \par Description
- *       This routine enables to notify Audio Input Description Information to the specified
- *       peer device.
+ *  \par Description:
+ *       This routine enables to notify Audio Input Description Information
+ *       to the specified peer device.
  *
  *  \param [in] ep
  *         Device Endpoint Address to be notified.
@@ -8979,7 +12310,12 @@ GA_RESULT GA_mc_terminate_capability
  *  \sa ga_micp_dev_defs
  *  \sa ga_micp_error_code
  */
-#define GA_mcd_notify_aics_audio_input_desc(ep, si, c_info, c_info_len)   \
+#define GA_mcd_notify_aics_audio_input_desc(                              \
+            /* IN - GA_ENDPOINT* */ ep,                                   \
+            /* IN - UCHAR */ si,                                          \
+            /* IN:^4 - UCHAR* */ c_info,                                   \
+            /* IN - UCHAR */ c_info_len                                   \
+        )                                                                 \
         MICP_notify_char                                                  \
         (                                                                 \
              (ep),                                                        \
@@ -8992,9 +12328,12 @@ GA_RESULT GA_mc_terminate_capability
 
 /** \} */
 /** \} */
+#endif /* MICP_DEVICE */
 /** \} */
 /** \} */
+#endif /* GA_MICP */
 
+#ifdef GA_CSIP
 /**
  * \addtogroup ga_csip_module
  * \{
@@ -9007,7 +12346,7 @@ GA_RESULT GA_mc_terminate_capability
  */
 
 /**
- * \defgroup ga_csip_api_seq CSIP API Sequences
+ * \defgroup ga_csip_api_seq API Sequences
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * API Sequences.
@@ -9025,44 +12364,82 @@ GA_RESULT GA_mc_terminate_capability
  * APIs.
  */
 
+#ifdef CSIP_COORDINATOR
 /**
- * \defgroup ga_csip_setco_defs CSIP SetCoordinator APIs
+ * \defgroup ga_csip_setco_defs SetCoordinator
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * APIs for SetCoordinator.
  */
 
 /**
- * \name CSIP SetCoordinator APIs-Setup/Release
+ * \name CSIP SetCoordinator APIs - Init
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
- * Setup/Release APIs for SetCoordinator.
+ * Init APIs for SetCoordinator.
  */
 
 /**
  *  \brief Initialize the GA Coordinated Set Client.
  *
- *  \par Description
- *  This routine initializes GA Coordinated Set Client
+ *  \par Description:
+ *       This routine initializes GA Coordinated Set Client.
  *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_csip_error_code
  */
-#define GA_cs_client_init(cb)       GA_module_init(GA_MODULE_CSIP, CSIP_ROLE_CLIENT, (cb))
+#define GA_cs_client_init(                                              \
+            /* IN - GA_PROFILE_CB */ cb                                 \
+        )                                                               \
+        GA_module_init                                                  \
+        (                                                               \
+            GA_MODULE_CSIP,                                             \
+            CSIP_ROLE_CLIENT,                                           \
+            (cb)                                                        \
+        )
+
+/** \} */
+
+/**
+ * \name CSIP SetCoordinator APIs - De-Init
+ * \{
+ * \brief This section describes the Coordinated Set Identification Profile
+ * De-Init APIs for SetCoordinator.
+ */
 
 /**
  *  \brief Shutdown the GA Coordinated Set Client.
  *
- *  \par Description
- *  This routine shuts down GA Coordinated Set Client
+ *  \par Description:
+ *       This routine shuts down GA Coordinated Set Client.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_csip_error_code
  */
-#define GA_cs_client_shutdown()   GA_module_shutdown(GA_MODULE_CSIP, CSIP_ROLE_CLIENT)
+#define GA_cs_client_shutdown()                                         \
+        GA_module_shutdown                                              \
+        (                                                               \
+            GA_MODULE_CSIP,                                             \
+            CSIP_ROLE_CLIENT                                            \
+        )
+
+/** \} */
 
 /**
- *  \brief To Setup Coordinated Set Idenitfication Profile (CSIP) Context
+ * \name CSIP SetCoordinator APIs - Setup
+ * \{
+ * \brief This section describes the Coordinated Set Identification Profile
+ * Setup APIs for SetCoordinator.
+ */
+
+/**
+ *  \brief To Setup Coordinated Set Idenitfication Profile (CSIP) Context.
  *
  *  \par Description:
  *       This function enables to setup CSIP context with given device.
@@ -9070,22 +12447,32 @@ GA_RESULT GA_mc_terminate_capability
  *       of notification for applicable char is done.
  *
  *  \param [in] device
- *        Peer Device with which the context is setup.
+ *         Peer Device with which the context is setup.
  *
  *  \param [in] svc_info
- *        Service UUID and Range information.
+ *         Service UUID and Range information.
  *
  *  \param [out] cs_context
- *        Allocated CSIP Context Handle.
+ *         Allocated CSIP Context Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note For \ref GA_SUCCESS, \ref GA_CS_SETUP_CNF will be notified.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_setup(device, svc_info, cs_context) \
-        CSIP_setup_context((device), (svc_info), (cs_context))
+#define GA_cs_setup(                                                    \
+            /* IN - GA_ENDPOINT* */ device,                             \
+            /* IN - GA_BRR_SVC_INFO* */ svc_info,                       \
+            /* OUT - CSIP_HANDLE* */ cs_context                         \
+        )                                                               \
+        CSIP_setup_context                                              \
+        (                                                               \
+            (device),                                                   \
+            (svc_info),                                                 \
+            (cs_context)                                                \
+        )
 
 /**
  * \cond EXCLUDE_PART
@@ -9094,17 +12481,25 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief To enable configuration for Characteristic Notifications.
  *
- *  \par Description
- *       The routine enables to configure notifications for individual characteristics
- *       of CSIS service.
+ *  \par Description:
+ *       The routine enables to configure notifications for individual
+ *       characteristics of CSIS service.
  *
  *  \param [in] config
- *              Bitmask for characteristics IDs.
+ *         Bitmask for characteristics IDs.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_csip_error_code
  */
-#define GA_cs_update_ntf_configuration(config) \
-        CSIP_update_ntf_configuration((config))
+#define GA_cs_update_ntf_configuration(                                 \
+            /* IN - UINT32 */ config                                    \
+        )                                                               \
+        CSIP_update_ntf_configuration                                   \
+        (                                                               \
+            (config)                                                    \
+        )
 #endif /* CSIP_SUPPORT_CONFIG_SELECTION */
 
 #ifdef CSIP_SUPPORT_CONTEXT_MANAGE
@@ -9117,22 +12512,39 @@ GA_RESULT GA_mc_terminate_capability
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [in] h
  *         CSIP Handle which is allocated during CSIS context setup.
  *
- *  \param [inout] r
+ *  \param [out] r
  *         CSIS characteristics handle range.
  *
- *  \param [inout] i
- *          CSIS characteristics information.
+ *  \param [out] i
+ *         CSIS characteristics information.
  *
- *  \param [inout] c
- *          CSIS characteristics count.
+ *  \param [out] c
+ *         CSIS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_csip_error_code
  */
-#define GA_cs_get_context_info(d, h, r, i, c) \
-        CSIP_manage_csis_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_cs_get_context_info(                                         \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - GA_CONTEXT* */ h,                                  \
+            /* OUT - GA_BRR_SVC_RANGE** */r,                            \
+            /* OUT:^5 - GA_CHAR_INFO** */i,                             \
+            /* OUT - UINT16* */c                                        \
+        )                                                               \
+        CSIP_manage_csis_context_info                                   \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To save the CSIS Context Information.
@@ -9143,63 +12555,44 @@ GA_RESULT GA_mc_terminate_capability
  *  \param [in] d
  *         Remote Device Address.
  *
- *  \param [inout] h
+ *  \param [out] h
  *         CSIP Handle which is allocated during CSIS context setup.
  *
- *  \param [inout] r
+ *  \param [out] r
  *         CSIS characteristics handle range.
  *
- *  \param [inout] i
- *          CSIS characteristics information.
+ *  \param [out] i
+ *         CSIS characteristics information.
  *
- *  \param [inout] c
- *          CSIS characteristics count.
+ *  \param [out] c
+ *         CSIS characteristics count.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_csip_error_code
  */
-#define GA_cs_set_context_info(d, h, r, i, c) \
-        CSIP_manage_csis_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_cs_set_context_info(                                         \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* OUT - GA_CONTEXT* */ h,                                  \
+            /* OUT - GA_BRR_SVC_RANGE** */r,                            \
+            /* OUT:^5 - GA_CHAR_INFO** */i,                             \
+            /* OUT - UINT16* */c                                        \
+        )                                                               \
+        CSIP_manage_csis_context_info                                   \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 #endif /* CSIP_SUPPORT_CONTEXT_MANAGE */
 
 /**
  * \endcond
  */
-
-/**
- *  \brief To Release Coordinated Set Idenitfication Profile (CSIP) Context
- *
- *  \par Description:
- *       This function enables to release the given CSIP context.
- *       Internally, it clears the context and disables the config
- *       for notifications.
- *
- *  \param [in] cs_context
- *       CSIP Context Handle.
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *
- *  \note For \ref GA_SUCCESS, \ref GA_CS_RELEASE_CNF will be notified
- *
- *  \sa ga_csip_error_code
- */
-#define GA_cs_release(cs_context) \
-        CSIP_release_context(*(cs_context), GA_FALSE)
-
-/**
- *  \brief To Free Coordinated Set Idenitfication Profile (CSIP) Context
- *
- *  \par Description:
- *       This function enables to free the given CSIP context.
- *
- *  \param [in] cs_context
- *       CSIP Context Handle.
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *
- *  \sa ga_csip_error_code
- */
-#define GA_cs_close(cs_context) \
-        CSIP_release_context(*(cs_context), GA_TRUE)
 
 /**
  *  \brief To discover Coordinated Set Idenitfication Service (CSIS)
@@ -9209,25 +12602,93 @@ GA_RESULT GA_mc_terminate_capability
  *       It triggers a Service discovery for CSIS on the remote device.
  *
  *  \param [in] device
- *        Peer Device on which the discovery is performed.
+ *         Peer Device on which the discovery is performed.
  *  \param [in] range
- *        Service Range as \ref GA_BRR_SVC_RANGE of the primary service
- *        if discovering CSIS as included service.
+ *         Service Range as \ref GA_BRR_SVC_RANGE of the primary service
+ *         if discovering CSIS as included service.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note For \ref GA_SUCCESS, \ref GA_CS_DISCOVER_CNF will be notified. \n
  *        To setup a CSIS context, Call \ref GA_cs_setup().
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_discover(device, range) \
-        CSIP_discover_csis((device), (range))
+#define GA_cs_discover(                                                 \
+            /* IN - GA_ENDPOINT* */ device,                             \
+            /* IN - GA_BRR_SVC_RANGE* */ range                          \
+        )                                                               \
+        CSIP_discover_csis                                              \
+        (                                                               \
+            (device),                                                   \
+            (range)                                                     \
+        )
 
 /** \} */
 
 /**
- * \name CSIP SetCoordinator APIs-Read
+ * \name CSIP SetCoordinator APIs - Release
+ * \{
+ * \brief This section describes the Coordinated Set Identification Profile
+ * Release APIs for SetCoordinator.
+ */
+
+/**
+ *  \brief To Release the given CSIP context.
+ *
+ *  \par Description:
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_cs_setup if required for the same
+ *       device again.
+ *
+ *  \param [in] cs_context
+ *         CSIP Context for the endpoint to be released.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref GA_CS_RELEASE_CNF is notified on
+ *          completion with status as success or failure.
+ *
+ *  \sa ga_csip_error_code
+ */
+#define GA_cs_release(                                                  \
+            /* IN - CSIP_HANDLE */ cs_context                           \
+        )                                                               \
+        CSIP_release_context                                            \
+        (                                                               \
+            (cs_context),                                               \
+            GA_TRUE                                                     \
+        )
+
+/**
+ *  \brief To Free the given CSIP context.
+ *
+ *  \par Description:
+ *       This routine frees up the given context of the CSIP.
+ *
+ *  \param [in] cs_context
+ *         CSIP Context for the endpoint to be freed.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_csip_error_code
+ */
+#define GA_cs_close(                                                    \
+            /* IN - CSIP_HANDLE */ cs_context                           \
+        )                                                               \
+        CSIP_release_context                                            \
+        (                                                               \
+            (cs_context),                                               \
+            GA_FALSE                                                    \
+        )
+
+/** \} */
+
+/**
+ * \name CSIP SetCoordinator APIs - Read
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Read APIs for SetCoordinator.
@@ -9241,78 +12702,108 @@ GA_RESULT GA_mc_terminate_capability
  *       by the context.
  *
  *  \param [in] ch
- *        Allocated CISP Context Handle.
+ *         Allocated CISP Context Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note For \ref GA_SUCCESS, \ref GA_CS_SIRK_GET_CNF will be notified.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_get_sirk(ch) \
-        CSIP_get_value((ch), CSIP_SIRK_GET_CNF)
+#define GA_cs_get_sirk(                                                 \
+            /* IN - CSIP_HANDLE */ ch                                   \
+        )                                                               \
+        CSIP_get_value                                                  \
+        (                                                               \
+            (ch),                                                       \
+            CSIP_SIRK_GET_CNF                                           \
+        )
 
 /**
  *  \brief To get the Set Size from the context set member.
  *
  *  \par Description:
  *       This function reads the Set Size attribute from the set member pointed
- *       by the context
+ *       by the context.
  *
  *  \param [in] ch
- *        Allocated CISP Context Handle.
+ *         Allocated CISP Context Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \note For \ref GA_SUCCESS, \ref GA_CS_SETSIZE_GET_CNF will be notified.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_get_setsize(ch) \
-        CSIP_get_value((ch), CSIP_SETSIZE_GET_CNF)
+#define GA_cs_get_setsize(                                              \
+            /* IN - CSIP_HANDLE */ ch                                   \
+        )                                                               \
+        CSIP_get_value                                                  \
+        (                                                               \
+            (ch),                                                       \
+            CSIP_SETSIZE_GET_CNF                                        \
+        )
 
 /**
  *  \brief To get the SetMember rank from the context set member.
  *
  *  \par Description:
- *       This function reads the SetMember rank attribute from the set member pointed
- *       by the context
+ *       This function reads the SetMember rank attribute from the set member
+ *       pointed by the context.
  *
  *  \param [in] ch
- *        Allocated CISP Context Handle.
+ *         Allocated CISP Context Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note For \ref GA_SUCCESS, \ref GA_CS_SETMEMBER_RANK_GET_CNF will be notified.
+ *  \note For \ref GA_SUCCESS, \ref GA_CS_SETMEMBER_RANK_GET_CNF will be
+ *        notified.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_get_setmember_rank(ch) \
-        CSIP_get_value((ch), CSIP_SETMEMBER_RANK_GET_CNF)
+#define GA_cs_get_setmember_rank(                                       \
+            /* IN - CSIP_HANDLE */ ch                                   \
+        )                                                               \
+        CSIP_get_value                                                  \
+        (                                                               \
+            (ch),                                                       \
+            CSIP_SETMEMBER_RANK_GET_CNF                                 \
+        )
 
 /**
  *  \brief To get the SetMember Lock from the context set member.
  *
  *  \par Description:
- *       This function reads the SetMember Lock attribute from the set member pointed
- *       by the context
+ *       This function reads the SetMember Lock attribute from the set member
+ *       pointed by the context.
  *
  *  \param [in] ch
- *        Allocated CISP Context Handle.
+ *         Allocated CISP Context Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note For \ref GA_SUCCESS, \ref GA_CS_SETMEMBER_LOCK_GET_CNF will be notified.
+ *  \note For \ref GA_SUCCESS, \ref GA_CS_SETMEMBER_LOCK_GET_CNF will be
+ *        notified.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_get_setmember_lock(ch) \
-        CSIP_get_value((ch), CSIP_SETMEMBER_LOCK_GET_CNF)
+#define GA_cs_get_setmember_lock(                                       \
+            /* IN - CSIP_HANDLE */ ch                                   \
+        )                                                               \
+        CSIP_get_value                                                  \
+        (                                                               \
+            (ch),                                                       \
+            CSIP_SETMEMBER_LOCK_GET_CNF                                 \
+        )
 
 /** \} */
 
 /**
- * \name CSIP SetCoordinator APIs-Write
+ * \name CSIP SetCoordinator APIs - Write
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Write APIs for SetCoordinator.
@@ -9326,32 +12817,45 @@ GA_RESULT GA_mc_terminate_capability
  *       pointed by the context.
  *
  *  \param [in] ch
- *        Allocated CISP Context Handle.
+ *         Allocated CISP Context Handle.
  *
  *  \param [in] s
- *        Data for the attribute (Lock Value)
+ *         Data for the attribute (Lock Value).
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note For \ref GA_SUCCESS, \ref GA_CS_SETMEMBER_LOCK_SET_CNF will be notified.
+ *  \note For \ref GA_SUCCESS, \ref GA_CS_SETMEMBER_LOCK_SET_CNF will be
+ *        notified.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_set_setmember_lock(ch, s) \
-        CSIP_set_value((ch), CSIP_SETMEMBER_LOCK_SET_CNF, &(s), sizeof(UINT8))
+#define GA_cs_set_setmember_lock(                                       \
+            /* IN - CSIP_HANDLE */ ch,                                  \
+            /* IN - UINT8* */ s                                         \
+        )                                                               \
+        CSIP_set_value                                                  \
+        (                                                               \
+            (ch),                                                       \
+            CSIP_SETMEMBER_LOCK_SET_CNF,                                \
+            &(s),                                                       \
+            sizeof(UINT8)                                               \
+        )
 
 /** \} */
 /** \} */
+#endif /* CSIP_COORDINATOR */
 
+#ifdef CSIP_MEMBER
 /**
- * \defgroup ga_csip_setmem_defs CSIP SetMember APIs
+ * \defgroup ga_csip_setmem_defs SetMember
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * APIs for SetMember.
  */
 
 /**
- * \name CSIP SetMember APIs-Init
+ * \name CSIP SetMember APIs - Init
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Init APIs for SetMember.
@@ -9360,48 +12864,91 @@ GA_RESULT GA_mc_terminate_capability
 /**
  *  \brief Initialize the GA Coordinated Set Server.
  *
- *  \par Description
- *  This routine initializes GA Coordinated Set Server
+ *  \par Description:
+ *       This routine initializes GA Coordinated Set Server.
  *
- *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB
+ *  \param [in] cb Application profile callback of type \ref GA_PROFILE_CB.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_csip_error_code
  */
-#define GA_cs_server_init(cb)       GA_module_init(GA_MODULE_CSIP, CSIP_ROLE_SERVER, (cb))
+#define GA_cs_server_init(                                              \
+            /* IN - GA_PROFILE_CB */ cb                                 \
+        )                                                               \
+        GA_module_init                                                  \
+        (                                                               \
+            GA_MODULE_CSIP,                                             \
+            CSIP_ROLE_SERVER,                                           \
+            (cb)                                                        \
+        )
+
+/** \} */
+
+/**
+ * \name CSIP SetMember APIs - De-Init
+ * \{
+ * \brief This section describes the Coordinated Set Identification Profile
+ * De-Init APIs for SetMember.
+ */
 
 /**
  *  \brief Shutdown the GA Coordinated Set Server.
  *
- *  \par Description
- *  This routine shuts down GA Coordinated Set Server
+ *  \par Description:
+ *       This routine shuts down GA Coordinated Set Server.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_csip_error_code
  */
-#define GA_cs_server_shutdown()   GA_module_shutdown(GA_MODULE_CSIP, CSIP_ROLE_SERVER)
+#define GA_cs_server_shutdown()                                         \
+        GA_module_shutdown                                              \
+        (                                                               \
+            GA_MODULE_CSIP,                                             \
+            CSIP_ROLE_SERVER                                            \
+        )
+
+/** \} */
+
+/**
+ * \name CSIP SetMember APIs - Init
+ * \{
+ */
 
 /**
  *  \brief To register a local CSIP set member instance.
  *
  *  \par Description:
- *       This function registers a local CSIP Set Member instance
+ *       This function registers a local CSIP Set Member instance.
  *
  *  \param [out] handle
- *        Address to hold assigned member handle as in \ref CSIP_MEMBER_HANDLE
+ *         Address to hold assigned member handle as in \ref CSIP_MEMBER_HANDLE.
  *
- * \param [out] svc_id
- *        Service ID
+ *  \param [out] svc_id
+ *         Service ID.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_register(handle, svc_id) \
-        CSIP_register_member((handle), svc_id)
+#define GA_cs_register(                                                 \
+            /* OUT - CSIP_MEMBER_HANDLE* */ handle,                     \
+            /* OUT - GA_BRR_SVC_INST* */ svc_id                         \
+        )                                                               \
+        CSIP_register_member                                            \
+        (                                                               \
+            (handle),                                                   \
+            (svc_id)                                                    \
+        )
 
 /** \} */
 
 /**
- * \name CSIP SetMember APIs-Read/Write
+ * \name CSIP SetMember APIs - Read/Write
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Read/Write APIs for SetMember.
@@ -9428,17 +12975,31 @@ GA_RESULT GA_mc_terminate_capability
  *  \param [in] sz
  *         Response information size.
  *
- *  \return \ref GA_SUCCESS or one of the error codes.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_send_response(d, et, es, rs, sz) \
-        CSIP_send_rsp((d), (et), (es), (rs), (sz))
+#define GA_cs_send_response(                                            \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - UCHAR */ et,                                        \
+            /* IN - UINT16 */ es,                                       \
+            /* IN:^5 - CSIP_RSP_INFO* */ rs,                            \
+            /* IN - UCHAR */ sz                                         \
+        )                                                               \
+        CSIP_send_rsp                                                   \
+        (                                                               \
+            (d),                                                        \
+            (et),                                                       \
+            (es),                                                       \
+            (rs),                                                       \
+            (sz)                                                        \
+        )
 
 /** \} */
 
 /**
- * \name CSIP SetMember APIs-Notify
+ * \name CSIP SetMember APIs - Notify
  * \{
  * \brief This section describes the Coordinated Set Identification Profile
  * Notify APIs for SetMember.
@@ -9451,21 +13012,33 @@ GA_RESULT GA_mc_terminate_capability
  *       This function sends notifications if configured for Set Member Lock.
  *
  *  \param [in] d
- *         If NULL, Ntf to all connected CSIP sessions will be sent.
+ *         If NULL, Ntf to all connected CSIP sessions will be sent. \n
  *         Else, to the corresponsing address passed.
  *
  *  \param [in] ch
  *         CSIS Handle Identifier.
  *
  *  \param [in] s
- *         Data to be sent as part of the notification - UINT8
+ *         Data to be sent as part of the notification - UINT8.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_send_setmember_lock_ntf(d, ch, s) \
-        CSIP_send_ntf((d), (ch), GA_CHAR_CSIS_LOCK, &(s), sizeof(UINT8))
+#define GA_cs_send_setmember_lock_ntf(                                  \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - CSIP_MEMBER_HANDLE */ ch,                           \
+            /* IN - UINT8* */ s                                         \
+        )                                                               \
+        CSIP_send_ntf                                                   \
+        (                                                               \
+            (d),                                                        \
+            (ch),                                                       \
+            GA_CHAR_CSIS_LOCK,                                          \
+            &(s),                                                       \
+            sizeof(UINT8)                                               \
+        )
 
 /**
  *  \brief To send Notifications - Set Identity Resolving Key.
@@ -9474,103 +13047,195 @@ GA_RESULT GA_mc_terminate_capability
  *       This function sends notifications if configured for SIRK.
  *
  *  \param [in] d
- *         If NULL, Ntf to all connected CSIP sessions will be sent.
+ *         If NULL, Ntf to all connected CSIP sessions will be sent. \n
  *         Else, to the corresponsing address passed.
  *
  *  \param [in] ch
  *         CSIS Handle Identifier.
  *
  *  \param [in] ntf_data
- *         Data to be sent as part of the notification
+ *         Data to be sent as part of the notification.
  *
  *  \param [in] ntf_datalen
  *         Length of the data to be sent as part of the notification.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_send_sirk_ntf(d, ch, ntf_data, ntf_datalen)               \
-        CSIP_send_ntf((d), (ch), GA_CHAR_CSIS_SIRK, (ntf_data), (ntf_datalen))
+#define GA_cs_send_sirk_ntf(                                            \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - CSIP_MEMBER_HANDLE */ ch,                           \
+            /* IN:^4 - UINT8* */ ntf_data,                              \
+            /* IN - UINT16 */ ntf_datalen                               \
+        )                                                               \
+        CSIP_send_ntf                                                   \
+        (                                                               \
+            (d),                                                        \
+            (ch),                                                       \
+            GA_CHAR_CSIS_SIRK,                                          \
+            (ntf_data),                                                 \
+            (ntf_datalen)                                               \
+        )
 
 /**
  *  \brief To send Notifications - Coordinated Set Size.
  *
  *  \par Description:
- *       This function sends notifications if configured for Coordinated Set Size.
+ *       This function sends notifications if configured for
+ *       Coordinated Set Size.
  *
  *  \param [in] d
- *         If NULL, Ntf to all connected CSIP sessions will be sent.
+ *         If NULL, Ntf to all connected CSIP sessions will be sent. \n
  *         Else, to the corresponsing address passed.
  *
  *  \param [in] ch
  *         CSIS Handle Identifier.
  *
  *  \param [in] s
- *         Data to be sent as part of the notification - UINT8
+ *         Data to be sent as part of the notification - UINT8.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
  *  \sa ga_csip_error_code
  */
-#define GA_cs_send_coord_set_size_ntf(d, ch, s) \
-        CSIP_send_ntf((d), (ch), GA_CHAR_CSIS_SIZE, &(s), sizeof(UINT8))
+#define GA_cs_send_coord_set_size_ntf(                                  \
+            /* IN - GA_ENDPOINT* */ d,                                  \
+            /* IN - CSIP_MEMBER_HANDLE */ ch,                           \
+            /* IN - UINT8* */ s                                         \
+        )                                                               \
+        CSIP_send_ntf                                                   \
+        (                                                               \
+            (d),                                                        \
+            (ch),                                                       \
+            GA_CHAR_CSIS_SIZE,                                          \
+            &(s),                                                       \
+            sizeof(UINT8)                                               \
+        )
 
 /** \} */
+/** \} */
+#endif /* CSIP_MEMBER */
 
 /**
- *  \brief Start an RSI creation/verification
+ * \defgroup ga_csip_common_defs Common
+ * \{
+ * \brief This section describes Common APIs for the
+ * Coordinated Set Identification Profile.
+ */
+
+/**
+ * \name CSIP Common APIs - RPA Operations
+ * \{
+ * \brief This section describes the Coordinated Set Identification Profile
+ * Common APIs associated with RPA generation operations.
+ */
+
+/**
+ *  \brief Start an RSI creation/verification.
  *
- *  \par Description
- *  This routine is used to start an RSI Creation or Verification
- *  for a given SIRK and RSI (for verification)
+ *  \par Description:
+ *       This routine is used to start an RSI Creation or Verification
+ *       for a given SIRK and RSI (for verification).
  *
  *  \param [in] rsi Resolvable Set Identifier to verify. NULL to create one.
  *  \param [in] sirk Set Identity Resolving Key to create/verify RSI
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_brr_error_code
  */
 GA_RESULT GA_cs_rsi_operate
           (
-              /* IN */ UCHAR * rsi,
-              /* IN */ UCHAR * sirk
+              /* IN:6 */ UCHAR * rsi,
+              /* IN:16 */ UCHAR * sirk
           );
 
 /**
- *  \brief Start an RSI creation
+ *  \brief Start an RSI creation.
  *
- *  \par Description
- *  This routine is used to start an RSI Creation
- *  for a given SIRK. On successful start, this notifies the application
- *  with \ref GA_CS_RSI_CREATE_COMPLETE event.
+ *  \par Description:
+ *       This routine is used to start an RSI Creation for a given SIRK.
+ *       On successful start, this notifies the application
+ *       with \ref GA_CS_RSI_CREATE_COMPLETE event.
  *
- *  \param [in] sirk Set Identity Resolving Key to create/verify RSI
+ *  \param [in] sirk Set Identity Resolving Key to create/verify RSI.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_brr_error_code
  */
-#define GA_cs_rsi_create(sirk) \
-        GA_cs_rsi_operate(NULL, (sirk))
+#define GA_cs_rsi_create(                                               \
+            /* IN:16 - UCHAR* */ sirk                                    \
+        )                                                               \
+        GA_cs_rsi_operate                                               \
+        (                                                               \
+            NULL,                                                       \
+            (sirk)                                                      \
+        )
 
 /**
- *  \brief Start an RSI verification
+ *  \brief Start an RSI verification.
  *
- *  \par Description
- *  This routine is used to start an RSI Verification
- *  for a given SIRK and RSI. On successful start, this notifies the application
- *  with \ref GA_CS_RSI_VERIFY_COMPLETE event.
+ *  \par Description:
+ *       This routine is used to start an RSI Verification for a given
+ *       SIRK and RSI. On successful start, this notifies the application
+ *       with \ref GA_CS_RSI_VERIFY_COMPLETE event.
  *
  *  \param [in] rsi Resolvable Set Identifier to verify.
- *  \param [in] sirk Set Identity Resolving Key to create/verify RSI
+ *  \param [in] sirk Set Identity Resolving Key to create/verify RSI.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_brr_error_code
  */
-#define GA_cs_rsi_verify(rsi, sirk) \
-        GA_cs_rsi_operate(rsi, (sirk))
+#define GA_cs_rsi_verify(                                               \
+            /* IN:6 - UCHAR* */ rsi,                                    \
+            /* IN:16 - UCHAR* */ sirk                                   \
+        )                                                               \
+        GA_cs_rsi_operate                                               \
+        (                                                               \
+            (rsi),                                                      \
+            (sirk)                                                      \
+        )
+
+/** \} */
+/** \} */
+
+/** \} */
+/** \} */
+#endif /* GA_CSIP */
+
+/**
+ * \addtogroup ga_cas_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_cas_api_defs
+ * \{
+ */
+
+#ifdef CAP_CSIP_COORDINATOR
+/**
+ * \addtogroup ga_cas_client_defs
+ * \{
+ */
+/**
+ * \name CAS Client APIs - Utility
+ * \{
+ * \brief This section describes the CAP Set Utility APIs for Client.
+ */
 
 /* CAP Set Utility APIs */
 GA_RESULT GA_cap_set_create
           (
-              /* IN */  UCHAR * sirk,
+              /* IN:16 */  UCHAR * sirk,
               /* IN */  UCHAR   size,
               /* OUT */ UINT8 * handle
           );
@@ -9589,7 +13254,7 @@ GA_RESULT GA_cap_set_find_count
 
 GA_RESULT GA_cap_set_find
           (
-              /* IN */  UCHAR * sirk,
+              /* IN:16 */ UCHAR * sirk,
               /* IN */  UCHAR   size,
               /* OUT */ UINT8 * handle
           );
@@ -9615,15 +13280,50 @@ GA_RESULT GA_cap_set_lockprocedure
               /* IN */ UINT8  erank
           );
 
-#define GA_cap_set_lockrequest(handle) \
-    GA_cap_set_lockprocedure((handle), CAP_SETOP_LOCKREQUEST, 0U, 0U)
-#define GA_cap_set_lockrelease(handle) \
-    GA_cap_set_lockprocedure((handle), CAP_SETOP_LOCKRELEASE, 0U, 0U)
-#define GA_cap_set_lockrequest_range(handle, srank, erank) \
-    GA_cap_set_lockprocedure((handle), CAP_SETOP_LOCKREQUEST, srank, erank)
-#define GA_cap_set_lockrelease_range(handle, srank, erank) \
-    GA_cap_set_lockprocedure((handle), CAP_SETOP_LOCKRELEASE, srank, erank)
-
+#define GA_cap_set_lockrequest(                                         \
+            /* IN - UINT8 */ handle                                     \
+        )                                                               \
+        GA_cap_set_lockprocedure                                        \
+        (                                                               \
+            (handle),                                                   \
+            CAP_SETOP_LOCKREQUEST,                                      \
+            0U,                                                         \
+            0U                                                          \
+        )
+#define GA_cap_set_lockrelease(                                         \
+            /* IN - UINT8 */ handle                                     \
+        )                                                               \
+        GA_cap_set_lockprocedure                                        \
+        (                                                               \
+            (handle),                                                   \
+            CAP_SETOP_LOCKRELEASE,                                      \
+            0U,                                                         \
+            0U                                                          \
+        )
+#define GA_cap_set_lockrequest_range(                                   \
+            /* IN - UINT8 */ handle,                                    \
+            /* IN - UINT8 */ srank,                                     \
+            /* IN - UINT8 */ erank                                      \
+        )                                                               \
+        GA_cap_set_lockprocedure                                        \
+        (                                                               \
+            (handle),                                                   \
+            CAP_SETOP_LOCKREQUEST,                                      \
+            srank,                                                      \
+            erank                                                       \
+        )
+#define GA_cap_set_lockrelease_range(                                   \
+            /* IN - UINT8 */ handle,                                    \
+            /* IN - UINT8 */ srank,                                     \
+            /* IN - UINT8 */ erank                                      \
+        )                                                               \
+        GA_cap_set_lockprocedure                                        \
+        (                                                               \
+            (handle),                                                   \
+            CAP_SETOP_LOCKRELEASE,                                      \
+            srank,                                                      \
+            erank                                                       \
+        )
 GA_RESULT GA_cap_fetch_member_from_device
           (
               /* IN */ UINT8         handle,
@@ -9637,10 +13337,22 @@ GA_RESULT GA_cap_set_orderedaccess
               /* IN */ UINT8 start
           );
 
-#define GA_cap_set_orderedaccess_begin(handle) \
-    GA_cap_set_orderedaccess((handle), GA_TRUE)
-#define GA_cap_set_orderedaccess_end(handle) \
-    GA_cap_set_orderedaccess((handle), GA_FALSE)
+#define GA_cap_set_orderedaccess_begin(                                 \
+            /* IN - UINT8 */ handle                                     \
+        )                                                               \
+        GA_cap_set_orderedaccess                                        \
+        (                                                               \
+            (handle),                                                   \
+            GA_TRUE                                                     \
+        )
+#define GA_cap_set_orderedaccess_end(                                   \
+            /* IN - UINT8 */ handle                                     \
+        )                                                               \
+        GA_cap_set_orderedaccess                                        \
+        (                                                               \
+            (handle),                                                   \
+            GA_FALSE                                                    \
+        )
 
 GA_RESULT GA_cap_set_access_next_member
           (
@@ -9656,14 +13368,46 @@ GA_RESULT GA_cap_set_update_member
               /* IN */ UINT8       * sm_data
           );
 
-#define GA_cap_set_update_member_sirk(handle, device, sm_data) \
-    GA_cap_set_update_member((handle), (device), GA_CHAR_CSIS_SIRK, (sm_data))
-#define GA_cap_set_update_member_size(handle, device, sm_data) \
-    GA_cap_set_update_member((handle), (device), GA_CHAR_CSIS_SIZE, (sm_data))
-#define GA_cap_set_update_member_lock(handle, device, sm_data) \
-    GA_cap_set_update_member((handle), (device), GA_CHAR_CSIS_LOCK, (sm_data))
+#define GA_cap_set_update_member_sirk(                                  \
+            /* IN - UINT8 */ handle,                                    \
+            /* IN - GA_ENDPOINT* */ device,                             \
+            /* IN:16 - UINT8* */ sm_data                                \
+        )                                                               \
+        GA_cap_set_update_member                                        \
+        (                                                               \
+            (handle),                                                   \
+            (device),                                                   \
+            GA_CHAR_CSIS_SIRK,                                          \
+            (sm_data)                                                   \
+        )
+#define GA_cap_set_update_member_size(                                  \
+            /* IN - UINT8 */ handle,                                    \
+            /* IN - GA_ENDPOINT* */ device,                             \
+            /* IN:1 - UINT8* */ sm_data                                 \
+        )                                                               \
+        GA_cap_set_update_member                                        \
+        (                                                               \
+            (handle),                                                   \
+            (device),                                                   \
+            GA_CHAR_CSIS_SIZE,                                          \
+            (sm_data)                                                   \
+        )
+#define GA_cap_set_update_member_lock(                                  \
+            /* IN - UINT8 */ handle,                                    \
+            /* IN - GA_ENDPOINT* */ device,                             \
+            /* IN:1 - UINT8* */ sm_data                                 \
+        )                                                               \
+        GA_cap_set_update_member                                        \
+        (                                                               \
+            (handle),                                                   \
+            (device),                                                   \
+            GA_CHAR_CSIS_LOCK,                                          \
+            (sm_data)                                                   \
+        )
 
 /** \} */
+/** \} */
+#endif /* CAP_CSIP_COORDINATOR */
 /** \} */
 /** \} */
 

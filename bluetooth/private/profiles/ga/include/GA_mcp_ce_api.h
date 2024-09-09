@@ -3,7 +3,7 @@
  *  \file GA_mcp_ce_api.h
  *
  *  \brief This file defines the GA Media Control Profile(MCP)
- *  Client Entity(CE) Interface - includes Data Structures and Methods.
+ *  Client (CE) Interface - includes Data Structures and Methods.
  */
 
 /*
@@ -31,7 +31,7 @@
  * \{
  */
 /**
- * \addtogroup bt_ga_mcp Media Control
+ * \addtogroup bt_ga_mcp Media Control Profile (MCP)
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
  * Generic Audio (GA) Profile Media Control module to the Application.
@@ -44,9 +44,9 @@
  */
 
 /**
- * \defgroup ga_mcp_ce_module_def MCP CE (Media Control Profile) Client Entity
+ * \defgroup ga_mcp_ce_module_def Media Control Client
  * \{
- * \brief This section describes the defines for MCP CE.
+ * \brief This section describes the defines for Client.
  */
 
 /**
@@ -75,37 +75,44 @@
  *    \if MCP_SUPPORT_OBJECT_TRANSFER
  *      with \ref MCP_SUPPORT_OBJECT_TRANSFER enabled.
  *    \endif \n
- *    1.1. Service Discovery. \n
+ *       - Service Discovery. \n
  *         If Service if not found, \ref MCP_CE_SETUP_CNF with \ref GA_FAILURE. \n
- *    1.2. Service Composition: GMCS Char and Desc Discovery. \n
+ *       - Service Composition: GMCS Char and Desc Discovery. \n
  *         If Service Composition is triggered successfully, \n
- *            a) \ref MCP_CE_SETUP_CNF with \ref GA_CONTINUE. \n
- *            b) Else, \ref MCP_CE_SETUP_CNF with \ref GA_FAILURE. \n
- *    1.3. Discovery of Included Service - OTS is triggered for the
+ *            - \ref MCP_CE_SETUP_CNF with \ref GA_CONTINUE. \n
+ *            - Else, \ref MCP_CE_SETUP_CNF with \ref GA_FAILURE. \n
+ *            .
+ *       - Discovery of Included Service - OTS is triggered for the
  *         GMCS Service Handle range.
- *            a) If Failure, \ref MCP_CE_SETUP_CNF with \ref GA_FAILURE. \n
- *            b) If Success and MCS, \ref MCP_CE_SETUP_CNF with \ref GA_SUCCESS. \n
- *    1.4. Discovery of Secondary Service - OTS is triggered. \n
- *            a) If Failure, \ref MCP_CE_SETUP_CNF with \ref GA_FAILURE. \n
- *            b) If Session is already established, \ref MCP_CE_SETUP_CNF with
- *            \ref GA_SUCCESS.
- *    1.5. If GMCS, Service Composition, Setup of Transport Control Channel and Data Channel. \n
- *            a) If Failure, \ref MCP_CE_SETUP_CNF with \ref GA_FAILURE. \n
- *            b) If Session is already established, \ref MCP_CE_SETUP_CNF with
- *            \ref GA_SUCCESS.
+ *            - If Failure, \ref MCP_CE_SETUP_CNF with \ref GA_FAILURE. \n
+ *            - If Success and MCS, \ref MCP_CE_SETUP_CNF with \ref GA_SUCCESS. \n
+ *            .
+ *       - Discovery of Secondary Service - OTS is triggered. \n
+ *            - If Failure, \ref MCP_CE_SETUP_CNF with \ref GA_FAILURE. \n
+ *            - If Session is already established, \ref MCP_CE_SETUP_CNF with
+ *              \ref GA_SUCCESS. \n
+ *            .
+ *       - If GMCS, Service Composition, Setup of Transport Control Channel and
+ *         Data Channel. \n
+ *            - If Failure, \ref MCP_CE_SETUP_CNF with \ref GA_FAILURE. \n
+ *            - If Session is already established, \ref MCP_CE_SETUP_CNF with
+ *              \ref GA_SUCCESS. \n
+ *            .
+ *       .
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SETUP_CNF
- * \param [in] evt_status  \ref GA_CONTINUE Setup Ongoing
- *                     \ref GA_SUCCESS Setup Complete \n
- *                     \ref GA_FAILURE Others \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If status is \ref GA_CONTINUE, \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SETUP_CNF
+ * \param [in] evt_status \ref GA_CONTINUE : Setup Ongoing \n
+ *                        \ref GA_SUCCESS : Setup Complete \n
+ *                        \ref GA_FAILURE : Others
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If status is \ref GA_CONTINUE, \ref GA_SUCCESS or
+ *                      \ref GA_FAILURE, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SETUP_CNF                      0x01U
@@ -113,30 +120,33 @@
 /**
  * This Event is notified on discovery of optional MCS(s) with peer device
  * with the following values as parameters in the \ref MCP_CE_NTF_CB
- * callback.
+ * callback. \n
  * If there are multiple instances 'n' of MCS found on the remote, this event
- * is generated 'n' times with status as \ref GA_CONTINUE.
+ * is generated 'n' times with status as \ref GA_CONTINUE. \n
  * This event with status as \ref GA_SUCCESS, indicates that the Service
- * discovery is complete.
+ * discovery is complete. \n
  * In case of failure, \ref GA_FAILURE is triggered.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_DISC_MCS_CNF
- * \param [in] evt_status  \ref GA_CONTINUE Service Handle range of discovered MCS \n
- *                     \ref GA_SUCCESS Service Discovery Complete \n
- *                     \ref GA_FAILURE Others \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If status is \ref GA_CONTINUE \n
- *                           - data - Pointer to object of type \ref GA_BRR_SVC_INFO \n
- *                           - len - Size of \ref GA_BRR_SVC_INFO \n
- *                           .
- *                         If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
- * \return \ref GA_SUCCESS (always)
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_DISC_MCS_CNF
+ * \param [in] evt_status \ref GA_CONTINUE : Service Handle range of
+ *                        discovered MCS \n
+ *                        \ref GA_SUCCESS : Service Discovery Complete \n
+ *                        \ref GA_FAILURE : Others \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If status is \ref GA_CONTINUE \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: Pointer to object of type
+ *                                 \ref GA_BRR_SVC_INFO \n
+ *                         - len: \ref sizeof ( \ref GA_BRR_SVC_INFO ) \n
+ *                         .
+ *                      If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
  *
+ * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_DISC_MCS_CNF                   0x02U
 
@@ -146,25 +156,29 @@
  * application, this Handle to be further used during all MCP Client related
  * requests.
  * 1. MCS Session Establishment
- *    1.1. Service Discovery. \n
- *         If Service if not found, \ref MCP_CE_SETUP_MCS_CNF with \ref GA_FAILURE. \n
- *    1.2. Service Composition: MCS Char and Desc Discovery. \n
+ *       - Service Discovery. \n
+ *         If Service if not found, \ref MCP_CE_SETUP_MCS_CNF with
+ *         \ref GA_FAILURE. \n
+ *       - Service Composition: MCS Char and Desc Discovery. \n
  *         If Service Composition is triggered successfully, \n
- *            a) \ref MCP_CE_SETUP_MCS_CNF with \ref GA_CONTINUE. \n
- *            b) Else, \ref MCP_CE_SETUP_MCS_CNF with \ref GA_FAILURE. \n
+ *            - \ref MCP_CE_SETUP_MCS_CNF with \ref GA_CONTINUE. \n
+ *            - Else, \ref MCP_CE_SETUP_MCS_CNF with \ref GA_FAILURE. \n
+ *            .
+ *       .
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SETUP_MCS_CNF
- * \param [in] evt_status  \ref GA_CONTINUE Setup Ongoing
- *                     \ref GA_SUCCESS Setup Complete \n
- *                     \ref GA_FAILURE Others \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If status is \ref GA_CONTINUE, \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SETUP_MCS_CNF
+ * \param [in] evt_status \ref GA_CONTINUE : Setup Ongoing
+ *                        \ref GA_SUCCESS : Setup Complete \n
+ *                        \ref GA_FAILURE : Others \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If status is \ref GA_CONTINUE, \ref GA_SUCCESS or
+ *                      \ref GA_FAILURE, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SETUP_MCS_CNF                  0x03U
@@ -189,15 +203,17 @@
  * on the peer device with the following values as parameters in
  * the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_CONTROL_CHANNEL_SETUP_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Control Channel connected \n
- *                         \ref GA_FAILURE Control Channel connect failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
- *                           data - NULL \n
- *                           len - 0
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_CONTROL_CHANNEL_SETUP_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Control Channel connected \n
+ *                        \ref GA_FAILURE : Control Channel connect failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_CONTROL_CHANNEL_SETUP_CNF      0x04U
@@ -207,15 +223,17 @@
  * on the peer device with the following values as parameters in
  * the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_DATA_CHANNEL_UP_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Data Channel connected \n
- *                         \ref GA_FAILURE Data Channel connect failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
- *                           data - NULL \n
- *                           len - 0
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_DATA_CHANNEL_UP_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Data Channel connected \n
+ *                        \ref GA_FAILURE : Data Channel connect failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_DATA_CHANNEL_UP_CNF            0x05U
@@ -225,15 +243,17 @@
  * on the peer device with the following values as parameters in
  * the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_DATA_CHANNEL_DOWN_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Data Channel disconnected \n
- *                         \ref GA_FAILURE Data Channel disconnect failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
- *                           data - NULL \n
- *                           len - 0
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_DATA_CHANNEL_DOWN_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Data Channel disconnected \n
+ *                        \ref GA_FAILURE : Data Channel disconnect failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_DATA_CHANNEL_DOWN_CNF          0x06U
@@ -253,15 +273,17 @@
  * of all char on the peer device with the following values as parameters in
  * the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_ENABLE_ALL_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Configuration Complete \n
- *                         \ref GA_FAILURE Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
- *                           data - NULL \n
- *                           len - 0
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_ENABLE_ALL_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_ENABLE_ALL_CFG_CNF             0x07U
@@ -271,15 +293,17 @@
  * of all char on the peer device with the following values as parameters in
  * the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_DISABLE_ALL_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Configuration Complete \n
- *                         \ref GA_FAILURE Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
- *                           data - NULL \n
- *                           len - 0
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_DISABLE_ALL_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_DISABLE_ALL_CFG_CNF            0x08U
@@ -299,16 +323,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_MEDIA_PLAYER_NAME_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                       MCP Handle for the Device - \ref MCP_HANDLE \n
- *                       If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_MEDIA_PLAYER_NAME_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_MEDIA_PLAYER_NAME_CFG_CNF      0x09U
@@ -318,16 +343,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_CHANGED_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_CHANGED_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_CHANGED_CFG_CNF          0x0AU
@@ -337,34 +363,37 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_TITLE_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_TITLE_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_TITLE_CFG_CNF            0x0BU
+
 /**
  * This event is notified on completion of configuration i.e. enable/disable
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_DUR_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_DUR_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_DUR_CFG_CNF              0x0CU
@@ -374,16 +403,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_POS_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_POS_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_POS_CFG_CNF              0x0DU
@@ -393,16 +423,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_PLAYBACK_SPEED_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_PLAYBACK_SPEED_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_PLAYBACK_SPEED_CFG_CNF         0x0EU
@@ -412,16 +443,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SEEKING_SPEED_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SEEKING_SPEED_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SEEKING_SPEED_CFG_CNF          0x0FU
@@ -432,16 +464,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_CURR_TRACK_OBJ_ID_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_CURR_TRACK_OBJ_ID_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_CURR_TRACK_OBJ_ID_CFG_CNF      0x10U
@@ -450,16 +483,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_NEXT_TRACK_OBJ_ID_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_NEXT_TRACK_OBJ_ID_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_NEXT_TRACK_OBJ_ID_CFG_CNF      0x11U
@@ -469,16 +503,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_PARENT_GROUP_OBJ_ID_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_PARENT_GROUP_OBJ_ID_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_PARENT_GROUP_OBJ_ID_CFG_CNF    0x12U
@@ -488,16 +523,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_CURR_GROUP_OBJ_ID_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_CURR_GROUP_OBJ_ID_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_CURR_GROUP_OBJ_ID_CFG_CNF      0x13U
@@ -508,16 +544,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_PLAYING_ORDER_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_PLAYING_ORDER_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_PLAYING_ORDER_CFG_CNF          0x14U
@@ -527,16 +564,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_MEDIA_STATE_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_MEDIA_STATE_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_MEDIA_STATE_CFG_CNF            0x15U
@@ -546,16 +584,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_MCP_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_MCP_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_MCP_CFG_CNF                    0x16U
@@ -565,16 +604,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_MCP_OPC_SUPP_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_MCP_OPC_SUPP_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_MCP_OPC_SUPP_CFG_CNF           0x17U
@@ -584,16 +624,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SCP_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SCP_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SCP_CFG_CNF                    0x18U
@@ -603,16 +644,17 @@
  * of a char on the peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SEARCH_RES_OBJ_ID_CFG_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Configuration Complete \n
- *                         \ref GA_FAILURE : Configuration Failed \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SEARCH_RES_OBJ_ID_CFG_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Configuration Complete \n
+ *                        \ref GA_FAILURE : Configuration Failed \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SEARCH_RES_OBJ_ID_CFG_CNF      0x19U
@@ -629,18 +671,24 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * This is an alert indicating there is a change in the Media Player Name.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_MEDIA_PLAYER_NAME_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UCHAR String \n
- *                           - len - Length of the data \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_MEDIA_PLAYER_NAME_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UCHAR String \n
+ *                         - len: Length of the data \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_MEDIA_PLAYER_NAME_NTF          0x1AU
@@ -648,18 +696,24 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * This is an alert indicating there is a change in the Current Track.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_CHANGED_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_CHANGED_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_CHANGED_NTF              0x1BU
@@ -670,21 +724,27 @@
  * \ref MCP_CE_NTF_CB callback.
  * This is an alert indicating there is a change in the Current Track Title.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_TITLE_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref UCHAR String \n
- *                               - len - Length of the data \n
- *                               .
- *                           - No current track or Track title unavailable \n
- *                               - data - NULL \n
- *                               - len - 0 \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_TITLE_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref UCHAR String \n
+ *                              - len: Length of the data \n
+ *                              .
+ *                         - No current track or Track title unavailable \n
+ *                              - data: NULL \n
+ *                              - len: 0 \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_TITLE_NTF                0x1CU
@@ -695,60 +755,73 @@
  * \ref MCP_CE_NTF_CB callback.
  * This is an alert indicating there is a change in the Current Track.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_DUR_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref INT32 Length of the current track in
- *                               0.01-second resolution as a 32-bit signed integer \n
- *                               - len - sizeof(INT32) \n
- *                               .
- *                           - If the media player has no current
- *                           track or the duration of the current track is
- *                           unknown \n
- *                               - data - 0xFFFFFFFF \n
- *                               - len - sizeof(INT32) \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_DUR_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref INT32 Length of the current track
+ *                                      in 0.01-second resolution as a 32-bit
+ *                                      signed integer \n
+ *                              - len: \ref sizeof ( \ref INT32 ) \n
+ *                              .
+ *                         - If the media player has no current track
+ *                           or the duration of the current track is unknown \n
+ *                              - data: 0xFFFFFFFF \n
+ *                              - len: \ref sizeof ( \ref INT32 ) \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_DUR_NTF                  0x1DU
+
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * The Track Position characteristic exposes the current track position of the
- * current track in 0.01-second resolution as a 32-bit signed integer.
+ * current track in 0.01-second resolution as a 32-bit signed integer. \n
  * The Track Position characteristic exposes the offset from the start of the
  * track to the current playing position. If the start of the track is not
  * well defined (such as in a live stream), Track Position equals 0 or sets the
- * value to UNAVAILABLE (0xFFFFFFFF).
+ * value to UNAVAILABLE (0xFFFFFFFF). \n
  * This is an alert indicating there is a change in the Track Position.
  * However, this event will not be notified when the Media state is "Playing"
- * and when playback happens at a constant speed.
+ * and when playback happens at a constant speed. \n
  * The Track Position is notified when the Media State is set to Seeking.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_POS_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref INT32 Length of the current track in
- *                               0.01-second resolution as a 32-bit signed integer \n
- *                               - len - sizeof(INT32) \n
- *                               .
- *                           - If the media player has no current
- *                           track or the duration of the current track is
- *                           unknown \n
- *                               - data - 0xFFFFFFFF \n
- *                               - len - sizeof(INT32) \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_POS_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref INT32 Length of the current track
+ *                                      in 0.01-second resolution as a 32-bit
+ *                                      signed integer \n
+ *                              - len: \ref sizeof ( \ref INT32 ) \n
+ *                              .
+ *                         - If the media player has no current track
+ *                           or the duration of the current track is unknown \n
+ *                              - data: 0xFFFFFFFF \n
+ *                              - len: \ref sizeof ( \ref INT32 ) \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_POS_NTF                  0x1EU
@@ -756,7 +829,7 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * The Playback Speed characteristic exposes the current track playback speed.
  * The value of this characteristic shall be a signed 8-bit integer (p) that
  * is used to compute the multiple of the playback speed
@@ -770,15 +843,21 @@
  *      127                                 3.957 (nearly 4) \n
  * This is an alert indicating there is a change in the Playback speed.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_PLAYBACK_SPEED_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref INT8 signed 8-bit integer (p) \n
- *                           - len - sizeof(INT8) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_PLAYBACK_SPEED_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref INT8 signed 8-bit integer (p) \n
+ *                         - len: \ref sizeof ( \ref INT8 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_PLAYBACK_SPEED_NTF             0x1FU
@@ -786,57 +865,68 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * The Seeking Speed characteristic exposes the seeking speed of the current
- * track.
+ * track. \n
  * The value of this characteristic shall be a signed 8-bit integer (p) which
  * is the current multiple of the real-time playback speed at which the track
- * is being fast forwarded or fast rewound.
- *
+ * is being fast forwarded or fast rewound. \n
  * This is an alert indicating there is a change in the Seeking speed.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SEEKING_SPEED_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref INT8 signed 8-bit integer (p) \n
- *                               - len - sizeof(INT8) \n
- *                               .
- *                           - If the media player is not seeking \n
- *                               - data - 0 \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SEEKING_SPEED_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref INT8 signed 8-bit integer (p) \n
+ *                              - len: \ref sizeof ( \ref INT8 ) \n
+ *                              .
+ *                         - If the media player is not seeking \n
+ *                              - data: 0 \n
+ *                              - len: \ref sizeof ( \ref INT8 ) \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SEEKING_SPEED_NTF              0x20U
 
 #ifdef MCP_SUPPORT_OBJECT_TRANSFER
-
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * The Current Track Object ID characteristic is used to access a Track Object
  * type. This characteristic identifies the current track as an object in the
  * included OTS. The value of this characteristic shall be a uint48 value that
- * is in the range of a valid Object ID as defined in OTS.
+ * is in the range of a valid Object ID as defined in OTS. \n
  * If present, this value can be used in the Object ID characteristic in the
- * included OTS to allow access to the contents of the track.
+ * included OTS to allow access to the contents of the track. \n
  * This is an alert indicating there is a change in the Current track object
  * ID, this wont be generated in the case where the client changes the value.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_CURR_TRACK_OBJ_ID_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref GA_MCP_CE_OBJ_ID Object ID \n
- *                           - len - \ref OBJ_ID_LEN - Object ID Length\n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_CURR_TRACK_OBJ_ID_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_OBJ_ID Object ID \n
+ *                         - len: \ref OBJ_ID_LEN - Object ID Length\n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_CURR_TRACK_OBJ_ID_NTF          0x21U
@@ -844,27 +934,33 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * The Next Track Object ID characteristic is used to access a Track Object
- * type.
+ * type. \n
  * This is an alert indicating there is a change in the Next track object
  * ID, this wont be generated in the case where the client changes the value.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_NEXT_TRACK_OBJ_ID_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref GA_MCP_CE_OBJ_ID - Object ID \n
- *                               - len - \ref OBJ_ID_LEN - Object ID Length \n
- *                               .
- *                           - If the media player has no next track \n
- *                               - data - NULL \n
- *                               - len - 0 \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_NEXT_TRACK_OBJ_ID_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref GA_MCP_CE_OBJ_ID - Object ID \n
+ *                              - len: \ref OBJ_ID_LEN - Object ID Length \n
+ *                              .
+ *                         - If the media player has no next track \n
+ *                              - data: NULL \n
+ *                              - len: 0 \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_NEXT_TRACK_OBJ_ID_NTF          0x22U
@@ -872,30 +968,36 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * This characteristic identifies the parent group of the current group object
- * as a group object in the included OTS.
+ * as a group object in the included OTS. \n
  * For a group that has no parent, the value of the Parent Group Object ID
- * shall be the value of the Current Group Object ID.
+ * shall be the value of the Current Group Object ID. \n
  * This is an alert indicating there is a change in the Group object
  * ID.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_PARENT_GROUP_OBJ_ID_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref GA_MCP_CE_OBJ_ID - Object ID \n
- *                               - len - \ref OBJ_ID_LEN - Object ID Length \n
- *                               .
- *                           - If the media player has not created a
- *                             parent group or a current group \n
- *                               - data - NULL \n
- *                               - len - 0 \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_PARENT_GROUP_OBJ_ID_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref GA_MCP_CE_OBJ_ID - Object ID \n
+ *                              - len: \ref OBJ_ID_LEN - Object ID Length \n
+ *                              .
+ *                         - If the media player has not created a
+ *                           parent group or a current group \n
+ *                              - data: NULL \n
+ *                              - len: 0 \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_PARENT_GROUP_OBJ_ID_NTF        0x23U
@@ -903,28 +1005,34 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * This characteristic identifies the current group of the current group object
- * as a group object in the included OTS.
+ * as a group object in the included OTS. \n
  * This is an alert indicating there is a change in the Current Group object
  * ID.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_CURR_GROUP_OBJ_ID_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref GA_MCP_CE_OBJ_ID - Object ID \n
- *                               - len - \ref OBJ_ID_LEN - Object ID Length \n
- *                               .
- *                           - If the media player has not created a
- *                             current group \n
- *                               - data - NULL \n
- *                               - len - 0 \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_CURR_GROUP_OBJ_ID_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref GA_MCP_CE_OBJ_ID - Object ID \n
+ *                              - len: \ref OBJ_ID_LEN - Object ID Length \n
+ *                              .
+ *                         - If the media player has not created a
+ *                           current group \n
+ *                              - data: NULL \n
+ *                              - len: 0 \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_CURR_GROUP_OBJ_ID_NTF          0x24U
@@ -933,19 +1041,25 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * This characteristic identifies the playing order of the media player.
  * This is an alert indicating there is a change in the playing order.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_PLAYING_ORDER_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UINT8 - Playing Order \n
- *                           - len - sizeof(UINT8) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_PLAYING_ORDER_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UINT8 - Playing Order \n
+ *                         - len: \ref sizeof ( \ref UINT8 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_PLAYING_ORDER_NTF              0x25U
@@ -953,19 +1067,25 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * This characteristic identifies the media state of the media player.
  * This is an alert indicating there is a change in the media state.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_MEDIA_STATE_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UINT8 - Media State \n
- *                           - len - sizeof(UINT8) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_MEDIA_STATE_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UINT8 - Media State \n
+ *                         - len: \ref sizeof ( \ref UINT8 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_MEDIA_STATE_NTF                0x26U
@@ -973,28 +1093,34 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * This is an alert indicating a response to the Media Control Point opcode
  * write \ref GA_mcp_ce_write_MCP.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_MCP_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - Pointer to a valid \ref UINT16 \n
- *                                  - \ref UINT8 - Req Opcode \ref MCP_CP_OPCODES \n
- *                                  - \ref UINT8 - Result Code \n
- *                                         - 0x01 - Success \n
- *                                         - 0x02 - Opcode not supported \n
- *                                         - 0x03 - Media Player Inactive \n
- *                                         - 0x04 - Command cannot be completed \n
- *                                         - Other Values - RFU \n
- *                                         .
- *                                  .
- *                           - len - sizeof(UINT16) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_MCP_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: Pointer to a valid \ref UINT16 \n
+ *                              - \ref UINT8 - Req Opcode \ref MCP_CP_OPCODES \n
+ *                              - \ref UINT8 - Result Code \n
+ *                                   - 0x01 - Success \n
+ *                                   - 0x02 - Opcode not supported \n
+ *                                   - 0x03 - Media Player Inactive \n
+ *                                   - 0x04 - Command cannot be completed \n
+ *                                   - Other Values - RFU \n
+ *                                   .
+ *                              .
+ *                         - len: \ref sizeof ( \ref UINT16 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_MCP_NTF                        0x27U
@@ -1002,20 +1128,26 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * This characteristic identifies the media state of the media player.
  * This is an alert indicating there is a change in the set of supported o
  * opcodes.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_MCP_OPC_SUPP_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UINT32 - Bit values rep Opcode \n
- *                           - len - sizeof(UINT32) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_MCP_OPC_SUPP_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UINT32 - Bit values rep Opcode \n
+ *                         - len: \ref sizeof ( \ref UINT32 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_MCP_OPC_SUPP_NTF               0x28U
@@ -1023,24 +1155,30 @@
 /**
  * This event is notified when a notification is received for a char from peer
  * device with the following values as parameters in the
- * \ref MCP_CE_NTF_CB callback.
+ * \ref MCP_CE_NTF_CB callback. \n
  * This is an alert indicating a response to the Search Control Point opcode
  * write \ref GA_mcp_ce_write_SCP.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SCP_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UINT8 \n
- *                                  - 0x01 - Search request was accepted;
- *                                         search has started \n
- *                                  - 0x02 - Search request was invalid;
- *                                         no search started \n
- *                                  .
- *                           - len - sizeof(UINT8) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SCP_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UINT8 \n
+ *                              - 0x01 - Search request was accepted;
+ *                                     search has started \n
+ *                              - 0x02 - Search request was invalid;
+ *                                     no search started \n
+ *                              .
+ *                         - len: \ref sizeof ( \ref UINT8 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SCP_NTF                        0x29U
@@ -1054,21 +1192,27 @@
  * the included OTS
  * This is an alert indicating the search results object is fully populated.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SEARCH_RES_OBJ_ID_NTF
- * \param [in] evt_status  \ref GA_SUCCESS : Notification received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref GA_MCP_CE_OBJ_ID - Object ID \n
- *                               - len - \ref OBJ_ID_LEN - Object ID Length \n
- *                               .
- *                           - If there are no search results \n
- *                               - data - NULL \n
- *                               - len - 0 \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SEARCH_RES_OBJ_ID_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref GA_MCP_CE_OBJ_ID - Object ID \n
+ *                              - len: \ref OBJ_ID_LEN - Object ID Length \n
+ *                              .
+ *                         - If there are no search results \n
+ *                              - data: NULL \n
+ *                              - len: 0 \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SEARCH_RES_OBJ_ID_NTF          0x2AU
@@ -1088,20 +1232,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_MEDIA_PLAYER_NAME_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UCHAR String \n
- *                           - len - Length of the data \n
- *                           .
- *                         Else : \n
- *                           - data - \ref NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_MEDIA_PLAYER_NAME_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UCHAR String \n
+ *                         - len: Length of the data \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_MEDIA_PLAYER_NAME_CNF     0x2BU
@@ -1112,20 +1258,22 @@
  * data channel from the peer device with the following values as parameters
  * in the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_MEDIA_PLAYER_ICON_OBJ_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref GA_MCP_CE_MP_ICON_OBJ \n
- *                           - len - sizeof( \ref GA_MCP_CE_MP_ICON_OBJ) \n
- *                           .
- *                         Else : \n
- *                           - data - \ref NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_MEDIA_PLAYER_ICON_OBJ_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_MP_ICON_OBJ \n
+ *                         - len: \ref sizeof ( \ref GA_MCP_CE_MP_ICON_OBJ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_MEDIA_PLAYER_ICON_OBJ_CNF 0x2CU
@@ -1136,20 +1284,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_MEDIA_PLAYER_ICON_URL_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UCHAR String \n
- *                           - len - sizeof(UCHAR) \n
- *                           .
- *                         Else : \n
- *                           - data - \ref NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_MEDIA_PLAYER_ICON_URL_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UCHAR String \n
+ *                         - len: \ref sizeof ( \ref UCHAR ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_MEDIA_PLAYER_ICON_URL_CNF 0x2DU
@@ -1159,20 +1309,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_TRACK_TITLE_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UCHAR String \n
- *                           - len - sizeof(UCHAR) \n
- *                           .
- *                         Else : \n
- *                           - data - \ref NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_TRACK_TITLE_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UCHAR String \n
+ *                         - len: \ref sizeof ( \ref UCHAR ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_TRACK_TITLE_CNF           0x2EU
@@ -1182,25 +1334,31 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_TRACK_DUR_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref INT32 Length of the current track in
- *                               0.01-second resolution as a 32-bit signed integer \n
- *                               - len - sizeof(INT32) \n
- *                               .
- *                           - If the media player has no current
- *                           track or the duration of the current track is
- *                           unknown \n
- *                               - data - 0xFFFFFFFF \n
- *                               - len - sizeof(INT32) \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_TRACK_DUR_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref INT32 Length of the current track
+ *                                      in 0.01-second resolution as a 32-bit
+ *                                      signed integer \n
+ *                              - len: \ref sizeof( \ref INT32 ) \n
+ *                              .
+ *                         - If the media player has no current track
+ *                           or the duration of the current track is unknown \n
+ *                              - data: 0xFFFFFFFF \n
+ *                              - len: \ref sizeof ( \ref INT32 ) \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_TRACK_DUR_CNF             0x2FU
@@ -1210,25 +1368,31 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_TRACK_POS_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                          If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref INT32 Length of the current track in
- *                               0.01-second resolution as a 32-bit signed integer \n
- *                               - len - sizeof(INT32) \n
- *                               .
- *                           - If the media player has no current
- *                           track or the duration of the current track is
- *                           unknown \n
- *                               - data - 0xFFFFFFFF \n
- *                               - len - sizeof(INT32) \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_TRACK_POS_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref INT32 Length of the current track
+ *                                      in 0.01-second resolution as a 32-bit
+ *                                      signed integer \n
+ *                              - len: \ref sizeof( \ref INT32 ) \n
+ *                              .
+ *                         - If the media player has no current track
+ *                           or the duration of the current track is unknown \n
+ *                              - data: 0xFFFFFFFF \n
+ *                              - len: \ref sizeof ( \ref INT32 ) \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_TRACK_POS_CNF             0x30U
@@ -1238,16 +1402,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_PLAYBACK_SPEED_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref INT8 signed 8-bit integer (p) \n
- *                           - len - sizeof(INT8) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_PLAYBACK_SPEED_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref INT8 signed 8-bit integer (p) \n
+ *                         - len: \ref sizeof ( \ref INT8 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_PLAYBACK_SPEED_CNF        0x31U
@@ -1257,21 +1427,28 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_SEEKING_SPEED_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - Valid \n
- *                               - data - \ref INT8 signed 8-bit integer (p) \n
- *                               - len - sizeof(INT8) \n
- *                               .
- *                           - If the media player is not seeking \n
- *                               - data - 0 \n
- *                               .
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_SEEKING_SPEED_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - Valid \n
+ *                              - data: \ref INT8 signed 8-bit integer (p) \n
+ *                              - len: \ref sizeof ( \ref INT8 ) \n
+ *                              .
+ *                         - If the media player is not seeking \n
+ *                              - data: 0 \n
+ *                              - len: \ref sizeof ( \ref INT8 ) \n
+ *                              .
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_SEEKING_SPEED_CNF         0x32U
@@ -1282,16 +1459,22 @@
  * data channel from the peer device with the following values as parameters
  * in the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_CURR_TRACK_SEG_OBJ_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref GA_MCP_CE_TRACK_SEG_OBJ \n
- *                           - len - sizeof( \ref GA_MCP_CE_TRACK_SEG_OBJ) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_CURR_TRACK_SEG_OBJ_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_TRACK_SEG_OBJ \n
+ *                         - len: \ref sizeof ( \ref GA_MCP_CE_TRACK_SEG_OBJ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_CURR_TRACK_SEG_OBJ_CNF    0x33U
@@ -1301,16 +1484,22 @@
  * data channel from the peer device with the following values as parameters
  * in the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_CURR_TRACK_OBJ_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref GA_MCP_CE_TRACK_OBJ \n
- *                           - len - sizeof( \ref GA_MCP_CE_TRACK_OBJ) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_CURR_TRACK_OBJ_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_TRACK_OBJ \n
+ *                         - len: \ref sizeof ( \ref GA_MCP_CE_TRACK_OBJ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_CURR_TRACK_OBJ_CNF        0x34U
@@ -1320,16 +1509,22 @@
  * data channel from the peer device with the following values as parameters
  * in the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_NEXT_TRACK_OBJ_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref GA_MCP_CE_TRACK_OBJ \n
- *                           - len - sizeof( \ref GA_MCP_CE_TRACK_OBJ) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_NEXT_TRACK_OBJ_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_TRACK_OBJ \n
+ *                         - len: \ref sizeof ( \ref GA_MCP_CE_TRACK_OBJ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_NEXT_TRACK_OBJ_CNF        0x35U
@@ -1339,16 +1534,22 @@
  * data channel from the peer device with the following values as parameters
  * in the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_PARENT_GROUP_OBJ_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref GA_MCP_CE_GRP_OBJ \n
- *                           - len - sizeof( \ref GA_MCP_CE_GRP_OBJ) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_PARENT_GROUP_OBJ_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_GRP_OBJ \n
+ *                         - len: \ref sizeof ( \ref GA_MCP_CE_GRP_OBJ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_PARENT_GROUP_OBJ_CNF      0x36U
@@ -1358,16 +1559,22 @@
  * data channel from the peer device with the following values as parameters
  * in the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_CURR_GROUP_OBJ_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Read Response received \n
- *                         \ref GA_FAILURE No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref GA_MCP_CE_GRP_OBJ \n
- *                           - len - sizeof( \ref GA_MCP_CE_GRP_OBJ) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_CURR_GROUP_OBJ_CNF
+ * \param [in] evt_status \ref GA_SUCCESS Read Response received \n
+ *                        \ref GA_FAILURE No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_GRP_OBJ \n
+ *                         - len: \ref sizeof ( \ref GA_MCP_CE_GRP_OBJ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_CURR_GROUP_OBJ_CNF        0x37U
@@ -1378,16 +1585,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_PLAYING_ORDER_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UINT8 - Playing Order \n
- *                           - len - sizeof(UINT8) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_PLAYING_ORDER_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UINT8 - Playing Order \n
+ *                         - len: \ref sizeof ( \ref UINT8 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_PLAYING_ORDER_CNF         0x38U
@@ -1397,16 +1610,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_PLAYING_ORDERS_SUPP_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UINT16 - Playing Order Supp \n
- *                           - len - sizeof(UINT16) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_PLAYING_ORDERS_SUPP_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UINT16 - Playing Order Supp \n
+ *                         - len: \ref sizeof ( \ref UINT16 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_PLAYING_ORDERS_SUPP_CNF   0x39U
@@ -1416,16 +1635,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_MEDIA_STATE_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UINT8 - Media State \n
- *                           - len - sizeof(UINT8) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_MEDIA_STATE_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UINT8 - Media State \n
+ *                         - len: \ref sizeof ( \ref UINT8 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_MEDIA_STATE_CNF           0x3AU
@@ -1435,16 +1660,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_MCP_OPC_SUPP_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref UINT32 - Bit values rep Opcode \n
- *                           - len - sizeof(UINT32) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_MCP_OPC_SUPP_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UINT32 - Bit values rep Opcode \n
+ *                         - len: \ref sizeof ( \ref UINT32 ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_READ_MCP_OPC_SUPP_CNF          0x3BU
@@ -1455,15 +1686,21 @@
  * data channel from the peer device with the following values as parameters
  * in the \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_SEARCH_RES_OBJ_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Read Response received \n
- *                         \ref GA_FAILURE No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS, \n
- *                           data - \ref GA_MCP_CE_GRP_OBJ
- *                           len - sizeof(GA_MCP_CE_GRP_OBJ)
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_SEARCH_RES_OBJ_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_GRP_OBJ
+ *                         - len: \ref sizeof ( \ref GA_MCP_CE_GRP_OBJ )
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1475,15 +1712,21 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_READ_CONTENT_CONTROL_ID_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Read Response received \n
- *                         \ref GA_FAILURE No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS, \n
- *                           data - \ref
- *                           len - sizeof()
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_READ_CONTENT_CONTROL_ID_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref UINT8
+ *                         - len: \ref sizeof ( \ref UINT8 )
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1495,7 +1738,7 @@
  * \name MCP Client Events - Write
  * \{
  * \brief The event is notified whenever write is successful and a write
- * response is received from peer.
+ * response is received from peer. \n
  * This applies to only requests that was triggered with write type -
  * Write Request \ref MCP_CE_WRITE_TYPE_REQUEST.
  */
@@ -1505,16 +1748,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_POS_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Write Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_POS_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_POS_CNF                  0x3EU
@@ -1524,16 +1773,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_TRACK_PLAYBACK_SPEED_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Write Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_TRACK_PLAYBACK_SPEED_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_TRACK_PLAYBACK_SPEED_CNF       0x3FU
@@ -1544,16 +1799,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_CURR_TRACK_OBJ_ID_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Write Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_CURR_TRACK_OBJ_ID_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_CURR_TRACK_OBJ_ID_CNF          0x40U
@@ -1563,16 +1824,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_NEXT_TRACK_OBJ_ID_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Write Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_NEXT_TRACK_OBJ_ID_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_NEXT_TRACK_OBJ_ID_CNF          0x41U
@@ -1582,16 +1849,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_CURR_GRP_OBJ_ID_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Write Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_CURR_GRP_OBJ_ID_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_CURR_GRP_OBJ_ID_CNF            0x42U
@@ -1602,16 +1875,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_PLAYING_ORDER_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Write Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_PLAYING_ORDER_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_PLAYING_ORDER_CNF              0x43U
@@ -1621,16 +1900,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_MCP_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Write Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_MCP_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_MCP_CNF                        0x44U
@@ -1640,16 +1925,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SCP_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Write Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SCP_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SCP_CNF                        0x45U
@@ -1669,21 +1960,22 @@
  * \ref MCP_CE_NTF_CB callback and when the Object Filter is read and
  * the Object path is set on the remote.
  *
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_SET_OBJ_REF_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_CONTINUE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_OBJ_ID \n
+ *                         - len: \ref OBJ_ID_LEN \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_SET_OBJ_REF_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_CONTINUE : \n
- *                           - data - \ref GA_MCP_CE_OBJ_ID \n
- *                           - len - \ref OBJ_ID_LEN \n
- *                           .
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_SET_OBJ_REF_CNF                0x46U
@@ -1693,16 +1985,22 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_GET_OBJ_ATTR_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Read Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - \ref GA_MCP_CE_OBJ_ATTR Attribute Type and Value \n
- *                           - len -  sizeof( \ref GA_MCP_CE_OBJ_ATTR) \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_GET_OBJ_ATTR_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref GA_MCP_CE_OBJ_ATTR Attribute Type and Value \n
+ *                         - len: \ref sizeof ( \ref GA_MCP_CE_OBJ_ATTR ) \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
  */
 #define MCP_CE_GET_OBJ_ATTR_CNF               0x47U
@@ -1712,22 +2010,31 @@
  * peer device with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_OBJ_DATA_RX_READY_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Write Response received \n
- *                         \ref GA_FAILURE : No Response received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_CE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                         If evt_status is \ref GA_SUCCESS : \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_OBJ_DATA_RX_READY_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No Response received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *                      Else : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: \ref NULL \n
+ *                         - len: 0 \n
+ *                         .
+ *
  * \return \ref GA_SUCCESS (always)
+ *
  * \note If status is \ref GA_SUCCESS, data receive will begin and
- * corresponding event is generated. \n
- * Eg: \ref MCP_CE_READ_SEARCH_RES_OBJ_CNF \n
- * If status is \ref GA_FAILURE, the request is rejected and no object data
- * will be received. \n
+ *       corresponding event is generated. \n
+ * \if MCP_SUPPORT_OBJECT_TRANSFER
+ *       Eg: \ref MCP_CE_READ_SEARCH_RES_OBJ_CNF \n
+ * \endif
+ *       If status is \ref GA_FAILURE, the request is rejected and no object
+ *       data will be received. \n
  */
 #define MCP_CE_OBJ_DATA_RX_READY_CNF          0x48U
 
@@ -1738,7 +2045,7 @@
  * \name MCP Client Events - Release
  * \{
  * \brief This section describes the Media Control Profile Release
- * Events for MCP CE.
+ * Events for Client.
  */
 
 /**
@@ -1746,11 +2053,16 @@
  * Callback is triggered with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_RELEASE_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Release completed \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_RELEASE_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Release completed \n
  *                        \ref GA_FAILURE : Release Failed \n
- * \param [in] evt_data  NULL \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1761,11 +2073,16 @@
  * Callback is triggered with the following values as parameters in the
  * \ref MCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref MCP_CE_RELEASE_MCS_CNF
- * \param [in] evt_status  \ref GA_SUCCESS : Release completed \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref MCP_CE_RELEASE_MCS_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Release completed \n
  *                        \ref GA_FAILURE : Release Failed \n
- * \param [in] evt_data  NULL \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_CE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1782,7 +2099,7 @@
  */
 
 /**
- * \name MCP Client Constants - Object Attribute ID
+ * \name Object Attribute ID
  * \{
  * \brief This section lists the Attribute ID that can be used by the
  * Application to trigger read requests \if MCP_SUPPORT_OBJECT_TRANSFER while
@@ -1819,7 +2136,7 @@
 /** \} */
 
 /**
- * \name MCP Client Constants - Write Type
+ * \name Write Type
  * \{
  * \brief This section lists the type of Write allowed in MCP
  * Profile.
@@ -1834,7 +2151,7 @@
 /** \} */
 
 /**
- * \name MCP Client Constants - Object Type
+ * \name Object Type
  * \{
  * \brief This section lists the type of Objects in MCP Profile.
  */
@@ -1859,7 +2176,7 @@
 /** \} */
 
 /**
- * \name MCP Client Constants - Opcode
+ * \name Control Point Opcode
  * \{
  * \brief This section lists the type of MCP Opcodes used during MCP Write
  * request.
@@ -1912,7 +2229,7 @@
 /** \} */
 
 /**
- * \name MCP Client Constants - SCP Type
+ * \name SCP Type
  * \{
  * \brief This section lists the type of SCP Opcodes used during MCP Write
  * request.
@@ -1941,7 +2258,7 @@
 /** \} */
 
 /**
- * \name MCP Client Constants - General Macros
+ * \name General Macros
  * \{
  * \brief Initialization and other General Macros offered by the module.
  */
@@ -1951,19 +2268,19 @@
  */
 #define OBJ_ID_LEN                            0x06U
 
-/** MCP CE GMCS Enable Handle */
+/** Client GMCS Enable Handle */
 #define MCP_CE_GMCS_ENABLE                    0x80U
 
 /**
  * Total number of Characteristic IDs,
- * \ref ga_mcs_char_prop
+ * \ref ga_mcp_ce_constants
  */
 #define MCP_CHAR_ID_COUNT                               22U
 
 /** \} */
 
 /**
- * \name MCP Client Constants - MCP Char ID
+ * \name Char ID
  * \{
  * This section lists the Characteristic ID references.
  */
@@ -2057,10 +2374,26 @@
  */
 #define MCP_CHAR_ID_CONTENT_CONTROL_ID                  21U
 /** \} */
+
+/**
+ * \name MCP - Application Error Codes
+ * \{
+ * \brief This section describes application error codes,
+ * as defined in MCS Specification.
+ */
+
+/**
+ * A characteristic value has changed while a Read Long Value Characteristic
+ * sub-procedure is in progress.
+ */
+#define MCP_ERR_CODE_VALUE_CHANGED_DURING_READ_LONG     0x80
+
+/** \} */
+
 /** \} */
 
 /**
- * \defgroup ga_mcp_ce_macros Macros
+ * \defgroup ga_mcp_ce_macros Utility Macros
  * \{
  * \brief Initialization and other Macros offered by the module.
  */
@@ -2084,7 +2417,7 @@
  * \defgroup ga_mcp_ce_structures Structures
  * \{
  * \brief This section lists the various data structures and typedefs for use
- * by MCP CE.
+ * by Client.
  */
 
 /**
@@ -2096,7 +2429,7 @@
  */
 typedef UINT8 MCP_HANDLE;
 
-/** Event that will be notified by the MCP CE module. */
+/** Event that will be notified by the Client module. */
 typedef UINT8 MCP_CE_EVT_ID;
 
 /** Types of write operations available */
@@ -2114,7 +2447,7 @@ typedef UINT8 MCP_SCP_OPCODES;
 /** Object attributes/metadata of an object */
 typedef UINT8 MCP_CE_OBJ_ATTR_ID;
 
-/** MCP CE Write Request Format */
+/** Client Write Request Format */
 typedef struct _GA_MCP_CE_WRITE_REQ_
 {
     /** Write request Value */
@@ -2125,7 +2458,7 @@ typedef struct _GA_MCP_CE_WRITE_REQ_
 
 }GA_MCP_CE_WRITE_REQ;
 
-/** MCP CE Object ID defined as per OTP specification */
+/** Client Object ID defined as per OTP specification */
 typedef struct _GA_MCP_CE_OBJ_ID_
 {
     /** Object ID */
@@ -2133,7 +2466,7 @@ typedef struct _GA_MCP_CE_OBJ_ID_
 
 }GA_MCP_CE_OBJ_ID;
 
-/** MCP CE Object Attribute response */
+/** Client Object Attribute response */
 typedef struct _GA_MCP_CE_OBJ_ATTR_
 {
     /** Object Attribute ID representing the received Attribute */
@@ -2147,7 +2480,7 @@ typedef struct _GA_MCP_CE_OBJ_ATTR_
 
 }GA_MCP_CE_OBJ_ATTR;
 
-/** MCP CE Object Type - Media Player Icon */
+/** Client Object Type - Media Player Icon */
 typedef struct _GA_MCP_CE_MP_ICON_OBJ_
 {
     /** Represented as .png format */
@@ -2158,7 +2491,7 @@ typedef struct _GA_MCP_CE_MP_ICON_OBJ_
 
 }GA_MCP_CE_MP_ICON_OBJ;
 
-/** MCP CE Object Type - Track Segments */
+/** Client Object Type - Track Segments */
 typedef struct _GA_MCP_CE_TRACK_SEG_OBJ_
 {
     /** Length of the segment */
@@ -2170,12 +2503,15 @@ typedef struct _GA_MCP_CE_TRACK_SEG_OBJ_
     /** Position of the Segment */
     INT32   seg_pos;
 
-    /** Obj len will be Seg Name len field len + Seg Name len + Seg Position length */
+    /**
+     * Obj len will be
+     * Seg Name len field len + Seg Name len + Seg Position length
+     */
     UINT16  total_obj_len;
 
 }GA_MCP_CE_TRACK_SEG_OBJ;
 
-/** MCP CE Object Type - Track */
+/** Client Object Type - Track */
 typedef struct _GA_MCP_CE_TRACK_OBJ_
 {
     /** Represented as IDV32 format */
@@ -2186,7 +2522,7 @@ typedef struct _GA_MCP_CE_TRACK_OBJ_
 
 }GA_MCP_CE_TRACK_OBJ;
 
-/** MCP CE Object Type - Group */
+/** Client Object Type - Group */
 typedef struct _GA_MCP_CE_GRP_OBJ_
 {
     /** Type of the Object */
@@ -2200,7 +2536,7 @@ typedef struct _GA_MCP_CE_GRP_OBJ_
 
 }GA_MCP_CE_GRP_OBJ;
 
-/** MCP CE Event */
+/** Client Event */
 typedef struct _MCP_CE_EVT_
 {
     /** MCP Handle on which MCP event is received */
@@ -2227,13 +2563,13 @@ typedef struct _MCP_CE_EVT_
  */
 
 /**
- * \defgroup ga_mcp_ce_module_cb MCP CE (Media Control Profile) Client Entity
+ * \defgroup ga_mcp_ce_module_cb Media Control Client
  * \{
- * \brief This section describes the callback for MCP CE.
+ * \brief This section describes the callback for Client.
  */
 
 /**
- * MCP CE Callback to be registered by the Application
+ * Client Callback to be registered by the Application
  *
  * \param [in] device     Peer Device Info
  * \param [in] evt_id     Event type
@@ -2264,7 +2600,7 @@ extern "C" {
  * \brief This section describes the API Sequences.
  */
 /**
- * \defgroup ga_mcp_api_seq MCP API Sequences
+ * \defgroup ga_mcp_api_seq API Sequences
  * \{
  * \brief This section describes the Media Control Profile API Sequences.
  * MSC depicting the flow of APIs and Events.
@@ -2281,7 +2617,7 @@ extern "C" {
  */
 
 /**
- * \defgroup ga_mcp_ce_api_defs MCP CE (Media Control Profile) Client Entity
+ * \defgroup ga_mcp_ce_api_defs Media Control Client
  * \{
  * \brief This section describes the Media Control Profile APIs
  * for Client.
@@ -2295,19 +2631,20 @@ extern "C" {
  */
 
 /**
- *  \brief To Init the MCP Client Module
+ *  \brief To Init the MCP Client Module.
  *
  *  \par Description:
- *       This function enables to initialize the MCP Client Entity Module.
- *       and register a callback with MCP Module.
+ *       This function enables to initialize the MCP Client Module
+ *       and register a callback with MCP Module. \n
  *       This callback will be triggered whenever there are events generated
  *       as part of the functionality and also to indicate Notifications
  *       received from peer.
  *
  *  \param [in] cb
- *         MCP CE Callback.
+ *         Client Callback.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
@@ -2335,12 +2672,15 @@ GA_RESULT GA_mcp_ce_init
  *  \brief To Retrieve/Save the MCP Context Information.
  *
  *  \par Description:
- *       This function enables to get/set the context information of given GMCS/MCS.
+ *       This function enables to get/set the context information of
+ *       given GMCS/MCS.
  *
  *  \param [in] set
- *         Flag to indicate get/set the context information.
- *          - GA_TRUE: Will save the service context information.
- *          - GA_FALSE: Will retrieve the service the context information.
+ *         Flag to indicate get/set the context information. \n
+ *            - \ref GA_TRUE : Will save the service context information. \n
+ *            - \ref GA_FALSE : Will retrieve the service the context
+ *                              information. \n
+ *            .
  *
  *  \param [in] device
  *         Remote Device Address.
@@ -2352,12 +2692,15 @@ GA_RESULT GA_mcp_ce_init
  *         GMCS/MCS characteristics handle range.
  *
  *  \param [inout] info
- *          GMCS/MCS characteristics information.
+ *         GMCS/MCS characteristics information.
  *
  *  \param [inout] info_count
- *          GMCS/MCS characteristics count.
+ *         GMCS/MCS characteristics count.
  *
- *  \return GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h.
+ *
+ *  \sa ga_mcp_and_otp_error_code
  */
 GA_RESULT GA_mcp_ce_manage_context_info
           (
@@ -2372,26 +2715,36 @@ GA_RESULT GA_mcp_ce_manage_context_info
 /**
  *  \brief To set the GA MCP characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to set the service and
  *       characteristic handle ranges from a device context.
  *
  *  \param [in] d
- *              Remote device endpoint
+ *         Remote device endpoint.
  *  \param [in] h
- *              Context handle for the endpoint
+ *         Context handle for the endpoint.
  *  \param [in] r
- *              Service range array for GMCS and MCS
+ *         Service range array for GMCS and MCS.
  *  \param [in] i
- *              Array of characteristic handles for GMCS and MCS
+ *         Array of characteristic handles for GMCS and MCS.
  *  \param [in] c
- *              Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_set_context_info(d, h, r, i, c) \
-        GA_mcp_ce_manage_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_mcp_ce_set_context_info(d, h, r, i, c)                       \
+        GA_mcp_ce_manage_context_info                                   \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To get the GA MCP characteristic handles of a device.
@@ -2401,21 +2754,31 @@ GA_RESULT GA_mcp_ce_manage_context_info
  *       characteristic handle ranges from a device context.
  *
  *  \param [in] d
- *              Remote device endpoint
+ *         Remote device endpoint.
  *  \param [in] h
- *              Context handle for the endpoint
+ *         Context handle for the endpoint.
  *  \param [in] r
- *              Service range array for GMCS and MCS
+ *         Service range array for GMCS and MCS.
  *  \param [in] i
- *              Array of characteristic handles for GMCS and MCS
+ *         Array of characteristic handles for GMCS and MCS.
  *  \param [in] c
- *              Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_get_context_info(d, h, r, i, c) \
-        GA_mcp_ce_manage_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_mcp_ce_get_context_info(d, h, r, i, c)                       \
+        GA_mcp_ce_manage_context_info                                   \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 #endif /* MCP_SUPPORT_CONTEXT_MANAGE */
 
 /**
@@ -2428,9 +2791,10 @@ GA_RESULT GA_mcp_ce_manage_context_info
  *  \par Description:
  *       This function enables to setup GMCS context with given device.
  *       Internally, GMCS service, char and descriptors for the GMCS service
- *       will be discovered. If OTS support is present on the remote,
- *       and is enabled locally, MCP Control and Data Channel will be
- *       established and corresponding events with status are notified.
+ *       will be discovered and Notifications are enabled. \n
+ *       If OTS support is present on the remote, and is enabled locally,
+ *       MCP Control and Data Channel will be established and corresponding
+ *       events with status are notified. \n
  *       mcp_handle to be used by application for further calls to have
  *       transaction on this GMCS Handle.
  *
@@ -2440,9 +2804,10 @@ GA_RESULT GA_mcp_ce_manage_context_info
  *  \param [out] mcp_handle
  *         GMCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref MCP_CE_SETUP_CNF is notified on
- *          completion with status as success or failure.
+ *          completion with status as success or failure. \n
  *          \if MCP_SUPPORT_OBJECT_TRANSFER
  *            If OTS support is present, \ref MCP_CE_CONTROL_CHANNEL_SETUP_CNF
  *            and/or \ref MCP_CE_DATA_CHANNEL_UP_CNF will be notified with
@@ -2467,15 +2832,16 @@ GA_RESULT GA_mcp_ce_setup_context
  *  \param [in] device
  *         Peer Device on which discovery has to happen.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
- *          If \ref GA_SUCCESS, \ref MCP_CE_DISC_MCS_CNF is notified with service
- *          handle range and status.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref MCP_CE_DISC_MCS_CNF is notified with
+ *          service handle range and status.
  *
  *  \note The device must have performed GMCS setup before calling
- *        this function.
- *        If MCS context has to be setup, \ref GA_mcp_ce_setup_mcs_context() has to
- *        be called with the service handle range received as part of this
- *        event.
+ *        this function. \n
+ *        If MCS context has to be setup, \ref GA_mcp_ce_setup_mcs_context()
+ *        has to be called with the service handle range received as part of
+ *        this event.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
@@ -2491,7 +2857,7 @@ GA_RESULT GA_mcp_ce_discover_mcs
  *  \par Description:
  *       This function enables to setup MCS context with given device.
  *       Internally, MCS service, char and descriptors for the GMCS service
- *       instance will be discovered.
+ *       instance will be discovered and Notifications are enabled. \n
  *       mcp_handle to be used by application for further calls to have
  *       transaction on this MCS Handle.
  *
@@ -2504,7 +2870,8 @@ GA_RESULT GA_mcp_ce_discover_mcs
  *  \param [out] mcp_handle
  *         MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref MCP_CE_SETUP_CNF is notified on
  *          completion with status as success or failure.
  *
@@ -2517,71 +2884,6 @@ GA_RESULT GA_mcp_ce_setup_mcs_context
               /* IN */   GA_BRR_SVC_INFO * srv_info,
               /* OUT */  MCP_HANDLE      * mcp_handle
           );
-
-/**
- *  \brief Release or free the given GMCS/MCS context.
- *
- *  \par Description
- *  When 'free' is set to \ref GA_FALSE, this routine initiates the release
- *  procedure for the context. Once release is done, the context is freed up
- *  and the setup must be freshly done by calling
- *  \ref GA_mcp_ce_setup_context or
- *  \ref GA_mcp_ce_setup_mcs_context() if required for
- *  the same device again.
- *
- *  If the 'free' parameter is set to \ref GA_TRUE,
- *  this API just frees up the context without the release procedure.
- *  If the given handle is GMCS Handle, any related MCS contexts shall be
- *  freed by the application before freeing up the GMCS context.
- *  If the given handle is a MCS Handle, the respective MCS context is freed.
- *
- *  \param [in] context Context to be released/freed
- *  \param [in] free Indicate free only without release
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *          If \ref GA_SUCCESS, \ref  is notified on
- *          completion with status as success or failure.
- */
-GA_RESULT GA_mcp_ce_terminate
-          (
-              /* IN */ MCP_HANDLE handle,
-              /* IN */ UCHAR      free
-          );
-
-/**
- *  \brief Release the given GA context.
- *
- *  \par Description
- *  This routine initiates the release procedure for the context. Once release
- *  is done, the context is freed up and the setup must be freshly done by
- *  calling \ref GA_mcp_ce_setup_context or
- * \ref GA_mcp_ce_setup_mcs_context() if required for the same device again.
- *
- *  \param [in] context Context to be released
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *          If \ref GA_SUCCESS, \ref MCP_CE_RELEASE_CNF or
- *          \ref MCP_CE_RELEASE_MCS_CNF is notified on completion with status
- *          as success or failure.
- */
-#define GA_mcp_ce_release(ctx) \
-        GA_mcp_ce_terminate((ctx), GA_FALSE)
-
-/**
- *  \brief Free the given GA context.
- *
- *  \par Description
- *  This routine frees up the given context of the GA layer.
- *  If the given handle is GMCS Handle, any related MCS contexts shall be
- *  freed by the application before freeing up the GMCS context.
- *  If the given handle is a MCS Handle, the respective MCS context is freed.
- *
- *  \param [in] context Context to be freed
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- */
-#define GA_mcp_ce_close(ctx) \
-        GA_mcp_ce_terminate((ctx), GA_TRUE)
 
 /**
  *  \brief To Configure a Char for Notifications.
@@ -2600,18 +2902,18 @@ GA_RESULT GA_mcp_ce_terminate
  *         Char UUID on which Config req is requested.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h.
+ *
+ *  \note If using this function to configure char, set mcp_ce_exp_evt by
+ *        referring to \ref ga_mcp_ce_events.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
- *
- *  \note If using this function to configure char,
- *        set mcp_ce_exp_evt by referring to \ref
- *        ga_mcp_ce_events.
  */
 GA_RESULT GA_mcp_ce_configure_context_char
           (
@@ -2620,6 +2922,109 @@ GA_RESULT GA_mcp_ce_configure_context_char
               /* IN */  UINT16        char_uuid,
               /* IN */  UINT8         mcs_ntf_flag
           );
+
+/** \} */
+
+/**
+ * \name MCP Client APIs - Release
+ * \{
+ * \brief This section describes the Media Control Profile Release APIs for
+ * Client.
+ */
+
+/**
+ *  \brief Close or Release the given GMCS/MCS context.
+ *
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_mcp_ce_setup_context() or \ref GA_mcp_ce_setup_mcs_context()
+ *       if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure. \n
+ *       If the given context is GMCS context, any associated MCS contexts
+ *       should be freed by the application before calling this function. \n
+ *       If the given context is a MCS context, the respective MCS context
+ *       is freed.
+ *
+ *  \param [in] handle
+ *         GMCS/MCS Context for the endpoint to be released/freed.
+ *
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref MCP_CE_RELEASE_CNF or
+ *          \ref MCP_CE_RELEASE_MCS_CNF is notified on completion with status
+ *          as success or failure.
+ *
+ *  \sa ga_mcp_and_otp_error_code
+ */
+GA_RESULT GA_mcp_ce_terminate
+          (
+              /* IN */ MCP_HANDLE handle,
+              /* IN */ UCHAR      release
+          );
+
+/**
+ *  \brief Release the given GMCS/MCS context.
+ *
+ *  \par Description:
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_mcp_ce_setup_context() or
+ *       \ref GA_mcp_ce_setup_mcs_context() if required for the
+ *       same device again. \n
+ *       If the given context is GMCS context, any associated MCS contexts
+ *       should be released/freed by the application before calling this
+ *       function. \n If the given context is a MCS context, the respective
+ *       MCS context is released.
+ *
+ *  \param [in] ctx
+ *         GMCS/MCS Context for the endpoint to be released.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref MCP_CE_RELEASE_CNF or
+ *          \ref MCP_CE_RELEASE_MCS_CNF is notified on completion with status
+ *          as success or failure.
+ *
+ *  \sa ga_mcp_and_otp_error_code
+ */
+#define GA_mcp_ce_release(ctx)                               \
+        GA_mcp_ce_terminate                                  \
+        (                                                    \
+            (ctx),                                           \
+            GA_TRUE                                          \
+        )
+
+/**
+ *  \brief Free the given GMCS/MCS context.
+ *
+ *  \par Description:
+ *       This routine frees up the given context of the GMCS/MCS. \n
+ *       If the given context is GMCS context, any associated MCS contexts
+ *       should be released/freed by the application before calling this
+ *       function. \n If the given context is a MCS context, the respective
+ *       MCS context is freed.
+ *
+ *  \param [in] ctx
+ *         GMCS/MCS Context for the endpoint to be freed.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h.
+ *
+ *  \sa ga_mcp_and_otp_error_code
+ */
+#define GA_mcp_ce_close(ctx)                                 \
+        GA_mcp_ce_terminate                                  \
+        (                                                    \
+            (ctx),                                           \
+            GA_FALSE                                         \
+        )
 
 /** \} */
 
@@ -2645,16 +3050,16 @@ GA_RESULT GA_mcp_ce_configure_context_char
  *  \param [in] char_uuid
  *         Char UUID on which read is requested.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref ga_mcp_ce_events is received.
  *
+ *  \note If using this function to perform read, set mcp_ce_exp_evt by
+ *        referring to \ref ga_mcp_ce_events.
+ *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
- *
- *  \note If using this function to perform read,
- *        set mcp_ce_exp_evt by referring to \ref
- *        ga_mcp_ce_events.
  */
 GA_RESULT GA_mcp_ce_read_request
           (
@@ -2679,7 +3084,8 @@ GA_RESULT GA_mcp_ce_read_request
  *  \param [in] char_uuid
  *         Char UUID on which write is requested.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer and the obj ref is set,
  *          \ref MCP_CE_SET_OBJ_REF_CNF is notified.
  *
@@ -2720,16 +3126,16 @@ GA_RESULT GA_mcp_ce_set_object_reference
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If the requested operation is a Write Request,
  *          \ref ga_mcp_ce_events is received.
  *
+ *  \note If using this function to write, set mcp_ce_exp_evt by
+ *        referring to \ref ga_mcp_ce_events.
+ *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
- *
- *  \note If using this function to write,
- *        set mcp_ce_exp_evt by referring to \ref
- *        ga_mcp_ce_events.
  */
 GA_RESULT GA_mcp_ce_write_request
           (
@@ -2743,8 +3149,6 @@ GA_RESULT GA_mcp_ce_write_request
 /**
  * \name MCP Client APIs - Setup
  * \{
- * \brief This section describes the Media Control Profile Setup APIs
- * for Client.
  */
 
 /**
@@ -2760,10 +3164,12 @@ GA_RESULT GA_mcp_ce_write_request
  *       of the MCS characteristics of a peer needs configuration at setup.
  *
  *  \param [in] config
- *         Bitmask of the Characteristic IDs for configuration
+ *         Bitmask of the Characteristic IDs for configuration.
  *
- *  \return GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
- *  \ref
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h.
+ *
+ *  \sa ga_mcp_and_otp_error_code
  */
 GA_RESULT GA_mcp_ce_update_ntf_configuration(UINT32 config);
 #endif /* MCP_SUPPORT_CONFIG_SELECTION */
@@ -2783,19 +3189,14 @@ GA_RESULT GA_mcp_ce_update_ntf_configuration(UINT32 config);
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
- *          Once all the config is complete,
- *          \ref MCP_CE_ENABLE_ALL_CFG_CNF /
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *          Once all the config is complete, \ref MCP_CE_ENABLE_ALL_CFG_CNF /
  *          \ref MCP_CE_DISABLE_ALL_CFG_CNF event is notified.
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
- *          If Notification is enabled/disabled,
- *          \ref MCP_CE_ENABLE_ALL_CFG_CNF / \ref MCP_CE_DISABLE_ALL_CFG_CNF
- *          respectively is notified.
  *          If Notification is received from peer device,
  *          \ref ga_mcp_ce_events is notified based on the char.
  *
@@ -2818,22 +3219,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_MEDIA_PLAYER_NAME_CFG_CNF is notified.
+ *          \ref MCP_CE_MEDIA_PLAYER_NAME_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_MEDIA_PLAYER_NAME_IND is notified.
+ *          \ref MCP_CE_MEDIA_PLAYER_NAME_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_media_player_name(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_MEDIA_PLAYER_NAME_CFG_CNF), (GA_CHAR_MCS_MEDIA_PLAYER_NAME), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_media_player_name(mcp_handle, mcs_ntf_flag)       \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_MEDIA_PLAYER_NAME_CFG_CNF),                                \
+            (GA_CHAR_MCS_MEDIA_PLAYER_NAME),                                   \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Track Changed for Notifications.
@@ -2845,22 +3252,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_TRACK_CHANGED_CFG_CNF is notified.
+ *          \ref MCP_CE_TRACK_CHANGED_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_TRACK_CHANGED_IND is notified.
+ *          \ref MCP_CE_TRACK_CHANGED_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_track_changed(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_TRACK_CHANGED_CFG_CNF), (GA_CHAR_MCS_TRACK_CHANGED), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_track_changed(mcp_handle, mcs_ntf_flag)           \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_TRACK_CHANGED_CFG_CNF),                                    \
+            (GA_CHAR_MCS_TRACK_CHANGED),                                       \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Track Title for Notifications.
@@ -2872,22 +3285,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_TRACK_TITLE_CFG_CNF is notified.
+ *          \ref MCP_CE_TRACK_TITLE_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_TRACK_TITLE_IND is notified.
+ *          \ref MCP_CE_TRACK_TITLE_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_track_title(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char  \
-        ((mcp_handle), (MCP_CE_TRACK_TITLE_CFG_CNF), (GA_CHAR_MCS_TRACK_TITLE), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_track_title(mcp_handle, mcs_ntf_flag)             \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_TRACK_TITLE_CFG_CNF),                                      \
+            (GA_CHAR_MCS_TRACK_TITLE),                                         \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Track Duration for Notifications.
@@ -2899,22 +3318,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_TRACK_DUR_CFG_CNF is notified.
+ *          \ref MCP_CE_TRACK_DUR_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_TRACK_DUR_IND is notified.
+ *          \ref MCP_CE_TRACK_DUR_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_track_duration(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_TRACK_DUR_CFG_CNF), (GA_CHAR_MCS_TRACK_DURATION), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_track_duration(mcp_handle, mcs_ntf_flag)          \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_TRACK_DUR_CFG_CNF),                                        \
+            (GA_CHAR_MCS_TRACK_DURATION),                                      \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Track Position for Notifications.
@@ -2926,22 +3351,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_TRACK_POS_CFG_CNF is notified.
+ *          \ref MCP_CE_TRACK_POS_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_TRACK_POS_IND is notified.
+ *          \ref MCP_CE_TRACK_POS_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_track_pos(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_TRACK_POS_CFG_CNF), (GA_CHAR_MCS_TRACK_POS), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_track_pos(mcp_handle, mcs_ntf_flag)               \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_TRACK_POS_CFG_CNF),                                        \
+            (GA_CHAR_MCS_TRACK_POS),                                           \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Playback Speed for Notifications.
@@ -2953,22 +3384,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_PLAYBACK_SPEED_CFG_CNF is notified.
+ *          \ref MCP_CE_PLAYBACK_SPEED_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_PLAYBACK_SPEED_IND is notified.
+ *          \ref MCP_CE_PLAYBACK_SPEED_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_playback_speed(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_PLAYBACK_SPEED_CFG_CNF), (GA_CHAR_MCS_PLAYBACK_SPEED), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_playback_speed(mcp_handle, mcs_ntf_flag)          \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_PLAYBACK_SPEED_CFG_CNF),                                   \
+            (GA_CHAR_MCS_PLAYBACK_SPEED),                                      \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Seeking Speed for Notifications.
@@ -2980,22 +3417,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_SEEKING_SPEED_CFG_CNF is notified.
+ *          \ref MCP_CE_SEEKING_SPEED_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_SEEKING_SPEED_IND is notified.
+ *          \ref MCP_CE_SEEKING_SPEED_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_seeking_speed(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_SEEKING_SPEED_CFG_CNF), (GA_CHAR_MCS_SEEKING_SPEED), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_seeking_speed(mcp_handle, mcs_ntf_flag)           \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_SEEKING_SPEED_CFG_CNF),                                    \
+            (GA_CHAR_MCS_SEEKING_SPEED),                                       \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Current Track Object ID for Notifications.
@@ -3008,22 +3451,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_CURR_TRACK_OBJ_ID_CFG_CNF is notified.
+ *          \ref MCP_CE_CURR_TRACK_OBJ_ID_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_CURR_TRACK_OBJ_ID_IND is notified.
+ *          \ref MCP_CE_CURR_TRACK_OBJ_ID_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_curr_track_obj_id(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_CURR_TRACK_OBJ_ID_CFG_CNF), (GA_CHAR_MCS_CURR_TRACK_OBJ_ID), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_curr_track_obj_id(mcp_handle, mcs_ntf_flag)       \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_CURR_TRACK_OBJ_ID_CFG_CNF),                                \
+            (GA_CHAR_MCS_CURR_TRACK_OBJ_ID),                                   \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Next Track Object ID for Notifications.
@@ -3036,22 +3485,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_NEXT_TRACK_OBJ_ID_CFG_CNF is notified.
+ *          \ref MCP_CE_NEXT_TRACK_OBJ_ID_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_NEXT_TRACK_OBJ_ID_IND is notified.
+ *          \ref MCP_CE_NEXT_TRACK_OBJ_ID_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_next_track_obj_id(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_NEXT_TRACK_OBJ_ID_CFG_CNF), (GA_CHAR_MCS_NEXT_TRACK_OBJ_ID), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_next_track_obj_id(mcp_handle, mcs_ntf_flag)       \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_NEXT_TRACK_OBJ_ID_CFG_CNF),                                \
+            (GA_CHAR_MCS_NEXT_TRACK_OBJ_ID),                                   \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Parent Group Object ID for Notifications.
@@ -3064,22 +3519,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_PARENT_GROUP_OBJ_ID_CFG_CNF is notified.
+ *          \ref MCP_CE_PARENT_GROUP_OBJ_ID_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_PARENT_GROUP_OBJ_ID_IND is notified.
+ *          \ref MCP_CE_PARENT_GROUP_OBJ_ID_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_parent_grp_obj_id(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_PARENT_GROUP_OBJ_ID_CFG_CNF), (GA_CHAR_MCS_PARENT_GROUP_OBJ_ID), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_parent_grp_obj_id(mcp_handle, mcs_ntf_flag)       \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_PARENT_GROUP_OBJ_ID_CFG_CNF),                              \
+            (GA_CHAR_MCS_PARENT_GROUP_OBJ_ID),                                 \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Current Group Object ID for Notifications.
@@ -3092,22 +3553,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_CURR_GROUP_OBJ_ID_CFG_CNF is notified.
+ *          \ref MCP_CE_CURR_GROUP_OBJ_ID_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_CURR_GROUP_OBJ_ID_IND is notified.
+ *          \ref MCP_CE_CURR_GROUP_OBJ_ID_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_curr_group_obj_id(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_CURR_GROUP_OBJ_ID_CFG_CNF), (GA_CHAR_MCS_CURR_GROUP_OBJ_ID), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_curr_group_obj_id(mcp_handle, mcs_ntf_flag)       \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_CURR_GROUP_OBJ_ID_CFG_CNF),                                \
+            (GA_CHAR_MCS_CURR_GROUP_OBJ_ID),                                   \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Playing Order for Notifications.
@@ -3120,22 +3587,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_PLAYING_ORDER_CFG_CNF is notified.
+ *          \ref MCP_CE_PLAYING_ORDER_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_PLAYING_ORDER_IND is notified.
+ *          \ref MCP_CE_PLAYING_ORDER_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_playing_order(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_PLAYING_ORDER_CFG_CNF), (GA_CHAR_MCS_PLAYING_ORDER), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_playing_order(mcp_handle, mcs_ntf_flag)           \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_PLAYING_ORDER_CFG_CNF),                                    \
+            (GA_CHAR_MCS_PLAYING_ORDER),                                       \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Media State for Notifications.
@@ -3148,22 +3621,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_MEDIA_STATE_CFG_CNF is notified.
+ *          \ref MCP_CE_MEDIA_STATE_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_MEDIA_STATE_IND is notified.
+ *          \ref MCP_CE_MEDIA_STATE_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_media_state(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_MEDIA_STATE_CFG_CNF), (GA_CHAR_MCS_MEDIA_STATE), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_media_state(mcp_handle, mcs_ntf_flag)             \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_MEDIA_STATE_CFG_CNF),                                      \
+            (GA_CHAR_MCS_MEDIA_STATE),                                         \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Media Control Point(MCP) for Notifications.
@@ -3175,22 +3654,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_MCP_CFG_CNF is notified.
+ *          \ref MCP_CE_MCP_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_MCP_IND is notified.
+ *          \ref MCP_CE_MCP_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_mcp(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_MCP_CFG_CNF), (GA_CHAR_MCS_MEDIA_CONTROL_POINT), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_mcp(mcp_handle, mcs_ntf_flag)                     \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_MCP_CFG_CNF),                                              \
+            (GA_CHAR_MCS_MEDIA_CONTROL_POINT),                                 \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure MCP Opcode Supported for Notifications.
@@ -3202,22 +3687,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_MCP_OPC_SUPP_CFG_CNF is notified.
+ *          \ref MCP_CE_MCP_OPC_SUPP_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_MCP_OPC_SUPP_IND is notified.
+ *          \ref MCP_CE_MCP_OPC_SUPP_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_mcp_opc_supp(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_MCP_OPC_SUPP_CFG_CNF), (GA_CHAR_MCS_CP_OPC_SUPP), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_mcp_opc_supp(mcp_handle, mcs_ntf_flag)            \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_MCP_OPC_SUPP_CFG_CNF),                                     \
+            (GA_CHAR_MCS_CP_OPC_SUPP),                                         \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure SCP for Notifications.
@@ -3229,22 +3720,28 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_SCP_CFG_CNF is notified.
+ *          \ref MCP_CE_SCP_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_SCP_IND is notified.
+ *          \ref MCP_CE_SCP_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_scp(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_SCP_CFG_CNF), (GA_CHAR_MCS_SEARCH_CONTROL_POINT), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_scp(mcp_handle, mcs_ntf_flag)                     \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_SCP_CFG_CNF),                                              \
+            (GA_CHAR_MCS_SEARCH_CONTROL_POINT),                                \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /**
  *  \brief To Configure Search Results Object ID for Notifications.
@@ -3257,30 +3754,34 @@ GA_RESULT GA_mcp_ce_configure_context
  *         GMCS/MCS Handle.
  *
  *  \param [in] mcs_ntf_flag
- *         Flag to indicate enable/disable notifications
- *         - 0x00 -> Disable
- *         - 0x01 -> Enable
- *         .
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *         Flag to indicate enable/disable notifications \n
+ *            - 0x00 -> Disable \n
+ *            - 0x01 -> Enable \n
+ *            .
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If Notification is enabled/disabled,
- *          \ref MCP_CE_SEARCH_RES_OBJ_ID_CFG_CNF is notified.
+ *          \ref MCP_CE_SEARCH_RES_OBJ_ID_CFG_CNF is notified. \n
  *          If Notification is received from peer device,
- *          \ref MCP_CE_SEARCH_RES_OBJ_ID_IND is notified.
+ *          \ref MCP_CE_SEARCH_RES_OBJ_ID_NTF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_config_ntf_search_results_obj_id(mcp_handle, mcs_ntf_flag) \
-        GA_mcp_ce_configure_context_char \
-        ((mcp_handle), (MCP_CE_SEARCH_RES_OBJ_ID_CFG_CNF), (GA_CHAR_MCS_SEARCH_RES_OBJ_ID), (mcs_ntf_flag))
+#define GA_mcp_ce_config_ntf_search_results_obj_id(mcp_handle, mcs_ntf_flag)   \
+        GA_mcp_ce_configure_context_char                                       \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_SEARCH_RES_OBJ_ID_CFG_CNF),                                \
+            (GA_CHAR_MCS_SEARCH_RES_OBJ_ID),                                   \
+            (mcs_ntf_flag)                                                     \
+        )
 
 /** \} */
 
 /**
  * \name MCP Client APIs - Read
  * \{
- * \brief This section describes the Media Control Profile Read APIs for
- * Client.
  */
 
 /**
@@ -3292,15 +3793,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure. \n
- *               If \ref GA_SUCCESS, read response is received and notified
- *               via \ref MCP_CE_READ_MEDIA_PLAYER_NAME_CNF.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, read response is received and notified
+ *          via \ref MCP_CE_READ_MEDIA_PLAYER_NAME_CNF.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_media_player_name(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_MEDIA_PLAYER_NAME_CNF), (GA_CHAR_MCS_MEDIA_PLAYER_NAME))
+#define GA_mcp_ce_read_media_player_name(mcp_handle)                    \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_MEDIA_PLAYER_NAME_CNF),                        \
+            (GA_CHAR_MCS_MEDIA_PLAYER_NAME)                             \
+        )
 
 /**
  *  \brief To Set Object reference of Media Player Icon.
@@ -3319,15 +3826,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer and the obj is set,
  *          \ref MCP_CE_SET_OBJ_REF_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_set_media_player_icon_obj(mcp_handle) \
-        GA_mcp_ce_set_object_reference((mcp_handle), (MCP_CE_SET_OBJ_REF_CNF), (GA_CHAR_MCS_MEDIA_PLAYER_ICON_OBJ_ID))
+#define GA_mcp_ce_set_media_player_icon_obj(mcp_handle)                 \
+        GA_mcp_ce_set_object_reference                                  \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_SET_OBJ_REF_CNF),                                   \
+            (GA_CHAR_MCS_MEDIA_PLAYER_ICON_OBJ_ID)                      \
+        )
 /** \} */
 
 #ifdef MCP_SUPPORT_OBJECT_TRANSFER
@@ -3355,15 +3868,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] attr_id
  *         Attribute ID to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_GET_OBJ_ATTR_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_media_player_icon_obj_attr(mcp_handle, obj_id, attr_id) \
-        GA_mcp_ce_read_object_attr((mcp_handle), (MCP_CE_GET_OBJ_ATTR_CNF), (obj_id), (attr_id))
+#define GA_mcp_ce_read_media_player_icon_obj_attr(mcp_handle, obj_id, attr_id)    \
+        GA_mcp_ce_read_object_attr                                                \
+        (                                                                         \
+            (mcp_handle),                                                         \
+            (MCP_CE_GET_OBJ_ATTR_CNF),                                            \
+            (obj_id),                                                             \
+            (attr_id)                                                             \
+        )
 
 /**
  *  \brief To fetch the Media Player Icon Object.
@@ -3391,8 +3911,16 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_media_player_icon_obj(mcp_handle, obj_id, offset, length) \
-        GA_mcp_ce_read_object((mcp_handle), (MCP_CE_READ_MEDIA_PLAYER_ICON_OBJ_CNF), (MCP_CE_OBJ_TYPE_MP_ICON), (obj_id), (offset), (length))
+#define GA_mcp_ce_read_media_player_icon_obj(mcp_handle, obj_id, offset, length)  \
+        GA_mcp_ce_read_object                                                     \
+        (                                                                         \
+            (mcp_handle),                                                         \
+            (MCP_CE_READ_MEDIA_PLAYER_ICON_OBJ_CNF),                              \
+            (MCP_CE_OBJ_TYPE_MP_ICON),                                            \
+            (obj_id),                                                             \
+            (offset),                                                             \
+            (length)                                                              \
+        )
 
 /** \} */
 
@@ -3401,8 +3929,6 @@ GA_RESULT GA_mcp_ce_configure_context
 /**
  * \name MCP Client APIs - Read
  * \{
- * \brief This section describes the Media Control Profile Read APIs for
- * Client.
  */
 
 /**
@@ -3414,15 +3940,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_MEDIA_PLAYER_ICON_URL_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_media_player_icon_URL(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_MEDIA_PLAYER_ICON_URL_CNF), (GA_CHAR_MCS_MEDIA_PLAYER_ICON_URL))
+#define GA_mcp_ce_read_media_player_icon_URL(mcp_handle)                \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_MEDIA_PLAYER_ICON_URL_CNF),                    \
+            (GA_CHAR_MCS_MEDIA_PLAYER_ICON_URL)                         \
+        )
 
 /**
  *  \brief To Read Track Title.
@@ -3433,15 +3965,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_TRACK_TITLE_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_track_title(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_TRACK_TITLE_CNF), (GA_CHAR_MCS_TRACK_TITLE))
+#define GA_mcp_ce_read_track_title(mcp_handle)                          \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_TRACK_TITLE_CNF),                              \
+            (GA_CHAR_MCS_TRACK_TITLE)                                   \
+        )
 
 /**
  *  \brief To Read Track Duration.
@@ -3452,15 +3990,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_TRACK_DUR_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_track_duration(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_TRACK_DUR_CNF), (GA_CHAR_MCS_TRACK_DURATION))
+#define GA_mcp_ce_read_track_duration(mcp_handle)                       \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_TRACK_DUR_CNF),                                \
+            (GA_CHAR_MCS_TRACK_DURATION)                                \
+        )
 
 /**
  *  \brief To Read Track Position.
@@ -3471,15 +4015,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_TRACK_POS_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_track_pos(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_TRACK_POS_CNF), (GA_CHAR_MCS_TRACK_POS))
+#define GA_mcp_ce_read_track_pos(mcp_handle)                            \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_TRACK_POS_CNF),                                \
+            (GA_CHAR_MCS_TRACK_POS)                                     \
+        )
 
  /**
  *  \brief To Read Playback Speed.
@@ -3490,15 +4040,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_PLAYBACK_SPEED_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_playback_speed(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_PLAYBACK_SPEED_CNF), (GA_CHAR_MCS_PLAYBACK_SPEED))
+#define GA_mcp_ce_read_playback_speed(mcp_handle)                       \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_PLAYBACK_SPEED_CNF),                           \
+            (GA_CHAR_MCS_PLAYBACK_SPEED)                                \
+        )
 
 /**
  *  \brief To Read Seeking Speed.
@@ -3509,15 +4065,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_SEEKING_SPEED_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_seeking_speed(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_SEEKING_SPEED_CNF), (GA_CHAR_MCS_SEEKING_SPEED))
+#define GA_mcp_ce_read_seeking_speed(mcp_handle)                        \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_SEEKING_SPEED_CNF),                            \
+            (GA_CHAR_MCS_SEEKING_SPEED)                                 \
+        )
 
 /**
  *  \brief To Set Object reference of Current Track Segment.
@@ -3536,15 +4098,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer and the obj is set,
  *          \ref MCP_CE_SET_OBJ_REF_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_set_curr_track_seg_obj(mcp_handle) \
-        GA_mcp_ce_set_object_reference((mcp_handle), (MCP_CE_SET_OBJ_REF_CNF), (GA_CHAR_MCS_CURR_TRACK_SEG_OBJ_ID))
+#define GA_mcp_ce_set_curr_track_seg_obj(mcp_handle)                    \
+        GA_mcp_ce_set_object_reference                                  \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_SET_OBJ_REF_CNF),                                   \
+            (GA_CHAR_MCS_CURR_TRACK_SEG_OBJ_ID)                         \
+        )
 
 /** \} */
 
@@ -3553,8 +4121,6 @@ GA_RESULT GA_mcp_ce_configure_context
 /**
  * \name MCP Client APIs - OTP Read
  * \{
- * \brief This section describes the Media Control Profile OTP Read APIs for
- * Client.
  */
 
 /**
@@ -3573,15 +4139,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] attr_id
  *         Attribute ID to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_GET_OBJ_ATTR_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_curr_track_seg_obj_attr(mcp_handle, obj_id, attr_id) \
-        GA_mcp_ce_read_object_attr((mcp_handle), (MCP_CE_GET_OBJ_ATTR_CNF), (obj_id), (attr_id))
+#define GA_mcp_ce_read_curr_track_seg_obj_attr(mcp_handle, obj_id, attr_id)    \
+        GA_mcp_ce_read_object_attr                                             \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_GET_OBJ_ATTR_CNF),                                         \
+            (obj_id),                                                          \
+            (attr_id)                                                          \
+        )
 
 /**
  *  \brief To fetch the Current Track Segment Object.
@@ -3611,16 +4184,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_curr_track_seg_obj(mcp_handle, obj_id, offset, length) \
-        GA_mcp_ce_read_object((mcp_handle), (MCP_CE_READ_CURR_TRACK_SEG_OBJ_CNF), (MCP_CE_OBJ_TYPE_CURR_TRACK_ID3V2), (obj_id), (offset), (length))
+#define GA_mcp_ce_read_curr_track_seg_obj(mcp_handle, obj_id, offset, length)  \
+        GA_mcp_ce_read_object                                                  \
+        (                                                                      \
+            (mcp_handle),                                                      \
+            (MCP_CE_READ_CURR_TRACK_SEG_OBJ_CNF),                              \
+            (MCP_CE_OBJ_TYPE_CURR_TRACK_ID3V2),                                \
+            (obj_id),                                                          \
+            (offset),                                                          \
+            (length)                                                           \
+        )
 /** \} */
 #endif /* MCP_SUPPORT_OBJECT_TRANSFER */
 
 /**
  * \name MCP Client APIs - Read
  * \{
- * \brief This section describes the Media Control Profile Read APIs for
- * Client.
  */
 
 /**
@@ -3640,15 +4219,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer and the obj is set,
  *          \ref MCP_CE_SET_OBJ_REF_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_set_curr_track_obj(mcp_handle) \
-        GA_mcp_ce_set_object_reference((mcp_handle), (MCP_CE_SET_OBJ_REF_CNF), (GA_CHAR_MCS_CURR_TRACK_OBJ_ID))
+#define GA_mcp_ce_set_curr_track_obj(mcp_handle)                        \
+        GA_mcp_ce_set_object_reference                                  \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_SET_OBJ_REF_CNF),                                   \
+            (GA_CHAR_MCS_CURR_TRACK_OBJ_ID)                             \
+        )
 
 /** \} */
 
@@ -3657,8 +4242,6 @@ GA_RESULT GA_mcp_ce_configure_context
 /**
  * \name MCP Client APIs - OTP Read
  * \{
- * \brief This section describes the Media Control Profile OTP Read APIs for
- * Client.
  */
 
 /**
@@ -3677,15 +4260,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] attr_id
  *         Attribute ID to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_GET_OBJ_ATTR_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_curr_track_obj_attr(mcp_handle, obj_id, attr_id) \
-        GA_mcp_ce_read_object_attr((mcp_handle), (MCP_CE_GET_OBJ_ATTR_CNF), (obj_id), (attr_id))
+#define GA_mcp_ce_read_curr_track_obj_attr(mcp_handle, obj_id, attr_id)   \
+        GA_mcp_ce_read_object_attr                                        \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_GET_OBJ_ATTR_CNF),                                    \
+            (obj_id),                                                     \
+            (attr_id)                                                     \
+        )
 
 /**
  *  \brief To fetch the Current Track Object.
@@ -3716,15 +4306,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_ce_read_curr_track_obj(mcp_handle, obj_id, offset, length) \
-        GA_mcp_ce_read_object((mcp_handle), (MCP_CE_READ_CURR_TRACK_OBJ_CNF), (MCP_CE_OBJ_TYPE_CURR_TRACK_ID3V2), (obj_id), (offset), (length))
+        GA_mcp_ce_read_object                                             \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_READ_CURR_TRACK_OBJ_CNF),                             \
+            (MCP_CE_OBJ_TYPE_CURR_TRACK_ID3V2),                           \
+            (obj_id),                                                     \
+            (offset),                                                     \
+            (length)                                                      \
+        )
 /** \} */
 #endif /* MCP_SUPPORT_OBJECT_TRANSFER */
 
 /**
  * \name MCP Client APIs - Read
  * \{
- * \brief This section describes the Media Control Profile Read APIs for
- * Client.
  */
 
 /**
@@ -3744,15 +4340,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer and the obj is set,
  *          \ref MCP_CE_SET_OBJ_REF_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_set_next_track_obj(mcp_handle) \
-        GA_mcp_ce_set_object_reference((mcp_handle), (MCP_CE_SET_OBJ_REF_CNF), (GA_CHAR_MCS_NEXT_TRACK_OBJ_ID))
+#define GA_mcp_ce_set_next_track_obj(mcp_handle)                        \
+        GA_mcp_ce_set_object_reference                                  \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_SET_OBJ_REF_CNF),                                   \
+            (GA_CHAR_MCS_NEXT_TRACK_OBJ_ID)                             \
+        )
 
 /** \} */
 
@@ -3761,8 +4363,6 @@ GA_RESULT GA_mcp_ce_configure_context
 /**
  * \name MCP Client APIs - OTP Read
  * \{
- * \brief This section describes the Media Control Profile OTP Read APIs for
- * Client.
  */
 
 /**
@@ -3781,15 +4381,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] attr_id
  *         Attribute ID to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_GET_OBJ_ATTR_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_next_track_obj_attr(mcp_handle, obj_id, attr_id) \
-        GA_mcp_ce_read_object_attr((mcp_handle), (MCP_CE_GET_OBJ_ATTR_CNF), (obj_id), (attr_id))
+#define GA_mcp_ce_read_next_track_obj_attr(mcp_handle, obj_id, attr_id)   \
+        GA_mcp_ce_read_object_attr                                        \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_GET_OBJ_ATTR_CNF),                                    \
+            (obj_id),                                                     \
+            (attr_id)                                                     \
+        )
 
 /**
  *  \brief To fetch the Next Track Object.
@@ -3820,15 +4427,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_ce_read_next_track_obj(mcp_handle, obj_id, offset, length) \
-        GA_mcp_ce_read_object((mcp_handle), (MCP_CE_READ_NEXT_TRACK_OBJ_CNF), (MCP_CE_OBJ_TYPE_NEXT_TRACK_ID3V2), (obj_id), (offset), (length))
+        GA_mcp_ce_read_object                                             \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_READ_NEXT_TRACK_OBJ_CNF),                             \
+            (MCP_CE_OBJ_TYPE_NEXT_TRACK_ID3V2),                           \
+            (obj_id),                                                     \
+            (offset),                                                     \
+            (length)                                                      \
+        )
 /** \} */
 #endif /* MCP_SUPPORT_OBJECT_TRANSFER */
 
 /**
  * \name MCP Client APIs - Read
  * \{
- * \brief This section describes the Media Control Profile Read APIs for
- * Client.
  */
 
 /**
@@ -3848,15 +4461,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer and the obj is set,
  *          \ref MCP_CE_SET_OBJ_REF_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_set_parent_grp_obj(mcp_handle) \
-        GA_mcp_ce_set_object_reference((mcp_handle), (MCP_CE_SET_OBJ_REF_CNF), (GA_CHAR_MCS_PARENT_GROUP_OBJ_ID))
+#define GA_mcp_ce_set_parent_grp_obj(mcp_handle)                        \
+        GA_mcp_ce_set_object_reference                                  \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_SET_OBJ_REF_CNF),                                   \
+            (GA_CHAR_MCS_PARENT_GROUP_OBJ_ID)                           \
+        )
 
 /** \} */
 
@@ -3865,8 +4484,6 @@ GA_RESULT GA_mcp_ce_configure_context
 /**
  * \name MCP Client APIs - OTP Read
  * \{
- * \brief This section describes the Media Control Profile OTP Read APIs for
- * Client.
  */
 
 /**
@@ -3885,15 +4502,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] attr_id
  *         Attribute ID to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_GET_OBJ_ATTR_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_parent_grp_obj_attr(mcp_handle, obj_id, attr_id) \
-        GA_mcp_ce_read_object_attr((mcp_handle), (MCP_CE_GET_OBJ_ATTR_CNF), (obj_id), (attr_id))
+#define GA_mcp_ce_read_parent_grp_obj_attr(mcp_handle, obj_id, attr_id)   \
+        GA_mcp_ce_read_object_attr                                        \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_GET_OBJ_ATTR_CNF),                                    \
+            (obj_id),                                                     \
+            (attr_id)                                                     \
+        )
 
 /**
  *  \brief To fetch the Parent Group Object.
@@ -3924,15 +4548,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_ce_read_parent_grp_obj(mcp_handle, obj_id, offset, length) \
-        GA_mcp_ce_read_object((mcp_handle), (MCP_CE_READ_PARENT_GROUP_OBJ_CNF), (MCP_CE_OBJ_TYPE_PARENT_GROUP), (obj_id), (offset), (length))
+        GA_mcp_ce_read_object                                             \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_READ_PARENT_GROUP_OBJ_CNF),                           \
+            (MCP_CE_OBJ_TYPE_PARENT_GROUP),                               \
+            (obj_id),                                                     \
+            (offset),                                                     \
+            (length)                                                      \
+        )
 /** \} */
 #endif /* MCP_SUPPORT_OBJECT_TRANSFER */
 
 /**
  * \name MCP Client APIs - Read
  * \{
- * \brief This section describes the Media Control Profile Read APIs for
- * Client.
  */
 
 /**
@@ -3952,15 +4582,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer and the obj is set,
  *          \ref MCP_CE_SET_OBJ_REF_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_set_curr_grp_obj(mcp_handle) \
-        GA_mcp_ce_set_object_reference((mcp_handle), (MCP_CE_SET_OBJ_REF_CNF), (GA_CHAR_MCS_CURR_GROUP_OBJ_ID))
+#define GA_mcp_ce_set_curr_grp_obj(mcp_handle)                          \
+        GA_mcp_ce_set_object_reference                                  \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_SET_OBJ_REF_CNF),                                   \
+            (GA_CHAR_MCS_CURR_GROUP_OBJ_ID)                             \
+        )
 
 /** \} */
 
@@ -3969,8 +4605,6 @@ GA_RESULT GA_mcp_ce_configure_context
 /**
  * \name MCP Client APIs - OTP Read
  * \{
- * \brief This section describes the Media Control Profile OTP Read APIs for
- * Client.
  */
 
 /**
@@ -3989,15 +4623,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] attr_id
  *         Attribute ID to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_GET_OBJ_ATTR_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_curr_grp_obj_attr(mcp_handle, obj_id, attr_id) \
-        GA_mcp_ce_read_object_attr((mcp_handle), (MCP_CE_GET_OBJ_ATTR_CNF), (obj_id), (attr_id))
+#define GA_mcp_ce_read_curr_grp_obj_attr(mcp_handle, obj_id, attr_id)     \
+        GA_mcp_ce_read_object_attr                                        \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_GET_OBJ_ATTR_CNF),                                    \
+            (obj_id),                                                     \
+            (attr_id)                                                     \
+        )
 
 /**
  *  \brief To fetch the Current Group Object.
@@ -4027,16 +4668,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_curr_grp_obj(mcp_handle, obj_id, offset, length) \
-        GA_mcp_ce_read_object((mcp_handle), (MCP_CE_READ_CURR_GROUP_OBJ_CNF), (MCP_CE_OBJ_TYPE_CURR_GROUP), (obj_id), (offset), (length))
+#define GA_mcp_ce_read_curr_grp_obj(mcp_handle, obj_id, offset, length)   \
+        GA_mcp_ce_read_object                                             \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_READ_CURR_GROUP_OBJ_CNF),                             \
+            (MCP_CE_OBJ_TYPE_CURR_GROUP),                                 \
+            (obj_id),                                                     \
+            (offset),                                                     \
+            (length)                                                      \
+        )
 /** \} */
 #endif /* MCP_SUPPORT_OBJECT_TRANSFER */
 
 /**
  * \name MCP Client APIs - Read
  * \{
- * \brief This section describes the Media Control Profile Read APIs for
- * Client.
  */
 
 /**
@@ -4048,15 +4695,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_PLAYING_ORDER_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_playing_order(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_PLAYING_ORDER_CNF), (GA_CHAR_MCS_PLAYING_ORDER))
+#define GA_mcp_ce_read_playing_order(mcp_handle)                        \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_PLAYING_ORDER_CNF),                            \
+            (GA_CHAR_MCS_PLAYING_ORDER)                                 \
+        )
 
 /**
  *  \brief To Read Playing Orders Supported
@@ -4067,15 +4720,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_PLAYING_ORDERS_SUPP_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_playing_orders_supp(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_PLAYING_ORDERS_SUPP_CNF), (GA_CHAR_MCS_PLAYING_ORDERS_SUPP))
+#define GA_mcp_ce_read_playing_orders_supp(mcp_handle)                  \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_PLAYING_ORDERS_SUPP_CNF),                      \
+            (GA_CHAR_MCS_PLAYING_ORDERS_SUPP)                           \
+        )
 
 /**
  *  \brief To Read Media State
@@ -4086,15 +4745,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_MEDIA_STATE_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_media_state(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_MEDIA_STATE_CNF), (GA_CHAR_MCS_MEDIA_STATE))
+#define GA_mcp_ce_read_media_state(mcp_handle)                          \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_MEDIA_STATE_CNF),                              \
+            (GA_CHAR_MCS_MEDIA_STATE)                                   \
+        )
 
 /**
  *  \brief To Read MCP Opcodes Supported
@@ -4105,15 +4770,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_MCP_OPC_SUPP_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_mcp_opc_supp(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_MCP_OPC_SUPP_CNF), (GA_CHAR_MCS_CP_OPC_SUPP))
+#define GA_mcp_ce_read_mcp_opc_supp(mcp_handle)                         \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_MCP_OPC_SUPP_CNF),                             \
+            (GA_CHAR_MCS_CP_OPC_SUPP)                                   \
+        )
 
 /**
  *  \brief To Set Object reference of Search Results.
@@ -4132,15 +4803,21 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer and the obj is set,
  *          \ref MCP_CE_SET_OBJ_REF_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_set_search_res_obj(mcp_handle) \
-        GA_mcp_ce_set_object_reference((mcp_handle), (MCP_CE_SET_OBJ_REF_CNF), (GA_CHAR_MCS_SEARCH_RES_OBJ_ID))
+#define GA_mcp_ce_set_search_res_obj(mcp_handle)                        \
+        GA_mcp_ce_set_object_reference                                  \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_SET_OBJ_REF_CNF),                                   \
+            (GA_CHAR_MCS_SEARCH_RES_OBJ_ID)                             \
+        )
 
 /** \} */
 
@@ -4149,8 +4826,6 @@ GA_RESULT GA_mcp_ce_configure_context
 /**
  * \name MCP Client APIs - OTP Read
  * \{
- * \brief This section describes the Media Control Profile OTP Read APIs for
- * Client.
  */
 
 /**
@@ -4169,15 +4844,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] attr_id
  *         Attribute ID to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_GET_OBJ_ATTR_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_search_res_obj_attr(mcp_handle, obj_id, attr_id) \
-        GA_mcp_ce_read_object_attr((mcp_handle), (MCP_CE_GET_OBJ_ATTR_CNF), (obj_id), (attr_id))
+#define GA_mcp_ce_read_search_res_obj_attr(mcp_handle, obj_id, attr_id)   \
+        GA_mcp_ce_read_object_attr                                        \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_GET_OBJ_ATTR_CNF),                                    \
+            (obj_id),                                                     \
+            (attr_id)                                                     \
+        )
 
 /**
  *  \brief To fetch the Search Result Object.
@@ -4197,7 +4879,8 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] len
  *         Length of the object to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When contents are read from the peer,
  *          \ref MCP_CE_READ_SEARCH_RES_OBJ_CNF is notified with status
  *          indicating if this event will be called again and again.
@@ -4206,7 +4889,15 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_ce_read_search_res_obj(mcp_handle, obj_id, offset, length) \
-        GA_mcp_ce_read_object((mcp_handle), (MCP_CE_READ_SEARCH_RES_OBJ_CNF), (MCP_CE_OBJ_TYPE_SEARCH_RES_GROUP), (obj_id), (offset), (length))
+        GA_mcp_ce_read_object                                             \
+        (                                                                 \
+            (mcp_handle),                                                 \
+            (MCP_CE_READ_SEARCH_RES_OBJ_CNF),                             \
+            (MCP_CE_OBJ_TYPE_SEARCH_RES_GROUP),                           \
+            (obj_id),                                                     \
+            (offset),                                                     \
+            (length)                                                      \
+        )
 
 /** \} */
 #endif /* MCP_SUPPORT_OBJECT_TRANSFER */
@@ -4214,8 +4905,6 @@ GA_RESULT GA_mcp_ce_configure_context
 /**
  * \name MCP Client APIs - Read
  * \{
- * \brief This section describes the Media Control Profile Read APIs for
- * Client.
  */
 
 /**
@@ -4227,23 +4916,27 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer,
  *          \ref MCP_CE_READ_CONTENT_CONTROL_ID_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_read_content_control_ID(mcp_handle) \
-        GA_mcp_ce_read_request((mcp_handle), (MCP_CE_READ_CONTENT_CONTROL_ID_CNF), (GA_CHAR_CONTENT_CONTROL_ID))
+#define GA_mcp_ce_read_content_control_ID(mcp_handle)                   \
+        GA_mcp_ce_read_request                                          \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_READ_CONTENT_CONTROL_ID_CNF),                       \
+            (GA_CHAR_CONTENT_CONTROL_ID)                                \
+        )
 
 /** \} */
 
 /**
  * \name MCP Client APIs - Write
  * \{
- * \brief This section describes the Media Control Profile Write APIs for
- * Client.
  */
 
 /**
@@ -4258,15 +4951,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When write response is received from peer,
  *          \ref MCP_CE_TRACK_POS_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_write_track_pos(mcp_handle, req) \
-        GA_mcp_ce_write_request((mcp_handle), (MCP_CE_TRACK_POS_CNF), (GA_CHAR_MCS_TRACK_POS), (req))
+#define GA_mcp_ce_write_track_pos(mcp_handle, req)                      \
+        GA_mcp_ce_write_request                                         \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_TRACK_POS_CNF),                                     \
+            (GA_CHAR_MCS_TRACK_POS),                                    \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write Playback Speed.
@@ -4280,15 +4980,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When write response is received from peer,
  *          \ref MCP_CE_TRACK_PLAYBACK_SPEED_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_write_playback_speed(mcp_handle, req) \
-        GA_mcp_ce_write_request((mcp_handle), (MCP_CE_TRACK_PLAYBACK_SPEED_CNF), (GA_CHAR_MCS_PLAYBACK_SPEED), (req))
+#define GA_mcp_ce_write_playback_speed(mcp_handle, req)                 \
+        GA_mcp_ce_write_request                                         \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_TRACK_PLAYBACK_SPEED_CNF),                          \
+            (GA_CHAR_MCS_PLAYBACK_SPEED),                               \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write Current Track Obj ID.
@@ -4302,15 +5009,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When write response is received from peer,
  *          \ref MCP_CE_CURR_TRACK_OBJ_ID_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_write_curr_track_obj_ID(mcp_handle, req) \
-        GA_mcp_ce_write_request((mcp_handle), (MCP_CE_CURR_TRACK_OBJ_ID_CNF), (GA_CHAR_MCS_CURR_TRACK_OBJ_ID), (req))
+#define GA_mcp_ce_write_curr_track_obj_ID(mcp_handle, req)              \
+        GA_mcp_ce_write_request                                         \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_CURR_TRACK_OBJ_ID_CNF),                             \
+            (GA_CHAR_MCS_CURR_TRACK_OBJ_ID),                            \
+            (req)                                                       \
+        )
 
  /**
  *  \brief To Write Next Track Obj ID.
@@ -4324,15 +5038,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When write response is received from peer,
  *          \ref MCP_CE_NEXT_TRACK_OBJ_ID_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_write_next_track_obj_ID(mcp_handle, req) \
-        GA_mcp_ce_write_request((mcp_handle), (MCP_CE_NEXT_TRACK_OBJ_ID_CNF), (GA_CHAR_MCS_NEXT_TRACK_OBJ_ID), (req))
+#define GA_mcp_ce_write_next_track_obj_ID(mcp_handle, req)              \
+        GA_mcp_ce_write_request                                         \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_NEXT_TRACK_OBJ_ID_CNF),                             \
+            (GA_CHAR_MCS_NEXT_TRACK_OBJ_ID),                            \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write Current Group Obj ID
@@ -4346,15 +5067,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When write response is received from peer,
  *          \ref MCP_CE_CURR_GRP_OBJ_ID_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_write_curr_group_obj_ID(mcp_handle, req) \
-        GA_mcp_ce_write_request((mcp_handle), (MCP_CE_CURR_GRP_OBJ_ID_CNF), (GA_CHAR_MCS_CURR_GROUP_OBJ_ID), (req))
+#define GA_mcp_ce_write_curr_group_obj_ID(mcp_handle, req)              \
+        GA_mcp_ce_write_request                                         \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_CURR_GRP_OBJ_ID_CNF),                               \
+            (GA_CHAR_MCS_CURR_GROUP_OBJ_ID),                            \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write Playing Order
@@ -4368,15 +5096,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When write response is received from peer,
  *          \ref MCP_CE_PLAYING_ORDER_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_write_playing_order(mcp_handle, req) \
-        GA_mcp_ce_write_request((mcp_handle), (MCP_CE_PLAYING_ORDER_CNF), (GA_CHAR_MCS_PLAYING_ORDER), (req))
+#define GA_mcp_ce_write_playing_order(mcp_handle, req)                  \
+        GA_mcp_ce_write_request                                         \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_PLAYING_ORDER_CNF),                                 \
+            (GA_CHAR_MCS_PLAYING_ORDER),                                \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write MCP
@@ -4390,15 +5125,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When write response is received from peer,
  *          \ref MCP_CE_MCP_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_write_MCP(mcp_handle, req) \
-        GA_mcp_ce_write_request((mcp_handle), (MCP_CE_MCP_CNF), (GA_CHAR_MCS_MEDIA_CONTROL_POINT), (req))
+#define GA_mcp_ce_write_MCP(mcp_handle, req)                            \
+        GA_mcp_ce_write_request                                         \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_MCP_CNF),                                           \
+            (GA_CHAR_MCS_MEDIA_CONTROL_POINT),                          \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write SCP
@@ -4412,15 +5154,22 @@ GA_RESULT GA_mcp_ce_configure_context
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When write response is received from peer,
  *          \ref MCP_CE_SCP_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_ce_write_SCP(mcp_handle, req) \
-        GA_mcp_ce_write_request((mcp_handle), (MCP_CE_SCP_CNF), (GA_CHAR_MCS_SEARCH_CONTROL_POINT), (req))
+#define GA_mcp_ce_write_SCP(mcp_handle, req)                            \
+        GA_mcp_ce_write_request                                         \
+        (                                                               \
+            (mcp_handle),                                               \
+            (MCP_CE_SCP_CNF),                                           \
+            (GA_CHAR_MCS_SEARCH_CONTROL_POINT),                         \
+            (req)                                                       \
+        )
 
 /** \} */
 
@@ -4438,16 +5187,17 @@ GA_RESULT GA_mcp_ce_configure_context
  *
  *  \par Description:
  *       This function enables to discover if OTS service is included for this
- *       GMCS/MCS session. It also performs char and desc discovery.
+ *       GMCS/MCS session. It also performs char and desc discovery. \n
  *       If requested for a GMCS handle, MCP Data channel is established along
  *       with the Control channel.
  *
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref MCP_CE_CONTROL_CHANNEL_SETUP_CNF is
- *          notified on completion.
+ *          notified on completion. \n
  *          For GMCS, If OTS Transport Channel is established,
  *          \ref MCP_CE_DATA_CHANNEL_UP_CNF is notified.
  *
@@ -4472,10 +5222,10 @@ GA_RESULT GA_mcp_ce_setup_object_ctrl_channel
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *          If \ref GA_SUCCESS,
- *          If MCP Data Channel is established, \ref MCP_CE_DATA_CHANNEL_UP_CNF is
- *          notified.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, if MCP Data Channel is established,
+ *          \ref MCP_CE_DATA_CHANNEL_UP_CNF is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
@@ -4503,8 +5253,10 @@ GA_RESULT GA_mcp_ce_setup_object_data_channel
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
- *          On successful release, \ref MCP_CE_DATA_CHANNEL_DOWN_CNF is notified.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *          On successful release, \ref MCP_CE_DATA_CHANNEL_DOWN_CNF
+ *          is notified.
  *
  *  \sa ga_mcp_ce_events
  *  \sa ga_mcp_and_otp_error_code
@@ -4541,7 +5293,8 @@ GA_RESULT GA_mcp_ce_release_object_data_channel
  *  \param [in] attr_id
  *         Attribute ID requested to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *          When read response is received from peer, \ref MCP_CE_GET_OBJ_ATTR_CNF is
  *          notified.
  *
@@ -4561,7 +5314,8 @@ GA_RESULT GA_mcp_ce_read_object_attr
  *
  *  \par Description:
  *       This function performs transaction to request data via MCP Control
- *       channel and then fetches contents of the Object on the MCP Data Channel.
+ *       channel and then fetches contents of the Object on the
+ *       MCP Data Channel.
  *
  *  \param [in] mcp_handle
  *         GMCS/MCS Handle.
@@ -4581,8 +5335,9 @@ GA_RESULT GA_mcp_ce_read_object_attr
  *  \param [in] len
  *         Length of the object to be read.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
- *          When read response is received from peer, event is generated.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *          When read response is received from peer, event is generated. \n
  *          Eg: \ref MCP_CE_READ_SEARCH_RES_OBJ_CNF
  *
  *  \sa ga_mcp_ce_events
@@ -4609,17 +5364,18 @@ GA_RESULT GA_mcp_ce_read_object
  */
 
 /**
- *  \brief To Shutdown the MCP Client Module
+ *  \brief To Shutdown the MCP Client Module.
  *
  *  \par Description:
- *       This function enables to Shutdown the MCP Client Entity Module.
+ *       This function enables to Shutdown the MCP Client Module. \n
  *       This function de-references the callback registered with GA MCP
  *       Module.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h.
  *
  *  \note No events generated at the MCP_CE layer will be triggered
- *       post this function call.
+ *        post this function call.
  *
  *  \sa ga_mcp_and_otp_error_code
  */

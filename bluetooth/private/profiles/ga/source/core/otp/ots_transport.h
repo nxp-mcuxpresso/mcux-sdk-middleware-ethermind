@@ -17,7 +17,8 @@
 #define _H_OTS_TRANSPORT_
 
 /* --------------------------------------------- Header File Inclusion */
-#include "ots_internal.h"
+#include "GA_features.h"
+#include "GA_bearer_api.h"
 
 #ifdef OTP_SERVER
 /* --------------------------------------------- Global Definitions */
@@ -41,9 +42,9 @@
  *       in the callbacks registered and these are translated as events to
  *       higher application layer.
  *
- *  \return API_SUCCESS or an error code indicating reason for failure
+ *  \return GA_SUCCESS or an error code indicating reason for failure
  */
-API_RESULT ots_data_channel_init(void);
+GA_RESULT ots_data_channel_init(void);
 
 /**
  *  \brief To De-Init the OTS module with GATT Layer.
@@ -53,9 +54,9 @@ API_RESULT ots_data_channel_init(void);
  *       must be triggered only when there are no applications registered with
  *       OTS module.
  *
- *  \return API_SUCCESS or an error code indicating reason for failure
+ *  \return GA_SUCCESS or an error code indicating reason for failure
  */
-API_RESULT ots_data_channel_deinit(void);
+GA_RESULT ots_data_channel_deinit(void);
 
 /**
  *  \brief To trigger a L2CAP COC channel disconnect for this OTS session.
@@ -67,9 +68,9 @@ API_RESULT ots_data_channel_deinit(void);
  *  \param [in] lcid
  *         lcid for disconnect
  *
- *  \return API_SUCCESS or an error code indicating reason for failure
+ *  \return GA_SUCCESS or an error code indicating reason for failure
  */
-API_RESULT ots_data_channel_disconnect(UINT16 lcid);
+GA_RESULT ots_data_channel_disconnect(UINT16 lcid);
 
 /**
  *  \brief To trigger a write on L2CAP COC for this OTS session.
@@ -89,15 +90,15 @@ API_RESULT ots_data_channel_disconnect(UINT16 lcid);
  *  \param [in] buffer_len
  *         Packet length
  *
- *  \return API_SUCCESS or an error code indicating reason for failure
+ *  \return GA_SUCCESS or an error code indicating reason for failure
  */
-API_RESULT ots_data_channel_write
-           (
-               /* IN */ BT_DEVICE_ADDR * dev,
-               /* IN */ UINT16           cid,
-               /* IN */ UCHAR          * buffer,
-               /* IN */ UINT16           buffer_len
-           );
+GA_RESULT ots_data_channel_write
+          (
+              /* IN */ GA_ENDPOINT * dev,
+              /* IN */ UINT16        cid,
+              /* IN */ UCHAR       * buffer,
+              /* IN */ UINT16        buffer_len
+          );
 
 #endif /* OTP_SERVER */
 

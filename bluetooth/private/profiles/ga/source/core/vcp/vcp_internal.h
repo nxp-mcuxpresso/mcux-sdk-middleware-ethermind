@@ -45,21 +45,23 @@
 /* --------------------------------------------- Data types /Structures */
 
 /* --------------------------------------------- Macros */
+#ifdef VCP_CONTROLLER
 /* Lock and Unlock macros for VCP */
 #define VCC_LOCK()              GA_MUTEX_LOCK(vcc_mutex, VCP)
 #define VCC_LOCK_VOID()         GA_MUTEX_LOCK_VOID(vcc_mutex, VCP)
 #define VCC_UNLOCK()            GA_MUTEX_UNLOCK(vcc_mutex, VCP)
 #define VCC_UNLOCK_VOID()       GA_MUTEX_UNLOCK_VOID(vcc_mutex, VCP)
+#endif /* VCP_CONTROLLER */
 
+#ifdef VCP_RENDERER
 #define VCS_LOCK()              GA_MUTEX_LOCK(vcs_mutex, VCP)
 #define VCS_LOCK_VOID()         GA_MUTEX_LOCK_VOID(vcs_mutex, VCP)
 #define VCS_UNLOCK()            GA_MUTEX_UNLOCK(vcs_mutex, VCP)
 #define VCS_UNLOCK_VOID()       GA_MUTEX_UNLOCK_VOID(vcs_mutex, VCP)
+#endif /* VCP_RENDERER */
 
 /* --------------------------------------------- APIs */
-void vcp_add_vocs(VCS_VOCS_ENTITY * vocs_entity);
-void vcp_add_aics(VCS_AICS_ENTITY * aics_entity);
-
+#ifdef VCP_CONTROLLER
 GA_RESULT vcp_get_context
           (
               /* IN    */ void   *cntx_pointer,
@@ -104,6 +106,42 @@ GA_RESULT vcp_profile_callback
               /* IN */ UINT16 event_datalen
           );
 
+GA_RESULT vcp_search_device_context
+          (
+              /* IN  */ GA_ENDPOINT * device,
+              /* OUT */ UCHAR       * ci
+          );
+
+GA_RESULT vcp_search_vocs_context
+          (
+              /* IN */  VCP_HANDLE handle,
+              /* IN */  GA_BRR_SVC_RANGE *range,
+              /* OUT */ UCHAR    * ci
+          );
+
+GA_RESULT vcp_search_aics_context
+          (
+              /* IN */  VCP_HANDLE handle,
+              /* IN */  GA_BRR_SVC_RANGE *range,
+              /* OUT */ UCHAR    * ci
+          );
+#endif /* VCP_CONTROLLER */
+
+#ifdef VCP_RENDERER
+GA_RESULT vcp_get_srvc_id_from_char_id
+          (
+              /* OUT */ GA_BRR_SVC_INST *srvc_inst,
+              /* OUT */ UCHAR           *srvc_type,
+              /* IN  */ GA_BRR_CHR_INST  char_inst
+          );
+
+GA_RESULT vcr_get_vcs_char_id_from_char_uuid
+          (
+              /* IN */  VCS_ENTTITY     *srvc_info,
+              /* IN */  UINT16            char_uuid,
+              /* OUT */ GA_BRR_CHR_INST  *char_inst
+          );
+
 GA_RESULT vcp_service_callback
           (
               /* IN */ GA_BRR_DEVICE * device,
@@ -113,6 +151,9 @@ GA_RESULT vcp_service_callback
               /* IN */ void * event_data,
               /* IN */ UINT16 event_datalen
           );
+
+void vcp_add_vocs(VCS_VOCS_ENTITY* vocs_entity);
+void vcp_add_aics(VCS_AICS_ENTITY* aics_entity);
 
 void vcp_handle_read_request
      (
@@ -140,40 +181,6 @@ void vcp_handle_config_request
          /* IN */ UCHAR * event_data,
          /* IN */ UINT16 event_datalen
      );
-
-GA_RESULT vcp_search_device_context
-          (
-              /* IN  */ GA_ENDPOINT * device,
-              /* OUT */ UCHAR       * ci
-          );
-
-GA_RESULT vcp_search_vocs_context
-          (
-              /* IN */  VCP_HANDLE handle,
-              /* IN */  GA_BRR_SVC_RANGE *range,
-              /* OUT */ UCHAR    * ci
-          );
-
-GA_RESULT vcp_search_aics_context
-          (
-              /* IN */  VCP_HANDLE handle,
-              /* IN */  GA_BRR_SVC_RANGE *range,
-              /* OUT */ UCHAR    * ci
-          );
-
-GA_RESULT vcp_get_srvc_id_from_char_id
-          (
-              /* OUT */ GA_BRR_SVC_INST *srvc_inst,
-              /* OUT */ UCHAR           *srvc_type,
-              /* IN  */ GA_BRR_CHR_INST  char_inst
-          );
-
-GA_RESULT vcr_get_vcs_char_id_from_char_uuid
-          (
-              /* IN */  VCS_ENTTITY     *srvc_info,
-              /* IN */  UINT16            char_uuid,
-              /* OUT */ GA_BRR_CHR_INST  *char_inst
-          );
 
 GA_RESULT vcr_get_vocs_char_id_from_char_uuid
           (
@@ -216,6 +223,7 @@ UINT16 vcp_get_next_char_handle_for_config
            /* IN */ UCHAR  srvs_type,
            /* IN */ UINT8  srvs_indx
        );
+#endif /* VCP_RENDERER */
 
 #endif /* _H_VCP_INTERNAL */
 

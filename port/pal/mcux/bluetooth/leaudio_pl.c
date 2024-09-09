@@ -17,6 +17,9 @@
 /* --------------------------------------------- External Global Variables */
 /* --------------------------------------------- Exported Global functions */
 /* --------------------------------------------- Static Global Variables */
+
+bool is_sf_44k;
+
 /* --------------------------------------------- internal functions prototypes */
 
 /* --------------------------------------------- Functions */
@@ -55,9 +58,24 @@ __attribute__((weak)) void leaudio_write_pl_ext (UCHAR ep, UCHAR * m_data, UINT1
 {
 }
 
-__attribute__((weak)) void le_audio_pl_ext_iso_tx_delay (void)
+__attribute__((weak)) void le_audio_codec_setabsvol_pl_ext (UCHAR volume)
 {
 }
+
+__attribute__((weak)) void le_audio_codec_setmute_pl_ext ()
+{
+}
+
+__attribute__((weak)) void le_audio_codec_setunmute_pl_ext ()
+{
+}
+
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+__attribute__((weak)) void le_audio_set_sync_info_pl_ext (UINT8 ep, UINT8 evt, void *sync_data)
+{
+}
+
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
 
 API_RESULT leaudio_create_task_pl(BT_THREAD_START_ROUTINE routine)
 {
@@ -117,6 +135,11 @@ UCHAR * leaudio_alloc_buffer_pl(UCHAR type)
     return ptr;
 }
 
+int leaudio_get_sf(void)
+{
+	return is_sf_44k;
+}
+
 API_RESULT leaudio_setup_pl
            (
                UCHAR ep,
@@ -170,8 +193,24 @@ void leaudio_write_pl (UCHAR ep, UCHAR * m_data, UINT16 m_datalen)
     leaudio_write_pl_ext(ep, m_data, m_datalen);
 }
 
-void le_audio_pl_iso_tx_delay (void)
+void le_audio_codec_setabsvol_pl (UCHAR volume)
 {
-    le_audio_pl_ext_iso_tx_delay();
+    le_audio_codec_setabsvol_pl_ext(volume);
 }
 
+void le_audio_codec_setmute_pl ()
+{
+    le_audio_codec_setmute_pl_ext();
+}
+
+void le_audio_codec_setunmute_pl ()
+{
+    le_audio_codec_setunmute_pl_ext();
+}
+
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+void le_audio_set_sync_info_pl (UINT8 ep, UINT8 evt, void *sync_data)
+{
+    le_audio_set_sync_info_pl_ext (ep, evt, sync_data);
+}
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/

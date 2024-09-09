@@ -31,6 +31,7 @@
 /* --------------------------------------------- Macros */
 
 /* --------------------------------------------- APIs */
+#if ((defined BAP_PACS_CLIENT) || (defined BAP_PACS_SERVER) || (defined BAP_BROADCAST_SOURCE) || (defined BAP_BROADCAST_SINK))
 GA_RESULT cap_iface_process_bap_event
           (
               GA_ENDPOINT * device,
@@ -39,7 +40,9 @@ GA_RESULT cap_iface_process_bap_event
               void * data,
               UINT16 datalen
           );
+#endif /* ((defined BAP_PACS_CLIENT) || (defined BAP_PACS_SERVER) || (defined BAP_BROADCAST_SOURCE) || (defined BAP_BROADCAST_SINK)) */
 
+#ifdef VCP_CONTROLLER
 GA_RESULT cap_iface_process_vcp_event
           (
               VCP_HANDLE *vctx,
@@ -48,7 +51,9 @@ GA_RESULT cap_iface_process_vcp_event
               void * data,
               UINT16 datalen
           );
+#endif /* VCP_CONTROLLER */
 
+#ifdef VCP_RENDERER
 GA_RESULT cap_iface_process_vcs_event
           (
               GA_ENDPOINT * device,
@@ -57,7 +62,9 @@ GA_RESULT cap_iface_process_vcs_event
               void * data,
               UINT16 datalen
           );
+#endif /* VCP_RENDERER */
 
+#ifdef MICP_CONTROLLER
 GA_RESULT cap_iface_process_micp_event
           (
               MICP_HANDLE * mctx,
@@ -66,7 +73,9 @@ GA_RESULT cap_iface_process_micp_event
               void   *data,
               UINT16 datalen
           );
+#endif /* MICP_CONTROLLER */
 
+#ifdef MICP_DEVICE
 GA_RESULT cap_iface_process_mics_event
           (
               GA_ENDPOINT * device,
@@ -75,7 +84,9 @@ GA_RESULT cap_iface_process_mics_event
               void        * data,
               UINT16        datalen
           );
+#endif /* MICP_CONTROLLER */
 
+#ifdef CSIP_COORDINATOR
 GA_RESULT cap_iface_process_csip_event
           (
               GA_ENDPOINT * device,
@@ -84,7 +95,9 @@ GA_RESULT cap_iface_process_csip_event
               void * data,
               UINT16 datalen
           );
+#endif /* CSIP_COORDINATOR */
 
+#ifdef CSIP_MEMBER
 GA_RESULT cap_iface_process_csis_event
           (
               GA_ENDPOINT * device,
@@ -93,7 +106,7 @@ GA_RESULT cap_iface_process_csis_event
               void        * data,
               UINT16        datalen
           );
-
+#endif /* CSIP_COORDINATOR */
 #endif /* _H_CAP_ */
 
 

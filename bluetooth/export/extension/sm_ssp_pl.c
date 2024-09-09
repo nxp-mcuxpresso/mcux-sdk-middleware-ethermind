@@ -367,6 +367,11 @@ API_RESULT sm_get_io_capability_pl
          *              10 - General Bonding
          */
         bonding = (sm_devices[di].remote_io_cap.auth_reqs & 0x06U);
+
+        if ((!SM_IS_BONDABLE()) && (0x02 == bonding))
+        {
+            return HC_PAIRING_NOT_ALLOWED;
+        }
     }
     else
     {
@@ -458,6 +463,11 @@ API_RESULT sm_get_io_capability_pl
     /*
      *  Set Local Authentication Requirements.
      */
+    if (!SM_IS_BONDABLE())
+    {
+        bonding = 0;
+    }
+
     io_cap->auth_reqs = mitm_reqd | bonding;
 
 #ifdef SM_AUTHREQ_DYNAMIC

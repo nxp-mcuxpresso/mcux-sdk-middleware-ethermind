@@ -3,8 +3,7 @@
  *  \file GA_bass_api.h
  *
  *  \brief This file defines the GA Broadcast Audio Scan Service (BASS)
- *  Client Entity(CE) and Server Entity(SE) Interface -
- *  includes Data Structures and Methods.
+ *  Client and Server Interface - includes Data Structures and Methods.
  */
 
 /*
@@ -15,6 +14,11 @@
 #ifndef _H_GA_BASS_API_
 #define _H_GA_BASS_API_
 
+/**
+ * \addtogroup bt_ga
+ * \{
+ */
+
 /* --------------------------------------------- Header File Inclusion */
 #include "GA_common.h"
 #include "GA_bearer_api.h"
@@ -23,50 +27,63 @@
 /* --------------------------------------------- Global Definitions */
 
 /**
- * \defgroup ga_bass_module Broadcast Audio Scan Service (BASS)
- * \ingroup ga_cap_module
+ * \addtogroup bt_ga_core
  * \{
- * \brief This section describes the interfaces & APIs offered by the EtherMind
- * BASS Profile Client module to the Application and other upper
- * layers of the stack.
  */
 
 /**
- * \defgroup ga_bass_defines Defines
+ * \addtogroup ga_cap_module
  * \{
- * \brief This section describes defines for the BASS CE and SE module.
  */
 
 /**
- * \defgroup ga_bass_ce_module_def BASS CE (Broadcast Audio Scan Service) Client Entity
+ * \addtogroup ga_bap_module
  * \{
- * \brief This section describes the defines for BASS CE.
+ */
+
+/**
+ * \addtogroup ga_bap_bc_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_bc_defines
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_bc_bass_ce_def BC Broadcast Assistant (BASS Client)
+ * \{
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for BASS Client.
  */
 
 /** \} */
 
 /**
- * \defgroup ga_bass_se_module_def BASS SE (Broadcast Audio Scan Service) Server Entity
+ * \defgroup ga_bap_bc_bass_se_def BC Scan Delegator (BASS Server)
  * \{
- * \brief This section describes the defines for BASS SE.
+ * \brief This section describes the various Defines in EtherMind
+ * GA BAP Layer for BASS Server.
  */
 
 /** \} */
 
 /**
- * \defgroup ga_bass_common BASS Common
+ * \defgroup ga_bap_bc_bass_ce_se_common_def BC BA & SD - Common
  * \{
- * \brief Describes common macros for the module.
+ * \brief Describes common macros for the BC BASS Client and Server.
  */
 
 /**
- * \defgroup ga_bass_constants Constants
+ * \defgroup ga_bap_bc_bass_ce_se_common Constants
  * \{
- * \brief This section describes Constants defined by the module.
+ * \brief This section describes Common Constants defined by
+ * BC BASS Client and Server.
  */
 
 /**
- * \name BASS Constants - Control Point Opcode
+ * \name Control Point Opcode
  * \{
  * \brief This section lists the type of Broadcast Audio Scan Control Point
  * Opcodes used during Control point Write request/Command.
@@ -110,16 +127,16 @@
 /** \} */
 
 /**
- * \defgroup ga_bass_error_codes Error Codes
+ * \defgroup ga_bap_bc_bass_ce_se_common_error_code Error Codes
  * \{
  * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of BASS
+ * return of functionalities of BASS.
  */
 
 /**
- * \name Application Error Codes: BASS
+ * \name BASS - Application Error Codes
  * \{
- * \brief This section lists Application error codes,
+ * \brief This section lists Application error codes.
  * As defined in BASS Specification.
  */
 
@@ -139,32 +156,33 @@
 /** \} */
 
 /**
- * \addtogroup ga_bass_ce_module_def
+ * \addtogroup ga_bap_bc_bass_ce_def
  * \{
  */
 
 /**
- * \defgroup ga_bass_ce_constants Constants
+ * \defgroup ga_bap_bc_bass_ce_constants Constants
  * \{
  * \brief This section describes Constants defined by the module for Client.
  */
 
 /**
- * \name BASS Client Constants - General Macros
+ * \name BASS Client - General Macros
  * \{
- * \brief Initialization and other General Macros offered by the module for Client.
+ * \brief Initialization and other General Macros offered by the module
+ * for Client.
  */
 
 /**
  * Total number of Characteristic IDs,
- * \ref ga_bass_ce_constants
+ * \ref ga_bap_bc_bass_ce_constants
  */
 #define BASS_CHAR_ID_COUNT               0x02U
 
 /** \} */
 
 /**
- * \name BASS Client Constants - BASS Char ID
+ * \name BASS Char ID
  * \{
  * \brief This section lists the Characteristic ID references.
  */
@@ -189,7 +207,7 @@
 /** \} */
 
 /**
- * \defgroup ga_bass_client_events Events
+ * \defgroup ga_bap_bc_bass_ce_evt_defs Events
  * \{
  * \brief This section describes the Broadcast Audio Scan Service Events
  * for Client.
@@ -202,9 +220,9 @@
  */
 
 /**
- * On completion of discovery of service, char and desc, BASS Handle is
+ * \brief On completion of discovery of service, char and desc, BASS Handle is
  * provided to the application as an array based on the instances along with
- * the event along with the status.
+ * the event along with the status. \n
  * In case where service is not found, \ref GA_FAILURE is sent as the event
  * status.
  */
@@ -219,8 +237,8 @@
  */
 
 /**
- * This event is notified when the char is configured for any notification
- * change and a notification has occurred from the peer device.
+ * \brief This event is notified when the char is configured for any
+ * notification change and a notification has occurred from the peer device.
  */
 #define BASS_CE_BC_RX_STATE_IND                0x02
 
@@ -234,8 +252,8 @@
  */
 
 /**
- * This event is triggered whenever read request is successful and a response
- *  is received from the peer.
+ * \brief This event is triggered whenever read request is successful and a
+ * response is received from the peer. \n
  * If status is set to \ref GA_CONTINUE, then the event will be triggered 'n'
  * times until completion with status set to \ref GA_SUCCESS or
  * \ref GA_FAILURE.
@@ -252,8 +270,8 @@
  */
 
 /**
- * The event is notified whenever write is successful and a write
- * response is received from peer.
+ * \brief The event is notified whenever write is successful and a write
+ * response is received from peer. \n
  * This applies to only requests that was triggered with write type -
  * Write Request \ref GA_BASS_CE_WRITE_REQUEST.
  */
@@ -267,19 +285,26 @@
  * \brief This section describes the BASS Release Events for Client.
  */
 
-/* TODO: Comment */
+/**
+ * \brief This event is notified when a BASS Service context is released.
+ * Configuration of Notifications for char are disabled followed by removal
+ * of BASS context. \n
+ * In case where service is not found, \ref GA_FAILURE is sent as the event
+ * status.
+ */
 #define BASS_CE_RELEASE_CNF                    0x05
+
 /** \} */
 
 /** \} */
 
 /**
- * \addtogroup ga_bass_ce_constants
+ * \addtogroup ga_bap_bc_bass_ce_constants
  * \{
  */
 
 /**
- * \name BASS Client Constants - Write Type
+ * \name Write Type
  * \{
  * \brief This section lists the type of Write allowed in BASS.
  */
@@ -295,29 +320,31 @@
 /** \} */
 
 /**
- * \addtogroup ga_bass_se_module_def
+ * \addtogroup ga_bap_bc_bass_se_def
  * \{
  */
 
 /**
- * \defgroup ga_bass_se_constants Constants
+ * \defgroup ga_bap_bc_bass_se_constants Constants
  * \{
  * \brief This section describes Constants defined by the module for Server.
  */
 
 /**
- * \name BASS Server Constants - General Macros
+ * \name BASS Server - General Macros
  * \{
- * \brief Initialization and other General Macros offered by the module for server.
+ * \brief Initialization and other General Macros offered by the module
+ * for server.
  */
 
 /** Maximum Brocast Receive State Instance */
 #define BASS_CE_MAX_BC_RX_STATE_INST           0x03
+
 /** \} */
 /** \} */
 
 /**
- * \defgroup ga_bass_server_events Events
+ * \defgroup ga_bap_bc_bass_se_evt_defs Events
  * \{
  * \brief This section describes the Broadcast Audio Scan Service Events
  * for Server.
@@ -332,7 +359,8 @@
  */
 
 /**
- * The below event is notified whenever a read request from peer is received.
+ * \brief The below event is notified whenever a read request from peer is
+ * received. \n
  * Response to this request has to be sent by calling
  * \ref GA_bass_se_send_rsp().
  */
@@ -347,11 +375,11 @@
  */
 
 /**
- * The below event is notified whenever write request/command is received from
- * peer BASS Client.
+ * \brief The below event is notified whenever write request/command is
+ * received from peer BASS Client. \n
  * Response to this request has to be sent by calling
- * \ref GA_bass_se_send_rsp().
- * Ignore the rx_state_inst field in the \ref BASS_EVT
+ * \ref GA_bass_se_send_rsp(). \n
+ * Ignore the rx_state_inst field in the \ref BASS_EVT.
  */
 #define BASS_SE_WRITE_BAS_CP_IND                   0x02
 
@@ -360,24 +388,12 @@
 /** \} */
 
 /**
- * \addtogroup ga_bass_se_constants
+ * \addtogroup ga_bap_bc_bass_se_constants
  * \{
  */
 
 /**
- * \name BASS Server Constants - Address Type
- * \{
- * \brief Describes Advertiser Address Type defined by the module.
- */
-
-/** Public Device Address or Public Identity Address */
-#define BASS_ADDR_TYPE_PUBLIC                       0x00U
-/** Random Device Address or Random (static) Identity Address */
-#define BASS_ADDR_TYPE_RANDOM                       0x01U
-/** \} */
-
-/**
- * \name BASS Server Constants - PA Sync
+ * \name PA Sync
  * \{
  * \brief Describes PA Sync defined by the module.
  */
@@ -391,7 +407,7 @@
 /** \} */
 
 /**
- * \name BASS Server Constants - PA Interval
+ * \name PA Interval
  * \{
  * \brief Describes PA Interval defined by the module.
  */
@@ -401,7 +417,7 @@
 /** \} */
 
 /**
- * \name BASS Server Constants - BIS Sync
+ * \name BIS Sync
  * \{
  * \brief Describes BIS Sync defined by the module.
  */
@@ -415,7 +431,7 @@
 /** \} */
 
 /**
- * \name BASS Server Constants - PA Sync State
+ * \name PA Sync State
  * \{
  * \brief Describes PA Sync State defined by the module.
  */
@@ -433,7 +449,7 @@
 /** \} */
 
 /**
- * \name BASS Server Constants - BIG Encryption
+ * \name BIG Encryption
  * \{
  * \brief Describes BIG Encryption State defined by the module.
  */
@@ -449,7 +465,7 @@
 /** \} */
 
 /**
- * \name BASS Server Constants - BIS Sync State
+ * \name BIS Sync State
  * \{
  * \brief Describes BIS Sync State defined by the module.
  */
@@ -470,7 +486,7 @@
 /** \} */
 
 /**
- * \name BASS Server Constants - Broadcast Code
+ * \name Broadcast Code
  * \{
  * \brief Describes Broadcast Code defined by the module.
  */
@@ -480,7 +496,7 @@
 /** \} */
 
 /**
- * \name BASS Server Constants - Broadcast ID
+ * \name Broadcast ID
  * \{
  * \brief Describes Broadcast ID defined by the module.
  */
@@ -493,14 +509,15 @@
 /** \} */
 
 /**
- * \addtogroup ga_bass_common
+ * \addtogroup ga_bap_bc_bass_ce_se_common_def
  * \{
  */
 
 /**
- * \defgroup ga_bass_macros  Macros
+ * \defgroup ga_bap_bc_bass_ce_se_common_macros Utility Macros
  * \{
- * \brief Initialization and other Macros offered by the module.
+ * \brief Initialization and other Common Macros offered by
+ * BC BASS Client and Server.
  */
 
 /** Derive the characteristic config mask for the Char ID */
@@ -511,15 +528,15 @@
 /* --------------------------------------------- Data types /Structures */
 
 /**
- * \defgroup ga_bass_structures Structures
+ * \defgroup ga_bap_bc_bass_ce_se_common_structures Structures
  * \{
  * \brief This section lists the various data structures and typedefs for use
- * by BASS.
+ * by BC BASS Client and Server.
  */
 
 /**
  * This identifier refers to the registered BASS Broadcast Rx State Char
- * instance.
+ * instance. \n
  * The application needs to provide this as a reference for all interface calls
  * to have transaction on the required Broadcast Rx State Char instance.
  */
@@ -532,14 +549,13 @@ typedef UINT8 BASS_BC_RX_STATE_INST;
  */
 typedef UINT8 BASS_HANDLE;
 
-/**
- * BASS CP Opcodes.
- */
+/** BASS CP Opcodes. */
 typedef UINT8 BASS_BAS_CP_OPCODE;
 
+/** BASS CP Write Request */
 typedef struct _GA_BASS_BAS_CP_OP
 {
-    /** Opcode, Refer \ref ga_bass_constants */
+    /** Opcode, Refer \ref ga_bap_bc_bass_ce_se_common */
     BASS_BAS_CP_OPCODE opcode;
 
     /** Parameter for the respective Opcodes, Can be Null for certain Opcodes */
@@ -549,12 +565,12 @@ typedef struct _GA_BASS_BAS_CP_OP
     UINT8 param_len;
 }GA_BASS_BAS_CP_OP;
 
-/* BASS Broadcast Audio Scan CP Add Source Operation Paramaters */
+/** BASS Broadcast Audio Scan CP Add Source Operation Paramaters */
 typedef struct _GA_BASS_BAS_CP_ADD_SRC
 {
     /**
      * Advertiser Address Type for the Broadcast Source.
-     * Refer \ref ga_bass_se_constants
+     * Refer \ref ga_bap_bc_bass_se_constants
      */
     UINT8 adv_addr_type;
 
@@ -570,12 +586,12 @@ typedef struct _GA_BASS_BAS_CP_ADD_SRC
     /** Broadcast ID of the Broadcast Source */
     UINT8 broadcast_ID[BASS_BC_ID_LEN];
 
-    /** PA Sync Values, Refer \ref ga_bass_se_constants */
+    /** PA Sync Values, Refer \ref ga_bap_bc_bass_se_constants */
     UINT8 pa_sync;
 
     /**
      * SyncInfo field Interval parameter value,
-     * Refer \ref ga_bass_se_constants
+     * Refer \ref ga_bap_bc_bass_se_constants
      */
     UINT16 pa_interval;
 
@@ -584,63 +600,75 @@ typedef struct _GA_BASS_BAS_CP_ADD_SRC
 
     /**
      * BIS_Sync parameter for the [ith] subgroup in the BIG,
-     * Refer \ref ga_bass_se_constants
+     * Refer \ref ga_bap_bc_bass_se_constants
      */
     UINT32* bis_sync;
 
-    /** Length of the Metadata parameter value for the [ith] subgroup in the BIG */
+    /**
+     * Length of the Metadata parameter value for the [ith] subgroup
+     * in the BIG
+     */
     UINT8* metadata_len;
 
     /** LTV-formatted Metadata for the [ith] subgroup in the BIG */
     UINT8* metadata;
 }GA_BASS_BAS_CP_ADD_SRC;
 
-/* BASS Broadcast Audio Scan CP Modify Source Operation Paramaters */
+/** BASS Broadcast Audio Scan CP Modify Source Operation Paramaters */
 typedef struct _GA_BASS_BAS_CP_MODIFY_SRC
 {
     /** Source_ID assigned by the server */
     UINT8 src_ID;
 
-    /** PA Sync Values, Refer \ref ga_bass_se_constants */
+    /** PA Sync Values, Refer \ref ga_bap_bc_bass_se_constants */
     UINT8 pa_sync;
 
     /**
      * SyncInfo field Interval parameter value,
-     * Refer \ref ga_bass_se_constants
+     * Refer \ref ga_bap_bc_bass_se_constants
      */
     UINT16 pa_interval;
 
     /** Number of subgroups */
     UINT8 num_subgroups;
 
-    /** BIS_Sync parameter for the [ith] subgroup in the BIG, Refer \ref ga_bass_se_constants */
+    /**
+     * BIS_Sync parameter for the [ith] subgroup in the BIG,
+     * Refer \ref ga_bap_bc_bass_se_constants
+     */
     UINT32* bis_sync;
 
-    /** Length of the Metadata parameter value for the [ith] subgroup in the BIG */
+    /**
+     * Length of the Metadata parameter value for the [ith] subgroup
+     * in the BIG
+     */
     UINT8* metadata_len;
 
     /** LTV-formatted Metadata for the [ith] subgroup in the BIG */
     UINT8* metadata;
 }GA_BASS_BAS_CP_MODIFY_SRC;
 
-/* BASS Broadcast Audio Scan CP Set Broadcast Code Paramaters */
+/** BASS Broadcast Audio Scan CP Set Broadcast Code Paramaters */
 typedef struct _GA_BASS_BAS_CP_SET_BC_CODE
 {
     /** Source_ID assigned by the server */
     UINT8 src_id;
 
-    /** Broadcast_Code for the Source_ID assigned to a Broadcast Receive State */
+    /**
+     * Broadcast_Code for the Source_ID assigned to a
+     * Broadcast Receive State
+     */
     UINT8 br_code[BASS_BC_CODE_MAX_LEN];
 }GA_BASS_BAS_CP_SET_BC_CODE;
 
-/* BASS Broadcast Audio Scan CP Remove Source Operation Paramaters */
+/** BASS Broadcast Audio Scan CP Remove Source Operation Paramaters */
 typedef struct _GA_BASS_BAS_CP_REMOVE_SRC
 {
     /** Source_ID assigned by the server */
     UINT8 src_id;
 }GA_BASS_BAS_CP_REMOVE_SRC;
 
-/* Broadcast Receive State Source Information */
+/** Broadcast Receive State Source Information */
 typedef struct _GA_BASS_BC_RX_STATE_SRC_INFO
 {
     /** Source_ID assigned by the server */
@@ -648,7 +676,7 @@ typedef struct _GA_BASS_BC_RX_STATE_SRC_INFO
 
     /**
      * Advertiser Address Type of the Broadcast Source.
-     * Refer \ref ga_bass_se_constants
+     * Refer \ref ga_bap_bc_bass_se_constants
      */
     UINT8 addr_type;
 
@@ -664,10 +692,10 @@ typedef struct _GA_BASS_BC_RX_STATE_SRC_INFO
     /** Broadcast ID of the Broadcast Source */
     UINT8 broadcast_ID[BASS_BC_ID_LEN];
 
-    /** PA Sync State, Refer \ref ga_bass_se_constants */
+    /** PA Sync State, Refer \ref ga_bap_bc_bass_se_constants */
     UINT8 pa_sync_state;
 
-    /** Encryption State, Refer \ref ga_bass_se_constants */
+    /** Encryption State, Refer \ref ga_bap_bc_bass_se_constants */
     UINT8 big_encryption;
 
     /** BAD Code*/
@@ -678,18 +706,21 @@ typedef struct _GA_BASS_BC_RX_STATE_SRC_INFO
 
     /**
      * BIS_Sync parameter for the [ith] subgroup in the BIG,
-     * Refer \ref ga_bass_constants
+     * Refer \ref ga_bap_bc_bass_se_constants
      */
     UINT32* bis_sync_state;
 
-    /** Length of the Metadata parameter value for the [ith] subgroup in the BIG */
+    /**
+     * Length of the Metadata parameter value for the [ith] subgroup
+     * in the BIG
+     */
     UINT8* metadata_len;
 
     /** LTV-formatted Metadata for the [ith] subgroup in the BIG */
     UINT8* metadata;
 }GA_BASS_BC_RX_STATE_SRC_INFO;
 
-/* Broadcast Receive State Info */
+/** Broadcast Receive State Info */
 typedef struct _GA_BASS_BC_RX_STATE
 {
     /** Information about the Source in the BC Rx State */
@@ -719,18 +750,18 @@ typedef struct _BASS_EVT
 /** \} */
 
 /**
- * \addtogroup ga_bass_ce_module_def
+ * \addtogroup ga_bap_bc_bass_ce_def
  * \{
  */
 
 /**
- * \defgroup ga_bass_ce_structures Structures
+ * \defgroup ga_bap_bc_bass_ce_structures Structures
  * \{
  * \brief This section lists the various data structures and typedefs for use
  * by BASS Client.
  */
 
-/** Event that will be notified by the BASS CE module. */
+/** Event that will be notified by the BASS Client module. */
 typedef UINT8 BASS_CE_EVT_ID;
 
 /** Types of write operations available */
@@ -752,21 +783,18 @@ typedef struct _GA_BASS_CE_WRITE_REQ
 /** \} */
 
 /**
- * \defgroup ga_bass_cb Application Callback
+ * \addtogroup ga_bap_bc_cb
  * \{
- * \brief This section describes the Notification Callback Interfaces offered
- * to the application by BASS.
  */
 
 /**
- * \defgroup ga_bass_ce_module_cb BASS CE (Broadcast Audio Scan Service) Client Entity
+ * \defgroup ga_bap_bc_bass_ce_cb BC Broadcast Assistant (BASS Client)
  * \{
- * \brief This section describes the callback for BASS CE.
+ * \brief This section describes the callback for BASS Client.
  */
 
 /**
- * BASS CE Callback to be registered by the Application
- *
+ * \brief BASS Client Callback to be registered by the Application. \n
  * BASS calls the registered callback to indicate events occurred to the
  * application.
  *
@@ -787,23 +815,23 @@ typedef GA_RESULT (* BASS_CE_NTF_CB)
 /** \} */
 
 /**
- * \addtogroup ga_bass_defines
+ * \addtogroup ga_bap_bc_defines
  * \{
  */
 
 /**
- * \addtogroup ga_bass_se_module_def
+ * \addtogroup ga_bap_bc_bass_se_def
  * \{
  */
 
 /**
- * \defgroup ga_bass_se_structures Structures
+ * \defgroup ga_bap_bc_bass_se_structures Structures
  * \{
  * \brief This section lists the various data structures and typedefs for use
  * by BASS Server.
  */
 
-/** Event that will be notified by the BASS SE module. */
+/** Event that will be notified by the BASS Server module. */
 typedef UINT8 BASS_SE_EVT_ID;
 
 /** Context to identify the request and response */
@@ -814,19 +842,18 @@ typedef GA_BRR_CHR_CONTEXT GA_BASS_SE_RSP_CONTEXT;
 /** \} */
 
 /**
- * \addtogroup ga_bass_cb
+ * \addtogroup ga_bap_bc_cb
  * \{
  */
 
 /**
- * \defgroup ga_bass_se_module_cb BASS SE (Broadcast Audio Scan Service) Server Entity
+ * \defgroup ga_bap_bc_bass_se_cb BC Scan Delegator (BASS Server)
  * \{
- * \brief This section describes the callback for BASS SE.
+ * \brief This section describes the callback for BASS Server.
  */
 
 /**
- * BASS SE Callback to be registered by the Application
- *
+ * \brief BASS Server Callback to be registered by the Application. \n
  * BASS calls the registered callback to indicate events occurred to the
  * application.
  *
@@ -851,9 +878,8 @@ typedef GA_RESULT (* BASS_SE_NTF_CB)
 /* --------------------------------------------- Macros */
 /* --------------------------------------------- APIs */
 /**
- * \defgroup ga_bass_api_defs API Definitions
+ * \addtogroup ga_bap_bc_api_defs
  * \{
- * \brief This section describes the EtherMind BASS APIs.
  */
 
 #ifdef __cplusplus
@@ -861,7 +887,7 @@ extern "C" {
 #endif
 
 /**
- * \defgroup ga_bass_client_api_defs BASS CE (Broadcast Audio Scan Service) Client Entity
+ * \defgroup ga_bap_bc_bass_ce_api_defs BC Broadcast Assistant (BASS Client)
  * \{
  * \brief This section describes the Broadcast Audio Scan Service APIs
  * for Client.
@@ -875,18 +901,21 @@ extern "C" {
  */
 
 /**
- *  \brief To Init the BASS Client Module
+ *  \brief To Init the BASS Client Module.
  *
  *  \par Description:
- *       This function enables to initialize the BASS Client Entity Module.
+ *       This function enables to initialize the BASS Client Module. \n
  *       This function enables to register a callback with BASS Module.
  *       This callback will be triggered whenever there are events generated
  *       either due to responses or notifications from peer.
  *
  *  \param [in] cb
- *         BASS CE Callback.
+ *         BASS Client Callback.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_ce_init
           (
@@ -903,15 +932,18 @@ GA_RESULT GA_bass_ce_init
  */
 
 /**
- *  \brief To Shutdown the BASS Client Module
+ *  \brief To Shutdown the BASS Client Module.
  *
  *  \par Description:
- *       This function enables to Shutdown the BASS Client Entity Module.
+ *       This function enables to Shutdown the BASS Client Module. \n
  *       This function de-references the callback registered with GA BASS
  *       Module. No events generated at the BASS layer will be triggered
  *       post this function call.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_ce_shutdown(void);
 
@@ -925,27 +957,28 @@ GA_RESULT GA_bass_ce_shutdown(void);
  */
 
 /**
- *  \brief To Setup BASS Context
+ *  \brief To Setup BASS Context.
  *
  *  \par Description:
  *       This function enables to setup BASS context with given device.
  *       Internally, BASS service, char and descriptors for the BASS service
- *       instance will be discovered.
+ *       instance will be discovered. \n
  *       bass_handle to be used by application for further calls to have
  *       transaction on this BASS Handle.
  *
  *  \param [in] device
  *         Peer Device with which the context needs to be set-up.
  *
- *  \param [in] srv_info
- *         Service Handle range to be provided for BASS Service Instance Search
- *
- *  \param [out] bass_handle
+ *  \param [out] bass_ce_handle
  *         BASS Handle.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure
- *          If GA_SUCCESS, BASS_CE_SETUP_CNF is notified on
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref BASS_CE_SETUP_CNF is notified on
  *          completion with status as success or failure.
+ *
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_ce_setup_context
           (
@@ -965,10 +998,12 @@ GA_RESULT GA_bass_ce_setup_context
  *       of the BASS characteristics of a peer needs configuration at setup.
  *
  *  \param [in] config
- *         Bitmask of the Characteristic IDs for configuration
+ *         Bitmask of the Characteristic IDs for configuration.
  *
- *  \return GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
- *  \ref
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_ce_update_ntf_configuration(UINT32 config);
 
@@ -978,29 +1013,32 @@ GA_RESULT GA_bass_ce_update_ntf_configuration(UINT32 config);
 /**
  *  \brief To manage the BASS characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to get/set the service and
  *       characteristic handle ranges from/to a device context.
  *
  *  \param [in] set
- *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
  *
  *  \param [in] device
- *         Remote device endpoint
+ *         Remote device endpoint.
  *
  *  \param [inout] handle
- *         Context handle for the endpoint
+ *         Context handle for the endpoint.
  *
  *  \param [inout] range
- *         Service range array for BASS
+ *         Service range array for BASS.
  *
  *  \param [inout] info
- *         Array of characteristic handles for BASS
+ *         Array of characteristic handles for BASS.
  *
  *  \param [inout] info_count
- *         Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_ce_manage_context_info
           (
@@ -1015,56 +1053,78 @@ GA_RESULT GA_bass_ce_manage_context_info
 /**
  *  \brief To get the BASS characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to get the service and
  *       characteristic handle ranges from a device context.
  *
  *  \param [in] d
- *         Remote device endpoint
+ *         Remote device endpoint.
  *
  *  \param [inout] h
- *         Context handle for the endpoint
+ *         Context handle for the endpoint.
  *
  *  \param [inout] r
- *         Service range array for BASS
+ *         Service range array for BASS.
  *
  *  \param [inout] i
- *         Array of characteristic handles for BASS
+ *         Array of characteristic handles for BASS.
  *
  *  \param [inout] c
- *         Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_get_context_info(d, h, r, i, c) \
-        GA_bass_ce_manage_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_bass_ce_get_context_info(d, h, r, i, c)                      \
+        GA_bass_ce_manage_context_info                                  \
+        (                                                               \
+            GA_FALSE,                                                   \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 /**
  *  \brief To set the BASS characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to set the service and
  *       characteristic handle ranges to a device context.
  *
  *  \param [in] d
- *         Remote device endpoint
+ *         Remote device endpoint.
  *
  *  \param [inout] h
- *         Context handle for the endpoint
+ *         Context handle for the endpoint.
  *
  *  \param [inout] r
- *         Service range array for BASS
+ *         Service range array for BASS.
  *
  *  \param [inout] i
- *         Array of characteristic handles for BASS
+ *         Array of characteristic handles for BASS.
  *
  *  \param [inout] c
- *         Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_set_context_info(d, h, r, i, c) \
-        GA_bass_ce_manage_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_bass_ce_set_context_info(d, h, r, i, c)                      \
+        GA_bass_ce_manage_context_info                                  \
+        (                                                               \
+            GA_TRUE,                                                    \
+            (d),                                                        \
+            (h),                                                        \
+            (r),                                                        \
+            (i),                                                        \
+            (c)                                                         \
+        )
 
 #endif /* BASS_SUPPORT_CONTEXT_MANAGE */
 
@@ -1087,10 +1147,10 @@ GA_RESULT GA_bass_ce_manage_context_info
  *  \par Description:
  *       This function triggers read request.
  *
- *  \param [in] bass_handle
+ *  \param [in] bass_ce_handle
  *         BASS Handle.
  *
- *  \param [in] bass_se_bc_rx_state_inst
+ *  \param [in] bass_ce_bc_rx_state_inst
  *         BASS Broadcast Receive State Char Instance Identifier.
  *
  *  \param [in] bass_ce_exp_evt
@@ -1099,9 +1159,13 @@ GA_RESULT GA_bass_ce_manage_context_info
  *  \param [in] char_uuid
  *         Char UUID on which read is requested.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          When read response is received from peer, BASS_CE_READ_XXX_CNF is
  *          notified, here XXX is the name of the char.
+ *
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_ce_read_request
           (
@@ -1126,10 +1190,10 @@ GA_RESULT GA_bass_ce_read_request
  *  \par Description:
  *       This function triggers write request.
  *
- *  \param [in] bass_handle
+ *  \param [in] bass_ce_handle
  *         BASS Handle.
  *
- *  \param [in] bass_se_bc_rx_state_inst
+ *  \param [in] bass_ce_bc_rx_state_inst
  *         BASS Broadcast Receive State Char Instance Identifier.
  *
  *  \param [in] bass_ce_exp_evt
@@ -1141,10 +1205,14 @@ GA_RESULT GA_bass_ce_read_request
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          When char allows write request and if it is a write request,
  *          once the response is received from peer,
  *          BASS_CE_XXX_CNF is notified, here XXX is the name of the char.
+ *
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_ce_write_request
           (
@@ -1160,8 +1228,6 @@ GA_RESULT GA_bass_ce_write_request
 /**
  * \name BASS Client APIs - Read
  * \{
- * \brief This section describes the Broadcast Audio Scan Service Read APIs
- * for Client.
  */
 
 /**
@@ -1176,20 +1242,28 @@ GA_RESULT GA_bass_ce_write_request
  *  \param [in] bass_ce_bc_rx_state_handle
  *         BASS Broadcast Receive State Char Handle.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          When read response is received from peer,
- *          BASS_CE_READ_BC_RX_STATE_CNF is notified.
+ *          \ref BASS_CE_READ_BC_RX_STATE_CNF is notified.
+ *
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_read_bc_rx_state(bass_ce_handle, bass_ce_bc_rx_state_handle) \
-        GA_bass_ce_read_request((bass_ce_handle), (bass_ce_bc_rx_state_handle), (BASS_CE_READ_BC_RX_STATE_CNF), (GA_CHAR_BASS_BCAST_RECEIVE_STATE))
+#define GA_bass_ce_read_bc_rx_state(bass_ce_handle, bass_ce_bc_rx_state_handle)     \
+        GA_bass_ce_read_request                                                     \
+        (                                                                           \
+            (bass_ce_handle),                                                       \
+            (bass_ce_bc_rx_state_handle),                                           \
+            (BASS_CE_READ_BC_RX_STATE_CNF),                                         \
+            (GA_CHAR_BASS_BCAST_RECEIVE_STATE)                                      \
+        )
 
 /** \} */
 
 /**
  * \name BASS Client APIs - Write
  * \{
- * \brief This section describes the Broadcast Audio Scan Service Write APIs
- * for Client.
  */
 
 /**
@@ -1204,12 +1278,23 @@ GA_RESULT GA_bass_ce_write_request
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
- *          When write response is received from peer,
- *          BASS_CE_BAS_CP_CNF is notified based on \GA_BASS_CE_WRITE_REQUEST.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          When write response is received from peer, \ref BASS_CE_BAS_CP_CNF
+ *          is notified based on \ref GA_BASS_CE_WRITE_REQUEST.
+ *
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_inform_remote_scan_status(bass_ce_handle, req) \
-        GA_bass_ce_write_request((bass_ce_handle), 0xFF, (BASS_CE_BAS_CP_CNF), (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP), (req))
+#define GA_bass_ce_inform_remote_scan_status(bass_ce_handle, req)       \
+        GA_bass_ce_write_request                                        \
+        (                                                               \
+            (bass_ce_handle),                                           \
+            0xFF,                                                       \
+            (BASS_CE_BAS_CP_CNF),                                       \
+            (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP),                         \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write BAS CP - Add Source.
@@ -1223,12 +1308,23 @@ GA_RESULT GA_bass_ce_write_request
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          When write response is received from peer,
- *          BASS_CE_BAS_CP_CNF is notified.
+ *          \ref BASS_CE_BAS_CP_CNF is notified.
+ *
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_request_to_add_source(bass_ce_handle, req) \
-        GA_bass_ce_write_request((bass_ce_handle), 0xFF, (BASS_CE_BAS_CP_CNF), (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP), (req))
+#define GA_bass_ce_request_to_add_source(bass_ce_handle, req)           \
+        GA_bass_ce_write_request                                        \
+        (                                                               \
+            (bass_ce_handle),                                           \
+            0xFF,                                                       \
+            (BASS_CE_BAS_CP_CNF),                                       \
+            (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP),                         \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write BAS CP - Modify Source.
@@ -1242,12 +1338,23 @@ GA_RESULT GA_bass_ce_write_request
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          When write response is received from peer,
- *          BASS_CE_BAS_CP_CNF is notified.
+ *          \ref BASS_CE_BAS_CP_CNF is notified.
+ *
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_request_to_modify_source(bass_ce_handle, req) \
-        GA_bass_ce_write_request((bass_ce_handle), 0xFF, (BASS_CE_BAS_CP_CNF), (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP), (req))
+#define GA_bass_ce_request_to_modify_source(bass_ce_handle, req)        \
+        GA_bass_ce_write_request                                        \
+        (                                                               \
+            (bass_ce_handle),                                           \
+            0xFF,                                                       \
+            (BASS_CE_BAS_CP_CNF),                                       \
+            (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP),                         \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write BAS CP - Set Broadcast Code.
@@ -1261,12 +1368,23 @@ GA_RESULT GA_bass_ce_write_request
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          When write response is received from peer,
- *          BASS_CE_BAS_CP_CNF is notified.
+ *          \ref BASS_CE_BAS_CP_CNF is notified.
+ *
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_set_bc_code(bass_ce_handle, req) \
-        GA_bass_ce_write_request((bass_ce_handle), 0xFF, (BASS_CE_BAS_CP_CNF), (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP), (req))
+#define GA_bass_ce_set_bc_code(bass_ce_handle, req)                     \
+        GA_bass_ce_write_request                                        \
+        (                                                               \
+            (bass_ce_handle),                                           \
+            0xFF,                                                       \
+            (BASS_CE_BAS_CP_CNF),                                       \
+            (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP),                         \
+            (req)                                                       \
+        )
 
 /**
  *  \brief To Write BAS CP - Remove Source.
@@ -1280,12 +1398,23 @@ GA_RESULT GA_bass_ce_write_request
  *  \param [in] req
  *         Write request indicating data, len and type of write.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          When write response is received from peer,
- *          BASS_CE_BAS_CP_CNF is notified.
+ *          \ref BASS_CE_BAS_CP_CNF is notified.
+ *
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_request_to_remove_source(bass_ce_handle, req) \
-        GA_bass_ce_write_request((bass_ce_handle), 0xFF, (BASS_CE_BAS_CP_CNF), (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP), (req))
+#define GA_bass_ce_request_to_remove_source(bass_ce_handle, req)        \
+        GA_bass_ce_write_request                                        \
+        (                                                               \
+            (bass_ce_handle),                                           \
+            0xFF,                                                       \
+            (BASS_CE_BAS_CP_CNF),                                       \
+            (GA_CHAR_BASS_BCAST_AUDIO_SCAN_CP),                         \
+            (req)                                                       \
+        )
 
 /** \} */
 
@@ -1297,66 +1426,91 @@ GA_RESULT GA_bass_ce_write_request
  */
 
 /**
- *  \brief To release/free BASS Context
+ *  \brief Close or Release the given BASS context.
  *
  *  \par Description:
- *       This function enables to release/free BASS Context with the peer device.
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_bass_ce_setup_context if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
  *
- *  \param [in] bass_ce_handle BASS Handle.
- *  \param [in] free Release/Free the context.
+ *  \param [in] bass_ce_handle
+ *         BASS Context for the endpoint to be released/freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref BASS_CE_RELEASE_CNF is notified on
  *          completion with status as success or failure.
  *
- *  \sa ga_bass_error_codes
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_ce_terminate
           (
               /* IN */  BASS_HANDLE  bass_ce_handle,
-              /* IN */  UCHAR  free
+              /* IN */  UCHAR  release
           );
 
 /**
- *  \brief To release BASS Context
+ *  \brief Release the given BASS context.
  *
  *  \par Description:
- *       This function enables to release BASS Context with the peer device.
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_bass_ce_setup_context if required for the same
+ *       device again.
  *
  *  \param [in] bass_ce_handle
- *         BASS Handle.
+ *         BASS Context for the endpoint to be released.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref BASS_CE_RELEASE_CNF is notified on
  *          completion with status as success or failure.
  *
- *  \sa ga_bass_error_codes
+ *  \sa ga_bap_bc_bass_ce_evt_defs
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_release(bass_ce_handle) \
-        GA_bass_ce_terminate((bass_ce_handle), GA_FALSE)
+#define GA_bass_ce_release(bass_ce_handle)                   \
+        GA_bass_ce_terminate                                 \
+        (                                                    \
+            (bass_ce_handle),                                \
+            GA_TRUE                                          \
+        )
 
 /**
- *  \brief To close BASS Context
+ *  \brief Free the given BASS context.
  *
  *  \par Description:
- *       This function enables to close BASS Context with the peer device.
+ *       This routine frees up the given context of the BASS.
  *
  *  \param [in] bass_ce_handle
- *         BASS Handle.
+ *         BASS Context for the endpoint to be freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \sa ga_bass_error_codes
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_ce_close(bass_ce_handle) \
-        GA_bass_ce_terminate((bass_ce_handle), GA_TRUE)
+#define GA_bass_ce_close(bass_ce_handle)                     \
+        GA_bass_ce_terminate                                 \
+        (                                                    \
+            (bass_ce_handle),                                \
+            GA_FALSE                                         \
+        )
 
 /** \} */
 
 /** \} */
 
 /**
- * \defgroup ga_bass_server_api_defs BASS SE (Broadcast Audio Scan Service) Server Entity
+ * \defgroup ga_bap_bc_bass_se_api_defs BC Scan Delegator (BASS Server)
  * \{
  * \brief This section describes the Broadcast Audio Scan Service APIs
  * for Server.
@@ -1375,15 +1529,18 @@ GA_RESULT GA_bass_ce_terminate
  *  \par Description:
  *       This function enables to initialize the GA BASS - Server Module with
  *       the GA Bearer Module. This enables to register a callback with the
- *       GA BASS SE module, this callback will be triggered when there are
+ *       GA BASS Server module, this callback will be triggered when there are
  *       events generated either due to responses or notifications from peer.
  *       By default, a single instance of BR Receive State is added and the
  *       instance is 0U.
  *
  *  \param [in] cb
- *         BASS SE Callback.
+ *         BASS Server Callback.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_se_init(BASS_SE_NTF_CB cb);
 
@@ -1403,7 +1560,10 @@ GA_RESULT GA_bass_se_init(BASS_SE_NTF_CB cb);
  *       This function enables to Shutdown the GA BASS Server Module and
  *       de-registers the callback.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_se_shutdown(void);
 
@@ -1422,18 +1582,22 @@ GA_RESULT GA_bass_se_shutdown(void);
  *  \par Description:
  *       This function adds the instance to the DB. Maximum
  *       number of instances of Broadcast Receive State Char that is supported
- *       is defined by BASS_SE_MAX_BC_RX_STATE_ENTITIES. The
+ *       is defined by \ref BASS_SE_MAX_BC_RX_STATE_ENTITIES. The
  *       bass_se_bc_rx_state_inst must be conserved by the App to be used in
  *       all Interface calls that involves transaction over Broadcast Receive
- *       State Char Instance.
+ *       State Char Instance. \n
  *       Note: By default, 0U is indicated for the default char instance added
- *       during GA_bass_se_init().
+ *       during \ref GA_bass_se_init().
  *
  *  \param [out] bass_se_bc_rx_state_inst
  *         BASS Broadcast Receive State Char Instance Identifier.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
- *          If the max num of instances supported is reached, GA_FAILURE occurs,
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If the max num of instances supported is reached,
+ *          \ref GA_FAILURE occurs.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_se_add_bc_rx_state_inst
           (
@@ -1450,14 +1614,14 @@ GA_RESULT GA_bass_se_add_bc_rx_state_inst
  */
 
 /**
- *  \brief To send Notifications to the peer BASS CE.
+ *  \brief To send Notifications to the peer BASS Client.
  *
  *  \par Description:
  *       This function send notifications to the peer device based on the
  *       address and if configuration is enabled.
  *
  *  \param [in] ga_dev
- *         If NULL, Ntf to all connected BASS sessions will be passed.
+ *         If NULL, Ntf to all connected BASS sessions will be passed. \n
  *         Else, to the corresponsing address passed.
  *
  *  \param [in] bass_se_bc_rx_state_inst
@@ -1472,7 +1636,10 @@ GA_RESULT GA_bass_se_add_bc_rx_state_inst
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_se_send_ntf
           (
@@ -1487,10 +1654,11 @@ GA_RESULT GA_bass_se_send_ntf
  *  \brief To send Notifications - Broadcast Receive State.
  *
  *  \par Description:
- *       This function sends notifications if configured for Broadcast Receive State.
+ *       This function sends notifications if configured for
+ *       Broadcast Receive State.
  *
  *  \param [in] ga_dev
- *         If NULL, Ntf to all connected BASS sessions will be passed.
+ *         If NULL, Ntf to all connected BASS sessions will be passed. \n
  *         Else, to the corresponsing address passed.
  *
  *  \param [in] bass_se_bc_rx_state_inst
@@ -1502,18 +1670,28 @@ GA_RESULT GA_bass_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
-#define GA_bass_se_notify_bc_rx_state(ga_dev, bass_se_bc_rx_state_inst, char_info, char_info_len) \
-        GA_bass_se_send_ntf((ga_dev), (bass_se_bc_rx_state_inst), (GA_CHAR_BASS_BCAST_RECEIVE_STATE), (char_info), (char_info_len))
+#define GA_bass_se_notify_bc_rx_state(ga_dev, bass_se_bc_rx_state_inst, char_info, char_info_len)  \
+        GA_bass_se_send_ntf                                                                        \
+        (                                                                                          \
+            (ga_dev),                                                                              \
+            (bass_se_bc_rx_state_inst),                                                            \
+            (GA_CHAR_BASS_BCAST_RECEIVE_STATE),                                                    \
+            (char_info),                                                                           \
+            (char_info_len)                                                                        \
+        )
 
 /** \} */
 
 /**
  * \name BASS Server APIs - Read/Write
  * \{
- * \brief This section describes the Broadcast Audio Scan Service Read/Write APIs
- * for Server.
+ * \brief This section describes the Broadcast Audio Scan Service Read/Write
+ * APIs for Server.
  */
 
 /**
@@ -1522,8 +1700,8 @@ GA_RESULT GA_bass_se_send_ntf
  *  \par Description:
  *       This function triggers sending of response for read/write.
  *
- *  \param [in] dev
- *         Remote device address
+ *  \param [in] device
+ *         Remote device address.
  *
  *  \param [in] ctx
  *         Context to be passed back as sent.
@@ -1535,14 +1713,21 @@ GA_RESULT GA_bass_se_send_ntf
  *         Response Status for read/write request.
  *
  *  \param [in] rsp_info
- *         Response packet to be sent - Valid for Read request event type only.
- *         NULL - For Write request.
+ *         Response packet to be sent \n
+ *            - Valid for Read request event type only. \n
+ *            - NULL - For Write request.
+ *            .
  *
  *  \param [in] rsp_info_len
- *         Response Packet length - Valid for Read request event type only.
- *         0 - For Write request.
+ *         Response Packet length \n
+ *            - Valid for Read request event type only. \n
+ *            - 0 - For Write request.
+ *            .
  *
- *  \return GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_bap_bc_bass_ce_se_common_error_code
  */
 GA_RESULT GA_bass_se_send_rsp
           (
@@ -1561,6 +1746,11 @@ GA_RESULT GA_bass_se_send_rsp
 };
 #endif
 
+/** \} */
+/** \} */
+
+/** \} */
+/** \} */
 /** \} */
 /** \} */
 

@@ -19,8 +19,6 @@
 #include "GA_api.h"
 #include "GA_bearer_api.h"
 
-#include "BT_common.h"
-#include "BT_device_queue.h"
 #include "l2cap_coc.h"
 /* --------------------------------------------- Global Definitions */
 
@@ -56,8 +54,8 @@ typedef struct _OTP_DATA_CHANNEL_CONN_PARAMS
     UCHAR                     mode;
     /* CID Valid for CBFC Mode */
     UINT16                    lcid;
-    L2CAP_CBFC_CONNECT_PARAM  cbfc_conn_param;
-    L2CAP_ECBFC_CONNECT_PARAM ecbfc_conn_param;
+    OTP_L2CAP_CBFC_CONNECT_PARAM  cbfc_conn_param;
+    OTP_L2CAP_ECBFC_CONNECT_PARAM ecbfc_conn_param;
 }OTP_DATA_CHANNEL_CONN_PARAMS;
 
 typedef struct _OTP_DATA_CHANNEL_CTX
@@ -66,19 +64,19 @@ typedef struct _OTP_DATA_CHANNEL_CTX
     OTP_DATA_CHANNEL_CONN_PARAMS conn_param;
     OTP_DATA_CHANNEL_RX_PARAM    rx_param;
     UINT16                       tx_param_len;
-    DEVICE_HANDLE                handle;
+    UCHAR                        handle;
 }OTP_DATA_CHANNEL_CTX;
 /* --------------------------------------------- Macros */
 #ifndef OTP_NO_DEBUG
-#define OTP_ERR(...)          EM_debug_error(BT_MODULE_ID_OTP, __VA_ARGS__)
+#define OTP_ERR(...)          EM_debug_error(GA_MODULE_ID_OTP, __VA_ARGS__)
 #else  /* OTP_NO_DEBUG */
 #define OTP_ERR               EM_debug_null
 #endif /* OTP_NO_DEBUG */
 
 #ifdef OTP_DEBUG
 
-#define OTP_TRC(...)          EM_debug_trace(BT_MODULE_ID_OTP, __VA_ARGS__)
-#define OTP_INF(...)          EM_debug_info(BT_MODULE_ID_OTP, __VA_ARGS__)
+#define OTP_TRC(...)          EM_debug_trace(GA_MODULE_ID_OTP, __VA_ARGS__)
+#define OTP_INF(...)          EM_debug_info(GA_MODULE_ID_OTP, __VA_ARGS__)
 
 #else  /* OTP_DEBUG */
 
@@ -138,6 +136,14 @@ typedef struct _OTP_DATA_CHANNEL_CTX
 
 /* Length of the Object ID */
 #define OTP_OBJ_ID_LEN 6
+
+#define OTP_DQ_LINK_NONE                    0x00U
+#define OTP_DQ_BR_LINK                      0x01U
+#define OTP_DQ_LE_LINK                      0x02U
+#define OTP_DQ_LINK_ANY                     0xFFU
+
+/* Error Code: In GA_error.h? */
+#define OTP_L2CAP_CREDIT_OVERFLOW           0x2373U
 
 /* --------------------------------------------- APIs */
 

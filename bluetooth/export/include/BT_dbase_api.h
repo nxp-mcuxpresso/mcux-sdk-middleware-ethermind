@@ -617,9 +617,14 @@ extern "C" {
  *  \brief Ethermind SDP dbase initializer
  *
  *  \par Description:
- *  This function initializes SDP dbase records statically.
+ *  When SDP_DYNAMIC_DB is not defined, this function initializes SDP dbase
+ *  records statically.
  *  It is called as a part of EtherMind stack initialization.
  *
+ *  When SDP_DYNAMIC_DB is defined, this function initializes SDP dbase
+ *  for dynamic records creation.
+ *  It is called as a part of EtherMind Bluetooth ON procedure.
+ * 
  *  \param None
  *
  *  \return None
@@ -1055,6 +1060,22 @@ API_RESULT BT_dbase_get_service_class_uuids
            );
 
 #ifdef SDP_DYNAMIC_DB
+/**
+ *  \brief Ethermind SDP dbase shutdown routine
+ *
+ *  \par Description:
+ *  This function shutsdown SDP dbase.
+ *  It is called as a part of EtherMind Bluetooth OFF procedure.
+ *
+ *  \param None
+ *
+ *  \return None
+ */
+void BT_dbase_shutdown
+     (
+         void
+     );
+
 /**
  *  \brief To create an SDP database record at runtime.
  *

@@ -1,3 +1,12 @@
+/*
+ *  \file intrinsics_map.h
+ *
+ */
+
+/*
+ *  Copyright (C) 2013. Mindtree Ltd.
+ *  All rights reserved.
+ */
 #ifndef _H_INSTRINSICS_MAP_
 #define _H_INSTRINSICS_MAP_
 

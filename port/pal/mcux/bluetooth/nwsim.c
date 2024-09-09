@@ -588,6 +588,7 @@ void nwsim_command_send (UCHAR * cmd, UINT16 cmdlen)
     }
 }
 
+
 #ifdef MULTI_PROFILE_FSM_SUPPORT
 void nwsim_operations_multiprofile (void)
 {

@@ -14,14 +14,18 @@
 
 
 /* --------------------------------------------- Extern Variables */
+#ifdef BAP_UCS
 /** Local Stream end points */
 GA_DECLARE_GLOBAL_ARRAY(CAP_STREAM_ENDPOINT, sep, GA_CONFIG_LIMITS(GA_MAX_SEP));
+#endif /* BAP_UCS */
 
 /** CAP Contexts */
 GA_DECLARE_GLOBAL_ARRAY(CAP_CONTEXT, cap, GA_CONFIG_LIMITS(GA_MAX_CONTEXTS));
 
+#ifdef BAP_UCC
 /* CAP Stream Contexts */
 GA_DECLARE_GLOBAL_ARRAY(CAP_STREAM_CONTEXT, cap_stream, GA_MAX_STREAM_CONTEXTS);
+#endif /* BAP_UCC */
 
 /** Registered Content Control Services */
 GA_DECLARE_GLOBAL_ARRAY(UINT16, cap_ccs, GA_CONFIG_LIMITS(GA_MAX_CCS));
@@ -38,15 +42,35 @@ extern GA_BRR_PRF_HANDLE cap_id;
 /** GA profile Callback - CAP Generic */
 extern GA_PROFILE_CB cap_cb;
 
+#ifdef BAP_PACS_CLIENT
+/** GA Profile Callback - PAC Client */
+extern GA_PROFILE_CB bac_cb;
+#endif /* BAP_PACS_CLIENT */
+
+#ifdef BAP_PACS_SERVER
+/** GA Profile Callback - PAC Server */
+extern GA_PROFILE_CB bas_cb;
+#endif /* BAP_PACS_SERVER */
+
+#ifdef BAP_UCC
 /** GA Profile Callback - Unicast Client */
 extern GA_PROFILE_CB ucc_cb;
+#endif /* BAP_UCC */
+
+#ifdef BAP_UCS
 /** GA Profile Callback - Unicast Server */
 extern GA_PROFILE_CB ucs_cb;
+#endif /* BAP_UCS */
 
+#ifdef BAP_BROADCAST_SOURCE
 /** GA Profile Callback - Broadcast Source */
 extern GA_PROFILE_CB bcsrc_cb;
+#endif /* BAP_BROADCAST_SOURCE */
+
+#ifdef BAP_BROADCAST_SINK
 /** GA Profile Callback - Broadcast Sink */
 extern GA_PROFILE_CB bcsnk_cb;
+#endif /* BAP_BROADCAST_SINK */
 
 /** GA Profile Callback - VCP Volume Controller */
 extern GA_PROFILE_CB vcc_cb;

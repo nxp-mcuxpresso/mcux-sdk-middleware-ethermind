@@ -198,6 +198,7 @@ void niface_setup(void)
 
     set_mdio(EXAMPLE_CLOCK_FREQ);
     get_mdio_resource(&readFunc, &writeFunc);
+
     g_phy_resource.write = writeFunc;
     g_phy_resource.read = readFunc;
 

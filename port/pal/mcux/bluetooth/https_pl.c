@@ -6,6 +6,10 @@
  *  Service to Transmit and Receive Data over TCP/IP protocol.
  */
 
+/*
+ *  Copyright (C) 2013. Mindtree Ltd.
+ *  All rights reserved.
+ */
 /*******************************************************************************
  * Includes
  ******************************************************************************/
@@ -294,10 +298,6 @@ static int https_init(void)
     const char *pers = "aws_iot_tls_wrapper";
     const mbedtls_md_info_t *md_info;
 
-#ifdef MBEDTLS_DEBUG_C
-    unsigned char buf[MBEDTLS_SSL_MAX_CONTENT_LEN + 1U];
-#endif
-
     /* Crypto init */
     CRYPTO_InitHardware();
 
@@ -359,6 +359,10 @@ static int https_connect(UCHAR * ip_addr)
     bool ServerVerificationFlag = false;
     int ret          = 0U;
     INT32 hc_port;
+
+#ifdef MBEDTLS_DEBUG_C
+    unsigned char buf[MBEDTLS_SSL_MAX_CONTENT_LEN + 1U];
+#endif
 
     struct addrinfo hints;
     (BT_IGNORE_RETURN_VALUE) memset(&hints, 0U, sizeof(struct addrinfo));

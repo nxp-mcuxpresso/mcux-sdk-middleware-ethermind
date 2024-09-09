@@ -48,17 +48,17 @@
  */
 
 /**
- * \addtogroup ga_bap_module
+ * \addtogroup ga_common_module
  * \{
  */
 
 /**
- * \addtogroup ga_bap_defines
+ * \addtogroup ga_common_defines
  * \{
  */
 
 /**
- * \addtogroup ga_bap_constants
+ * \addtogroup ga_common_constants
  * \{
  */
 
@@ -78,7 +78,7 @@
 
 
 /**
- * \name GA General
+ * \name General Macros
  * \{
  * \brief This section describes the General Macros defined for GA.
  */
@@ -98,51 +98,112 @@
 /** Unused return value to avoid compilation warning - MISRA C-2012 Rule 17.7 */
 #define GA_IGNORE_RETURN_VALUE    void
 
-/** Loop for ever */
-#define GA_LOOP_FOREVER()        for(;;)
+/** \} */
 
 /**
- * Module Identifier definitions.
- * Currently used for runtime debug enable/disable scenario.
+ * \name Device Address Type
+ * \{
+ * \brief This section describes the Device Address Type defined for GA.
+ */
+
+/** Public Device Address */
+#define GA_BD_ADDR_TYPE_PUBLIC     0x00U
+
+/** Random Device Address */
+#define GA_BD_ADDR_TYPE_RANDOM     0x01U
+
+/** \} */
+
+/**
+ * \name Module Identifier definitions.
+ * \{
+ * \brief Currently used for runtime debug enable/disable scenario.
  * In future, this can be used for other purposes as well,
  * hence these defines are placed under common header file.
  */
-/* Page 0  */
+
+/** Page 0 - Bluetooth Generic Audio Modules */
 #define GA_MODULE_PAGE_0                      0x00000000U
 
-/* Module - Bit Mask */
+/** \} */
+
+/**
+ * \name Module - Bit Mask
+ * \{
+ */
+
+/** Module Bitmask for Bearer */
 #define GA_MODULE_BIT_MASK_BRR                0x00000001U
+/** Module Bitmask for Basic Audio Profile */
 #define GA_MODULE_BIT_MASK_BAP                0x00000002U
+/** Module Bitmask for Broadcast Audio Scan Service */
 #define GA_MODULE_BIT_MASK_BASS               0x00000004U
+/** Module Bitmask for Common Audio Profile */
 #define GA_MODULE_BIT_MASK_CAP                0x00000008U
+/** Module Bitmask for Coordinated Set Identification Profile */
 #define GA_MODULE_BIT_MASK_CSIP               0x00000010U
+/** Module Bitmask for Microphone Control Profile */
 #define GA_MODULE_BIT_MASK_MICP               0x00000020U
+/** Module Bitmask for Volume Control Profile */
 #define GA_MODULE_BIT_MASK_VCP                0x00000040U
+/** Module Bitmask for Media Control Profile */
 #define GA_MODULE_BIT_MASK_MCP                0x00000080U
+/** Module Bitmask for Call Control Profile */
 #define GA_MODULE_BIT_MASK_CCP                0x00000100U
+/** Module Bitmask for Hearing Access Profile */
 #define GA_MODULE_BIT_MASK_HAP                0x00000200U
+/** Module Bitmask for Telephony and Media Audio Profile */
 #define GA_MODULE_BIT_MASK_TMAP               0x00000400U
+/** Module Bitmask for Object Transfer Profile */
 #define GA_MODULE_BIT_MASK_OTP                0x00000800U
 
-/* Module ID */
+/** \} */
+
+/**
+ * \name Module - ID
+ * \{
+ */
+
+/** Module ID for Common Module */
 #define GA_MODULE_ID                          (GA_MODULE_PAGE_0)
+/** Module ID for Bearer */
 #define GA_MODULE_ID_BRR                      (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_BRR)
+/** Module ID for Basic Audio Profile */
 #define GA_MODULE_ID_BAP                      (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_BAP)
+/** Module ID for Broadcast Audio Scan Service */
 #define GA_MODULE_ID_BASS                     (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_BASS)
+/** Module ID for Common Audio Profile */
 #define GA_MODULE_ID_CAP                      (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_CAP)
+/** Module ID for Coordinated Set Identification Profile */
 #define GA_MODULE_ID_CSIP                     (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_CSIP)
+/** Module ID for Microphone Control Profile */
 #define GA_MODULE_ID_MICP                     (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_MICP)
+/** Module ID for Volume Control Profile */
 #define GA_MODULE_ID_VCP                      (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_VCP)
+/** Module ID for Media Control Profile */
 #define GA_MODULE_ID_MCP                      (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_MCP)
+/** Module ID for Call Control Profile */
 #define GA_MODULE_ID_CCP                      (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_CCP)
+/** Module ID for Hearing Access Profile */
 #define GA_MODULE_ID_HAP                      (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_HAP)
+/** Module ID for Telephony and Media Audio Profile */
 #define GA_MODULE_ID_TMAP                     (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_TMAP)
+/** Module ID for Object Transfer Profile */
 #define GA_MODULE_ID_OTP                      (GA_MODULE_PAGE_0 | GA_MODULE_BIT_MASK_OTP)
 
-/* Module global init states */
+/** \} */
+
+/**
+ * \name Module States
+ * \{
+ */
+
+/** Generic Audio Core Module State - Invalid */
 #define GA_MODULE_STATE_INVALID               0x00
+/** Generic Audio Core Module State - Initialized */
 #define GA_MODULE_STATE_INITIALIZED           0x01
 
+/** Generic Audio Core Module State - Shutdown */
 #ifndef GA_CLEAN_SHUTDOWN
 #define GA_MODULE_STATE_SHUTDOWN              0x02
 #else /* GA_CLEAN_SHUTDOWN */
@@ -154,9 +215,10 @@
 
 /* --------------------------------------------- Typedefs/Datastrucutres */
 /**
- * \addtogroup ga_bap_structures
+ * \addtogroup ga_common_structures
  * \{
  */
+
 /** GA Endpoint */
 typedef struct _GA_ENDPOINT
 {
@@ -326,51 +388,71 @@ extern GA_CONFIG ga_global_config;
 /* --------------------------------------------- Macros */
 
 /**
- * \defgroup ga_cap_utility_macros Macros
+ * \addtogroup ga_common_macros
  * \{
- * \brief This section describes Initialization and other Utility Macros
- * offered by GA.
  */
 
 /**
- * \name GA Packing Unpacking Related
+ * \name Miscellaneous Macros
  * \{
- * \brief This section describes the Packing Unpacking macros defined for GA.
+ */
+/** Loop for ever */
+#define GA_LOOP_FOREVER()        for(;;)
+/** \} */
+
+/**
+ * \name Packing Macros
+ * \{
+ * \brief Source is a single or multi-octet variable(UINT8, UINT16, UINT32,
+ * UINT64) which has to be packed to a buffer array(Pointer to a UCHAR array).
+ *
+ * \b Syntax: GA_PACK_<Endian-ness LE/BE>_<no_of_bytes>_BYTE_VAL
  */
 
-/** Pack LE 1 Byte */
+/** Pack 1 Byte in Little Endian */
 #define GA_PACK_LE_1_BYTE_VAL(dst, src) \
     *((UCHAR *)(dst) + 0) = (src);
 
-/** Pack LE 2 Byte */
+/** Pack 2 Byte in Little Endian */
 #define GA_PACK_LE_2_BYTE_VAL(dst, src) \
     *((UCHAR *)(dst) + 0) = (UCHAR)(src); \
     *((UCHAR *)(dst) + 1) = (UCHAR)((src) >> 8);
 
-/** Pack LE 3 Byte */
+/** Pack 3 Byte in Little Endian */
 #define GA_PACK_LE_3_BYTE_VAL(dst, src) \
     *((UCHAR *)(dst) + 0) = (UCHAR)(src);\
     *((UCHAR *)(dst) + 1) = (UCHAR)((src) >> 8);\
     *((UCHAR *)(dst) + 2) = (UCHAR)((src) >> 16);
 
-/** Pack LE 4 Byte */
+/** Pack 4 Byte in Little Endian */
 #define GA_PACK_LE_4_BYTE_VAL(dst, src) \
     *((UCHAR *)(dst) + 0) = (UCHAR)(src);\
     *((UCHAR *)(dst) + 1) = (UCHAR)((src) >> 8);\
     *((UCHAR *)(dst) + 2) = (UCHAR)((src) >> 16);\
     *((UCHAR *)(dst) + 3) = (UCHAR)((src) >> 24);
 
-/** Unpack LE 1 Byte */
+/** \} */
+
+/**
+ * \name Unpacking Macros
+ * \{
+ * \brief Source is a pointer to a buffer array (UCHAR array)
+ * which has to be stored into a single variable(Pointer).
+ *
+ * \b Syntax: GA_UNPACK_<Endian-ness LE/BE>_<no_of_bytes>_BYTE
+ */
+
+/** Unpack 1 Byte in Little Endian */
 #define GA_UNPACK_LE_1_BYTE(dst,src)\
     *((UCHAR *)(dst)) = (UCHAR)(*((UCHAR *)(src)));
 
-/** Unpack LE 2 Byte */
+/** Unpack 2 Byte in Little Endian */
 #define GA_UNPACK_LE_2_BYTE(dst,src)\
         *((UINT16 *)(dst))  = *((src) + 1); \
         *((UINT16 *)(dst))  = *((UINT16 *)(dst)) << 8; \
         *((UINT16 *)(dst)) |= *((src) + 0);
 
-/** Unpack LE 3 Byte */
+/** Unpack 3 Byte in Little Endian */
 #define GA_UNPACK_LE_3_BYTE(dst,src)\
         *((UINT32 *)(dst))  = *((src) + 2);\
         *((UINT32 *)(dst))  = (*((UINT32 *)(dst))) << 8;\
@@ -378,7 +460,7 @@ extern GA_CONFIG ga_global_config;
         *((UINT32 *)(dst))  = (*((UINT32 *)(dst))) << 8;\
         *((UINT32 *)(dst)) |= *((src) + 0);
 
-/** Unpack LE 4 Byte */
+/** Unpack 4 Byte in Little Endian */
 #define GA_UNPACK_LE_4_BYTE(dst,src)\
         *((UINT32 *)(dst))  = *((src) + 3);\
         *((UINT32 *)(dst))  = (*((UINT32 *)(dst))) << 8;\
@@ -388,41 +470,82 @@ extern GA_CONFIG ga_global_config;
         *((UINT32 *)(dst))  = (*((UINT32 *)(dst))) << 8;\
         *((UINT32 *)(dst)) |= *((src) + 0);
 
+/** Safe Unpack 1 Byte in Little Endian */
+#define GA_SAFE_UNPACK_LE_1_BYTE(dst,src)\
+        *((UCHAR *)(dst)) = (UCHAR)(*((UCHAR *)(src)));
+
+/** Safe Unpack 2 Byte in Little Endian */
+#define GA_SAFE_UNPACK_LE_2_BYTE(dst,src)\
+        *((UINT16 *)(dst))  = *(((UCHAR *)(src)) + 1); \
+        *((UINT16 *)(dst))  = *((UINT16 *)(dst)) << 8; \
+        *((UINT16 *)(dst)) |= *(((UCHAR *)(src)) + 0);
+
+/** Safe Unpack 3 Byte in Little Endian */
+#define GA_SAFE_UNPACK_LE_3_BYTE(dst,src)\
+        *((UINT32 *)(dst))  = *(((UCHAR *)(src)) + 2);\
+        *((UINT32 *)(dst))  = (*((UINT32 *)(dst))) << 8;\
+        *((UINT32 *)(dst)) |= *(((UCHAR *)(src)) + 1);\
+        *((UINT32 *)(dst))  = (*((UINT32 *)(dst))) << 8;\
+        *((UINT32 *)(dst)) |= *(((UCHAR *)(src)) + 0);
+
+/** Safe Unpack 4 Byte in Little Endian */
+#define GA_SAFE_UNPACK_LE_4_BYTE(dst,src)\
+        *((UINT32 *)(dst))  = *(((UCHAR *)(src)) + 3);\
+        *((UINT32 *)(dst))  = (*((UINT32 *)(dst))) << 8;\
+        *((UINT32 *)(dst)) |= *(((UCHAR *)(src)) + 2);\
+        *((UINT32 *)(dst))  = (*((UINT32 *)(dst))) << 8;\
+        *((UINT32 *)(dst)) |= *(((UCHAR *)(src)) + 1);\
+        *((UINT32 *)(dst))  = (*((UINT32 *)(dst))) << 8;\
+        *((UINT32 *)(dst)) |= *(((UCHAR *)(src)) + 0);
+
 /** \} */
 
-/** Define/Declare global module state */
+/**
+ * \name Module State Tracking Macros
+ * \{
+ */
+
+/** Define Global GA Module State */
 #define GA_DEFINE_MODULE_STATE(module_name) UINT8 g_ga_##module_name = GA_MODULE_STATE_INVALID;
+
+/** Declare Global GA Module State */
 #define GA_DECLARE_MODULE_STATE(module_name) extern UINT8 g_ga_##module_name;
 
-/** Set/Check global module state */
+/** Set Global GA Module State */
 #define GA_SET_MODULE_STATE(module_name, s) g_ga_##module_name = GA_MODULE_STATE_##s;
+
+/** Check to see if the Global GA Module State matches */
 #define IF_GA_MODULE_STATE(module_name, s)  if(g_ga_##module_name == GA_MODULE_STATE_##s)
+
+/** Check to see if the Global GA Module State doesn't match */
 #define IFN_GA_MODULE_STATE(module_name, s) if(g_ga_##module_name != GA_MODULE_STATE_##s)
 
-#ifndef GA_DISABLE_MUTEX
+/** \} */
 
 /**
- * \name GA Synchronization Related
+ * \name Task Synchronization Macros
  * \{
  * \brief This section describes the Mutex and Conditional Variables
  *        related macros defined for GA.
  */
 
-/* Macro to define a Mutex Variable */
+#ifndef GA_DISABLE_MUTEX
+
+/** Macro to define a Mutex Variable */
 #define GA_DEFINE_MUTEX(mutex) EM_thread_mutex_type mutex;
 
-/* Macro to define a Mutex Variable with a type qualifier */
+/** Macro to define a Mutex Variable with a type qualifier */
 #define GA_DEFINE_MUTEX_TYPE(type, mutex) type EM_thread_mutex_type mutex;
 
-/* Macro to define a Conditional Variable */
+/** Macro to define a Conditional Variable */
 #define GA_DEFINE_COND(cond) EM_thread_cond_type cond;
 
-/* Macro to define a Conditional Variable with a type qualifier */
+/** Macro to define a Conditional Variable with a type qualifier */
 #define GA_DEFINE_COND_TYPE(type, cond) type EM_thread_cond_type cond;
 
-/*
- *  Macro to Initialize Mutex.
- *  To be used in void function as it returns no error.
+/**
+ * Macro to Initialize Mutex.
+ * To be used in void function as it returns no error.
  */
 #define GA_MUTEX_INIT_VOID(mutex, MODULE)                                \
     if (EM_thread_mutex_init(&(mutex), NULL) < 0)                        \
@@ -433,9 +556,9 @@ extern GA_CONFIG ga_global_config;
         return;                                                          \
     }
 
-/*
- *  Macro to Initialize Mutex.
- *  It returns an error if mutex initialization fails.
+/**
+ * Macro to Initialize Mutex.
+ * It returns an error if mutex initialization fails.
  */
 #define GA_MUTEX_INIT(mutex, MODULE)                                     \
     if (EM_thread_mutex_init(&(mutex), NULL) < 0)                        \
@@ -449,9 +572,9 @@ extern GA_CONFIG ga_global_config;
 #ifdef GA_CLEAN_SHUTDOWN
 #error "Complete Implementation of Mutex De-Initialization"
 
-/*
- *  Macro to De-Initialize Mutex.
- *  To be used in void function as it returns no error.
+/**
+ * Macro to De-Initialize Mutex.
+ * To be used in void function as it returns no error.
  */
 #define GA_MUTEX_DEINIT_VOID(mutex, MODULE)                              \
     if (0)                                                               \
@@ -462,9 +585,9 @@ extern GA_CONFIG ga_global_config;
         return;                                                          \
     }
 
-/*
- *  Macro to De-Initialize Mutex.
- *  It returns an error if mutex de-initialization fails.
+/**
+ * Macro to De-Initialize Mutex.
+ * It returns an error if mutex de-initialization fails.
  */
 #define GA_MUTEX_DEINIT(mutex, MODULE)                                   \
     if (0)                                                               \
@@ -476,17 +599,24 @@ extern GA_CONFIG ga_global_config;
     }
 
 #else /* GA_CLEAN_SHUTDOWN */
-/*
- *  Macro to De-Initialize Mutex.
+
+/**
+ * Macro to De-Initialize Mutex.
+ * To be used in void function as it returns no error.
  */
 #define GA_MUTEX_DEINIT_VOID(mutex, MODULE)
+
+/**
+ * Macro to De-Initialize Mutex.
+ * It returns an error if mutex de-initialization fails.
+ */
 #define GA_MUTEX_DEINIT(mutex, MODULE)
 
 #endif /* GA_CLEAN_SHUTDOWN */
 
-/*
- *  Macro to Initialize Conditional Variable.
- *  To be used in void function as it returns no error.
+/**
+ * Macro to Initialize Conditional Variable.
+ * To be used in void function as it returns no error.
  */
 #define GA_COND_INIT_VOID(cond, MODULE)                                  \
     if (EM_thread_cond_init(&(cond), NULL) < 0)                          \
@@ -497,9 +627,9 @@ extern GA_CONFIG ga_global_config;
         return;                                                          \
     }
 
-/*
- *  Macro to Initialize Conditional Variable.
- *  It returns an error if conditional variable initialization fails.
+/**
+ * Macro to Initialize Conditional Variable.
+ * It returns an error if conditional variable initialization fails.
  */
 #define GA_COND_INIT(cond, MODULE)                                       \
     if (EM_thread_cond_init(&(cond), NULL) < 0)                          \
@@ -513,9 +643,9 @@ extern GA_CONFIG ga_global_config;
 #ifdef GA_CLEAN_SHUTDOWN
 #error "Complete Implementation of CondVar De-Initialization"
 
-/*
- *  Macro to De-Initialize Conditional Variable.
- *  To be used in void function as it returns no error.
+/**
+ * Macro to De-Initialize Conditional Variable.
+ * To be used in void function as it returns no error.
  */
 #define GA_COND_DEINIT_VOID(cond, MODULE)                                \
     if (0)                                                               \
@@ -526,9 +656,9 @@ extern GA_CONFIG ga_global_config;
         return;                                                          \
     }
 
-/*
- *  Macro to De-Initialize Conditional Variable.
- *  It returns an error if conditional variable initialization fails.
+/**
+ * Macro to De-Initialize Conditional Variable.
+ * It returns an error if conditional variable initialization fails.
  */
 #define GA_COND_DEINIT(cond, MODULE)                                     \
     if (0)                                                               \
@@ -540,18 +670,24 @@ extern GA_CONFIG ga_global_config;
     }
 
 #else /* GA_CLEAN_SHUTDOWN */
-/*
- *  Macro to De-Initialize Conditional Variable.
- *  To be used in void function as it returns no error.
+
+/**
+ * Macro to De-Initialize Conditional Variable.
+ * To be used in void function as it returns no error.
  */
 #define GA_COND_DEINIT_VOID(cond, MODULE)
+
+/**
+ * Macro to De-Initialize Conditional Variable.
+ * It returns an error if conditional variable initialization fails.
+ */
 #define GA_COND_DEINIT(cond, MODULE)
 
 #endif /* GA_CLEAN_SHUTDOWN */
 
-/*
- *  Locks the Module Specific Mutex which prevents any global variable being
- *  overwritten by any function. It returns an error if mutex lock fails.
+/**
+ * Locks the Module Specific Mutex which prevents any global variable being
+ * overwritten by any function. It returns an error if mutex lock fails.
  */
 #define GA_MUTEX_LOCK(mutex, MODULE)                                 \
     if (EM_thread_mutex_lock(&(mutex)) < 0)                          \
@@ -562,10 +698,10 @@ extern GA_CONFIG ga_global_config;
         return MODULE##_MUTEX_LOCK_FAILED;                           \
     }
 
-/*
- *  Locks the Module Specific Mutex which prevents any global variable being
- *  overwritten by any function. To be used in void function as it
- *  returns no error.
+/**
+ * Locks the Module Specific Mutex which prevents any global variable being
+ * overwritten by any function. To be used in void function as it
+ * returns no error.
  */
 #define GA_MUTEX_LOCK_VOID(mutex, MODULE)                            \
     if (EM_thread_mutex_lock(&(mutex)) < 0)                          \
@@ -576,9 +712,9 @@ extern GA_CONFIG ga_global_config;
         return;                                                      \
     }
 
-/*
- *  Unlocks the Module Specific Mutex which realeses the global variables
- *  to be written into. It returns an error if mutex unlock fails.
+/**
+ * Unlocks the Module Specific Mutex which realeses the global variables
+ * to be written into. It returns an error if mutex unlock fails.
  */
 #define GA_MUTEX_UNLOCK(mutex, MODULE)                               \
     if (EM_thread_mutex_unlock(&(mutex)) < 0)                        \
@@ -589,10 +725,10 @@ extern GA_CONFIG ga_global_config;
         return MODULE##_MUTEX_UNLOCK_FAILED;                         \
     }
 
-/*
- *  Unlocks the Module Specific Mutex which realeses the global variables
- *  to be written into. To be used in void functions as it returns
- *  no error.
+/**
+ * Unlocks the Module Specific Mutex which realeses the global variables
+ * to be written into. To be used in void functions as it returns
+ * no error.
  */
 #define GA_MUTEX_UNLOCK_VOID(mutex, MODULE)                          \
     if (EM_thread_mutex_unlock(&(mutex)) < 0)                        \
@@ -603,84 +739,76 @@ extern GA_CONFIG ga_global_config;
         return;                                                      \
     }
 
-/** \} */
-
 #else /* GA_DISABLE_MUTEX */
 
-/**
- * \name GA Mutex Related
- * \{
- * \brief This section describes the Mutex related macros defined for GA.
- */
-
-/* Macro to define a Mutex Variable */
+/** Macro to define a Mutex Variable */
 #define GA_DEFINE_MUTEX(mutex)
 
-/* Macro to define a Mutex Variable with a type qualifier */
+/** Macro to define a Mutex Variable with a type qualifier */
 #define GA_DEFINE_MUTEX_TYPE(type, mutex)
 
-/* Macro to define a Conditional Variable */
+/** Macro to define a Conditional Variable */
 #define GA_DEFINE_COND(cond)
 
-/* Macro to define a Conditional Variable with a type qualifier */
+/** Macro to define a Conditional Variable with a type qualifier */
 #define GA_DEFINE_COND_TYPE(type, cond)
 
-/*
- *  Macro to Initialize Mutex.
- *  To be used in void function as it returns no error.
+/**
+ * Macro to Initialize Mutex.
+ * To be used in void function as it returns no error.
  */
 #define GA_MUTEX_INIT_VOID(mutex, MODULE)
 
-/*
- *  Macro to Initialize Mutex.
- *  It returns an error if mutex initialization fails.
+/**
+ * Macro to Initialize Mutex.
+ * It returns an error if mutex initialization fails.
  */
 #define GA_MUTEX_INIT(mutex, MODULE)
 
-/*
- *  Macro to Initialize Conditional Variable.
- *  To be used in void function as it returns no error.
+/**
+ * Macro to Initialize Conditional Variable.
+ * To be used in void function as it returns no error.
  */
 #define GA_COND_INIT_VOID(cond, MODULE)
 
-/*
- *  Macro to Initialize Conditional Variable.
- *  It returns an error if conditional variable initialization fails.
+/**
+ * Macro to Initialize Conditional Variable.
+ * It returns an error if conditional variable initialization fails.
  */
 #define GA_COND_INIT(cond, MODULE)
 
-/*
- *  Locks the Module Specific Mutex which prevents any global variable being
- *  overwritten by any function. It returns an error if mutex lock fails.
+/**
+ * Locks the Module Specific Mutex which prevents any global variable being
+ * overwritten by any function. It returns an error if mutex lock fails.
  */
 #define GA_MUTEX_LOCK(mutex, MODULE)
 
-/*
- *  Locks the Module Specific Mutex which prevents any global variable being
- *  overwritten by any function. To be used in void function as it
- *  returns no error.
+/**
+ * Locks the Module Specific Mutex which prevents any global variable being
+ * overwritten by any function. To be used in void function as it
+ * returns no error.
  */
 #define GA_MUTEX_LOCK_VOID(mutex, MODULE)
 
-/*
- *  Unlocks the Module Specific Mutex which realeses the global variables
- *  to be written into. It returns an error if mutex unlock fails.
+/**
+ * Unlocks the Module Specific Mutex which realeses the global variables
+ * to be written into. It returns an error if mutex unlock fails.
  */
 #define GA_MUTEX_UNLOCK(mutex, MODULE)
 
-/*
- *  Unlocks the Module Specific Mutex which realeses the global variables
- *  to be written into. To be used in void functions as it returns
- *  no error.
+/**
+ * Unlocks the Module Specific Mutex which realeses the global variables
+ * to be written into. To be used in void functions as it returns
+ * no error.
  */
 #define GA_MUTEX_UNLOCK_VOID(mutex, MODULE)
 
-/** \} */
-
 #endif /* GA_DISABLE_MUTEX */
 
+/** \} */
+
 /**
- * \name GA BD Address Related
+ * \name BD Address Related
  * \{
  * \brief This section describes the BD address related macros defined for GA.
  */
@@ -713,11 +841,11 @@ extern GA_CONFIG ga_global_config;
 
 /** Compare Endpoint type */
 #define GA_COMPARE_ENDPOINT_TYPE(type_a,type_b)\
-        (((type_a) == (type_b))?GA_TRUE:GA_FALSE)
+        (((type_a) == (type_b))? GA_TRUE: GA_FALSE)
 
 /** Compare Endpoint address */
 #define GA_COMPARE_ENDPOINT_ADDR(addr_a,addr_b)\
-        ((0 == GA_mem_cmp((addr_a), (addr_b), GA_BD_ADDR_SIZE))?GA_TRUE:GA_FALSE)
+        ((0 == GA_mem_cmp((addr_a), (addr_b), GA_BD_ADDR_SIZE))? GA_TRUE: GA_FALSE)
 
 /**
  * Compare Endpoint.
@@ -727,21 +855,31 @@ extern GA_CONFIG ga_global_config;
         (((GA_COMPARE_ENDPOINT_TYPE((addr_a)->bd_type,(addr_b)->bd_type)) &&\
           (GA_COMPARE_ENDPOINT_ADDR((addr_a)->bd_addr,(addr_b)->bd_addr)))? GA_TRUE: GA_FALSE)
 
-/** Dynamic memory var definition, initialization and deinitialization */
+/** \} */
+
+/**
+ * \name Dynamic configuration Macros
+ * \{
+ */
+
+/** Define the Dynamic memory */
 #define GA_DEFINE_PTR(type, var, s) \
         type * var
 
 /* TODO: Check if the allocation is success */
+/** Initialize the Dynamic memory */
 #define GA_INIT_PTR(type, var, s, i) \
         var = EM_alloc_mem((s) * sizeof(type)); \
         GA_debug_trace(GA_MODULE_ID, \
         "Allocated %lu bytes for %s. Ptr: %p\n", ((s) * sizeof(type)), #var, var); \
         EM_mem_set(var, (i), ((s) * sizeof(type)))
 
+/** De-Initialize the Dynamic memory */
 #define GA_DEINIT_PTR(type, var, s) \
         EM_free_mem(var)
 
 #ifdef GA_HAVE_DYNAMIC_CONFIG
+/** GA Datastructure Configuration Initialization */
 #define GA_INIT_CONFIG(config) \
     (config).config_GA_MAX_PAC_RECORDS_IN_SINGLE_INST = GA_MAX_PAC_RECORDS_IN_SINGLE_INST; \
     (config).config_GA_MAX_SOURCE_PAC_RECORDS = GA_MAX_SOURCE_PAC_RECORDS; \
@@ -780,66 +918,87 @@ extern GA_CONFIG ga_global_config;
     (config).config_BASS_CE_MAX_BC_RX_STATE_INSTANCES = BASS_CE_MAX_BC_RX_STATE_INSTANCES; \
     (config).config_BASS_SE_MAX_BC_RX_STATE_ENTITIES = BASS_SE_MAX_BC_RX_STATE_ENTITIES; \
 
+/** Macro to fetch the current value of corresponding GA Configuration */
 #define GA_CONFIG_LIMITS(x) \
         ga_global_config.config_##x
+
+/* TODO: comment */
 #define GA_CONFIG_ISEQUAL(x, y)  0
 #define GA_CONFIG_ISNEQUAL(x, y) 1
 
+/* GA Macro Defines for Dynamically allocated Global Lists/Arrays */
+/** GA Dynamic Global Array Definition Macro */
 #define GA_DEFINE_GLOBAL_ARRAY(type, var, s) \
         type * var
 
+/** GA Dynamic Global Array Declaration Macro */
 #define GA_DECLARE_GLOBAL_ARRAY(type, var, s) \
         extern type * var
 
 /* TODO: Check if the allocation is success */
+/** GA Dynamic Global Array Initialization Macro */
 #define GA_INIT_GLOBAL_ARRAY(type, var, s, i) \
-        var = EM_alloc_mem((s) * sizeof(type)); \
+        var = (type *) EM_alloc_mem((s) * sizeof(type)); \
         GA_debug_trace(GA_MODULE_ID, \
         "Allocated %lu bytes for %s. Ptr: %p\n", ((s) * sizeof(type)), #var, var); \
         EM_mem_set(var, (i), ((s) * sizeof(type)))
 
+/** GA Dynamic Global Array De-Initialization Macro */
 #define GA_DEINIT_GLOBAL_ARRAY(type, var, s) \
         EM_free_mem(var)
 
+/** GA Dynamic Local Array Definition Macro */
 #define GA_DEFINE_LOCAL_ARRAY(type, var, s) \
         type * var
 
 /* TODO: Check if the allocation is success */
+/** GA Dynamic Local Array Initialization Macro */
 #define GA_INIT_LOCAL_ARRAY(type, var, s, i) \
         var = EM_alloc_mem((s) * sizeof(type)); \
         GA_debug_trace(GA_MODULE_ID, \
         "Allocated %lu bytes for %s. Ptr: %p\n", ((s) * sizeof(type)), #var, var); \
         EM_mem_set(var, (i), ((s) * sizeof(type)))
 
+/** GA Dynamic Global Array De-Initialization Macro */
 #define GA_DEINIT_LOCAL_ARRAY(type, var, s) \
         EM_free_mem(var)
 
 #else /* GA_HAVE_DYNAMIC_CONFIG */
 
+/** GA Datastructure Configuration Initialization */
 #define GA_INIT_CONFIG(config)
+/** Macro to fetch the current value of corresponding GA Configuration */
 #define GA_CONFIG_LIMITS(x) (x)
+
+/* TODO: comment */
 #define GA_CONFIG_ISEQUAL(x, y)    ((x) == (y))
 #define GA_CONFIG_ISNEQUAL(x, y)   ((x) != (y))
 
-/** Global variables definition, declaration, initialization and deinitialization */
+/* GA Macro Defines for Dynamically allocated Global Lists/Arrays */
+/** GA Dynamic Global Array Definition Macro */
 #define GA_DEFINE_GLOBAL_ARRAY(type, var, s) \
         type var[(s)]
 
+/** GA Dynamic Global Array Declaration Macro */
 #define GA_DECLARE_GLOBAL_ARRAY(type, var, s) \
         extern type var[(s)]
 
+/** GA Dynamic Global Array Initialization Macro */
 #define GA_INIT_GLOBAL_ARRAY(type, var, s, i) \
         EM_mem_set(var, (i), ((s) * sizeof(type)))
 
+/** GA Dynamic Global Array De-Initialization Macro */
 #define GA_DEINIT_GLOBAL_ARRAY(type, var, s)
 
-/** Local variables definition, initialization and deinitialization */
+/** GA Dynamic Local Array Definition Macro */
 #define GA_DEFINE_LOCAL_ARRAY(type, var, s) \
         type var[(s)]
 
+/** GA Dynamic Local Array Initialization Macro */
 #define GA_INIT_LOCAL_ARRAY(type, var, s, i) \
         EM_mem_set(var, (i), ((s) * sizeof(type)))
 
+/** GA Dynamic Global Array De-Initialization Macro */
 #define GA_DEINIT_LOCAL_ARRAY(type, var, s)
 
 #endif /* GA_HAVE_DYNAMIC_CONFIG */

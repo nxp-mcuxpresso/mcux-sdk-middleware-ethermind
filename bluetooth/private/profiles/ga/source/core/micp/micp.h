@@ -66,7 +66,7 @@ typedef UINT8 MICP_AICS_HANDLE;
 /**
  * MICP MICS Contexts
  */
-typedef struct _MICP_CONTEXT_
+typedef struct _MICP_CONTEXT
 {
     /* Device Endpoint */
     GA_ENDPOINT device;
@@ -81,9 +81,9 @@ typedef struct _MICP_CONTEXT_
      */
     UINT8 char_config_id;
 
-   /**
-    * Status Flag
-    */
+    /**
+     * Status Flag
+     */
     UCHAR cntx_id;
 
     /* Context Event for a procedure */
@@ -94,7 +94,7 @@ typedef struct _MICP_CONTEXT_
 
 }MICP_CONTEXT;
 
-typedef struct _MICP_AICS_CONTEXT_
+typedef struct _MICP_AICS_CONTEXT
 {
     /**
      * AICS characteristics Info.
@@ -111,9 +111,9 @@ typedef struct _MICP_AICS_CONTEXT_
      */
     MICP_HANDLE mics_hndl;
 
-   /**
-    * Status Flag
-    */
+    /**
+     * Status Flag
+     */
     UCHAR cntx_id;
 
     /** Service Range */
@@ -123,9 +123,9 @@ typedef struct _MICP_AICS_CONTEXT_
 /* As Server */
 typedef struct _MICS_CONTEXT_
 {
-   /**
-    * MICS Service Handle
-    */
+    /**
+     * MICS Service Handle
+     */
     GA_BRR_SVC_INST mics_id;
 
     /**
@@ -257,7 +257,7 @@ typedef struct _MICP_RSP_INFO
      * Data Length
      */
     UCHAR datalen;
-}MICP_RSP_INF;
+}MICP_RSP_INFO;
 
 /* --------------------------------------------- Macros */
 
@@ -274,7 +274,7 @@ typedef struct _MICP_RSP_INFO
 #define MICS_ERR_CODE_MUTE_DISABLED                  0x80U
 #define MICS_ERR_CODE_VALUE_OUT_OF_RANGE             0x81U
 
-/** TODO: ATT Errorcode. Move to seperate file */
+/** TODO: ATT Errorcodes. Move to separate file */
 #define MICS_ERR_CODE_NOT_ALLOWED                    0x13U
 
 /* ================== */
@@ -429,10 +429,37 @@ GA_RESULT MICP_setup_aics_cntx
               /* OUT */ MICP_AICS_HANDLE  *aics
           );
 
+/**
+ *  \brief Close or Release the given MICS context.
+ *
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref MICP_setup_context() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure. Any associated
+ *       AICS contexts should be freed by the application before
+ *       calling this function.
+ *
+ *  \param [in] handle
+ *         MICP Context for the endpoint to be released/freed.
+ *
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref MC_RELEASE_MICS_CNF is notified on
+ *          completion with status as success or failure.
+ *
+ *  \sa ga_micp_error_code
+ */
 GA_RESULT MICP_release_context
           (
-              /* IN */ MICP_HANDLE   handle,
-              /* IN */ UCHAR free
+              /* IN */ MICP_HANDLE handle,
+              /* IN */ UCHAR       release
           );
 
 GA_RESULT MICP_get_micp_handle_from_aics
@@ -442,24 +469,34 @@ GA_RESULT MICP_get_micp_handle_from_aics
           );
 
 /**
- *  \brief To Release a MICP Service context.
+ *  \brief Close or Release the given AICS context.
  *
  *  \par Description:
- *       This function enables to release context of given MICS
- *       service type & service handle.
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref MICP_setup_aics_cntx() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
  *
- *  \param [in] mics_srvs_type
- *        Flag to indicate the Service type.
+ *  \param [in] handle
+ *         AICS Context for the endpoint to be released/freed.
  *
- *  \param [in] mics_hndl
- *        Handle associated with the given service type.
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \return API_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref MC_RELEASE_AICS_CNF is notified on
+ *          completion with status as success or failure.
+ *
+ *  \sa ga_micp_error_code
  */
 GA_RESULT MICP_release_aics_context
           (
-              /* IN */ MICP_AICS_HANDLE   handle,
-              /* IN */ UCHAR free
+              /* IN */ MICP_AICS_HANDLE handle,
+              /* IN */ UCHAR            release
           );
 
 /**

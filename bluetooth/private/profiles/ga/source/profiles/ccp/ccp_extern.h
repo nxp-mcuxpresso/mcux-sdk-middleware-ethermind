@@ -34,6 +34,12 @@ extern CCP_CE_NTF_CB   ccp_ce_ntf_cb;
 extern GA_BRR_PRF_HANDLE ccp_brr_id;
 
 GA_DEFINE_MUTEX_TYPE(extern, ccp_ce_mutex);
+
+/* Characteristic UUID table for TBS */
+extern DECL_CONST GA_CHAR_UUID ccp_tbs_uuid[CCP_CHAR_ID_COUNT];
+
+/* Characterisitc configuration enable mask */
+extern UINT32 ccp_tbs_config;
 #endif /* CCP_CLIENT */
 
 #ifdef CCP_SERVER
@@ -43,12 +49,6 @@ extern CCP_SE_NTF_CB   ccp_se_ntf_cb;
 
 /* Global CCP Server mutex variable */
 GA_DEFINE_MUTEX_TYPE(extern, ccp_se_mutex);
-
-/* Characteristic UUID table for TBS */
-extern DECL_CONST GA_CHAR_UUID ccp_tbs_uuid[CCP_CHAR_ID_COUNT];
-
-/* Characterisitc configuration enable mask */
-extern UINT32 ccp_tbs_config;
 
 #endif /* CCP_SERVER */
 /* --------------------------------------------- APIs */

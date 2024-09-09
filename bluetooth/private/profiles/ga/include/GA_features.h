@@ -14,6 +14,59 @@
 #define _H_GA_FEATURES_
 
 /* ----------------------------------------------------------------------- */
+/* ============== GA Bearer Configuration Flags ========================== */
+/* ----------------------------------------------------------------------- */
+/*
+ *  BRR_GATT_CLIENT
+ *
+ *  This flag enables the GATT client interfaces at the bearer
+ *
+ *  Dependency: BT_GAM
+ */
+#define BRR_GATT_CLIENT
+
+/*
+ *  BRR_GATT_SERVER
+ *
+ *  This flag enables the GATT server interfaces at the bearer
+ *
+ *  Dependency: BT_GAM
+ */
+#define BRR_GATT_SERVER
+
+/*
+ *  BRR_GAP_BROADCASTER
+ *
+ *  This flag enables the GAP broadcaster interfaces at the bearer
+ *  for setup Extended, Periodic and BIG Advertisements
+ *
+ *  Dependency: BT_GAM
+ */
+#define BRR_GAP_BROADCASTER
+
+#ifdef BRR_GAP_BROADCASTER
+/*
+ *  BRR_ENABLE_BROADCAST_TEST
+ *
+ *  This flag enables the GAP broadcaster test interfaces at the bearer
+ *  for broadcasting in test mode
+ *
+ *  Dependency: BRR_GAP_BROADCASTER
+ */
+#define BRR_ENABLE_BROADCAST_TEST
+#endif /* BRR_GAP_BROADCASTER */
+
+/*
+ *  BRR_GAP_OBSERVER
+ *
+ *  This flag enables the GAP observer interfaces at the bearer
+ *  for scanning Extended, Periodic and BIG advertisements
+ *
+ *  Dependency: BT_GAM
+ */
+#define BRR_GAP_OBSERVER
+
+/* ----------------------------------------------------------------------- */
 /* ============== GA Profiles Flags ====================================== */
 /* ----------------------------------------------------------------------- */
 /*
@@ -110,6 +163,26 @@
 /* ----------------------------------------------------------------------- */
 /* ============== CAP Specific Flags ===================================== */
 /* ----------------------------------------------------------------------- */
+
+#ifdef GA_CSIP
+/*
+ *  CAP_CSIP_COORDINATOR
+ *
+ *  This flag enables support for the CAS CSIS Coordinator
+ *
+ *  Dependency: CSIP_COORDINATOR
+ */
+#define CAP_CSIP_COORDINATOR
+
+/*
+ *  CAP_CSIP_MEMBER
+ *
+ *  This flag enables support for the CAS CSIS Member
+ *
+ *  Dependency: CSIP_MEMBER
+ */
+#define CAP_CSIP_MEMBER
+
 /*
  *  CAP_ENABLE_CSIS_READ_APP_CB
  *
@@ -123,17 +196,59 @@
  *  Dependency: GA_CSIP
  */
 /* #define CAP_ENABLE_CSIS_READ_APP_CB */
+#endif /* GA_CSIP */
 
 /* ----------------------------------------------------------------------- */
 /* ============== BAP Specific Flags ===================================== */
 /* ----------------------------------------------------------------------- */
 #ifdef GA_BAP
 /*
+ *  BAP_PACS_CLIENT
+ *
+ *  This flag enables the Client role for BAP - PACS procedures
+ *
+ *  Dependency: GA_BAP
+ */
+#define BAP_PACS_CLIENT
+
+/*
+ *  BAP_PACS_SERVER
+ *
+ *  This flag enables the Server role of BAP - PACS procedures
+ *
+ *  Dependency: GA_BAP
+ */
+#define BAP_PACS_SERVER
+
+#ifdef BAP_PACS_SERVER
+/*
+ *  BAP_PACS_DEREGISTER
+ *
+ *  This flag enables the interface to deregister the audio capabilities
+ */
+/* #define BAP_PACS_DEREGISTER */
+
+/*
+ *  BAP_AUTOREGISTER_MANDATORY_UNSPECIFIED_CONTEXT
+ *
+ *  This flag when defined, the API BAP_register_audio_contexts_and_locations()
+ *  registers for the mandatory 'Unspecified' audio context irrespective of
+ *  whether its support was given by the application or not.
+ *
+ *  When this flag is not defined, and if the 'Unspecified' context is not set
+ *  by the application, the API will return an error.
+ *
+ *  Dependency: BAP_PACS_SERVER
+ */
+/* #define BAP_AUTOREGISTER_MANDATORY_UNSPECIFIED_CONTEXT */
+#endif /* BAP_PACS_SERVER */
+
+/*
  *  BAP_UCC
  *
  *  This flag enables the Unicast Client role of BAP
  *
- *  Dependency: GA_BAP
+ *  Dependency: GA_BAP and BAP_PACS_CLIENT
  */
 #define BAP_UCC
 
@@ -142,20 +257,32 @@
  *
  *  This flag enables the Unicast Server role of BAP
  *
- *  Dependency: GA_BAP
+ *  Dependency: GA_BAP and BAP_PACS_SERVER
  */
 #define BAP_UCS
 
-#ifdef BAP_UCC
+#ifdef BAP_UCS
+/*
+ *  GA_CACHE_APPLIED_CONF
+ *
+ *  This flag enables BAP core to cache ASE state to Codec_Configured when
+ *  Release Complete is notified, instead of IDLE state.
+ *
+ *  Dependency: BAP_UCS
+ */
+/* #define GA_CACHE_APPLIED_CONF */
+#endif /* BAP_UCS */
+
+#ifdef BAP_PACS_CLIENT
 /*
  *  BAP_SUPPORT_CONFIG_SELECTION
  *
  *  This flag enables application interface to configure the
  *  notification selection of the characteristics in BAP services
  *
- *  Dependency: BAP_UCC
+ *  Dependency: BAP_PACS_CLIENT or BAP_UCC
  */
-#define BAP_SUPPORT_CONFIG_SELECTION
+/* #define BAP_SUPPORT_CONFIG_SELECTION */
 
 /*
  *  BAP_SUPPORT_CONTEXT_MANAGE
@@ -163,19 +290,10 @@
  *  This flag enables application interface to Retrieve and Save the
  *  context of BAP Services.
  *
- *  Dependency: BAP_UCC
+ *  Dependency: BAP_PACS_CLIENT or BAP_UCC
  */
-#define BAP_SUPPORT_CONTEXT_MANAGE
-#endif /* BAP_UCC */
-
-/*
- *  BAP_PACS_DEREGISTER
- *
- *  This flag enables the interface to deregister the audio capabilities
- *
- *  Dependency: GA_PACS_DEREGISTER
- */
-/* #define BAP_PACS_DEREGISTER */
+/* #define BAP_SUPPORT_CONTEXT_MANAGE */
+#endif /* BAP_PACS_CLIENT */
 
 /*
  *  BAP_BROADCAST
@@ -252,7 +370,7 @@
  *
  *  Dependency: GA_BASS_CLIENT
  */
-#define BASS_SUPPORT_CONFIG_SELECTION
+/* #define BASS_SUPPORT_CONFIG_SELECTION */
 
 /*
  *  BASS_SUPPORT_CONTEXT_MANAGE
@@ -262,7 +380,7 @@
  *
  *  Dependency: GA_BASS_CLIENT
  */
-#define BASS_SUPPORT_CONTEXT_MANAGE
+/* #define BASS_SUPPORT_CONTEXT_MANAGE */
 #endif /* GA_BASS_CLIENT */
 
 #ifdef GA_BASS_SERVER
@@ -276,6 +394,38 @@
 #define BASS_DB
 #endif /* GA_BASS_SERVER */
 
+#ifdef BAP_BROADCAST_SOURCE
+/*
+ *  GA_SUPPORT_BC_ANNOUNCEMENT_END_IN_STREAMING
+ *
+ *  This flag enables the GA to support the possibility to end
+ *  announcements during streaming. This would be non-compliant to the
+ *  specification statemachine. Hence disabled by default.
+ *
+ *  Dependency: BAP_BROADCAST_SOURCE
+ */
+/* #define GA_SUPPORT_BC_ANNOUNCEMENT_END_IN_STREAMING */
+#endif /* BAP_BROADCAST_SOURCE */
+#endif /* BAP_BROADCAST */
+
+/* Validate Dependencies in BAP */
+
+#if ((!defined BAP_PACS_CLIENT) && (defined BAP_UCC))
+#error "Mandatory to support BAP_PACS_CLIENT for BAP_UCC!"
+#endif /* ((!defined BAP_PACS_CLIENT) && (defined BAP_UCC)) */
+
+#if ((!defined BAP_PACS_SERVER) && (defined BAP_UCS))
+#error "Mandatory to support BAP_PACS_SERVER for BAP_UCS!"
+#endif /* ((!defined BAP_PACS_SERVER) && (defined BAP_UCS)) */
+
+#if ((!defined BAP_PACS_SERVER) && (defined BAP_BROADCAST_SCAN_DELEGATOR))
+#error "Mandatory to support BAP_PACS_SERVER for BAP_BROADCAST_SCAN_DELEGATOR"
+#endif /* ((!defined BAP_PACS_SERVER) && (defined BAP_BROADCAST_SCAN_DELEGATOR)) */
+
+#if ((!defined BAP_PACS_CLIENT) && (defined BAP_BROADCAST_ASSISTANT))
+#error "Mandatory to support BAP_PACS_CLIENT for BAP_BROADCAST_ASSISTANT"
+#endif /* ((!defined BAP_PACS_CLIENT) && (defined BAP_BROADCAST_ASSISTANT)) */
+
 #if ((!defined GA_BASS_SERVER) && (defined BAP_BROADCAST_SCAN_DELEGATOR))
 #error "Mandatory to support GA_BASS_SERVER for BAP_BROADCAST_SCAN_DELEGATOR"
 #endif /* ((!defined GA_BASS_SERVER) && (defined BAP_BROADCAST_SCAN_DELEGATOR)) */
@@ -288,20 +438,10 @@
 #error "Mandatory to support BAP_BROADCAST_SINK for BAP_BROADCAST_SCAN_DELEGATOR"
 #endif /* ((!defined BAP_BROADCAST_SINK) && (defined BAP_BROADCAST_SCAN_DELEGATOR)) */
 
-#ifdef BAP_BROADCAST_SOURCE
-/*
- *  GA_SUPPORT_BC_ANNOUNCEMENT_END_IN_STREAMING
- *
- *  This flag enables the GA to support the possiblity to end
- *  announcements during streaming. This would be non-compliant to the
- *  specification statemachine. Hence disabled by default.
- *
- *  Dependency: BAP_BROADCAST_SOURCE
- */
-/* #define GA_SUPPORT_BC_ANNOUNCEMENT_END_IN_STREAMING */
-#endif /* BAP_BROADCAST_SOURCE */
+#if ((!defined BAP_BROADCAST_SINK) && (defined BAP_BROADCAST_ASSISTANT))
+#error "Mandatory to support BAP_BROADCAST_SINK for BAP_BROADCAST_ASSISTANT"
+#endif /* ((!defined BAP_BROADCAST_SINK) && (defined BAP_BROADCAST_ASSISTANT)) */
 
-#endif /* BAP_BROADCAST */
 #endif /* GA_BAP */
 
 /* ----------------------------------------------------------------------- */
@@ -335,7 +475,7 @@
  *
  *  Dependency: VCP_CONTROLLER
  */
-#define VCP_SUPPORT_CONFIG_SELECTION
+/* #define VCP_SUPPORT_CONFIG_SELECTION */
 
 /*
  *  VCP_SUPPORT_CONTEXT_MANAGE
@@ -345,7 +485,7 @@
  *
  *  Dependency: VCP_CONTROLLER
  */
-#define VCP_SUPPORT_CONTEXT_MANAGE
+/* #define VCP_SUPPORT_CONTEXT_MANAGE */
 #endif /* VCP_CONTROLLER */
 #endif /* GA_VCP */
 
@@ -380,7 +520,7 @@
  *
  *  Dependency: MICP_CONTROLLER
  */
-#define MICP_SUPPORT_CONFIG_SELECTION
+/* #define MICP_SUPPORT_CONFIG_SELECTION */
 
 /*
  *  MICP_SUPPORT_CONTEXT_MANAGE
@@ -390,7 +530,7 @@
  *
  *  Dependency: MICP_CONTROLLER
  */
-#define MICP_SUPPORT_CONTEXT_MANAGE
+/* #define MICP_SUPPORT_CONTEXT_MANAGE */
 #endif /* MICP_CONTROLLER */
 #endif /* GA_MICP */
 
@@ -425,7 +565,7 @@
  *
  *  Dependency: CSIP_COORDINATOR
  */
-#define CSIP_SUPPORT_CONFIG_SELECTION
+/* #define CSIP_SUPPORT_CONFIG_SELECTION */
 
 /*
  *  CSIP_SUPPORT_CONTEXT_MANAGE
@@ -435,7 +575,7 @@
  *
  *  Dependency: CSIP_COORDINATOR
  */
-#define CSIP_SUPPORT_CONTEXT_MANAGE
+/* #define CSIP_SUPPORT_CONTEXT_MANAGE */
 #endif /* CSIP_COORDINATOR */
 
 /*
@@ -453,6 +593,15 @@
 /* #define CSIP_CB_FOR_INVALID_PDU_PARAMETER */
 #endif /* GA_CSIP */
 
+/* Validate Dependencies in CAP */
+
+#if ((!defined CSIP_COORDINATOR) && (defined CAP_CSIP_COORDINATOR))
+#error "Mandatory to support CSIP_COORDINATOR for CAP_CSIP_COORDINATOR!"
+#endif /* ((!defined CSIP_COORDINATOR) && (defined CAP_CSIP_COORDINATOR)) */
+
+#if ((!defined CSIP_MEMBER) && (defined CAP_CSIP_MEMBER))
+#error "Mandatory to support CSIP_MEMBER for CAP_CSIP_MEMBER!"
+#endif /* ((!defined CSIP_MEMBER) && (defined CAP_CSIP_MEMBER)) */
 /* ----------------------------------------------------------------------- */
 /* ============== CCP Specific Flags ===================================== */
 /* ----------------------------------------------------------------------- */
@@ -484,7 +633,7 @@
  *
  *  Dependency: CCP_CLIENT
  */
-#define CCP_SUPPORT_CONFIG_SELECTION
+/* #define CCP_SUPPORT_CONFIG_SELECTION */
 
 /*
  *  CCP_SUPPORT_CONTEXT_MANAGE
@@ -494,7 +643,7 @@
  *
  *  Dependency: CCP_CLIENT
  */
-#define CCP_SUPPORT_CONTEXT_MANAGE
+/* #define CCP_SUPPORT_CONTEXT_MANAGE */
 #endif /* CCP_CLIENT */
 #endif /* GA_CCP */
 
@@ -529,7 +678,7 @@
  *
  *  Dependency: MCP_CLIENT
  */
-#define MCP_SUPPORT_CONFIG_SELECTION
+/* #define MCP_SUPPORT_CONFIG_SELECTION */
 
 /*
  *  MCP_SUPPORT_CONTEXT_MANAGE
@@ -539,7 +688,7 @@
  *
  *  Dependency: MCP_CLIENT
  */
-#define MCP_SUPPORT_CONTEXT_MANAGE
+/* #define MCP_SUPPORT_CONTEXT_MANAGE */
 #endif /* MCP_CLIENT */
 
 /*
@@ -594,7 +743,7 @@
  *
  *  Dependency: HAP_CLIENT
  */
-#define HAP_SUPPORT_CONFIG_SELECTION
+/* #define HAP_SUPPORT_CONFIG_SELECTION */
 
 /*
  *  HAP_SUPPORT_CONTEXT_MANAGE
@@ -604,7 +753,7 @@
  *
  *  Dependency: HAP_CLIENT
  */
-#define HAP_SUPPORT_CONTEXT_MANAGE
+/* #define HAP_SUPPORT_CONTEXT_MANAGE */
 #endif /* HAP_CLIENT */
 
 /*
@@ -639,7 +788,7 @@
  *
  *  Dependency: TMAP_CLIENT
  */
-#define TMAP_SUPPORT_CONTEXT_MANAGE
+/* #define TMAP_SUPPORT_CONTEXT_MANAGE */
 #endif /* TMAP_CLIENT */
 
 /*
@@ -677,40 +826,40 @@
 
 /* Profile Modules */
 
-/* #define  BRR_NO_DEBUG */
-#define  BRR_DEBUG
+#define  BRR_NO_DEBUG
+/* #define  BRR_DEBUG */
 
-/* #define  BAP_NO_DEBUG */
-#define  BAP_DEBUG
+#define  BAP_NO_DEBUG
+/* #define  BAP_DEBUG */
 
-/* #define  BASS_NO_DEBUG */
-#define  BASS_DEBUG
+#define  BASS_NO_DEBUG
+/* #define  BASS_DEBUG */
 
-/* #define  CAP_NO_DEBUG */
-#define  CAP_DEBUG
+#define  CAP_NO_DEBUG
+/* #define  CAP_DEBUG */
 
-/* #define  CSIP_NO_DEBUG */
-#define  CSIP_DEBUG
+#define  CSIP_NO_DEBUG
+/* #define  CSIP_DEBUG */
 
-/* #define  MICP_NO_DEBUG */
-#define  MICP_DEBUG
+#define  MICP_NO_DEBUG
+/* #define  MICP_DEBUG */
 
-/* #define  VCP_NO_DEBUG */
-#define  VCP_DEBUG
+#define  VCP_NO_DEBUG
+/* #define  VCP_DEBUG */
 
-/* #define  MCP_NO_DEBUG */
-#define  MCP_DEBUG
+#define  MCP_NO_DEBUG
+/* #define  MCP_DEBUG */
 
-/* #define OTP_NP_DEBUG */
-#define  OTP_DEBUG
+#define OTP_NP_DEBUG
+/* #define  OTP_DEBUG */
 
-/* #define  CCP_NO_DEBUG */
-#define  CCP_DEBUG
+#define  CCP_NO_DEBUG
+/* #define  CCP_DEBUG */
 
-/* #define  HAP_NO_DEBUG */
-#define  HAP_DEBUG
+#define  HAP_NO_DEBUG
+/* #define  HAP_DEBUG */
 
-/* #define  TMAP_NO_DEBUG */
-#define  TMAP_DEBUG
+#define  TMAP_NO_DEBUG
+/* #define  TMAP_DEBUG */
 
 #endif /* _H_GA_FEATURES_ */

@@ -25,13 +25,14 @@
 #define BAP_SERVICE_PACS                        0U
 #define BAP_SERVICE_ASCS                        1U
 
-#define BAP_SERVICE_COUNT                       2U
 
 /** BAP Unicast and Broadcast Roles */
 #define BAP_ROLE_CLIENT                         0x01U
 #define BAP_ROLE_SERVER                         0x02U
-#define BAP_ROLE_BCSRC                          0x04U
-#define BAP_ROLE_BCSNK                          0x08U
+#define BAP_ROLE_UCC                            0x03U
+#define BAP_ROLE_UCS                            0x04U
+#define BAP_ROLE_BCSRC                          0x05U
+#define BAP_ROLE_BCSNK                          0x06U
 
 /** BAP Audio Endpoint Roles */
 #define BAP_ROLE_SINK                           0x01U
@@ -65,12 +66,14 @@
 #define BAP_LOCATION_STATUS_CNF                 0x04U
 #define BAP_SUPPORTED_CONTEXTS_STATUS_CNF       0x05U
 #define BAP_AVAILABLE_CONTEXTS_STATUS_CNF       0x06U
+
 #define BAP_ASE_DISCOVER_CNF                    0x07U
 #define BAP_ASE_STATUS_CNF                      0x08U
 #define BAP_ASECP_RSP                           0x09U
 
 #define BAP_ASE_SET_IND                         0x11U
 #define BAP_ASE_GET_IND                         0x12U
+
 #define BAP_ASE_STATUS_IND                      0x13U
 #define BAP_ASE_RX_START_READY_IND              0x14U
 #define BAP_ASE_RX_STOP_READY_IND               0x15U
@@ -84,6 +87,9 @@
 
 #define BAP_PACS_SNK_LOCATIONS_SET_IND          0x22U
 #define BAP_PACS_SRC_LOCATIONS_SET_IND          0x23U
+
+#define BAP_PACS_SNK_LOCATIONS_SET_CNF          0x24U
+#define BAP_PACS_SRC_LOCATIONS_SET_CNF          0x25U
 
 /* BAP Broadcast Event Code */
 #define BAP_BROADCAST_EVENT_CODE                GA_BRR_CONNECTIONLESS_EVENT_CODE
@@ -193,12 +199,27 @@
  * \{
  * Describes count of char ID defined in PACS & ASCS Specification.
  */
+#if ((defined(BAP_PACS_CLIENT)) && (!defined(BAP_UCC)))
+/** Total Service count in BAP */
+#define BAP_SERVICE_COUNT                       1U
 
 /** Total number of Characteristic IDs,
  * \ref ga_pacs_char_prop
+ */
+#define BAP_CHAR_ID_COUNT                       6U
+#endif /* ((defined(BAP_PACS_CLIENT)) && (!defined(BAP_UCC))) */
+
+#if ((defined(BAP_PACS_CLIENT)) && (defined(BAP_UCC)))
+/** Total Service count in BAP */
+#define BAP_SERVICE_COUNT                       2U
+
+/**
+ * Total number of Characteristic IDs,
+ * \ref ga_pacs_char_prop
  * \ref ga_ascs_char_prop
  */
-#define BAP_CHAR_ID_COUNT                               9U
+#define BAP_CHAR_ID_COUNT                       9U
+#endif /* ((defined(BAP_PACS_CLIENT)) && (defined(BAP_UCC))) */
 /** \} */
 
 /* Derive the characteristic config mask for the Char ID */
@@ -431,7 +452,7 @@ typedef struct _BAP_BC_DISABLE_PARAMS
 
 typedef struct _BAP_BROADCAST_ANNOUNCEMENT
 {
-    UINT32 broadcast_id;
+    UINT32  broadcast_id;
     UINT8   pbp_found;
     UINT8   pbp_features;
     void  * pbp_metadata;
@@ -468,14 +489,82 @@ typedef struct _BAP_CAPABILITY_INFO
 #define BAP_ISEVENT_BROADCAST(ev) GA_BRR_ISEVENT_CONNECTIONLESS(ev)
 
 /* --------------------------------------------- APIs */
+#ifdef BAP_PACS_CLIENT
 GA_RESULT BAP_client_init(void);
 GA_RESULT BAP_client_shutdown(void);
+
+GA_RESULT BAP_setup_context
+          (
+              /* IN */  GA_ENDPOINT * device,
+              /* OUT */ BAP_HANDLE * ci
+          );
+
+/**
+ *  \brief Close or Release the given BAP context.
+ *
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref BAP_setup_context() for PACS and \ref BAP_discover_ase() for ASCS
+ *       if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
+ *
+ *  \param [in] ci
+ *         BAP Context for the endpoint to be released/freed.
+ *
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref BAP_RELEASE_CNF is notified on
+ *          completion with status as success or failure.
+ *
+ *  \sa ga_bap_common_error_code
+ */
+GA_RESULT BAP_release_context
+          (
+              /* IN */ BAP_HANDLE ci,
+              /* IN */ UCHAR      release
+          );
+
+GA_RESULT BAP_get_capability
+          (
+              /* IN */ BAP_HANDLE ci,
+              /* IN */ UINT8 role,
+              /* IN */ UINT8 pac_index
+          );
+
+GA_RESULT BAP_get_location
+          (
+              /* IN */ BAP_HANDLE ci,
+              /* IN */ UINT8 role
+          );
+
+GA_RESULT BAP_get_supported_contexts
+          (
+              /* IN */ BAP_HANDLE ci
+          );
+
+GA_RESULT BAP_get_available_contexts
+          (
+              /* IN */ BAP_HANDLE ci
+          );
+
+GA_RESULT BAP_set_audio_location
+          (
+              /* IN */ BAP_HANDLE ci,
+              /* IN */ UINT8      role,
+              /* IN */ UINT32     audio_locations
+          );
+#endif /* BAP_PACS_CLIENT */
+
+#ifdef BAP_PACS_SERVER
 GA_RESULT BAP_server_init(void);
 GA_RESULT BAP_server_shutdown(void);
-GA_RESULT BAP_bc_source_init(void);
-GA_RESULT BAP_bc_source_shutdown(void);
-GA_RESULT BAP_bc_sink_init(void);
-GA_RESULT BAP_bc_sink_shutdown(void);
 
 GA_RESULT BAP_register_pac_record
           (
@@ -517,49 +606,18 @@ GA_RESULT BAP_deregister_pac_record
               /* IN */ UINT8 record_id
           );
 #endif /* BAP_PACS_DEREGISTER */
+#endif /* BAP_PACS_SERVER */
+#ifdef BAP_BROADCAST_SOURCE
+GA_RESULT BAP_bc_source_init(void);
+GA_RESULT BAP_bc_source_shutdown(void);
+#endif /* BAP_BROADCAST_SOURCE */
 
-GA_RESULT BAP_register_ase
-          (
-              /* IN */ UINT8    state,
-              /* IN */ UINT8    role,
-              /* OUT */ UINT8 * ase_id
-          );
+#ifdef BAP_BROADCAST_SINK
+GA_RESULT BAP_bc_sink_init(void);
+GA_RESULT BAP_bc_sink_shutdown(void);
+#endif /* BAP_BROADCAST_SINK */
 
-GA_RESULT BAP_setup_context
-          (
-              /* IN */  GA_ENDPOINT * device,
-              /* OUT */ BAP_HANDLE * ci
-          );
-
-GA_RESULT BAP_release_context
-          (
-              /* IN */ BAP_HANDLE ci,
-              /* IN */ UCHAR free
-          );
-
-GA_RESULT BAP_get_capability
-          (
-              /* IN */ BAP_HANDLE ci,
-              /* IN */ UINT8 role,
-              /* IN */ UINT8 pac_index
-          );
-
-GA_RESULT BAP_get_location
-          (
-              /* IN */ BAP_HANDLE ci,
-              /* IN */ UINT8 role
-          );
-
-GA_RESULT BAP_get_supported_contexts
-          (
-              /* IN */ BAP_HANDLE ci
-          );
-
-GA_RESULT BAP_get_available_contexts
-          (
-              /* IN */ BAP_HANDLE ci
-          );
-
+#ifdef BAP_UCC
 GA_RESULT BAP_discover_ase
           (
               /* IN */ BAP_HANDLE ci
@@ -572,15 +630,6 @@ GA_RESULT BAP_get_ase_status
               /* IN */ UINT8 se_index
           );
 
-GA_RESULT BAP_ase_notify
-          (
-              GA_ENDPOINT * device,
-              UINT8 role,
-              UINT8 se_index,
-              UCHAR * data,
-              UINT16 length
-          );
-
 GA_RESULT BAP_asecp_request
           (
               /* IN */ BAP_HANDLE ci,
@@ -589,16 +638,6 @@ GA_RESULT BAP_asecp_request
               /* IN */ UINT8 operation,
               /* IN */ void * se_data,
               /* IN */ UINT16 se_datalen
-          );
-
-GA_RESULT BAP_asecp_response
-          (
-              /* IN */ GA_ENDPOINT * device,
-              /* IN */ UINT8 * se_index,
-              /* IN */ UINT8 se_count,
-              /* IN */ UINT8 operation,
-              /* IN */ UINT8 * response,
-              /* IN */ UINT8 * reason
           );
 
 #define BAP_asecp_configure_codec(ci, si, si_count, se_data, se_datalen) \
@@ -625,6 +664,37 @@ GA_RESULT BAP_asecp_response
 #define BAP_asecp_release(ci, si, si_count) \
         BAP_asecp_request((ci), (si), (si_count), BAP_ASECP_RELEASE, NULL, 0)
 
+#endif /* BAP_UCC */
+
+#ifdef BAP_UCS
+GA_RESULT BAP_register_ase
+          (
+              /* IN */ UINT8    state,
+              /* IN */ UINT8    role,
+              /* OUT */ UINT8 * ase_id
+          );
+
+GA_RESULT BAP_ase_notify
+          (
+              GA_ENDPOINT * device,
+              UINT8 role,
+              UINT8 se_index,
+              UCHAR * data,
+              UINT16 length
+          );
+
+GA_RESULT BAP_asecp_response
+          (
+              /* IN */ GA_ENDPOINT * device,
+              /* IN */ UINT8 * se_index,
+              /* IN */ UINT8 se_count,
+              /* IN */ UINT8 operation,
+              /* IN */ UINT8 * response,
+              /* IN */ UINT8 * reason
+          );
+#endif /* BAP_UCS */
+
+#ifdef BAP_BROADCAST_SOURCE
 GA_RESULT BAP_broadcast_alloc_session
           (
               /* OUT */ UINT8 * ssn
@@ -700,7 +770,9 @@ GA_RESULT BAP_broadcast_suspend
           (
               /* IN */ UINT8 ssn
           );
+#endif /* BAP_BROADCAST_SOURCE */
 
+#ifdef BAP_BROADCAST_SINK
 GA_RESULT BAP_broadcast_scan_announcement(void);
 
 GA_RESULT BAP_broadcast_scan_end(void);
@@ -710,6 +782,8 @@ GA_RESULT BAP_broadcast_associate
               UINT8 sid,
               GA_ENDPOINT * device
           );
+
+GA_RESULT BAP_broadcast_associate_cancel(void);
 
 GA_RESULT BAP_update_associate_info
           (
@@ -735,6 +809,7 @@ GA_RESULT BAP_broadcast_disable
           (
               UINT16 sync_handle
           );
+#endif /* BAP_BROADCAST_SINK */
 
 GA_RESULT BAP_broadcast_decode_event_params
           (
@@ -743,6 +818,7 @@ GA_RESULT BAP_broadcast_decode_event_params
               /* OUT */ void * param
           );
 
+#if (defined BAP_BROADCAST_SINK || defined BAP_BROADCAST_ASSISTANT)
 GA_RESULT BAP_broadcast_decode_broadcast_announcement
           (
               /* IN */  UCHAR* data,
@@ -772,9 +848,13 @@ GA_RESULT BAP_broadcast_decode_basic_announcement_level_2
               /* OUT */ BAP_BASIC_ANNOUNCEMENT_LEVEL_2 * param,
               /* OUT */ UINT8                          * parsed_len
           );
+#endif /* (defined BAP_BROADCAST_SINK || defined BAP_BROADCAST_ASSISTANT) */
 
+#ifdef BAP_SUPPORT_CONFIG_SELECTION
 GA_RESULT BAP_update_ntf_configuration(UINT32 config);
+#endif /* BAP_SUPPORT_CONFIG_SELECTION */
 
+#ifdef BAP_SUPPORT_CONTEXT_MANAGE
 GA_RESULT BAP_manage_context_info
           (
               /* IN     */ UINT8              set,
@@ -793,6 +873,6 @@ GA_RESULT BAP_get_context_record_count
               UINT8 * src_sep_count,
               UINT8 * snk_sep_count
           );
-
+#endif /* BAP_SUPPORT_CONTEXT_MANAGE */
 #endif /* _H_BAP_ */
 

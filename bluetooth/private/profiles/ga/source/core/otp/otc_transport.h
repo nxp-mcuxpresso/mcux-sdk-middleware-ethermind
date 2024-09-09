@@ -17,7 +17,8 @@
 #define _H_OTC_TRANSPORT_
 
 /* --------------------------------------------- Header File Inclusion */
-#include "otc_internal.h"
+#include "GA_features.h"
+#include "GA_bearer_api.h"
 
 #ifdef OTP_CLIENT
 /* --------------------------------------------- Global Definitions */
@@ -76,7 +77,7 @@ GA_RESULT otc_data_channel_deinit(void);
  *
  *  \return API_SUCCESS or an error code indicating reason for failure
  */
-GA_RESULT otc_data_channel_connect(OTP_CE_SESSION_ID otc_sess_id);
+GA_RESULT otc_data_channel_connect(UINT8 otc_sess_id);
 
 /**
  *  \brief To trigger a L2CAP COC channel disconnect for this OTC session.
@@ -90,7 +91,7 @@ GA_RESULT otc_data_channel_connect(OTP_CE_SESSION_ID otc_sess_id);
  *
  *  \return API_SUCCESS or an error code indicating reason for failure
  */
-GA_RESULT otc_data_channel_disconnect(OTP_CE_SESSION_ID otc_sess_id);
+GA_RESULT otc_data_channel_disconnect(UINT8 otc_sess_id);
 
 #endif /* OTP_CLIENT */
 

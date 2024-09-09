@@ -6,6 +6,10 @@
  *  Serviceto Transmit and Receive Data over TCP/IP protocol.
  */
 
+/*
+ *  Copyright (C) 2013. Mindtree Ltd.
+ *  All rights reserved.
+ */
 
 #ifndef _H_HTTPS_PL_
 #define _H_HTTPS_PL_

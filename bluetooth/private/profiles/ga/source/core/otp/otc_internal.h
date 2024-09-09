@@ -171,7 +171,7 @@ GA_RESULT otc_ga_brr_client_callback
 
 
 #define IS_OTS_DEV_SAME(index, dev) \
-        (0 == EM_mem_cmp((dev), &otc_sess[(index)].dev, sizeof((dev))))
+        (0 == EM_mem_cmp((dev), &otc_sess[(index)].dev, sizeof(GA_ENDPOINT)))
 
 #define IS_OACP_CHAR_HNDL(index, char_hndl) \
         (otc_sess[(index)].char_info[OTP_CHAR_ID_OACP].handle == char_hndl)

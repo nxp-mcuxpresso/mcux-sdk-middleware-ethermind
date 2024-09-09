@@ -3,7 +3,7 @@
  *  \file GA_hap_api.h
  *
  *  \brief This file defines the GA Hearing Access Profile(HAP)
- *  Client and Server Entity(SE) Interface - includes Data Structures and
+ *  Client and Server Interface - includes Data Structures and
  *  Methods.
  */
 
@@ -53,7 +53,7 @@
  */
 
 /**
- * \name HAP Application Error Codes
+ * \name HAP - Application Error Codes
  * \{
  */
 
@@ -291,21 +291,21 @@
 #ifdef HAP_CLIENT
 
 /**
- * \name HAP Client Constants - General Macros
+ * \name Client - General Macros
  * \{
  * \brief Initialization and other General Macros offered by the module.
  */
 
 /**
  * Total number of Characteristic IDs,
- * \ref ga_has_char_prop
+ * \ref hap_constants
  */
 #define HAP_CHAR_ID_COUNT               0x03U
 
 /** \} */
 
 /**
- * \name HAP Client Constants - HAP Char ID
+ * \name Client - HAP Char ID
  * \{
  * This section lists the Characteristic ID references.
  */
@@ -340,14 +340,14 @@
  */
 
 /**
- * \defgroup hap_client_events HAP Client Events
+ * \defgroup hap_client_events Client
  * \{
  * This section describes the Hearing Access Profile Events
  * for Client.
  */
 
 /**
- * \name HAP Client - Setup Events
+ * \name HAP Client Events - Setup
  * \{
  */
 
@@ -357,20 +357,28 @@
  * application, this Handle to be further used during all HAP related
  * requests. This involves discovery of service, char
  * and descriptors. Once done, the configuration for Notifications is
- * also enabled.
+ * also enabled. Read for HAP Features is done.\n
  * Callback is triggered with the following values as parameters in the
- * \ref HAP_NTF_CB callback
+ * \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context NULL \n
- * \param [in] evt_id  \ref HAP_SETUP_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Setup Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] evt_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - data: NULL \n
- *                           - datalen: 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx NULL, Ignore \n
+ * \param [in] evt_id \ref HAP_SETUP_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Setup Complete \n
+ *                        \ref GA_FAILURE : Others \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                      If status is \ref GA_SUCCESS \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: Of type \ref HAP_FEATURES \n
+ *                                 Hearing Aid Features(Bit field)
+ *                                 \ref hap_constants \n
+ *                         - len: \ref sizeof( \ref HAP_FEATURES) \n
+ *                         .
+ *                      If status is \ref GA_FAILURE, \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: NULL, Ignore \n
+ *                         - len: 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -379,27 +387,28 @@
 /** \} */
 
 /**
- * \name HAP Client - Release Events
+ * \name HAP Client Events - Release
  * \{
  */
 
 /**
  * \brief This event is notified when a HAS Service context is released.
  * Configuration of Notifications for char are disabled and followed by release
- * of HAS context.
+ * of HAS context. \n
  * Callback is triggered with the following values as parameters in the
- * \ref HAP_NTF_CB callback
+ * \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context NULL \n
- * \param [in] evt_id  \ref HAP_RELEASE_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Setup Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] evt_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - data: NULL \n
- *                           - datalen: 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx NULL, Ignore \n
+ * \param [in] evt_id \ref HAP_RELEASE_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Setup Complete \n
+ *                        \ref GA_FAILURE : Others \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                      If status is \ref GA_SUCCESS or \ref GA_FAILURE, \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: NULL, Ignore \n
+ *                         - len: 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -408,7 +417,7 @@
 /** \} */
 
 /**
- * \name HAP Client - Read Events
+ * \name HAP Client Events - Read
  * \{
  */
 
@@ -417,14 +426,17 @@
  * from peer device with the following values as parameters in the
  * \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context NULL \n
- * \param [in] evt_id  \ref HAP_HA_GET_FEATURES_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Read Response received \n
- * \param [in] evt_data  Pointer to \ref HAP_EVT
- *                           data: Hearing Aid Features(Bit field)
- *                                              represents a \ref UINT8 \n
- *                           datalen: 1 \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx NULL, Ignore \n
+ * \param [in] evt_id \ref HAP_HA_GET_FEATURES_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: Of type \ref HAP_FEATURES \n
+ *                                 Hearing Aid Features(Bit field)
+ *                                 \ref hap_constants \n
+ *                         - len: \ref sizeof( \ref HAP_FEATURES) \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -435,14 +447,16 @@
  * from peer device with the following values as parameters in the
  * \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context NULL \n
- * \param [in] evt_id  \ref HAP_HA_GET_ACTIVE_PRESET_INDEX_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Read Response received \n
- * \param [in] evt_data  Pointer to \ref HAP_EVT
- *                           data: Active Preset Index
- *                                            represents a \ref UINT8 \n
- *                           datalen: 1 \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx NULL, Ignore \n
+ * \param [in] evt_id \ref HAP_HA_GET_ACTIVE_PRESET_INDEX_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Read Response received \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: Active Preset Index
+ *                                 Represents a \ref UINT8 \n
+ *                         - len: \ref sizeof( \ref UINT8) \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -451,7 +465,7 @@
 /** \} */
 
 /**
- * \name HAP Client - Write Events
+ * \name HAP Client Events - Write
  * \{
  */
 
@@ -460,13 +474,15 @@
  * from peer device with the following values as parameters in the
  * \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context NULL \n
- * \param [in] evt_id  \ref HAP_HA_PRESET_CP_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Write Response received \n
- * \param [in] evt_data  Pointer to \ref HAP_EVT
- *                           data: NULL \n
- *                           datalen: 0 \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx NULL, Ignore \n
+ * \param [in] evt_id \ref HAP_HA_PRESET_CP_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Write Response received \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -475,7 +491,7 @@
 /** \} */
 
 /**
- * \name HAP Client - Notification Events
+ * \name HAP Client Events - Notification
  * \{
  */
 
@@ -484,14 +500,17 @@
  * Aid Features characteristic from peer device with the following values as
  * parameters in the \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context NULL \n
- * \param [in] evt_id  \ref HAP_HA_FEATURES_NTF
- * \param [in] evt_status  \ref GA_SUCCESS Notification received \n
- * \param [in] evt_data  Pointer to \ref HAP_EVT
- *                           data: Hearing Aid Features(Bit field)
- *                                              represents a \ref UINT8 \n
- *                           datalen: 1 \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx NULL, Ignore \n
+ * \param [in] evt_id \ref HAP_HA_FEATURES_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: Of type \ref HAP_FEATURES \n
+ *                                 Hearing Aid Features(Bit field)
+ *                                 \ref hap_constants \n
+ *                         - len: \ref sizeof( \ref HAP_FEATURES) \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -502,16 +521,17 @@
  * Aid Features characteristic from peer device with the following values as
  * parameters in the \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context NULL \n
- * \param [in] evt_id  \ref HAP_HA_PRESET_CP_NTF
- * \param [in] evt_status  \ref GA_SUCCESS Notification received \n
- * \param [in] evt_data  Pointer to \ref HAP_EVT
- *                           data: Opcode ( \ref UINT8 )
- *                                 \ref hap_constants
- *                                 Varies depending upon Opcode
- *                                  represents a \ref UINT8 \n
- *                           datalen: Varies \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx NULL, Ignore \n
+ * \param [in] evt_id \ref HAP_HA_PRESET_CP_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: Opcode ( \ref UINT8 ) + Params for this Opcode.
+ *                                 \ref hap_constants \n
+ *                                 Varies depending upon Opcode \n
+ *                         - len: Varies \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -522,14 +542,16 @@
  * Aid Features characteristic from peer device with the following values as
  * parameters in the \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context NULL \n
- * \param [in] evt_id  \ref HAP_HA_GET_ACTIVE_PRESET_INDEX_NTF
- * \param [in] evt_status  \ref GA_SUCCESS Notification received \n
- * \param [in] evt_data  Pointer to \ref HAP_EVT
- *                           data: Active Preset Index
- *                                            represents a \ref UINT8 \n
- *                           datalen: 1 \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx NULL, Ignore \n
+ * \param [in] evt_id \ref HAP_HA_GET_ACTIVE_PRESET_INDEX_NTF
+ * \param [in] evt_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: Active Preset Index
+ *                                 Represents a \ref UINT8 \n
+ *                         - len: \ref sizeof( \ref UINT8) \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -540,14 +562,14 @@
 /** \} */
 
 /**
- * \defgroup hap_server_events HAP Server Events
+ * \defgroup hap_server_events Server
  * \{
  * This section describes the Hearing Access Profile Events
  * for Server.
  */
 
 /**
- * \name HAP Server - Read Events
+ * \name HAP Server Events - Read
  * \{
  */
 
@@ -556,16 +578,20 @@
  * peer device with the following values as parameters in the
  * \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context \n
- *                      Use it to send response via \ref GA_hap_send_rsp()
- * \param [in] evt_id  \ref HAP_HA_GET_FEATURES_IND
- * \param [in] evt_status  \ref GA_SUCCESS Read Request received \n
- * \param [in] evt_data  Pointer to \ref HAP_EVT
- *                           data: NULL \n
- *                           datalen: 0 \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx \ref GA_HAP_SE_RSP_CONTEXT \n
+ *                 Use it during send response via \ref GA_hap_send_rsp()
+ * \param [in] evt_id \ref HAP_HA_GET_FEATURES_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_hap_send_rsp()
  */
 #define HAP_HA_GET_FEATURES_IND                  0x09U
 
@@ -574,23 +600,27 @@
  * peer device with the following values as parameters in the
  * \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context \n
- *                      Use it to send response via \ref GA_hap_send_rsp()
- * \param [in] evt_id  \ref HAP_HA_GET_ACTIVE_PRESET_INDEX_IND
- * \param [in] evt_status  \ref GA_SUCCESS Read Request received \n
- * \param [in] evt_data  Pointer to \ref HAP_EVT
- *                           data: NULL \n
- *                           datalen: 0 \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx \ref GA_HAP_SE_RSP_CONTEXT \n
+ *                 Use it during send response via \ref GA_hap_send_rsp()
+ * \param [in] evt_id \ref HAP_HA_GET_ACTIVE_PRESET_INDEX_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: NULL \n
+ *                         - len: 0 \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_hap_send_rsp()
  */
 #define HAP_HA_GET_ACTIVE_PRESET_INDEX_IND       0x0AU
 
 /** \} */
 
 /**
- * \name HAP Server - Write Events
+ * \name HAP Server Events - Write
  * \{
  */
 
@@ -599,19 +629,22 @@
  * peer device with the following values as parameters in the
  * \ref HAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ctx  \ref Context \n
- *                      Use it to send response via \ref GA_hap_send_rsp()
- * \param [in] evt_id  \ref HAP_HA_PRESET_CP_IND
- * \param [in] evt_status  \ref GA_SUCCESS Read Request received \n
- * \param [in] evt_data  Pointer to \ref HAP_EVT
- *                           data: Opcode ( \ref UINT8 )
- *                                 \ref hap_constants
- *                                 Varies depending upon Opcode
- *                                  represents a \ref UINT8 \n
- *                           datalen: Varies \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] ctx \ref GA_HAP_SE_RSP_CONTEXT \n
+ *                 Use it during send response via \ref GA_hap_send_rsp()
+ * \param [in] evt_id \ref HAP_HA_PRESET_CP_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref HAP_EVT \n
+ *                         - hap_handle: HAP Handle for the Device \n
+ *                         - data: Opcode ( \ref UINT8 ) + Params for this Opcode
+ *                                 \ref hap_constants \n
+ *                                 Varies depending upon Opcode \n
+ *                         - len: Varies \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \sa GA_hap_send_rsp()
  */
 #define HAP_HA_PRESET_CP_IND                     0x0BU
 
@@ -650,7 +683,7 @@ typedef UINT8 HAP_FEATURES;
 typedef GA_BRR_CHR_VAL HAP_CHR_VAL;
 
 /** HAP Event */
-typedef struct _HAP_EVT_
+typedef struct _HAP_EVT
 {
     /** HAP Handle on which HAP event is receievd */
     HAP_HANDLE   hap_handle;
@@ -669,7 +702,7 @@ typedef struct _HAP_EVT_
 typedef GA_BRR_WRITE_TYPE HAP_CE_WRITE_TYPE;
 
 /** HAP Client Write Request */
-typedef struct _HAP_CE_WRITE_REQ_
+typedef struct _HAP_CE_WRITE_REQ
 {
     /** Write Type */
     HAP_CE_WRITE_TYPE  type;
@@ -693,15 +726,14 @@ typedef GA_BRR_CHR_CONTEXT GA_HAP_SE_RSP_CONTEXT;
 /* --------------------------------------------- Macros */
 
 /**
- * \defgroup hap_macros Macros
+ * \defgroup hap_macros Utility Macros
  * \{
  * \brief This section describes the various Utility and functional Macros in
  * EtherMind GA HAP Layer.
  */
 
-
 /**
- * \name HAP - Char Config
+ * \name Char Config
  * \{
  */
 
@@ -711,40 +743,39 @@ typedef GA_BRR_CHR_CONTEXT GA_HAP_SE_RSP_CONTEXT;
 /** \} */
 
 /**
- * \name HAP - Utility Macros (Hearing Aid Type)
+ * \name Utility Macros (Hearing Aid Type)
  * \{
  */
 
-/* Binaural Hearing Aid */
+/** Binaural Hearing Aid */
 #define HAP_IS_TYPE_BINAURAL(features) \
         ((HAP_HEARING_AID_TYPE_BINAURAL == (features & HAP_HEARING_AID_TYPE_RFU)) ? GA_TRUE : GA_FALSE)
-/* Monaural Hearing Aid */
+/** Monaural Hearing Aid */
 #define HAP_IS_TYPE_MONAURAL(features) \
         ((HAP_HEARING_AID_TYPE_MONAURAL == (features & HAP_HEARING_AID_TYPE_RFU)) ? GA_TRUE : GA_FALSE)
-/* Banded Hearing Aid */
+/** Banded Hearing Aid */
 #define HAP_IS_TYPE_BANDED(features) \
         ((HAP_HEARING_AID_TYPE_BANDED == (features & HAP_HEARING_AID_TYPE_RFU)) ? GA_TRUE : GA_FALSE)
-/* RFU */
+/** RFU */
 #define HAP_IS_TYPE_RFU(features) \
         ((HAP_HEARING_AID_TYPE_RFU == (features & HAP_HEARING_AID_TYPE_RFU)) ? GA_TRUE : GA_FALSE)
 
 /** \} */
 
 /**
- * \name HAP - Utility Macros (Preset Record Properties)
+ * \name Utility Macros (Preset Record Properties)
  * \{
  */
 
-/* Is Preset Record Available */
+/** Is Preset Record Available */
 #define HAP_IS_PRESET_RECORD_AVAILABLE(properties) \
         (HAP_PROP_IS_AVAILABLE_YES == (properties & HAP_PROP_IS_AVAILABLE_YES) ? GA_TRUE : GA_FALSE)
 
-/* Is Preset Record Writable */
+/** Is Preset Record Writable */
 #define HAP_IS_PRESET_RECORD_WRITABLE(properties) \
         (HAP_PROP_NAME_OF_PRESET_WRITABLE_YES == (properties & HAP_PROP_NAME_OF_PRESET_WRITABLE_YES) ? GA_TRUE : GA_FALSE)
 
 /** \} */
-
 /** \} */
 
 /** \} */
@@ -764,7 +795,7 @@ typedef GA_BRR_CHR_CONTEXT GA_HAP_SE_RSP_CONTEXT;
  * application.
  *
  * \param device     peer device info
- * \param ctx        Context is NULL, Ignore for Client Callback.
+ * \param ctx        Context is NULL, Ignore for Client Callback. \n
  *                   Use it to send response via \ref GA_hap_send_rsp() in
  *                   Server Callback.
  * \param evt_id     current event ID
@@ -798,23 +829,24 @@ extern "C" {
  */
 
 /**
- * \defgroup hap_common_api HAP Common APIs
+ * \defgroup hap_common_api Common
  * \{
  * \brief This section describes the Hearing Access Profile APIs
  * common for Client and Server.
  */
 
 /**
- * \name HAP Init
+ * \name HAP Common APIs - Init
  * This section describes the Hearing Access Profile Init APIs
  * \{
  */
 
 /**
- *  \brief To Init the HAP Client and Server Module
+ *  \brief To Init the HAP Client and Server Module.
  *
  *  \par Description:
- *       This function enables to initialize the HAP Client and Server Entity Module.
+ *       This function enables to initialize the HAP Client and Server
+ *       Module. \n
  *       This function enables to register a callback with HAP Module.
  *       This callback will be triggered whenever there are events generated
  *       either due to requests/responses or notifications from peer.
@@ -825,7 +857,8 @@ extern "C" {
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
- *  \sa hap_error_code */
+ *  \sa hap_error_code
+ */
 GA_RESULT GA_hap_init
           (
               /* IN */ HAP_NTF_CB cb
@@ -834,17 +867,17 @@ GA_RESULT GA_hap_init
 /** \} */
 
 /**
- * \name HAP De-Init
+ * \name HAP Common APIs - De-Init
  * This section describes the Hearing Access Profile De-Init APIs
  * \{
  */
 
 /**
- *  \brief To Shutdown the HAP Client and Server Module
+ *  \brief To Shutdown the HAP Client and Server Module.
  *
  *  \par Description:
- *       This function enables to Shutdown the HAP Client and Server Entity
- *       module.
+ *       This function enables to Shutdown the HAP Client and Server
+ *       module. \n
  *       This function de-references the callback registered with GA HAP
  *       Module. No events generated at the HAP layer will be triggered
  *       post this function call.
@@ -852,13 +885,14 @@ GA_RESULT GA_hap_init
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
- *  \sa hap_error_code */
+ *  \sa hap_error_code
+ */
 GA_RESULT GA_hap_shutdown(void);
 
 /** \} */
 
 /**
- * \name HAP Init
+ * \name HAP Common APIs - Init
  * This section describes the Hearing Access Profile Init APIs
  * \{
  */
@@ -878,7 +912,8 @@ GA_RESULT GA_hap_shutdown(void);
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
- *  \sa hap_error_code */
+ *  \sa hap_error_code
+ */
 GA_RESULT GA_hap_register_role
           (
               /* IN */  HAP_ROLE     role,
@@ -891,14 +926,14 @@ GA_RESULT GA_hap_register_role
 #ifdef HAP_CLIENT
 
 /**
- * \defgroup hap_client_api HAP Client APIs
+ * \defgroup hap_client_api Client
  * \{
  * This section describes the Hearing Access Profile APIs
  * for Client.
  */
 
 /**
- * \name HAP Client - Setup
+ * \name HAP Client APIs - Setup
  * \{
  */
 
@@ -907,20 +942,19 @@ GA_RESULT GA_hap_register_role
  */
 #ifdef HAP_SUPPORT_CONFIG_SELECTION
 /**
- *  \brief To update the configuration mask
+ *  \brief To update the configuration mask.
  *
  *  \par Description:
  *       This function helps to update the configuration setting of which
  *       of the HAS characteristics of a peer needs configuration at setup.
  *
  *  \param [in] config
- *         Bitmask of the Characteristic IDs for configuration
+ *         Bitmask of the Characteristic IDs for configuration.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
- *  \ref 
- * 
- *  \sa hap_error_code *
+ *
+ *  \sa hap_error_code
  */
 GA_RESULT GA_hap_update_ntf_configuration(UINT32 config);
 
@@ -935,27 +969,28 @@ GA_RESULT GA_hap_update_ntf_configuration(UINT32 config);
  *       characteristic handle ranges from/to a device context.
  *
  *  \param [in] set
- *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
  *
  *  \param [in] device
- *         Remote device endpoint
+ *         Remote device endpoint.
  *
  *  \param [inout] hap_handle
- *         Context handle for the endpoint
+ *         Context handle for the endpoint.
  *
  *  \param [inout] range
- *         Service range array for HAS
+ *         Service range array for HAS.
  *
  *  \param [inout] info
- *         Array of characteristic handles for HAS
+ *         Array of characteristic handles for HAS.
  *
  *  \param [inout] info_count
- *         Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
- *  \sa hap_error_code */
+ *  \sa hap_error_code
+ */
 GA_RESULT GA_hap_manage_context_info
           (
               /* IN     */ UINT8              set,
@@ -969,60 +1004,78 @@ GA_RESULT GA_hap_manage_context_info
 /**
  *  \brief To get the GA HAP characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to get the service and
  *       characteristic handle ranges from a device context.
  *
  *  \param [in] d
- *         Remote device endpoint
+ *         Remote device endpoint.
  *
  *  \param [inout] h
- *         Context handle for the endpoint
+ *         Context handle for the endpoint.
  *
  *  \param [inout] r
- *         Service range array for HAS
+ *         Service range array for HAS.
  *
  *  \param [inout] i
- *         Array of characteristic handles for HAS
+ *         Array of characteristic handles for HAS.
  *
  *  \param [inout] c
- *         Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
- *  \sa hap_error_code */
-#define GA_hap_get_context_info(d, h, r, i, c) \
-        GA_hap_manage_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+ *  \sa hap_error_code
+ */
+#define GA_hap_get_context_info(d, h, r, i, c)                  \
+        GA_hap_manage_context_info                              \
+        (                                                       \
+            GA_FALSE,                                           \
+            (d),                                                \
+            (h),                                                \
+            (r),                                                \
+            (i),                                                \
+            (c)                                                 \
+        )
 
 /**
  *  \brief To set the GA HAP characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to set the service and
  *       characteristic handle ranges to a device context.
  *
  *  \param [in] d
- *         Remote device endpoint
+ *         Remote device endpoint.
  *
  *  \param [inout] h
- *         Context handle for the endpoint
+ *         Context handle for the endpoint.
  *
  *  \param [inout] r
- *         Service range array for HAS
+ *         Service range array for HAS.
  *
  *  \param [inout] i
- *         Array of characteristic handles for HAS
+ *         Array of characteristic handles for HAS.
  *
  *  \param [inout] c
- *         Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
- *  \sa hap_error_code */
-#define GA_hap_set_context_info(d, h, r, i, c) \
-        GA_hap_manage_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+ *  \sa hap_error_code
+ */
+#define GA_hap_set_context_info(d, h, r, i, c)                  \
+        GA_hap_manage_context_info                              \
+        (                                                       \
+            GA_TRUE,                                            \
+            (d),                                                \
+            (h),                                                \
+            (r),                                                \
+            (i),                                                \
+            (c)                                                 \
+        )
 
 #endif /* HAP_SUPPORT_CONTEXT_MANAGE */
 
@@ -1034,19 +1087,26 @@ GA_RESULT GA_hap_manage_context_info
  *  \brief To Setup Hearing Aid Service(HAS) Context
  *
  *  \par Description:
- *       This function enables to setup HAS context with given device.
- *       Internally, HAP service, char and descriptors for the service
- *       is discovered. The configuration of Notifications and Indications to
- *       the chars that expose the properties are internally performed.
- *       Also, HAP Features are read from the peer device.
+ *       This function enables to setup HAS context with given device \n
+ *       For HAUC, \n
+ *          - Only HAP Service is discovered.
+ *          .
+ *       If HAUC is registered with HARC or only HARC is registered, \n
+ *          - HAP service is discovered, char and descriptors for the service
+ *            are also discovered.
+ *          - The configuration of Notifications and Indications to
+ *            the chars that expose the properties are internally performed.
+ *          - Also, HAP Features are read from the peer device.
+ *          .
  *
  *  \param [in] device
  *         Peer Device with which the context needs to be set-up.
  *
  *  \param [out] hap_handle
  *         HAP Handle.
- * *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref HAP_SETUP_CNF is notified on
  *          completion with status as success or failure.
  *
@@ -1062,29 +1122,30 @@ GA_RESULT GA_hap_setup_context
 /** \} */
 
 /**
- * \name HAP Client - Release
+ * \name HAP Client APIs - Release
  * \{
  */
 
 /**
- *  \brief Release or free the given HAP context.
+ *  \brief Close or Release the given HAP context.
  *
  *  \par Description:
- *       When 'free' is set to \ref GA_FALSE, this routine initiates the
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
  *       release procedure for the context. Once release is done, the context
  *       is freed up and the setup must be freshly done by calling
- *       \ref GA_hap_setup_context if required for the same device again.
- *
- *  If the 'free' parameter is set to \ref GA_TRUE,
- *  this API just frees up the context without the release procedure.
+ *       \ref GA_hap_setup_context if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
  *
  *  \param [in] hap_handle
- *         Context handle for the endpoint to be released/freed.
- *  \param [in] free
- *         Indicate free only without release.
+ *         HAP Context for the endpoint to be released/freed.
+ *
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref HAP_RELEASE_CNF is notified on
  *          completion with status as success or failure.
  *
@@ -1094,53 +1155,61 @@ GA_RESULT GA_hap_setup_context
 GA_RESULT GA_hap_terminate
           (
               /* IN */ HAP_HANDLE hap_handle,
-              /* IN */ UCHAR      free
+              /* IN */ UCHAR      release
           );
 
 /**
  *  \brief Release the given GA HAP context.
  *
  *  \par Description:
- *       This routine initiates the release procedure for the context.
- *       Once release is done, the context is freed up and the setup must be
- *       freshly done by calling \ref GA_hap_setup_context if required for
- *       the same device again.
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_hap_setup_context if required for the same
+ *       device again.
  *
  *  \param [in] hap_handle
- *         Context handle for the endpoint to be released.
+ *         HAP Context for the endpoint to be released.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref HAP_RELEASE_CNF is notified on
  *          completion with status as success or failure.
  *
  *  \sa hap_client_events
  *  \sa hap_error_code
  */
-#define GA_hap_release(hap_handle) \
-        GA_hap_terminate((hap_handle), GA_FALSE)
+#define GA_hap_release(hap_handle)                              \
+        GA_hap_terminate                                        \
+        (                                                       \
+            (hap_handle),                                       \
+            GA_TRUE                                             \
+        )
 
 /**
  *  \brief Free the given HAP context.
  *
  *  \par Description:
- *       This routine frees up the given context of the GA layer.
+ *       This routine frees up the given context of the HAP.
  *
  *  \param [in] hap_handle
- *         Context handle for the endpoint to be freed.
+ *         HAP Context for the endpoint to be freed.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
  *  \sa hap_error_code
  */
-#define GA_hap_close(hap_handle) \
-        GA_hap_terminate((hap_handle), GA_TRUE)
+#define GA_hap_close(hap_handle)                                \
+        GA_hap_terminate                                        \
+        (                                                       \
+            (hap_handle),                                       \
+            GA_FALSE                                            \
+        )
 
 /** \} */
 
 /**
- * \name HAP Client - Read
+ * \name HAP Client APIs - Read
  * \{
  */
 
@@ -1148,7 +1217,8 @@ GA_RESULT GA_hap_terminate
  *  \brief To perform Read operation on a Char.
  *
  *  \par Description:
- *       This function triggers read request.
+ *       This function triggers read request. This is only when local role
+ *       registered is HARC or HAUC + HARC.
  *
  *  \param [in] hap_handle
  *         HAP Handle.
@@ -1158,9 +1228,9 @@ GA_RESULT GA_hap_terminate
  *
  *  \param [in] char_uuid
  *         Char UUID on which read is requested.
- * 
- * *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          When read response is received from peer, HAP_READ_XXX_CNF is
  *          notified, here XXX indicates the name of the char.
  *
@@ -1174,10 +1244,62 @@ GA_RESULT GA_hap_read_request
               /* IN */  UINT16     char_uuid
           );
 
+/**
+ *  \brief To Read Hearing Aid Features.
+ *
+ *  \par Description:
+ *       This function reads the Hearing Aid Features of the peer.
+ *       This is only when local role registered is HARC or HAUC + HARC.
+ *
+ *  \param [in] hap_handle
+ *         HAP Handle.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          When read response is received from peer,
+ *          \ref HAP_HA_GET_FEATURES_CNF is notified.
+ *
+ *  \sa hap_client_events
+ *  \sa hap_error_code
+ */
+#define GA_hap_read_ha_features(hap_handle)                     \
+        GA_hap_read_request                                     \
+        (                                                       \
+            (hap_handle),                                       \
+            (HAP_HA_GET_FEATURES_CNF),                          \
+            (GA_CHAR_HA_FEATURES)                               \
+        )
+
+/**
+ *  \brief To Read Active Preset Index.
+ *
+ *  \par Description:
+ *       This function reads the Active Preset Index of the peer.
+ *       This is only when local role registered is HARC or HAUC + HARC.
+ *
+ *  \param [in] hap_handle
+ *         HAP Handle.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          When read response is received from peer,
+ *          \ref HAP_HA_GET_ACTIVE_PRESET_INDEX_CNF is notified.
+ *
+ *  \sa hap_client_events
+ *  \sa hap_error_code
+ */
+#define GA_hap_read_active_preset_index(hap_handle)             \
+        GA_hap_read_request                                     \
+        (                                                       \
+            (hap_handle),                                       \
+            (HAP_HA_GET_ACTIVE_PRESET_INDEX_CNF),               \
+            (GA_CHAR_ACTIVE_PRESET_INDEX)                       \
+        )
+
 /** \} */
 
 /**
- * \name HAP Client - Write
+ * \name HAP Client APIs - Write
  * \{
  */
 
@@ -1186,6 +1308,7 @@ GA_RESULT GA_hap_read_request
  *
  *  \par Description:
  *       This function triggers write request.
+ *       This is only when local role registered is HARC or HAUC + HARC.
  *
  *  \param [in] hap_handle
  *         HAP Handle.
@@ -1200,7 +1323,7 @@ GA_RESULT GA_hap_read_request
  *         Write request indicating data, len and type of write.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          When char allows write request and if it is a write request,
  *          once the response is received from peer,
  *          HAP_XXX_CNF is notified, here XXX is the name of the char.
@@ -1216,6 +1339,36 @@ GA_RESULT GA_hap_write_request
               /* IN */  HAP_CE_WRITE_REQ * req
           );
 
+/**
+ *  \brief To Write Hearing Aid Preset Control Point.
+ *
+ *  \par Description:
+ *       This function writes Hearing Aid Preset Control Point.
+ *       This is only when local role registered is HARC or HAUC + HARC.
+ *
+ *  \param [in] hap_handle
+ *         HAP Handle.
+ *
+ *  \param [in] req
+ *         Write request indicating data, len and type of write.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          When write response is received from peer,
+ *          \ref HAP_HA_PRESET_CP_CNF is notified.
+ *
+ *  \sa hap_client_events
+ *  \sa hap_error_code
+ */
+#define GA_hap_write_ha_preset_cp(hap_handle, req)              \
+        GA_hap_write_request                                    \
+        (                                                       \
+            (hap_handle),                                       \
+            (HAP_HA_PRESET_CP_CNF),                             \
+            (GA_CHAR_HA_PRESET_CP),                             \
+            (req)                                               \
+        )
+
 /** \} */
 
 /** \} */
@@ -1225,14 +1378,14 @@ GA_RESULT GA_hap_write_request
 #ifdef HAP_SERVER
 
 /**
- * \defgroup hap_server_api HAP Server APIs
+ * \defgroup hap_server_api Server
  * \{
  * This section describes the Hearing Access Profile APIs
  * for Server.
  */
 
 /**
- * \name HAP Server - Notify
+ * \name HAP Server APIs - Notify
  * \{
  */
 
@@ -1244,22 +1397,20 @@ GA_RESULT GA_hap_write_request
  *       address and if configuration is enabled.
  *
  *  \param [in] device
- *         If NULL, Ntf to all connected HAP sessions will be passed.
+ *         If NULL, Ntf to all connected HAP sessions will be passed. \n
  *         Else, to the corresponsing address passed.
  *
  *  \param [in] char_uuid
  *         Char UUID.
  *
- *  \param [in] char_info
- *         Data to be sent as part of the notification.
- *
- *  \param [in] char_info_len
- *         Length of the data to be sent.
+ *  \param [in] val
+ *         Data and data length to be sent as part of the notification.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
- *  \sa hap_error_code */
+ *  \sa hap_error_code
+ */
 GA_RESULT GA_hap_send_ntf
           (
               /* IN */ GA_ENDPOINT * device,
@@ -1267,10 +1418,96 @@ GA_RESULT GA_hap_send_ntf
               /* IN */ HAP_CHR_VAL * val
           );
 
+/**
+ *  \brief To send Notifications - HAP Features.
+ *
+ *  \par Description:
+ *       This function sends notifications if configured for HAP Features.
+ *
+ *  \param [in] device
+ *         If NULL, Ntf to all connected HAP sessions will be passed. \n
+ *         Else, to the corresponsing address passed.
+ *
+ *  \param [in] val
+ *         Data and data length to be sent as part of the
+ *         notification - \ref HAP_FEATURES.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa hap_error_code
+ */
+#define GA_hap_notify_features(device, val)                     \
+        GA_hap_send_ntf                                         \
+        (                                                       \
+            (device),                                           \
+            (GA_CHAR_HA_FEATURES),                              \
+            (val)                                               \
+        )
+
+/**
+ *  \brief To send Notifications - HAP Active Preset Index.
+ *
+ *  \par Description:
+ *       This function sends notifications if configured for
+ *       Active Preset Index.
+ *
+ *  \param [in] device
+ *         If NULL, Ntf to all connected HAP sessions will be passed. \n
+ *         Else, to the corresponsing address passed.
+ *
+ *  \param [in] val
+ *         Data and data length to be sent as part of the
+ *         notification - \ref UINT8. \n
+ *         Data Value to be in the range of
+ *         \ref HAP_READ_PRESET_BY_INDEX_REQ_INDEX_MIN and
+ *         \ref HAP_READ_PRESET_BY_INDEX_REQ_INDEX_MAX.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa hap_error_code
+ */
+#define GA_hap_notify_active_preset_index(device, val)          \
+        GA_hap_send_ntf                                         \
+        (                                                       \
+            (device),                                           \
+            (GA_CHAR_ACTIVE_PRESET_INDEX),                      \
+            (val)                                               \
+        )
+
+/**
+ *  \brief To send Indications - Hearing Aid Preset Control Point. \n
+ *         To send Notifications - When EATT supported.
+ *
+ *  \par Description:
+ *       This function sends notifications if configured for Hearing Aid
+ *       Preset Control Point.
+ *
+ *  \param [in] device
+ *         If NULL, Ntf to all connected HAP sessions will be passed. \n
+ *         Else, to the corresponsing address passed.
+ *
+ *  \param [in] val
+ *         Data and data length to be sent as part of the notification.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa hap_error_code
+ */
+#define GA_hap_notify_ha_preset_cp(device, val)                 \
+        GA_hap_send_ntf                                         \
+        (                                                       \
+            (device),                                           \
+            (GA_CHAR_HA_PRESET_CP),                             \
+            (val)                                               \
+        )
+
 /** \} */
 
 /**
- * \name HAP Server - Read/Write
+ * \name HAP Server APIs - Read/Write
  * \{
  */
 
@@ -1280,14 +1517,11 @@ GA_RESULT GA_hap_send_ntf
  *  \par Description:
  *       This function triggers sending of response for read/write.
  *
- *  \param [in] dev
- *         Remote device address
+ *  \param [in] device
+ *         Remote device address.
  *
  *  \param [in] ctx
  *         Context to be passed back as sent.
- *
- *  \param [in] hap_inst
- *         HAP Service Instance on which request is receieved.
  *
  *  \param [in] hap_evt_id
  *         Event ID to indicate the request.
@@ -1295,18 +1529,17 @@ GA_RESULT GA_hap_send_ntf
  *  \param [in] rsp_status
  *         Response Status for read/write request.
  *
- *  \param [in] rsp_info
- *         Response packet to be sent - Valid for Read request event type only.
- *         NULL - For Write request.
- *
- *  \param [in] rsp_info_len
- *         Response Packet length - Valid for Read request event type only.
- *         0 - For Write request.
+ *  \param [in] val
+ *         Response packet and packet length to be sent - Valid for
+ *         Read request event type only. \n
+ *         Data is NULL - For Write request. \n
+ *         Data length is 0 - For Write request.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
- *  \sa hap_error_code */
+ *  \sa hap_error_code
+ */
 GA_RESULT GA_hap_send_rsp
           (
               /* IN */ GA_ENDPOINT           * device,
@@ -1319,192 +1552,12 @@ GA_RESULT GA_hap_send_rsp
 /** \} */
 
 /** \} */
-
 /** \} */
 
 #endif /* HAP_SERVER */
 #ifdef __cplusplus
 };
 #endif
-
-/**
- * \addtogroup hap_defines
- * \{
- */
-
-/**
- * \addtogroup hap_macros
- * \{
- */
-
-#ifdef HAP_CLIENT
-/**
- * \name HAP Client - Read
- * \{
- */
-
-/**
- *  \brief To Read Hearing Aid Features.
- *
- *  \par Description:
- *       This function reads the Hearing Aid Features of the peer.
- *
- *  \param [in] hap_handle
- *         HAP Handle.
- *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
- *          When read response is received from peer,
- *          \ref HAP_HA_GET_FEATURES_CNF is notified.
- *
- *  \sa hap_client_events
- *  \sa hap_error_code
- */
-#define GA_hap_read_ha_features(hap_handle) \
-        GA_hap_read_request((hap_handle), (HAP_HA_GET_FEATURES_CNF), (GA_CHAR_HA_FEATURES))
-
-/**
- *  \brief To Read Active Preset Index.
- *
- *  \par Description:
- *       This function reads the Active Preset Index of the peer.
- *
- *  \param [in] hap_handle
- *         HAP Handle.
- *
- * \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
- *          When read response is received from peer,
- *          \ref HAP_HA_GET_ACTIVE_PRESET_INDEX_CNF is notified.
- *
- *  \sa hap_client_events
- *  \sa hap_error_code
- */
-#define GA_hap_read_active_preset_index(hap_handle) \
-        GA_hap_read_request((hap_handle), (HAP_HA_GET_ACTIVE_PRESET_INDEX_CNF), (GA_CHAR_ACTIVE_PRESET_INDEX))
-
-/** \} */
-
-/**
- * \name HAP Client - Write
- * \{
- */
-
-/**
- *  \brief To Write Hearing Aid Preset Control Point.
- *
- *  \par Description:
- *       This function writes Hearing Aid Preset Control Point.
- *
- *  \param [in] hap_handle
- *         HAP Handle.
- *
- *  \param [in] req
- *         Write request indicating data, len and type of write.
- *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
- *          When write response is received from peer,
- *          \ref HAP_HA_PRESET_CP_CNF is notified.
- *
- *  \sa hap_client_events
- *  \sa hap_error_code
- */
-#define GA_hap_write_ha_preset_cp(hap_handle, req) \
-        GA_hap_write_request((hap_handle), (HAP_HA_PRESET_CP_CNF), (GA_CHAR_HA_PRESET_CP), (req))
-
-/** \} */
-
-#endif /* HAP_CLIENT */
-
-#ifdef HAP_SERVER
-
-/**
- * \name HAP Server - Notify
- * \{
- */
-
-/**
- *  \brief To send Notifications - HAP Features.
- *
- *  \par Description:
- *       This function sends notifications if configured for HAP Features.
- *
- *  \param [in] device
- *         If NULL, Ntf to all connected HAP sessions will be passed.
- *         Else, to the corresponsing address passed.
- *
- *  \param [in] char_info
- *         Data to be sent as part of the notification - \ref HAP_FEATURES.
- *
- *  \param [in] char_info_len
- *         Length of the data to be sent.
- *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
- *
- *  \sa hap_error_code */
-#define GA_hap_notify_features(device, val) \
-        GA_hap_send_ntf((device), (GA_CHAR_HA_FEATURES), (val))
-
-/**
- *  \brief To send Notifications - HAP Active Preset Index.
- *
- *  \par Description:
- *       This function sends notifications if configured for Active Preset Index.
- *
- *  \param [in] device
- *         If NULL, Ntf to all connected HAP sessions will be passed.
- *         Else, to the corresponsing address passed.
- *
- *  \param [in] char_info
- *         Data to be sent as part of the notification - \ref UINT8.
- *         Data Value to be in the range of
- *         \ref HAP_READ_PRESET_BY_INDEX_REQ_INDEX_MIN and
- *         \ref HAP_READ_PRESET_BY_INDEX_REQ_INDEX_MAX.
- *
- *  \param [in] char_info_len
- *         Length of the data to be sent.
- *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
- *
- *  \sa hap_error_code
- */
-#define GA_hap_notify_active_preset_index(device, val) \
-        GA_hap_send_ntf((device), (GA_CHAR_ACTIVE_PRESET_INDEX), (val))
-
-/**
- *  \brief To send Indications - Hearing Aid Preset Control Point.
- *         To send Notifications - When EATT supported.
- *
- *  \par Description:
- *       This function sends notifications if configured for Hearing Aid
- *       Preset Control Point.
- *
- *  \param [in] device
- *         If NULL, Ntf to all connected HAP sessions will be passed.
- *         Else, to the corresponsing address passed.
- *
- *  \param [in] char_info
- *         Data to be sent as part of the notification.
- *
- *  \param [in] char_info_len
- *         Length of the data to be sent.
- *
- *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
- *
- *  \sa hap_error_code */
-#define GA_hap_notify_ha_preset_cp(device, val) \
-        GA_hap_send_ntf((device), (GA_CHAR_HA_PRESET_CP), (val))
-/** \} */
-
-#endif /* HAP_SERVER */
-
-/** \} */
-
-/** \} */
 
 /** \} */
 

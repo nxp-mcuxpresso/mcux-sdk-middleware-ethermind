@@ -1,9 +1,8 @@
 /**
  *  \file GA_property_config.h
  *
- *  \brief This file contains the various characteristics
- *         configurations for GA profiles as defined in respective
- *         profile specification.
+ *  \brief This file contains the various characteristics configurations for
+ *  GA profiles as defined in respective profile specification.
  */
 
 /*
@@ -34,13 +33,25 @@
  */
 
 /**
- * \addtogroup ga_bap_defines
+ * \addtogroup ga_bap_uc_module
  * \{
  */
 
 /**
- * \addtogroup ga_bap_constants
+ * \addtogroup ga_bap_uc_defines
  * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_server_pacs_def
+ * \{
+ */
+
+/**
+ * \defgroup ga_bap_uc_server_pacs_constants Constants
+ * \{
+ * \brief This section describes the various Constants in EtherMind
+ * GA BAP Layer for Unicast Server - PACS.
  */
 
 #ifdef GA_BAP
@@ -98,6 +109,23 @@
 
 /** \} */
 
+#endif /* GA_BAP */
+
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_bap_uc_server_ascs_def
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_server_ascs_constants
+ * \{
+ */
+
+#ifdef GA_BAP
+
 /**
  * \name Char Property: ASCS
  * \{
@@ -109,23 +137,23 @@
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_ASCS_SINK_ASE (GA_BRR_CHAR_READ_PROPERTY | \
-                                    GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_ASCS_SINK_ASE \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_ASCS_SOURCE_ASE (GA_BRR_CHAR_READ_PROPERTY | \
-                                      GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_ASCS_SOURCE_ASE \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Write, WriteWithoutResponse, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_ASCS_ASE_CP (GA_BRR_CHAR_WRITE_PROPERTY | \
-                                  GA_BRR_CHAR_WRITE_WITHOUT_RSP_PROPERTY | \
-                                  GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_ASCS_ASE_CP \
+        (GA_BRR_CHAR_WRITE_PROPERTY | GA_BRR_CHAR_WRITE_WITHOUT_RSP_PROPERTY \
+        | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /** \} */
 
@@ -133,25 +161,27 @@
 
 /** \} */
 /** \} */
+
+/** \} */
 /** \} */
 
 /**
- * \addtogroup ga_bass_module
+ * \addtogroup ga_bap_bc_module
  * \{
  */
 
 /**
- * \addtogroup ga_bass_defines
+ * \addtogroup ga_bap_bc_defines
  * \{
  */
 
 /**
- * \addtogroup ga_bass_se_module_def
+ * \addtogroup ga_bap_bc_bass_se_def
  * \{
  */
 
 /**
- * \addtogroup ga_bass_se_constants
+ * \addtogroup ga_bap_bc_bass_se_constants
  * \{
  */
 
@@ -168,15 +198,15 @@
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_BASS_BCAST_AUDIO_SCAN_CP (GA_BRR_CHAR_WRITE_PROPERTY | \
-                                            GA_BRR_CHAR_WRITE_WITHOUT_RSP_PROPERTY)
+#define GA_CHAR_PROP_BASS_BCAST_AUDIO_SCAN_CP \
+        (GA_BRR_CHAR_WRITE_PROPERTY | GA_BRR_CHAR_WRITE_WITHOUT_RSP_PROPERTY)
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_BASS_BCAST_RX_STATE (GA_BRR_CHAR_READ_PROPERTY | \
-                                       GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_BASS_BCAST_RX_STATE \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /** \} */
 
@@ -187,17 +217,6 @@
 /** \} */
 /** \} */
 /** \} */
-/** \} */
-
-/**
- * \addtogroup bt_ga_core
- * \{
- */
-
-/**
- * \addtogroup ga_cap_module
- * \{
- */
 
 /**
  * \addtogroup ga_vcp_module
@@ -210,10 +229,8 @@
  */
 
 /**
- * \defgroup ga_vcp_constants Constants
+ * \addtogroup ga_vcp_constants
  * \{
- * \brief This section describes the various Constants in EtherMind
- * GA VCP Layer.
  */
 
 #ifdef GA_VCP
@@ -251,7 +268,7 @@
  * \name Char Property: VOCS
  * \{
  * \brief This section lists the Char properties.
- * As defined in VOCS Specification.
+ * As defined in VOCS Specification. \n
  * C.1: Mandatory to support Notify if Write Without Response
  * is supported, otherwise Optional.
  */
@@ -295,7 +312,7 @@
  * \name Char Property: VCS-AICS
  * \{
  * \brief This section lists the Char properties.
- * As defined in AICS Specification.
+ * As defined in AICS Specification. \n
  * C.1: Mandatory to support Notify if Write Without Response is supported,
  * otherwise Optional.
  */
@@ -359,10 +376,8 @@
  */
 
 /**
- * \defgroup ga_micp_constants Constants
+ * \addtogroup ga_micp_constants
  * \{
- * \brief This section describes the various Constants in EtherMind
- * GA MICP Layer.
  */
 
 #ifdef GA_MICP
@@ -371,7 +386,7 @@
  * \name Char Property: MICS-AICS
  * \{
  * \brief This section lists the Char properties.
- * As defined in AICS Specification.
+ * As defined in AICS Specification. \n
  * C.1: Mandatory to support Notify if Write Without Response is supported,
  * otherwise Optional.
  */
@@ -423,8 +438,8 @@
 /** \} */
 /** \} */
 /** \} */
-/** \} */
 
+/** \} */
 /** \} */
 
 /**
@@ -463,7 +478,7 @@
  * \name Char Property: MCS
  * \{
  * \brief This section lists the Char properties.
- * As defined in MCS Specification.
+ * As defined in MCS Specification. \n
  * C.4: Optional for MCS, Mandatory for GMCS
  */
 
@@ -636,7 +651,7 @@
  * \name Char Property: OTS
  * \{
  * \brief This section lists the Char properties.
- * As defined in OTS Specification.
+ * As defined in OTS Specification. \n
  * C.3: Mandatory if the OACP Create op code is supported;
  * optional otherwise. \n
  * C.4: Mandatory if the Server does not have access to a real time clock;
@@ -759,10 +774,8 @@
  */
 
 /**
- * \defgroup ga_csip_constants Constants
+ * \addtogroup ga_csip_constants
  * \{
- * \brief This section describes the various Constants in EtherMind
- * GA CSIP Layer.
  */
 
 #ifdef GA_CSIP
@@ -778,29 +791,29 @@
  * Mandatory Property - Read \n
  * Optional Property - Notify
  */
-#define GA_CHAR_PROP_CSIS_SIRK (GA_BRR_CHAR_READ_PROPERTY | \
-                                GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_CSIS_SIRK \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read \n
  * Optional Property - Notify
  */
-#define GA_CHAR_PROP_CSIS_SIZE (GA_BRR_CHAR_READ_PROPERTY | \
-                                GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_CSIS_SIZE \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Write, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_CSIS_LOCK (GA_BRR_CHAR_READ_PROPERTY | \
-                                GA_BRR_CHAR_WRITE_PROPERTY| \
-                                GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_CSIS_LOCK \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_WRITE_PROPERTY \
+        | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_CSIS_RANK (GA_BRR_CHAR_READ_PROPERTY)
+#define GA_CHAR_PROP_CSIS_RANK GA_BRR_CHAR_READ_PROPERTY
 
 /** \} */
 
@@ -838,9 +851,9 @@
  * Mandatory Property - Read, Write, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_MICS_MUTE (GA_BRR_CHAR_READ_PROPERTY | \
-                                GA_BRR_CHAR_WRITE_PROPERTY | \
-                                GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_MICS_MUTE \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_WRITE_PROPERTY \
+        | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /** \} */
 
@@ -896,109 +909,105 @@
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_BRR_PROVIDER_NAME (GA_BRR_CHAR_READ_PROPERTY | \
-                                            GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_TBS_BRR_PROVIDER_NAME \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_BRR_UCI (GA_BRR_CHAR_READ_PROPERTY)
+#define GA_CHAR_PROP_TBS_BRR_UCI GA_BRR_CHAR_READ_PROPERTY
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_BRR_TECHNOLOGY (GA_BRR_CHAR_READ_PROPERTY | \
-                                         GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_TBS_BRR_TECHNOLOGY \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read \n
  * Optional Property - Notify
  */
 #define GA_CHAR_PROP_TBS_BRR_URI_SCHMS_SUPPORT_LIST \
-                                        (GA_BRR_CHAR_READ_PROPERTY | \
-                                        GA_BRR_CHAR_NOTIFY_PROPERTY)
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
 #define GA_CHAR_PROP_TBS_BRR_SIGSTRENGTH \
-                                        (GA_BRR_CHAR_READ_PROPERTY | \
-                                         GA_BRR_CHAR_NOTIFY_PROPERTY)
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Write, Write Without Response \n
  * Optional Property - None
  */
 #define GA_CHAR_PROP_TBS_BRR_SIGSTRENGTH_REPORTING_INTERVAL \
-                                    (GA_BRR_CHAR_READ_PROPERTY | \
-                                     GA_BRR_CHAR_WRITE_PROPERTY | \
-                                     GA_BRR_CHAR_WRITE_WITHOUT_RSP_PROPERTY)
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_WRITE_PROPERTY \
+        | GA_BRR_CHAR_WRITE_WITHOUT_RSP_PROPERTY)
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_BRR_LIST_CUR_CALLS (GA_BRR_CHAR_READ_PROPERTY | \
-                                             GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_TBS_BRR_LIST_CUR_CALLS \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_STATUS_FLAGS (GA_BRR_CHAR_READ_PROPERTY | \
-                                       GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_TBS_STATUS_FLAGS \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
 #define GA_CHAR_PROP_TBS_INCOMING_CALL_TARGET_BRR_URI \
-                                            (GA_BRR_CHAR_READ_PROPERTY | \
-                                             GA_BRR_CHAR_NOTIFY_PROPERTY)
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_CALL_STATE (GA_BRR_CHAR_READ_PROPERTY | \
-                                     GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_TBS_CALL_STATE \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Write, Notify, Write Without Response \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_CALL_CP (GA_BRR_CHAR_WRITE_PROPERTY | \
-                                  GA_BRR_CHAR_NOTIFY_PROPERTY | \
-                                  GA_BRR_CHAR_WRITE_WITHOUT_RSP_PROPERTY)
+#define GA_CHAR_PROP_TBS_CALL_CP \
+        (GA_BRR_CHAR_WRITE_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY \
+        | GA_BRR_CHAR_WRITE_WITHOUT_RSP_PROPERTY)
 
 /**
  * Mandatory Property - Read \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_CALL_CP_OPTIONAL_OPCODES (GA_BRR_CHAR_READ_PROPERTY)
+#define GA_CHAR_PROP_TBS_CALL_CP_OPTIONAL_OPCODES GA_BRR_CHAR_READ_PROPERTY
 
 /**
  * Mandatory Property - Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_TERMINATION_REASON (GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_TBS_TERMINATION_REASON GA_BRR_CHAR_NOTIFY_PROPERTY
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_INCOMING_CALL (GA_BRR_CHAR_READ_PROPERTY | \
-                                        GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_TBS_INCOMING_CALL \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_TBS_CALL_FRIENDLY_NAME (GA_BRR_CHAR_READ_PROPERTY | \
-                                             GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_TBS_CALL_FRIENDLY_NAME \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read \n
@@ -1038,7 +1047,6 @@
 
 #ifdef GA_HAP
 
-
 /**
  * \name Char Property: HAS
  * \{
@@ -1050,23 +1058,23 @@
  * Mandatory Property - Read \n
  * Optional Property - Notify
  */
-#define GA_CHAR_PROP_HA_FEATURES (GA_BRR_CHAR_READ_PROPERTY | \
-                                  GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_HA_FEATURES \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Indicate, Notify[If EATT is supported] \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_HA_PRESET_CP (GA_BRR_CHAR_WRITE_PROPERTY | \
-                                   GA_BRR_CHAR_INDICATE_PROPERTY | \
-                                   GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_HA_PRESET_CP \
+        (GA_BRR_CHAR_WRITE_PROPERTY | GA_BRR_CHAR_INDICATE_PROPERTY \
+        | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /**
  * Mandatory Property - Read, Notify \n
  * Optional Property - None
  */
-#define GA_CHAR_PROP_ACTIVE_PRESET_INDEX (GA_BRR_CHAR_READ_PROPERTY | \
-                                          GA_BRR_CHAR_NOTIFY_PROPERTY)
+#define GA_CHAR_PROP_ACTIVE_PRESET_INDEX \
+        (GA_BRR_CHAR_READ_PROPERTY | GA_BRR_CHAR_NOTIFY_PROPERTY)
 
 /** \} */
 /** \} */
@@ -1092,7 +1100,6 @@
 
 #ifdef GA_TMAP
 
-
 /**
  * \name Char Property: TMAS
  * \{
@@ -1113,6 +1120,7 @@
 /** \} */
 /** \} */
 /** \} */
+
 /** \} */
 
 /** \} */

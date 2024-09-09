@@ -159,7 +159,10 @@ typedef struct _CAP_CONTEXT
     /* Event for operation */
     UINT8 cevent;
 
-#ifdef GA_BAP
+#ifdef BAP_PACS_CLIENT
+    /* BAP Profile ID */
+    BAP_HANDLE bap_id;
+
     /* Peer role in current context of operation */
     UINT8 role;
 
@@ -171,7 +174,9 @@ typedef struct _CAP_CONTEXT
 
     /* Current PAC Index */
     UINT8 curr_pac_index;
+#endif /* BAP_PACS_CLIENT */
 
+#ifdef BAP_UCC
     /* ASE count - Source */
     UINT8 src_sep_count;
 
@@ -183,28 +188,25 @@ typedef struct _CAP_CONTEXT
 
     /* Current ASE index Role */
     UINT8 sep_role;
+#endif /* BAP_UCC */
 
-    /* BAP Profile ID */
-    BAP_HANDLE bap_id;
-#endif /* GA_BAP */
-
-#ifdef GA_VCP
+#ifdef VCP_CONTROLLER
     /* VCP Profile ID */
     VCP_HANDLE vcp_id;
 
     /* VCP State Event structure */
     CAP_STATE_EVENT vcp_se;
-#endif /* GA_VCP */
+#endif /* VCP_CONTROLLER */
 
-#ifdef GA_MICP
+#ifdef MICP_CONTROLLER
     /* MICP Profile ID */
     MICP_HANDLE micp_id;
 
     /* MICP State Event structure */
     CAP_STATE_EVENT micp_se;
-#endif /* GA_MICP */
+#endif /* MICP_CONTROLLER */
 
-#ifdef GA_CSIP
+#ifdef CSIP_COORDINATOR
     /* CSIP Profile ID */
     CSIP_HANDLE csip_id;
 
@@ -213,7 +215,7 @@ typedef struct _CAP_CONTEXT
 
     /* Set ID whose operation is in progress */
     UINT8 setop;
-#endif /* GA_CSIP */
+#endif /* CSIP_COORDINATOR */
 } CAP_CONTEXT;
 
 /** GA Stream Contexts */
@@ -315,6 +317,7 @@ typedef GA_RESULT (* CAP_SEP_CP_HANDLER)
 GA_RESULT ga_brr_callback
           (
               /* IN */ GA_BRR_DEVICE * device,
+              /* IN */ void* context,
               /* IN */ UINT8 event_type,
               /* IN */ UINT16 event_status,
               /* IN */ void * event_data,
@@ -350,20 +353,53 @@ CAP_CONTEXT * cap_get_context(GA_CONTEXT * context, UINT8 state);
 CAP_CONTEXT * cap_search_context(GA_ENDPOINT * device, UINT8 * ci);
 
 #ifdef GA_BAP
-GA_RESULT cap_init_bap_unicast(UINT8 role, GA_PROFILE_CB cb);
-GA_RESULT cap_shutdown_bap_unicast(UINT8 role);
+#if ((defined BAP_PACS_CLIENT) || (defined BAP_PACS_SERVER))
+GA_RESULT cap_init_bap_pacs(UINT8 role, GA_PROFILE_CB cb);
+GA_RESULT cap_shutdown_bap_pacs(UINT8 role);
+#endif /* ((defined BAP_PACS_CLIENT) || (defined BAP_PACS_SERVER)) */
+
+#ifdef BAP_PACS_CLIENT
+GA_RESULT bac_callback
+          (
+              GA_ENDPOINT * device,
+              UINT8 event_type,
+              UINT16 event_status,
+              void * event_data,
+              UINT16 event_datalen
+          );
+#endif /* (BAP_PACS_CLIENT */
+
+#ifdef BAP_PACS_SERVER
 void cap_create_preferred_contexts_ltv
      (
          UINT16 contexts,
          UCHAR * ltvarray,
          UINT8 * ltvarray_len
      );
+
+GA_RESULT bas_callback
+          (
+              GA_ENDPOINT * device,
+              UINT8 event_type,
+              UINT16 event_status,
+              void * event_data,
+              UINT16 event_datalen
+          );
+#endif /* BAP_PACS_SERVER */
+
+#if ((defined BAP_UCC) || (defined BAP_UCS))
+GA_RESULT cap_init_bap_unicast(UINT8 role, GA_PROFILE_CB cb);
+GA_RESULT cap_shutdown_bap_unicast(UINT8 role);
+
 void cap_create_content_ltv
      (
          GA_CONTENT_INFO * content,
          UCHAR * ltvarray,
          UINT8 * ltvarray_len
      );
+#endif /* ((defined BAP_UCC) || (defined BAP_UCS)) */
+
+#ifdef BAP_UCC
 UINT8 cap_alloc_stream_context
       (
           UINT8 ci,
@@ -374,7 +410,17 @@ UINT8 cap_alloc_stream_context
 UINT8 cap_find_stream_context(UINT8 ci, UINT8 ase_id);
 void cap_reset_streams_for_context(UINT8 ci);
 UINT16 cap_get_sream_context_count(GA_CONTEXT* ci);
+GA_RESULT ucc_callback
+          (
+              GA_ENDPOINT * device,
+              UINT8 event_type,
+              UINT16 event_status,
+              void * event_data,
+              UINT16 event_datalen
+          );
+#endif /* BAP_UCC */
 
+#ifdef BAP_UCS
 CAP_STREAM_ENDPOINT * cap_find_sep(UINT8 ase_id, UINT8 * si);
 GA_RESULT cap_handle_asecp_codec_configure
           (
@@ -432,8 +478,8 @@ GA_RESULT cap_handle_asecp_release
               UCHAR * data,
               UINT16 datalen
           );
-
-GA_RESULT gas_callback
+GA_RESULT sep_notify_updates(GA_ENDPOINT* device);
+GA_RESULT ucs_callback
           (
               GA_ENDPOINT * device,
               UINT8 event_type,
@@ -441,17 +487,7 @@ GA_RESULT gas_callback
               void * event_data,
               UINT16 event_datalen
           );
-
-GA_RESULT gac_callback
-          (
-              GA_ENDPOINT * device,
-              UINT8 event_type,
-              UINT16 event_status,
-              void * event_data,
-              UINT16 event_datalen
-          );
-
-GA_RESULT sep_notify_updates(GA_ENDPOINT * device);
+#endif /* BAP_UCS */
 
 #ifdef BAP_BROADCAST
 GA_RESULT cap_init_bap_broadcast(UINT8 role, GA_PROFILE_CB cb);
@@ -470,21 +506,30 @@ GA_RESULT cap_process_bap_bc_event
 #ifdef GA_VCP
 GA_RESULT cap_init_vcp(UINT8 role, GA_PROFILE_CB cb);
 GA_RESULT cap_shutdown_vcp(UINT8 role);
+#ifdef VCP_CONTROLLER
 CAP_CONTEXT * cap_search_vcp_context(GA_VC_CONTEXT * vctx, UINT8 * ci);
+#endif /* VCP_CONTROLLER */
 #endif /* GA_VCP */
 
 #ifdef GA_MICP
 GA_RESULT cap_init_micp(UINT8 role, GA_PROFILE_CB cb);
 GA_RESULT cap_shutdown_micp(UINT8 role);
+#ifdef MICP_CONTROLLER
 CAP_CONTEXT * cap_search_micp_context(GA_MC_CONTEXT * mctx, UINT8 * ci);
+#endif /* MICP_CONTROLLER */
 #endif /* GA_MICP */
 
 #ifdef GA_CSIP
 GA_RESULT cap_init_csip(UINT8 role, GA_PROFILE_CB cb);
 GA_RESULT cap_shutdown_csip(UINT8 role);
+#ifdef CSIP_COORDINATOR
 CAP_CONTEXT * cap_search_csip_context(CSIP_HANDLE * handle, UINT8 * ci);
+#endif /* CSIP_COORDINATOR */
+
+#ifdef CAP_CSIP_MEMBER
 void cap_csm_lock_timeout_handler(void * args, UINT16 size);
 UINT16 cap_handle_csip_lock(GA_ENDPOINT * device, UINT8 lock);
-#endif /* CSIP */
+#endif /* CAP_CSIP_MEMBER */
+#endif /* GA_CSIP */
 #endif /* _H_CAP_INTERNAL_ */
 

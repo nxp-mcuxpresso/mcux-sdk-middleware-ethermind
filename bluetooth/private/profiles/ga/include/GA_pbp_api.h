@@ -52,8 +52,13 @@
  */
 
 /**
- * \name PBP Broadcast features
+ * \name Public Broadcast Announcement features
  * \{
+ * \brief Bitfield
+ * Bit 0: Encryption \n
+ * Bit 1: Standard Quality Public Broadcast Audio \n
+ * Bit 2: High Quality Public Broadcast Audio \n
+ * Bit 3-7: RFU
  */
 /** Encryption feature */
 #define PBP_BCAST_ENCRYPTION_FEATURE_BIT      0U
@@ -65,7 +70,7 @@
 /** \} */
 
 /**
- * \name PBP Encryption supported values
+ * \name Encryption Supported Values
  * \{
  */
 
@@ -77,7 +82,7 @@
 /** \} */
 
 /**
- * \name PBP Standard Quality broadcast supported values
+ * \name Standard Quality Public Broadcast Audio Supported Values
  * \{
  */
 
@@ -89,7 +94,7 @@
 /** \} */
 
 /**
- * \name PBP High Quality broadcast supported values
+ * \name High Quality Public Broadcast Audio Supported Values
  * \{
  */
 
@@ -104,7 +109,7 @@
 
 /* --------------------------------------------- Macros */
 /**
- * \defgroup pbp_macros Macros
+ * \defgroup pbp_macros Utility Macros
  * \{
  * \brief This section describes the various Utility and functional Macros in
  * EtherMind GA PBP Layer.
@@ -186,8 +191,8 @@
 
 
 /**
- *  Utility to decode Public Broadcast Announcement Features present in the Broadcast
- *  Audio Announcement
+ * Utility to decode Public Broadcast Announcement Features present in the
+ * Broadcast Audio Announcement
  */
 #define PBP_DECODE_BCAST_ANNOUNCEMENT_FEATURES(features, en, sq, hq) \
         (en) = (features); \

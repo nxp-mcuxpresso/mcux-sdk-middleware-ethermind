@@ -185,6 +185,7 @@ typedef struct _BASS_SE_ENTITY
 
 #ifdef GA_BASS_CLIENT
 void bass_ce_init_inst(void);
+void bass_ce_shutdown_inst(void);
 
 BASS_CE_CONTEXT * bass_ce_alloc_context
                   (

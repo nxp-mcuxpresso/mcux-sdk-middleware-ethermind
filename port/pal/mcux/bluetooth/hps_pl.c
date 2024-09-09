@@ -128,6 +128,7 @@ API_RESULT hps_transport_init_pl
     hps_task_attr.thread_priority   = BT_TASK_PRIORITY;
 
     /* Create a thread to receive data from Socket and BUFFER it */
+    // coverity[overrun-buffer-val:SUPPRESS]
     if (BT_thread_create(&tid, &hps_task_attr, hps_read_task_pl, NULL) != 0U)
     {
         HPS_PL_ERR(

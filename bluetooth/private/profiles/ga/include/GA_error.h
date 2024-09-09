@@ -2,7 +2,7 @@
 /**
  *  \file GA_error.h
  *
-*  \brief This file contains all the error codes defined for GA profiles.
+ *  \brief This file contains all the error codes defined for GA profiles.
  */
 
 /*
@@ -27,42 +27,48 @@
  */
 
 /**
- * \addtogroup ga_bap_module
+ * \addtogroup ga_common_module
  * \{
  */
 
 /**
- * \addtogroup ga_bap_defines
+ * \addtogroup ga_common_defines
  * \{
  */
 
 /**
- * \defgroup ga_cap_error_code_def Error Code Definitions
+ * \addtogroup ga_common_error_code_def
  * \{
- * \brief This sections describes all the Error ID for GA Layer and
- * Error Codes exposed and used by the EtherMind GA CAP Layer.
  */
 
 /**
- * \defgroup ga_cap_error_group Error Grouping
+ * \addtogroup ga_common_error_code
  * \{
- * \brief This sections describes various Error Code Groupings exposed by the
- * EtherMind GA Layer.
  */
 
 /**
- * \name Common Errors
+ * \name Common - OSAL Error Codes
  * \{
- * \brief Set of common error codes across all profiles
+ * \brief Set of common OSAL error codes across all profiles.
  */
 
+/** Error Code for MUTEX Initialization Failure */
 #define GA_MUTEX_INIT_FAILED                       0x0001
+/** Error Code for Conditional Variable Initialization Failure */
 #define GA_COND_INIT_FAILED                        0x0002
+/** Error Code for MUTEX Lock Failure */
 #define GA_MUTEX_LOCK_FAILED                       0x0003
+/** Error Code for MUTEX Unlock Failure */
 #define GA_MUTEX_UNLOCK_FAILED                     0x0004
+/** Error Code for Memory Allocation Failure */
 #define GA_MEMORY_ALLOCATION_FAILED                0x0005
-
 /** \} */
+/** \} */
+
+/**
+ * \addtogroup ga_common_error_group
+ * \{
+ */
 
 /**
  * \name Profile Error ID
@@ -97,55 +103,123 @@
 /** \} */
 /** \} */
 /** \} */
+
+/** \} */
+/** \} */
 /** \} */
 /** \} */
 
 /**
-* \defgroup ga_brr_error_code Error Codes
-* \{
-* \brief This section lists the Error Codes that are provided as part of
-* return of functionalities of BRR.
-*/
+ * \addtogroup ga_bearer_module
+ * \{
+ */
 
+/**
+ * \addtogroup ga_brr_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_brr_error_code
+ * \{
+ */
+
+/**
+ * \name Bearer - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for Bearer.
+ */
+
+/** Bearer Error Code ID - MUTEX Initialization Failure */
 #define BRR_MUTEX_INIT_FAILED                    \
         (GA_BRR_ERR_ID | GA_MUTEX_INIT_FAILED)
+/** Bearer Error Code ID - Conditional Variable Initialization Failure */
 #define BRR_COND_INIT_FAILED                     \
         (GA_BRR_ERR_ID | GA_COND_INIT_FAILED)
+/** Bearer Error Code ID - MUTEX Lock Failure */
 #define BRR_MUTEX_LOCK_FAILED                    \
         (GA_BRR_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Bearer Error Code ID - MUTEX Unlock Failure */
 #define BRR_MUTEX_UNLOCK_FAILED                  \
         (GA_BRR_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/** Bearer Error Code ID - Memory Allocation Failure */
 #define BRR_MEMORY_ALLOCATION_FAILED             \
         (GA_BRR_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
 /** \} */
 
 /**
- * \addtogroup ga_bap_module
+ * \name BRR - Implementation Error Codes
+ * \{
+ * \brief This section lists Implementation Error Codes for BRR.
+ */
+
+ /** Bearer Error Code ID - Invalid State to perform the operation */
+#define GA_BRR_CHAR_CONFIG_DISABLED                     (GA_BRR_ERR_ID | 0x0011U)
+
+/** \} */
+/** \} */
+/** \} */
+/** \} */
+
+/**
+ * \addtogroup bt_ga_core
  * \{
  */
 
 /**
- * \addtogroup ga_bap_defines
+ * \addtogroup ga_cap_module
  * \{
  */
 
 /**
- * \defgroup ga_cap_error_code Error Codes
+ * \addtogroup ga_cas_module
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of CAP \ref ga_cap_api_defs.
  */
 
+/**
+ * \addtogroup ga_cas_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_cas_error_code
+ * \{
+ */
+
+
+/**
+ * \name CAS - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for CAS.
+ */
+
+/** Common Audio Profile Error Code ID - MUTEX Initialization Failure */
 #define CAP_MUTEX_INIT_FAILED                    \
         (GA_CAP_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Common Audio Profile Error Code ID - Conditional Variable Initialization
+ * Failure
+ */
 #define CAP_COND_INIT_FAILED                     \
         (GA_CAP_ERR_ID | GA_COND_INIT_FAILED)
+/** Common Audio Profile Error Code ID - MUTEX Lock Failure */
 #define CAP_MUTEX_LOCK_FAILED                    \
         (GA_CAP_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Common Audio Profile Error Code ID - MUTEX Unlock Failure */
 #define CAP_MUTEX_UNLOCK_FAILED                  \
         (GA_CAP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/** Common Audio Profile Error Code ID - Memory Allocation Failure */
 #define CAP_MEMORY_ALLOCATION_FAILED             \
         (GA_CAP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
+/** \} */
+
+/**
+ * \name CAS - Implementation Error Codes
+ * \{
+ * \brief This section lists Implementation Error Codes for CAS.
+ */
 
 /** Common Audio Profile Error Code ID - Invalid State to perform the operation */
 #define GA_CAP_INVALID_STATE                            (GA_CAP_ERR_ID | 0x0011U)
@@ -160,51 +234,79 @@
 /** Common Audio Profile Error Code ID - CSIP Member Lock Timeout status */
 #define GA_CAP_MEMBER_LOCK_TIMEOUT                      (GA_CAP_ERR_ID | 0x0020U)
 /** Common Audio Profile Error Code ID - CSIP Member Lock Timeout status */
-#define GA_CAP_ERROR_OUTOFBOUNDS                        (GA_CAP_ERR_ID | 0x0020U)
+#define GA_CAP_ERROR_OUTOFBOUNDS                        (GA_CAP_ERR_ID | 0x0021U)
 
+/** \} */
 /** \} */
 /** \} */
 /** \} */
 
 /**
-* \addtogroup ga_bap_module
-* \{
-*/
-
-/**
-* \addtogroup ga_bap_defines
-* \{
-*/
-
-/**
- * \defgroup ga_bap_error_code Error Codes
+ * \addtogroup ga_bap_module
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of BAP \ref ga_bap_api_defs.
  */
 
+/**
+ * \addtogroup ga_bap_common_module
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_error_code
+ * \{
+ */
+
+/**
+ * \name BAP - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for BAP.
+ */
+
+/** Basic Audio Profile Error Code ID - MUTEX Initialization Failure */
 #define BAP_MUTEX_INIT_FAILED                    \
         (GA_BAP_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Basic Audio Profile Error Code ID - Conditional Variable Initialization
+ * Failure
+ */
 #define BAP_COND_INIT_FAILED                     \
         (GA_BAP_ERR_ID | GA_COND_INIT_FAILED)
+/** Basic Audio Profile Error Code ID - MUTEX Lock Failure */
 #define BAP_MUTEX_LOCK_FAILED                    \
         (GA_BAP_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Basic Audio Profile Error Code ID - MUTEX Unlock Failure */
 #define BAP_MUTEX_UNLOCK_FAILED                  \
         (GA_BAP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/** Basic Audio Profile Error Code ID - Memory Allocation Failure */
 #define BAP_MEMORY_ALLOCATION_FAILED             \
         (GA_BAP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
 
-/** Volume Control Profile Error Code ID - Invalid State to perform the operation */
+/** \} */
+
+/**
+ * \name BAP - Implementation Error Codes
+ * \{
+ * \brief This section lists Implementation Error Codes for BAP.
+ */
+
+/** Basic Audio Profile Error Code ID - Invalid State to perform the operation */
 #define GA_BAP_INVALID_STATE                            (GA_BAP_ERR_ID | 0x0011U)
-/** Volume Control Profile Error Code ID - Invalid Parameters provided */
+/** Basic Audio Profile Error Code ID - Invalid Parameters provided */
 #define GA_BAP_INVALID_PARAMS                           (GA_BAP_ERR_ID | 0x0012U)
-/** Volume Control Profile Error Code ID - New Context allocation failed */
+/** Basic Audio Profile Error Code ID - New Context allocation failed */
 #define GA_BAP_CNTX_ALLOC_FAILED                        (GA_BAP_ERR_ID | 0x0013U)
-/** Volume Control Profile Error Code ID - Another operation already in progress */
+/** Basic Audio Profile Error Code ID - Another operation already in progress */
 #define GA_BAP_IN_BUSY_STATE                            (GA_BAP_ERR_ID | 0x0014U)
-/** Volume Control Profile Error Code ID - Invalid Handle to perform the operation */
+/** Basic Audio Profile Error Code ID - Invalid Handle to perform the operation */
 #define GA_BAP_INVALID_HANDLE                           (GA_BAP_ERR_ID | 0x0015U)
 
+/** \} */
+/** \} */
 /** \} */
 /** \} */
 /** \} */
@@ -220,22 +322,42 @@
  */
 
 /**
- * \defgroup ga_vcp_error_code Error Codes
+ * \addtogroup ga_vcp_error_code
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of VCP \ref ga_vcp_api_defs.
  */
 
+/**
+ * \name VCP - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for VCP.
+ */
+
+/** Volume Control Profile Error Code ID - MUTEX Initialization Failure */
 #define VCP_MUTEX_INIT_FAILED                    \
         (GA_VCP_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Volume Control Profile Error Code ID - Conditional Variable Initialization
+ * Failure
+ */
 #define VCP_COND_INIT_FAILED                     \
         (GA_VCP_ERR_ID | GA_COND_INIT_FAILED)
+/** Volume Control Profile Error Code ID - MUTEX Lock Failure */
 #define VCP_MUTEX_LOCK_FAILED                    \
         (GA_VCP_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Volume Control Profile Error Code ID - MUTEX Unlock Failure */
 #define VCP_MUTEX_UNLOCK_FAILED                  \
         (GA_VCP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/** Volume Control Profile Error Code ID - Memory Allocation Failure */
 #define VCP_MEMORY_ALLOCATION_FAILED             \
         (GA_VCP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
+/** \} */
+
+/**
+ * \name VCP - Implementation Error Codes
+ * \{
+ * \brief This section lists Implementation Error Codes for VCP.
+ */
 
 /** Volume Control Profile Error Code ID - Invalid State to perform the operation */
 #define GA_VCP_INVALID_STATE                            (GA_VCP_ERR_ID | 0x0011U)
@@ -266,6 +388,7 @@
 /** \} */
 /** \} */
 /** \} */
+/** \} */
 
 /**
  * \addtogroup ga_micp_module
@@ -278,22 +401,42 @@
  */
 
 /**
- * \defgroup ga_micp_error_code Error Codes
+ * \addtogroup ga_micp_error_code
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of MICP \ref ga_micp_api_defs.
  */
 
+/**
+ * \name MICP - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for MICP.
+ */
+
+/** Microphone Control Profile Error Code ID - MUTEX Initialization Failure */
 #define MICP_MUTEX_INIT_FAILED                    \
         (GA_MICP_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Microphone Control Profile Error Code ID - Conditional Variable
+ * Initialization Failure
+ */
 #define MICP_COND_INIT_FAILED                     \
         (GA_MICP_ERR_ID | GA_COND_INIT_FAILED)
+/** Microphone Control Profile Error Code ID - MUTEX Lock Failure */
 #define MICP_MUTEX_LOCK_FAILED                    \
         (GA_MICP_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Microphone Control Profile Error Code ID - MUTEX Unlock Failure */
 #define MICP_MUTEX_UNLOCK_FAILED                  \
         (GA_MICP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/** Microphone Control Profile Error Code ID - Memory Allocation Failure */
 #define MICP_MEMORY_ALLOCATION_FAILED             \
         (GA_MICP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
+/** \} */
+
+/**
+ * \name MICP - Implementation Error Codes
+ * \{
+ * \brief This section lists Implementation Error Codes for MICP.
+ */
 
 /**
  * Microphone Control Profile Error Code ID - Invalid State to perform the
@@ -333,6 +476,7 @@
 /** \} */
 /** \} */
 /** \} */
+/** \} */
 
 /**
  * \addtogroup ga_csip_module
@@ -345,35 +489,69 @@
  */
 
 /**
- * \addtogroup ga_csip_error_codes
+ * \addtogroup ga_csip_error_code
  * \{
  */
 
 /**
- * \name Implementation Error Codes: CSIP
+ * \name CSIP - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for CSIP.
+ */
+
+/**
+ * Coordinated Set Identification Profile Error Code ID - MUTEX
+ * Initialization Failure
+ */
+#define CSIP_MUTEX_INIT_FAILED                    \
+        (GA_CSIP_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Coordinated Set Identification Profile Error Code ID - Conditional Variable
+ * Initialization Failure
+ */
+#define CSIP_COND_INIT_FAILED                     \
+        (GA_CSIP_ERR_ID | GA_COND_INIT_FAILED)
+/**
+ * Coordinated Set Identification Profile Error Code ID - MUTEX
+ * Lock Failure
+ */
+#define CSIP_MUTEX_LOCK_FAILED                    \
+        (GA_CSIP_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/**
+ * Coordinated Set Identification Profile Error Code ID - MUTEX
+ * Unlock Failure
+ */
+#define CSIP_MUTEX_UNLOCK_FAILED                  \
+        (GA_CSIP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/**
+ * Coordinated Set Identification Profile Error Code ID - Memory
+ * Allocation Failure
+ */
+#define CSIP_MEMORY_ALLOCATION_FAILED             \
+        (GA_CSIP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
+/** \} */
+
+/**
+ * \name CSIP - Implementation Error Codes
  * \{
  * \brief This section lists Implementation Error Codes for CSIP.
  */
-
-#define CSIP_MUTEX_INIT_FAILED                    \
-        (GA_CSIP_ERR_ID | GA_MUTEX_INIT_FAILED)
-#define CSIP_COND_INIT_FAILED                     \
-        (GA_CSIP_ERR_ID | GA_COND_INIT_FAILED)
-#define CSIP_MUTEX_LOCK_FAILED                    \
-        (GA_CSIP_ERR_ID | GA_MUTEX_LOCK_FAILED)
-#define CSIP_MUTEX_UNLOCK_FAILED                  \
-        (GA_CSIP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
-#define CSIP_MEMORY_ALLOCATION_FAILED             \
-        (GA_CSIP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
 
 /**
  * Coordinated Set Identification Profile Error Code ID - Invalid State to
  * perform the operation.
  */
 #define GA_CSIP_INVALID_STATE                            (GA_CSIP_ERR_ID | 0x0011U)
-/** Coordinated Set Identification Profile Error Code ID - Invalid Parameters provided */
+/**
+ * Coordinated Set Identification Profile Error Code ID - Invalid
+ * Parameters provided
+ */
 #define GA_CSIP_INVALID_PARAMS                           (GA_CSIP_ERR_ID | 0x0012U)
-/** Coordinated Set Identification Profile Error Code ID - New Context allocation failed */
+/**
+ * Coordinated Set Identification Profile Error Code ID - New Context
+ * allocation failed
+ */
 #define GA_CSIP_CNTX_ALLOC_FAILED                        (GA_CSIP_ERR_ID | 0x0013U)
 /**
  * Coordinated Set Identification Profile Error Code ID - Another operation
@@ -425,35 +603,47 @@
  */
 
 /**
- * \defgroup ga_ccp_common CCP Common
+ * \addtogroup ga_ccp_common
  * \{
- * \brief Describes common macros for the module.
  */
 
 /**
- * \addtogroup ga_ccp_error_code Error Codes
+ * \addtogroup ga_ccp_error_code
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of CCP \ref ga_ccp_ce_module_api,
- * \ref ga_ccp_se_module_api.
  */
 
 /**
- * \name Implementation Error Codes: CCP
+ * \name CCP - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for CCP.
+ */
+
+/** Call Control Profile Error Code ID - MUTEX Initialization Failure */
+#define CCP_MUTEX_INIT_FAILED                    \
+        (GA_CCP_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Call Control Profile Error Code ID - Conditional Variable
+ * Initialization Failure
+ */
+#define CCP_COND_INIT_FAILED                     \
+        (GA_CCP_ERR_ID | GA_COND_INIT_FAILED)
+/** Call Control Profile Error Code ID - MUTEX Lock Failure */
+#define CCP_MUTEX_LOCK_FAILED                    \
+        (GA_CCP_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Call Control Profile Error Code ID - MUTEX Unlock Failure */
+#define CCP_MUTEX_UNLOCK_FAILED                  \
+        (GA_CCP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/** Call Control Profile Error Code ID - Memory Allocation Failure */
+#define CCP_MEMORY_ALLOCATION_FAILED             \
+        (GA_CCP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
+/** \} */
+
+/**
+ * \name CCP - Implementation Error Codes
  * \{
  * \brief This section lists Implementation Error Codes for CCP.
  */
-
-#define CCP_MUTEX_INIT_FAILED                    \
-        (GA_CCP_ERR_ID | GA_MUTEX_INIT_FAILED)
-#define CCP_COND_INIT_FAILED                     \
-        (GA_CCP_ERR_ID | GA_COND_INIT_FAILED)
-#define CCP_MUTEX_LOCK_FAILED                    \
-        (GA_CCP_ERR_ID | GA_MUTEX_LOCK_FAILED)
-#define CCP_MUTEX_UNLOCK_FAILED                  \
-        (GA_CCP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
-#define CCP_MEMORY_ALLOCATION_FAILED             \
-        (GA_CCP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
 
 /**
  * Call Control Profile Error Code ID - Invalid State to perform the
@@ -489,49 +679,59 @@
 /** \} */
 
 /**
- * \addtogroup bt_ga_mcp Media Control
+ * \addtogroup bt_ga_mcp
  * \{
- * \brief This section describes the interfaces & APIs offered by the EtherMind
- * Generic Audio (GA) Profile Media Control module to the Application.
  */
 
 /**
- * \defgroup ga_mcp_defines Defines
+ * \addtogroup ga_mcp_defines
  * \{
- * \brief Describes defines for the module.
  */
 
 /**
- * \defgroup ga_mcp_common MCP Common
+ * \addtogroup ga_mcp_common
  * \{
- * \brief Describes common macros for the module.
  */
 
 /**
- * \defgroup ga_mcp_and_otp_error_code Error Codes
+ * \addtogroup ga_mcp_and_otp_error_code
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of MCP and OTP
  */
 
 /**
- * \name Implementation Error Codes: MCP
+ * \name MCP - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for MCP.
+ */
+
+/** Media Control Profile Error Code ID - MUTEX Initialization Failure */
+#define MCP_MUTEX_INIT_FAILED                    \
+        (GA_MCP_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Media Control Profile Error Code ID - Conditional Variable
+ * Initialization Failure
+ */
+#define MCP_COND_INIT_FAILED                     \
+        (GA_MCP_ERR_ID | GA_COND_INIT_FAILED)
+/** Media Control Profile Error Code ID - MUTEX Lock Failure */
+#define MCP_MUTEX_LOCK_FAILED                    \
+        (GA_MCP_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Media Control Profile Error Code ID - MUTEX Unlock Failure */
+#define MCP_MUTEX_UNLOCK_FAILED                  \
+        (GA_MCP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/** Media Control Profile Error Code ID - Memory Allocation Failure */
+#define MCP_MEMORY_ALLOCATION_FAILED             \
+        (GA_MCP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
+/** \} */
+
+/**
+ * \name MCP - Implementation Error Codes
  * \{
  * \brief This section lists the Error Codes that are provided as part of
  * return of functionalities of MCP \ref ga_mcp_ce_api_defs,
  * \ref ga_mcp_se_api_defs
  */
-
-#define MCP_MUTEX_INIT_FAILED                    \
-        (GA_MCP_ERR_ID | GA_MUTEX_INIT_FAILED)
-#define MCP_COND_INIT_FAILED                     \
-        (GA_MCP_ERR_ID | GA_COND_INIT_FAILED)
-#define MCP_MUTEX_LOCK_FAILED                    \
-        (GA_MCP_ERR_ID | GA_MUTEX_LOCK_FAILED)
-#define MCP_MUTEX_UNLOCK_FAILED                  \
-        (GA_MCP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
-#define MCP_MEMORY_ALLOCATION_FAILED             \
-        (GA_MCP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
 
 /**
  * Media Control Profile Error Code ID - Invalid State to perform the
@@ -561,7 +761,7 @@
 /** \} */
 
 /**
- * \name Implementation Error Codes: OTP
+ * \name OTP - Implementation Error Codes
  * \{
  * \brief This section lists the Error Codes that are provided as part of
  * return of functionalities of OTP \ref ga_mcp_ce_api_defs,
@@ -618,29 +818,43 @@
  */
 
 /**
- * \defgroup hap_error_code Error Codes
+ * \addtogroup hap_error_code
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of HAP.
  */
 
 /**
- * \name Implementation Error Codes: HAP
+ * \name HAP - OSAL Error Codes
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of HAP \ref ga_ha_api_defs
+ * \brief This section lists OSAL Error Codes for HAP.
  */
 
+/** Hearing Access Profile Error Code ID - MUTEX Initialization Failure */
 #define HAP_MUTEX_INIT_FAILED                    \
         (GA_HAP_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Hearing Access Profile Error Code ID - Conditional Variable
+ * Initialization Failure
+ */
 #define HAP_COND_INIT_FAILED                     \
         (GA_HAP_ERR_ID | GA_COND_INIT_FAILED)
+/** Hearing Access Profile Error Code ID - MUTEX Lock Failure */
 #define HAP_MUTEX_LOCK_FAILED                    \
         (GA_HAP_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Hearing Access Profile Error Code ID - MUTEX Unlock Failure */
 #define HAP_MUTEX_UNLOCK_FAILED                  \
         (GA_HAP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/** Hearing Access Profile Error Code ID - Memory Allocation Failure */
 #define HAP_MEMORY_ALLOCATION_FAILED             \
         (GA_HAP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
+/** \} */
+
+/**
+ * \name HAP - Implementation Error Codes
+ * \{
+ * \brief This section lists the Error Codes that are provided as part of
+ * return of functionalities of HAP \ref hap_api_defs
+ */
 
 /**
  * Hearing Access Profile Error Code ID - Invalid State to perform the
@@ -687,29 +901,49 @@
  */
 
 /**
- * \defgroup tmap_error_code Error Codes
+ * \addtogroup tmap_error_code
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of TMAP
  */
 
 /**
- * \name Implementation Error Codes: TMAP
+ * \name TMAP - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for TMAP.
+ */
+
+/**
+ * Telephony and Media Audio Profile Error Code ID - MUTEX
+ * Initialization Failure
+ */
+#define TMAP_MUTEX_INIT_FAILED                    \
+        (GA_TMAP_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Telephony and Media Audio Profile Error Code ID - Conditional Variable
+ * Initialization Failure
+ */
+#define TMAP_COND_INIT_FAILED                     \
+        (GA_TMAP_ERR_ID | GA_COND_INIT_FAILED)
+/** Telephony and Media Audio Profile Error Code ID - MUTEX Lock Failure */
+#define TMAP_MUTEX_LOCK_FAILED                    \
+        (GA_TMAP_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Telephony and Media Audio Profile Error Code ID - MUTEX Unlock Failure */
+#define TMAP_MUTEX_UNLOCK_FAILED                  \
+        (GA_TMAP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/**
+ * Telephony and Media Audio Profile Error Code ID - Memory
+ * Allocation Failure
+ */
+#define TMAP_MEMORY_ALLOCATION_FAILED             \
+        (GA_TMAP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
+/** \} */
+
+/**
+ * \name TMAP - Implementation Error Codes
  * \{
  * \brief This section lists the Error Codes that are provided as part of
  * return of functionalities of TMAP \ref tmap_api_defs
  */
-
-#define TMAP_MUTEX_INIT_FAILED                    \
-        (GA_TMAP_ERR_ID | GA_MUTEX_INIT_FAILED)
-#define TMAP_COND_INIT_FAILED                     \
-        (GA_TMAP_ERR_ID | GA_COND_INIT_FAILED)
-#define TMAP_MUTEX_LOCK_FAILED                    \
-        (GA_TMAP_ERR_ID | GA_MUTEX_LOCK_FAILED)
-#define TMAP_MUTEX_UNLOCK_FAILED                  \
-        (GA_TMAP_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
-#define TMAP_MEMORY_ALLOCATION_FAILED             \
-        (GA_TMAP_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
 
 /**
  * Telephony and Media Audio Profile Error Code ID - Invalid State to perform
@@ -747,6 +981,7 @@
 /** \} */
 /** \} */
 /** \} */
+
 /** \} */
 /** \} */
 
@@ -761,43 +996,67 @@
  */
 
 /**
- * \addtogroup ga_bass_module
+ * \addtogroup ga_bap_module
  * \{
  */
 
 /**
- * \addtogroup ga_bass_defines
+ * \addtogroup ga_bap_bc_module
  * \{
  */
 
 /**
- * \addtogroup ga_bass_common
+ * \addtogroup ga_bap_bc_defines
  * \{
  */
 
 /**
- * \addtogroup ga_bass_error_codes Error Codes
+ * \addtogroup ga_bap_bc_bass_ce_se_common_def
  * \{
  */
 
 /**
- * \name Implementation Error Codes: BASS
+ * \addtogroup ga_bap_bc_bass_ce_se_common_error_code
  * \{
- * \brief This section lists the Error Codes that are provided as part of
- * return of functionalities of BASS \ref ga_bass_ce_api_defs,
- * \ref ga_bass_se_api_defs
  */
 
+/**
+ * \name BASS - OSAL Error Codes
+ * \{
+ * \brief This section lists OSAL Error Codes for BASS.
+ */
+
+/**
+ * Broadcast Audio Scan Service Error Code ID - MUTEX
+ * Initialization Failure
+ */
 #define BASS_MUTEX_INIT_FAILED                    \
         (GA_BASS_ERR_ID | GA_MUTEX_INIT_FAILED)
+/**
+ * Broadcast Audio Scan Service Error Code ID - Conditional Variable
+ * Initialization Failure
+ */
 #define BASS_COND_INIT_FAILED                     \
         (GA_BASS_ERR_ID | GA_COND_INIT_FAILED)
+/** Broadcast Audio Scan Service Error Code ID - MUTEX Lock Failure */
 #define BASS_MUTEX_LOCK_FAILED                    \
         (GA_BASS_ERR_ID | GA_MUTEX_LOCK_FAILED)
+/** Broadcast Audio Scan Service Error Code ID - MUTEX Unlock Failure */
 #define BASS_MUTEX_UNLOCK_FAILED                  \
         (GA_BASS_ERR_ID | GA_MUTEX_UNLOCK_FAILED)
+/** Broadcast Audio Scan Service Error Code ID - Memory Allocation Failure */
 #define BASS_MEMORY_ALLOCATION_FAILED             \
         (GA_BASS_ERR_ID | GA_MEMORY_ALLOCATION_FAILED)
+
+/** \} */
+
+/**
+ * \name BASS - Implementation Error Codes
+ * \{
+ * \brief This section lists the Error Codes that are provided as part of
+ * return of functionalities of BASS \ref ga_bap_bc_bass_ce_api_defs,
+ * \ref ga_bap_bc_bass_se_api_defs
+ */
 
 /**
  * Broadcast Audio Scan Service Error Code ID - Invalid State to perform
@@ -839,6 +1098,7 @@
 /** \} */
 /** \} */
 
+/** \} */
 /** \} */
 /** \} */
 /** \} */

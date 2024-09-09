@@ -69,11 +69,7 @@ DECL_STATIC void hci_platform_rx_callback(uint8_t packetType, uint8_t *data, uin
 #ifdef HT_ENQUEUE_WITH_RETURN
     uint16_t nbytes = 0U;
     (void)hci_transport_enqueue(hci_platform_rd_buf, total_len, &nbytes);
-    if (nbytes != total_len)
-    {
-       HCI_PLATFORM_ERR(
-       "[HCI-PLATFORM] Free space is not enough\n");
-    }
+    assert(nbytes == total_len);
 #else /* HT_ENQUEUE_WITH_RETURN */
     hci_transport_enqueue(hci_platform_rd_buf, total_len);
 #endif /* HT_ENQUEUE_WITH_RETURN */

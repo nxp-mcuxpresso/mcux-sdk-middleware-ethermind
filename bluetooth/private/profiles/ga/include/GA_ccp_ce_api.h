@@ -2,8 +2,8 @@
 /**
  *  \file GA_ccp_ce_api.h
  *
- *  \brief This file defines the GA Call Control Profile(CCP) Client Entity(CE) Interface - includes
- *   Data Structures and Methods.
+ *  \brief This file defines the GA Call Control Profile(CCP) Client Interface
+ *  includes Data Structures and Methods.
  */
 
 /*
@@ -36,7 +36,7 @@
 /* --------------------------------------------- Global Definitions */
 
 /**
- * \addtogroup bt_ga_ccp Call Control
+ * \addtogroup bt_ga_ccp Call Control Profile (CCP)
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
  * Generic Audio (GA) Profile Call Control module to the Application.
@@ -49,7 +49,7 @@
  */
 
 /**
- * \defgroup ga_ccp_ce_module_def CCP CE (Call Control Profile) Client Entity
+ * \defgroup ga_ccp_ce_module_def Call Control Client
  * \{
  * \brief This section describes the defines for CCP CE.
  */
@@ -62,24 +62,24 @@
  */
 
 /**
- * \name CCP Client Constants - General Macros
+ * \name General Macros
  * \{
  * \brief This section describes the general macros for the module.
  * Initialization and other General Macros offered by the module.
  */
 
 /** CCP CE GTBS Enable Handle */
-#define CCP_CE_GTBS_ENABLE                      0x80U
+#define CCP_CE_GTBS_ENABLE                              0x80U
 
 /** Total number of Characteristic IDs,
- * \ref ga_tbs_char_prop
+ * \ref ga_ccp_ce_constants
  */
 #define CCP_CHAR_ID_COUNT                               16U
 
 /** \} */
 
 /**
- * \name CCP Client Constants - CCP Char ID
+ * \name Char ID
  * \{
  * This section lists the Characteristic ID references.
  */
@@ -154,7 +154,7 @@
 /** \} */
 
 /**
- * \defgroup ga_ccp_ce_utility_macros Macros
+ * \defgroup ga_ccp_ce_macros Utility Macros
  * \{
  * \brief This section describers Initialization and other Macros
  * for the module.
@@ -177,8 +177,7 @@
  * \defgroup ga_ccp_ce_events Events
  * \{
  * \brief This section lists the Synchronous/Asynchronous Events notified to
- * Application by the Module through the callback \ref CCP_CE_NTF_CB
- * callback.
+ * Application by the Module through the callback \ref CCP_CE_NTF_CB callback.
  */
 
 /**
@@ -188,79 +187,115 @@
  */
 
 /**
- * \brief This event indicates the setup of a GTBS Session.
- * A handle to the GTBS Session is derived and provided to the
- * application, this Handle to be further used during all CCP Client related
- * requests. This involves discovery of service, char
- * and descriptors. Once done, the configuration for Notifications is
- * also enabled.
+ * \brief This event indicates the setup of a GTBS Session. \n
+ * A handle to the GTBS Session is derived and provided to the application,
+ * this Handle to be further used during all CCP Client related requests. This
+ * involves discovery of service, characteristics and descriptors. Once done,
+ * the configuration for Notifications enabling is also done. \n
  * Callback is triggered with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback
+ * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_SETUP_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS Setup Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ccp_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ccp_data - NULL \n
- *                           .
- * \param [in] ccp_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ccp_datalen - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_SETUP_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Setup Complete \n
+ *                        \ref GA_FAILURE : Others \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Ignore \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                                         \ref CCP_CE_IS_HANDLE_GTBS for GTBS. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Ignore \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                                         \ref CCP_CE_IS_HANDLE_GTBS for GTBS. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_SETUP_CNF                                0x00U
 
 /**
- * \brief This Event is notified on discovery of optional TBS(s) with peer
- * device with the following values as parameters in the \ref CCP_CE_NTF_CB
- * callback.
- * This event is being notifed continuously for each discovered instance of
- * TBS with status \ref GA_CONTINUE and on notification of all the TBS
- * instance.
- * The event is notified with status \ref GA_SUCCESS, it indicates
- * the completion of the optional TBS service discovery.
+ * \brief This Event is notified on discovery of optional service(s) TBS with
+ * peer device with the following values as parameters in the \ref CCP_CE_NTF_CB
+ * callback. \n
+ * This event is notifed continuously for each discovered instance of
+ * TBS with status \ref GA_CONTINUE.
+ * The completion of the optional TBS service discovery is notified with status
+ * as \ref GA_SUCCESS.
  * In case of failure, \ref GA_FAILURE is triggered.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_DISCOVER_TBS_CNF
- * \param [in] ccp_status  \ref GA_CONTINUE Service Handle range of
- *                         discovered TBS \n
- *                     \ref GA_SUCCESS Service Discovery Complete \n
- *                     \ref GA_FAILURE Others \n
- * \param [in] ccp_data  If status is \ref GA_CONTINUE \n
- *                          - ccp_data - Pointer to object of type
- *                            \ref GA_BRR_SVC_INFO \n
- * \param [in] ccp_datalen  If status is \ref GA_CONTINUE \n
- *                             - ccp_datalen - Size of \ref GA_BRR_SVC_INFO \n
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_DISCOVER_TBS_CNF \n
+ * \param [in] ccp_status \ref GA_CONTINUE : Service discovery of each TBS
+ *                                           instance \n
+ *                        \ref GA_SUCCESS : Service Discovery Complete \n
+ *                        \ref GA_FAILURE : Others \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_CONTINUE : \n
+ *                         - srvc_type - Ignore \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service (TBS) for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Pointer to object of type \n
+ *                                  \ref GA_BRR_SVC_INFO \n
+ *                         - datalen - \ref sizeof ( \ref GA_BRR_SVC_INFO) \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Ignore \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service (TBS) for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen \ref sizeof ( \ref CCP_EVENT_INFO) \n
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_DISCOVER_TBS_CNF                         0x03U
 
 /**
- * \brief This event indicates the setup of a TBS Session.
- * A handle to the TBS Session is derived and provided to the application, this
- * Handle to be further used during all CCP Client related requests. The Char
- * and Desc Discovery is performed post which the Configuration of Notification
- * of Char is done. Callback is triggered with the following values as
- * parameters in the \ref CCP_CE_NTF_CB callback
+ * \brief This event indicates the setup of a TBS Session. \n
+ * A handle to the TBS Session is derived and provided to the application,
+ * this Handle to be further used during all CCP Client related requests. This
+ * involves discovery of service, characteristics and descriptors. Once done,
+ * the configuration for Notifications enabling is also done. \n
+ * Callback is triggered with the following values as parameters in the
+ * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_SETUP_TBS_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS Setup Complete \n
- *                        \ref GA_FAILURE Others \n
- * \param [in] ccp_data  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ccp_data - NULL \n
- *                           .
- * \param [in] ccp_datalen  If status is \ref GA_SUCCESS or
- *                         \ref GA_FAILURE, \n
- *                           - ccp_datalen - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_SETUP_TBS_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Setup Complete \n
+ *                        \ref GA_FAILURE : Others \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - srvc_type - Ignore \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -276,284 +311,678 @@
  */
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_BRR_PROVIDER_NAME_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data: Represents a UTF-8 String
- *                       datalen: Length of UTF-8 String
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_BRR_PROVIDER_NAME_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a UTF-8 String \n
+ *                         - datalen - Varies (Length of UTF-8 String) \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_BRR_PROVIDER_NAME_CNF                 0x05U
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_BRR_UCI_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data: Represents a UTF-8 String,
- *                       Refer \ref ga_ccp_se_constants
- *                       datalen: Length of UTF-8 String
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_BRR_UCI_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a UTF-8 String \n
+ *                                  Refer \ref ga_ccp_se_constants \n
+ *                         - datalen - Varies (Length of UTF-8 String) \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_BRR_UCI_CNF                           0x06U
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_BRR_TECH_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data: Represents a \ref UINT8,
- *                       Refer \ref ga_ccp_se_constants
- *                       datalen: Length of \ref UINT8
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_BRR_TECH_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a \ref UINT8, \n
+ *                                  Refer \ref ga_ccp_se_constants \n
+ *                         - datalen - 1 \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_BRR_TECH_CNF                          0x07U
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_BRR_URI_SCHMS_LIST_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO ,
- *                       data: Represents a UTF-8 String,
- *                       Refer \ref ga_ccp_se_constants
- *                       datalen: Length of UTF-8 String
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_BRR_URI_SCHMS_LIST_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a UTF-8 String, \n
+ *                                  Refer \ref ga_ccp_se_constants \n
+ *                         - datalen - Varies (Length of UTF-8 String) \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_BRR_URI_SCHMS_LIST_CNF                0x08U
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_BRR_SIG_STRNTH_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data: Represents a \ref UINT8
- *                       datalen: Length of \ref UINT8
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_BRR_SIG_STRNTH_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a \ref UINT8 \n
+ *                           Refer \ref ga_ccp_se_constants \n
+ *                         - datalen - 1 \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_BRR_SIG_STRNTH_CNF                    0x09U
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_BRR_SIG_STRTH_RPT_INTVAL_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data: Represents a \ref UINT8
- *                       datalen: Length of \ref UINT8
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_BRR_SIG_STRTH_RPT_INTVAL_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified.
+ *                         - chr - Ignore \n
+ *                         - data - Represents a \ref UINT8 \n
+ *                           Refer \ref ga_ccp_se_constants \n
+ *                         - datalen - 1 \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_BRR_SIG_STRTH_RPT_INTVAL_CNF          0x0AU
+
+/** \} */
+
+/**
+ * \name CCP Client Events - Write
+ * \{
+ * \brief The event is notified whenever write is successful and a write
+ * response is received from peer. \n
+ * This applies to only requests that is triggered with write type -
+ * Write Request.
+ */
 
 /**
  * \brief This event is notified when a write response is received for a char
  * from peer device with the following values as parameters in the
  * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_SET_BRR_SIG_STRTH_RPT_INTVAL_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Write Response received
- * \param [in] ccp_data  NULL \n
- * \param [in] ccp_datalen  0
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_SET_BRR_SIG_STRTH_RPT_INTVAL_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_SET_BRR_SIG_STRTH_RPT_INTVAL_CNF         0x0BU
 
+/** \} */
+
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \name CCP Client Events - Read
+ * \{
+ * \brief This event is notified whenever read request is successful and a
+ * response is received from the peer.
+ */
+
+/**
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_BRR_LIST_CUR_CALLS_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO ,
- *                       data: If calls are present in the current call list: \n
- *                          - Pointer to \ref CCP_EVENT_INFO with format
- *                            as below:
- *                               - List_Item_Length ( \ref UINT8 ) \n
- *                               - Call_Index ( \ref UINT8 ) \n
- *                               - Call_State ( \ref UINT8 ) \n
- *                                 \ref ga_ccp_se_constants
- *                               - Call_Flags ( \ref UINT8 ) \n
- *                                 \ref ga_ccp_se_constants
- *                               - Call_URI (UTF-8 string) \n
- *                               .
- *                          .
- *                        datalen: 3 + length of UTF-8 String
- *                       Else, \n
- *                       data: NULL \n
- *                       datalen: 0 \n
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_BRR_LIST_CUR_CALLS_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                      If call(s) are present in the current call list,
+ *                      then for each call in the list: \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - For each call in the current call list \n
+ *                            - List_Item_Length ( \ref UINT8 ) \n
+ *                            - Call_Index ( \ref UINT8 ) \n
+ *                            - Call_State ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            - Call_Flags ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            - Call_URI (UTF-8 string) \n
+ *                            .
+ *                         - datalen - Varies (For each call in the current
+ *                                     call list: 3 + length of UTF-8 String) \n
+ *                         .
+ *                      Else if ccp_status is \ref GA_FAILURE or there is no
+ *                      call present: \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
+ *
+ * \sa ga_ccp_se_constants \n
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_BRR_LIST_CUR_CALLS_CNF                0x0CU
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_CNTNT_CTRL_ID_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- * \param [in] ccp_datalen
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_CNTNT_CTRL_ID_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a \ref UINT8 \n
+ *                         - datalen - 1 \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_CNTNT_CTRL_ID_CNF                     0x0DU
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_STATUS_FLAGS_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data: Represents a \ref UINT16
- *                       datalen: Length of \ref UINT16
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_STATUS_FLAGS_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a \ref UINT16 \n
+ *                         - datalen - 2 \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_STATUS_FLAGS_CNF                      0x0EU
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_INCALL_TRGT_BRR_URI_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data:
- *                          - Call_Index ( \ref UINT8 ) \n
- *                          - Incoming_Call_Target_URI (UTF-8 string) \n
- *                          .
- *                       datalen: Length of \ref UINT8 + Length of UTF-8 String
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_INCALL_TRGT_BRR_URI_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data
+ *                            - Call_Index ( \ref UINT8 ) \n
+ *                            - Incoming_Call_Target_URI (UTF-8 string) \n
+ *                            .
+ *                         - datalen - Varies (1 + Length of UTF-8 String ) \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \note An example of the Incoming_Call_Target_URI is "tel:+15025551212"
+ *
+ * \sa ga_ccp_se_constants \n
  */
 #define CCP_CE_RD_INCALL_TRGT_BRR_URI_CNF               0x0FU
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_CALL_STATE_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  If active calls are present in the call list: \n
- *                          - Pointer to \ref CCP_EVENT_INFO,
- *                            data:
- *                               - Call_Index ( \ref UINT8 ) \n
- *                               - Call_State ( \ref UINT8 )
- *                                 \ref ga_ccp_se_constants \n
- *                               - Call_Flags ( \ref UINT8 )
- *                                 \ref ga_ccp_se_constants \n
- *                               .
- *                            datalen: 3
- *                          .
- *                       Else,
- *                            data:  NULL \n
- *                            datalen: 0
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_CALL_STATE_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                      If call(s) are present in the current call list,
+ *                      then for each call in the list: \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - For each call in the current call list \n
+ *                            - Call_Index ( \ref UINT8 ) \n
+ *                            - Call_State ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            - Call_Flags ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            .
+ *                         - datalen - Varies (For each call in the current
+ *                                     call list: 3) \n
+ *                         .
+ *                      Else if ccp_status is \ref GA_FAILURE or there is no
+ *                      call present in the curnet call list: \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_CALL_STATE_CNF                        0x10U
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_CALL_CP_OPT_OPCODES_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                            data: \ref UINT16
- *                            datalen: 2
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_CALL_CP_OPT_OPCODES_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - \ref UINT16 \n
+ *                         - datalen - 2 \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_CALL_CP_OPT_OPCODES_CNF               0x11U
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_INCOMING_CALL_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                            data: Call_Index \ref UINT8
- *                                  URI - Represented as UTF-8 String \n
- *                            datalen: 1 + Length of UTF-8 string
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_INCOMING_CALL_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data
+ *                            - Call_Index ( \ref UINT8) \n
+ *                            - URI (UTF-8 String) \n
+ *                         - datalen: Varies (1 + Length of UTF-8 string) \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
 #define CCP_CE_RD_INCOMING_CALL_CNF                     0x12U
 
 /**
- * \brief This event is notified when a read response is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_CE_NTF_CB callback.
+ * \brief This event is notified when a read response is received for a
+ * characteristic from peer device with the following values as parameters in
+ * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RD_CALL_FRIENDLY_NAME_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Read Response received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                          data: Call_Index ( \ref UINT8 ) \n
- *                                Friendly_Name (UTF-8 string) \n
- *                          datalen: 1 + Length of UTF-8 string
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RD_CALL_FRIENDLY_NAME_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Read Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data
+ *                            - Call_Index ( \ref UINT8 ) \n
+ *                            - Friendly_Name (UTF-8 string) \n
+ *                         - datalen: Varies (1 + Length of UTF-8 string) \n
+ *                         .
+ *                      Else
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -565,22 +994,36 @@
  * \name CCP Client Events - Write
  * \{
  * \brief The event is notified whenever write is successful and a write
- * response is received from peer.
+ * response is received from peer. \n
  * This applies to only requests that is triggered with write type -
  * Write Request.
  */
-
 
 /**
  * \brief This event is notified when a write response is received for a char
  * from peer device with the following values as parameters in the
  * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_ACCEPT_CALL_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Write Response received
- * \param [in] ccp_data  NULL \n
- * \param [in] ccp_datalen  0
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_ACCEPT_CALL_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or any other : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -591,11 +1034,26 @@
  * from peer device with the following values as parameters in the
  * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_TERMINATE_CALL_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Write Response received
- * \param [in] ccp_data  NULL \n
- * \param [in] ccp_datalen  0
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_TERMINATE_CALL_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or any other : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -606,11 +1064,26 @@
  * from peer device with the following values as parameters in the
  * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_LOCAL_HOLD_CALL_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Write Response received
- * \param [in] ccp_data  NULL \n
- * \param [in] ccp_datalen  0
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_LOCAL_HOLD_CALL_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or any other : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -621,11 +1094,26 @@
  * from peer device with the following values as parameters in the
  * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_LOCAL_RETRIEVE_CALL_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Write Response received
- * \param [in] ccp_data  NULL \n
- * \param [in] ccp_datalen  0
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_LOCAL_RETRIEVE_CALL_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or any other : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -636,11 +1124,26 @@
  * from peer device with the following values as parameters in the
  * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_ORGINATE_CALL_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Write Response received
- * \param [in] ccp_data  NULL \n
- * \param [in] ccp_datalen  0
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_ORGINATE_CALL_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or any other : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -651,11 +1154,26 @@
  * from peer device with the following values as parameters in the
  * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_JOIN_CALL_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Write Response received
- * \param [in] ccp_data  NULL \n
- * \param [in] ccp_datalen  0
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_JOIN_CALL_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Write Response received \n
+ *                        \ref GA_FAILURE : No/Error Response received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or any other : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS or \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -675,13 +1193,25 @@
  * Provider Name characteristic from peer device with the following values as
  * parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_BRR_PROVIDER_NAME_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data: Represents a UTF-8 String
- *                       datalen: Length of UTF-8 String
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_BRR_PROVIDER_NAME_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a UTF-8 String \n
+ *                         - datalen - Varies (Length of UTF-8 String) \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -692,14 +1222,26 @@
  * Technology characteristic from peer device with the following values as
  * parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_BRR_TECH_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data: Represents a \ref UINT8,
- *                       Refer \ref ga_ccp_se_constants
- *                       datalen: Length of \ref UINT8
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_BRR_TECH_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a \ref UINT8, \n
+ *                                  Refer \ref ga_ccp_se_constants \n
+ *                         - datalen - 1 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -710,13 +1252,26 @@
  * Signal Strength characteristic from peer device with the following values as
  * parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_BRR_SIG_STRNTH_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data: Represents a \ref UINT8
- *                       datalen: Length of \ref UINT8
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_BRR_SIG_STRNTH_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a \ref UINT8 \n
+ *                           Refer \ref ga_ccp_se_constants \n
+ *                         - datalen - 1 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -727,27 +1282,48 @@
  * current calls characteristic from peer device with the following values as
  * parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_BRR_LIST_CUR_CALLS_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO ,
- *                       data: If calls are present in the current call list: \n
- *                          - Pointer to \ref CCP_EVENT_INFO with format
- *                            as below:
- *                               - List_Item_Length ( \ref UINT8 ) \n
- *                               - Call_Index ( \ref UINT8 ) \n
- *                               - Call_State ( \ref UINT8 ) \n
- *                                 \ref ga_ccp_se_constants
- *                               - Call_Flags ( \ref UINT8 ) \n
- *                                 \ref ga_ccp_se_constants
- *                               - Call_URI (UTF-8 string) \n
- *                               .
- *                          .
- *                        datalen: 3 + length of UTF-8 String
- *                       Else, \n
- *                       data: NULL \n
- *                       datalen: 0 \n
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_BRR_LIST_CUR_CALLS_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                      If call(s) are present in the current call list,
+ *                      then for each call in the list: \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - For each call in the current call list \n
+ *                            - List_Item_Length ( \ref UINT8 ) \n
+ *                            - Call_Index ( \ref UINT8 ) \n
+ *                            - Call_State ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            - Call_Flags ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            - Call_URI (UTF-8 string) \n
+ *                            .
+ *                         - datalen - Varies (For each call in the current
+ *                                     call list: 3 + length of UTF-8 String) \n
+ *                         .
+ *                      Else if there is no call present : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -758,12 +1334,25 @@
  * Flags characteristic from peer device with the following values as
  * parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_STATUS_FLAGS_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO ,
- *                       expressed as \ref UINT16
- * \param [in] ccp_datalen  \ref sizeof ( \ref UINT16 )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_STATUS_FLAGS_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a \ref UINT16 \n
+ *                         - datalen - 2 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -774,18 +1363,32 @@
  * Call Target Bearer characteristic from peer device with the following values
  * as parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_INCALL_TRGT_BRR_URI_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                       data:
- *                          - Call_Index ( \ref UINT8 ) \n
- *                          - Incoming_Call_Target_URI (UTF-8 string) \n
- *                          .
- *                       datalen: Length of \ref UINT8 + Length of UTF-8 String
- * \param [in] ccp_datalen  sizeof( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_INCALL_TRGT_BRR_URI_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data
+ *                            - Call_Index ( \ref UINT8 ) \n
+ *                            - Incoming_Call_Target_URI (UTF-8 string) \n
+ *                            .
+ *                         - datalen - Varies (1 + Length of UTF-8 String ) \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
+ *
+ * \note An example of the Incoming_Call_Target_URI is "tel:+15025551212"
  */
 #define CCP_CE_INCALL_TRGT_BRR_URI_NTF                  0x1FU
 
@@ -794,24 +1397,47 @@
  * characteristic from peer device with the following values as parameters in
  * the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_CALL_STATE_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  If active calls are present in the call list: \n
- *                          - Pointer to \ref CCP_EVENT_INFO,
- *                            data:
- *                               - Call_Index ( \ref UINT8 ) \n
- *                               - Call_State ( \ref UINT8 )
- *                                 \ref ga_ccp_se_constants \n
- *                               - Call_Flags ( \ref UINT8 )
- *                                 \ref ga_ccp_se_constants \n
- *                               .
- *                            datalen: 3
- *                          .
- *                       Else,
- *                            data:  NULL \n
- *                            datalen: 0
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_CALL_STATE_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                      If call(s) are present in the current call list,
+ *                      then for each call in the list: \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - For each call in the current call list \n
+ *                            - Call_Index ( \ref UINT8 ) \n
+ *                            - Call_State ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            - Call_Flags ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            .
+ *                         - datalen - 3 * Num of calls(s), For each call in the
+ *                                     current call list: 3 \n
+ *                         .
+ *                      Else if there is no call present in the current call
+ *                      list: \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -822,19 +1448,31 @@
  * Control Point characteristic from peer device with the following values as
  * parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_CALL_CP_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                            data:
- *                               - Requested Opcode ( \ref UINT8 ) \n
- *                                 \ref ga_ccp_se_constants
- *                               - Call Index ( \ref UINT8 ) \n
- *                               - Result Code ( \ref UINT8 )
- *                                 \ref ga_ccp_se_constants \n
- *                               .
- *                            datalen: 3
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_CALL_CP_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which notification
+ *                                       is received. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data
+ *                            - Requested Opcode ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            - Call Index ( \ref UINT8 ) \n
+ *                            - Result Code ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            .
+ *                         - datalen - 3 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -845,17 +1483,29 @@
  * Termination reason characteristic from peer device with the following values
  * as parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_TERMINATION_REASON_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                            data:
- *                               - Call Index ( \ref UINT8 ) \n
- *                               - Reason Code ( \ref UINT8 )
- *                                 \ref ga_ccp_se_constants \n
- *                               .
- *                            datalen: 2
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_TERMINATION_REASON_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or : \n
+ *                         - srvc_type - Service Type for which notification
+ *                                       is received. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data
+ *                            - Call Index ( \ref UINT8 ) \n
+ *                            - Reason Code ( \ref UINT8 ) \n
+ *                              \ref ga_ccp_se_constants \n
+ *                            .
+ *                         - datalen - 2 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -866,14 +1516,27 @@
  * Call characteristic from peer device with the following values as parameters
  * in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_INCOMING_CALL_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                            data: Call_Index \ref UINT8
- *                                  URI - Represented as UTF-8 String \n
- *                            datalen: 1 + Length of UTF-8 string
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_INCOMING_CALL_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data
+ *                            - Call_Index ( \ref UINT8) \n
+ *                            - URI (UTF-8 String) \n
+ *                         - datalen: Varies (1 + Length of UTF-8 string) \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -884,14 +1547,27 @@
  * Friendly Name characteristic from peer device with the following values as
  * parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_CALL_FRIENDLY_NAME_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                          data: Call_Index ( \ref UINT8 ) \n
- *                                Friendly_Name (UTF-8 string) \n
- *                          datalen: 1 + Length of UTF-8 string
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_CALL_FRIENDLY_NAME_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data
+ *                            - Call_Index ( \ref UINT8 ) \n
+ *                            - Friendly_Name (UTF-8 string) \n
+ *                         - datalen: Varies (1 + Length of UTF-8 string) \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -902,15 +1578,26 @@
  * Bearer URI Schemes Supported List characteristic from peer device with the
  * following values as parameters in the \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_BRR_URI_SCHMS_LIST_NTF
- * \param [in] ccp_status  \ref GA_SUCCESS : Notification received
- * \param [in] ccp_data  Pointer to \ref CCP_EVENT_INFO,
- *                          data: Call_Index ( \ref UINT8 ) \n
- *                                Bearer URI Schemes Supported List
-                                  (UTF-8 string) \n
- *                          datalen: 1 + Length of UTF-8 string
- * \param [in] ccp_datalen  sizeof ( \ref CCP_EVENT_INFO )
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_BRR_URI_SCHMS_LIST_NTF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Notification received \n
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - Represents a UTF-8 String, \n
+ *                                  Refer \ref ga_ccp_se_constants \n
+ *                         - datalen - Varies (Length of UTF-8 String) \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -928,16 +1615,29 @@
 /**
  * \brief This event is notified when a GTBS Service context is released.
  * Configuration of Notifications for char are disabled and followed by release
- * of GTBS context.
+ * of GTBS context. \n
  * Callback is triggered with the following values as parameters in the
  * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RELEASE_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Release completed \n
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RELEASE_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Release completed \n
  *                        \ref GA_FAILURE : Release Failed \n
- * \param [in] ccp_data  NULL \n
- * \param [in] ccp_datalen  0
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or any other : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_GTBS for GTBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -946,16 +1646,29 @@
 /**
  * \brief This event is notified when a TBS Service context is released.
  * Configuration of Notifications for char are disabled and followed by release
- * of TBS context.
+ * of TBS context. \n
  * Callback is triggered with the following values as parameters in the
  * \ref CCP_CE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] ccp_event  \ref CCP_CE_RELEASE_TBS_CNF
- * \param [in] ccp_status  \ref GA_SUCCESS : Release completed \n
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] ccp_event \ref CCP_CE_RELEASE_TBS_CNF \n
+ * \param [in] ccp_status \ref GA_SUCCESS : Release completed \n
  *                        \ref GA_FAILURE : Release Failed \n
- * \param [in] ccp_data  NULL \n
- * \param [in] ccp_datalen  0
+ * \param [in] ccp_data Pointer to object of type \ref CCP_EVENT_INFO \n
+ *                      If ccp_status is \ref GA_SUCCESS or any other : \n
+ *                         - srvc_type - Service Type for which event is
+ *                                       notified. \n
+ *                                       \ref CCP_SVS_TYPE_TBS for TBS \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified. \n
+ *                         - chr - Ignore \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] ccp_datalen If ccp_status is \ref GA_SUCCESS \ref GA_FAILURE \n
+ *                            - ccp_datalen - \ref sizeof \ref CCP_EVENT_INFO \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -971,7 +1684,7 @@
  */
 
 /**
- * \name CCP Client Constants - Call State Char Value
+ * \name Call State Char Value
  * \{
  * \brief This section lists the Call State characteristic value to be used as
  * defined in TBS specification.
@@ -1028,7 +1741,7 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - Termination Reason Char Value
+ * \name Termination Reason Char Value
  * \{
  * \brief This section lists the Termination Reason characteristic value to be
  * used, as defined in TBS specification.
@@ -1070,7 +1783,7 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - CCP_CP_OPCODES
+ * \name Control Point Opcodes
  * \{
  * \brief This section lists the type of CCP Opcodes used during CCP Write
  * request.
@@ -1093,7 +1806,7 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - Call_Flags Field Value
+ * \name Call_Flags Field Value
  * \{
  * \brief This section lists the CCP Call_Flags Field Value to be used as
  * defined in TBS specification.
@@ -1109,7 +1822,7 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - Uniform Call Identifier(UCI) Values
+ * \name Uniform Call Identifier(UCI) Values
  * \{
  * \brief This section lists the CCP Uniform Call Identifier(UCI) Values to be
  * used. \n
@@ -1184,10 +1897,10 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - Uniform Resource Identifier(URI) Values
+ * \name Uniform Resource Identifier(URI) Values
  * \{
- * \brief This section lists the CCP Uniform Resource Identifier(URI) Values to be
- * used. \n Defined in Assigned numbers.
+ * \brief This section lists the CCP Uniform Resource Identifier(URI) Values to
+ * be used. \n Defined in Assigned numbers.
  * \note Took only the selected URI, as there are too many Id's
  */
 
@@ -1199,7 +1912,7 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - Bearer Technology ID
+ * \name Bearer Technology ID
  * \{
  * \brief This section lists the Bearer Technology IDs used as defined in
  * Assigned numbers.
@@ -1229,14 +1942,14 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - Bearer Signal Strength
+ * \name Bearer Signal Strength
  * \{
  * \brief This section lists the Bearer Signal Strength
  */
 
 /** CCP Bearer Signal Strength: No Service */
 #define CCP_BRR_SIG_NO_SERVICE                          0x00U
-/** CCP Signal Strength - Max Strength */
+/** CCP Signal Strength: Max Strength */
 #define CCP_BRR_SIG_MAX_STRENGTH                        0x64U
 /** CCP Bearer Signal Strength: Unavailable */
 #define CCP_BRR_SIG_UNAVAILABLE                         0xFFU
@@ -1244,7 +1957,21 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - Service Type
+ * \name Bearer Signal Strength Reporting Interval Range
+ * \{
+ * \brief This section lists the valid range for Bearer Signal Strength
+ * Reporting Interval
+ */
+
+/** CCP Bearer Signal Strength Reporting Interval: Minimum */
+#define CCP_BRR_SIG_STRENGTH_RPT_INTVAL_MIN             0x00U
+/** CCP Bearer Signal Strength Reporting Interval: Maximum */
+#define CCP_BRR_SIG_STRENGTH_RPT_INTVAL_MAX             0xFFU
+
+/** \} */
+
+/**
+ * \name Service Type
  * \{
  * \brief This section lists the CCP service types used as defined in
  * TBS specification.
@@ -1258,7 +1985,7 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - CCP_CP Result Code
+ * \name Control Point Result Code
  * \{
  * \brief This section lists the type of CCP Result Codes used
  * as defined in TBS Specification.
@@ -1310,16 +2037,16 @@
 /** \} */
 
 /**
- * \name CCP Client Constants - Application Error Codes
+ * \name CCP - Application Error Codes
  * \{
  * \brief This section describes application error codes,
  * as defined in TBS Specification.
  */
 
 /**
-  * Value Changed During Read Long - A characteristic value has changed while
-  * a Read Long Value Characteristic sub-procedure is in progress
-  */
+ * A characteristic value has changed while a Read Long Value Characteristic
+ * sub-procedure is in progress.
+ */
 #define CCP_ERR_CODE_VALUE_CHANGED_DURING_READ_LONG                  0x80U
 
 /** \} */
@@ -1338,7 +2065,7 @@
 typedef UCHAR   CCP_HANDLE;
 
 /** CCP Event Information */
-typedef struct _CCP_EVENT_INFO_
+typedef struct _CCP_EVENT_INFO
 {
     /** Service Type */
     UCHAR srvc_type;
@@ -1383,7 +2110,7 @@ typedef struct _CCP_RSP_INFO
  */
 
 /**
- * \defgroup ga_ccp_ce_cb CCP CE (Call Control Profile) Client Entity
+ * \defgroup ga_ccp_ce_cb Call Control Client
  * \{
  * \brief This section describes the application callback for CCP CE.
  *
@@ -1426,7 +2153,7 @@ extern "C" {
  */
 
 /**
- * \defgroup ga_ccp_api_seq CCP API Sequences
+ * \defgroup ga_ccp_api_seq API Sequences
  * \{
  * \brief This section describes the Call Control Profile API Sequences.
  * MSC depicting the flow of APIs and Events.
@@ -1443,7 +2170,7 @@ extern "C" {
  */
 
 /**
- * \defgroup ga_ccp_ce_module_api CCP CE (Call Control Profile) Client Entity
+ * \defgroup ga_ccp_ce_module_api Call Control Client
  * \{
  * \brief This section describes the Call Control Profile APIs
  * for Client.
@@ -1493,7 +2220,7 @@ GA_RESULT GA_ccp_ce_init(/* IN */ CCP_CE_NTF_CB cb);
  *         Peer Device Address Information.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_DISCOVER_TBS_CNF event
  *          will be triggered.
  *
@@ -1525,7 +2252,7 @@ GA_RESULT GA_ccp_ce_discover_tbs
  *         GTBS transactions with the peer device.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_SETUP_CNF event will be triggered.
  *
  *  \sa ga_ccp_error_code
@@ -1551,8 +2278,10 @@ GA_RESULT GA_ccp_ce_setup_context
  *  \param [in] config
  *         Bitmask of the Characteristic IDs for configuration
  *
- *  \return GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
- *  \ref
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *
+ *  \sa ga_ccp_error_code
  */
 GA_RESULT GA_ccp_ce_update_ntf_configuration(UINT32 config);
 #endif /* CCP_SUPPORT_CONFIG_SELECTION */
@@ -1573,7 +2302,7 @@ GA_RESULT GA_ccp_ce_update_ntf_configuration(UINT32 config);
  *         Peer Device Address Information.
  *
  *  \param [in] srvs_info
- *          TBS service information, containing the service handle range.
+ *         TBS service information, containing the service handle range.
  *
  *  \param [out] handle
  *         Allocated CCP handle for TBS.
@@ -1581,7 +2310,7 @@ GA_RESULT GA_ccp_ce_update_ntf_configuration(UINT32 config);
  *         transactions with the peer device.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_SETUP_TBS_CNF event
  *          will be notified.
  *
@@ -1613,7 +2342,7 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_BRR_PROVIDER_NAME_CNF event
  *          will be notified.
  *
@@ -1637,11 +2366,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_BRR_UCI_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_get_brr_uci(handle)                               \
@@ -1662,11 +2391,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_BRR_TECH_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_get_brr_technology(handle)                        \
@@ -1686,11 +2415,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_BRR_URI_SCHMS_LIST_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_get_brr_uci_schemes_supported_list(handle)        \
@@ -1710,7 +2439,7 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_BRR_SIG_STRNTH_CNF event
  *          will be notified.
  *
@@ -1727,14 +2456,14 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *  \brief To get Bearer Signal Strength Reporting Interval.
  *
  *  \par Description:
- *       This function enables to get the Bearer Signal Strength Reporting Interval
- *       (in seconds).
+ *       This function enables to get the Bearer Signal Strength Reporting
+ *       Interval (in seconds).
  *
  *  \param [in] handle
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_BRR_SIG_STRTH_RPT_INTVAL_CNF
  *          event will be notified.
  *
@@ -1757,7 +2486,7 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_BRR_LIST_CUR_CALLS_CNF event
  *          will be notified.
  *
@@ -1781,7 +2510,7 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_CNTNT_CTRL_ID_CNF event
  *          will be notified.
  *
@@ -1805,7 +2534,7 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_STATUS_FLAGS_CNF event
  *          will be notified.
  *
@@ -1829,11 +2558,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_INCALL_TRGT_BRR_URI_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_get_incall_trgt_brr_uri(handle)                   \
@@ -1855,11 +2584,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_CALL_STATE_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_get_call_state(handle)                            \
@@ -1880,7 +2609,7 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_CALL_CP_OPT_OPCODES_CNF event
  *          is notified.
  *
@@ -1904,11 +2633,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_INCOMING_CALL_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_get_incoming_call(handle)                         \
@@ -1929,7 +2658,7 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_RD_CALL_FRIENDLY_NAME_CNF event
  *          will be notified.
  *
@@ -1963,15 +2692,15 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         Pointer to the signal strength value.
  *
  *  \param [in] wwr
- *         Flag to indicate Write or Write without Response.
- *          1 -> Write without response
- *          0 -> Write
+ *         Flag to indicate Write or Write without Response. \n
+ *         1 -> Write without response \n
+ *         0 -> Write \n
  *
  *  \param [in] datalen
  *         Length of the signal strength value.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_SET_BRR_SIG_STRTH_RPT_INTVAL_CNF
  *          event is notified.
  *
@@ -1998,9 +2727,9 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \param [in] wwr
- *         Flag to indicate Write or Write without Response.
- *          1 -> Write without response
- *          0 -> Write
+ *         Flag to indicate Write or Write without Response. \n
+ *         1 -> Write without response \n
+ *         0 -> Write \n
  *
  *  \param [in] data
  *         Pointer to the call index to be accepted.
@@ -2009,11 +2738,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         Parameter Length, one octet.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_ACCEPT_CALL_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_accept_call(handle, wwr, data, datalen)                   \
@@ -2037,9 +2766,9 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \param [in] wwr
- *         Flag to indicate Write or Write without Response.
- *          1 -> Write without response
- *          0 -> Write
+ *         Flag to indicate Write or Write without Response. \n
+ *         1 -> Write without response \n
+ *         0 -> Write \n
  *
  *  \param [in] data
  *         Pointer to the call index to be terminated.
@@ -2048,11 +2777,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         Parameter Length, one octet.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_TERMINATE_CALL_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_terminate_call(handle, wwr, data, datalen)                \
@@ -2076,9 +2805,9 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \param [in] wwr
- *         Flag to indicate Write or Write without Response.
- *          1 -> Write without response
- *          0 -> Write
+ *         Flag to indicate Write or Write without Response. \n
+ *         1 -> Write without response \n
+ *         0 -> Write \n
  *
  *  \param [in] data
  *         Pointer to the call index to Local Hold.
@@ -2087,11 +2816,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         Parameter Length, one octet.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_LOCAL_HOLD_CALL_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_call_local_hold(handle, wwr, data, datalen)               \
@@ -2115,9 +2844,9 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \param [in] wwr
- *         Flag to indicate Write or Write without Response.
- *          1 -> Write without response
- *          0 -> Write
+ *         Flag to indicate Write or Write without Response. \n
+ *         1 -> Write without response \n
+ *         0 -> Write \n
  *
  *  \param [in] data
  *         Pointer to the call index to Local Hold.
@@ -2126,11 +2855,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         Parameter Length, one octet.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_LOCAL_RETRIEVE_CALL_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_call_local_retrieve(handle, wwr, data, datalen)           \
@@ -2154,9 +2883,9 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \param [in] wwr
- *         Flag to indicate Write or Write without Response.
- *          1 -> Write without response
- *          0 -> Write
+ *         Flag to indicate Write or Write without Response. \n
+ *         1 -> Write without response \n
+ *         0 -> Write \n
  *
  *  \param [in] data
  *         Pointer to the buffer, that contains URI of the outgoing call.
@@ -2165,11 +2894,11 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         Parameter Length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_ORGINATE_CALL_CNF event
  *          will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_originate_call(handle, wwr, data, datalen)                \
@@ -2192,9 +2921,9 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \param [in] wwr
- *         Flag to indicate Write or Write without Response.
- *          1 -> Write without response
- *          0 -> Write
+ *         Flag to indicate Write or Write without Response. \n
+ *         1 -> Write without response \n
+ *         0 -> Write \n
  *
  *  \param [in] data
  *         Pointer to the buffer containing, the list of call index to be
@@ -2204,10 +2933,10 @@ GA_RESULT GA_ccp_ce_setup_tbs_context
  *         Parameter Length, one octet.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          On \ref GA_SUCCESS, \ref CCP_CE_JOIN_CALL_CNF will be notified.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_ce_join_call(handle, wwr, data, datalen)                     \
@@ -2271,13 +3000,14 @@ GA_RESULT ccp_ce_read_request
  *         CCP Handle which is allocated during GTBS/TBS context setup.
  *
  *  \param [in] tbs_cp_op
- *         Control Point Opcode.
- *         - 0xFF, indicate the operation is characteristic write.
+ *         Control Point Opcode. \n
+ *            - 0xFF, indicate the operation is characteristic write. \n
+ *            .
  *
  *  \param [in] wwr
- *         Flag to indicate Write or Write Without Response.
- *          1 -> Write without response
- *          0 -> Write
+ *         Flag to indicate Write or Write Without Response. \n
+ *         1 -> Write without response \n
+ *         0 -> Write \n
  *
  *  \param [in] tbs_cp_req_data
  *         Pointer to data containing the Control Point write or
@@ -2314,7 +3044,8 @@ GA_RESULT ccp_ce_write_request
  *  \brief Interface to Get/Set the CCP Context Information.
  *
  *  \par Description:
- *       This function enables to get/set the context information of given GTBS/TBS.
+ *       This function enables to get/set the context information of given
+ *       GTBS/TBS.
  *
  *  \param [in] set
  *         Flag to indicate get/set the context information.
@@ -2329,12 +3060,15 @@ GA_RESULT ccp_ce_write_request
  *         GTBS/TBS characteristics handle range.
  *
  *  \param [inout] info
- *          GTBS/TBS characteristics information.
+ *         GTBS/TBS characteristics information.
  *
  *  \param [inout] info_count
- *          GTBS/TBS characteristics count.
+ *         GTBS/TBS characteristics count.
  *
- *  \return GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_ccp_error_code
  */
 GA_RESULT GA_ccp_ce_manage_context_info
           (
@@ -2350,7 +3084,8 @@ GA_RESULT GA_ccp_ce_manage_context_info
  *  \brief Interface to Get the CCP Context Information.
  *
  *  \par Description:
- *       This function enables to get the context information of given GTBS/TBS.
+ *       This function enables to get the context information of given
+ *       GTBS/TBS.
  *
  *  \param [in] d
  *         Remote Device Address.
@@ -2362,19 +3097,30 @@ GA_RESULT GA_ccp_ce_manage_context_info
  *         GTBS/TBS characteristics handle range.
  *
  *  \param [inout] i
- *          GTBS/TBS characteristics information.
+ *         GTBS/TBS characteristics information.
  *
  *  \param [inout] c
- *          GTBS/TBS characteristics count.
+ *         GTBS/TBS characteristics count.
  *
- *  \return GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note
- *       Before calling this interface, the application is expected to setup the GTBS/TBS context
- *       by calling \ref GA_ccp_ce_setup_context() or \ref GA_ccp_ce_setup_tbs_context().
+ *  \note Before calling this interface, the application is expected to setup
+ *        the GTBS/TBS context by calling \ref GA_ccp_ce_setup_context() or
+ *        \ref GA_ccp_ce_setup_tbs_context().
+ *
+ *  \sa ga_ccp_error_code
  */
-#define GA_ccp_ce_get_context_info(d, h, r, i, c) \
-        GA_ccp_ce_manage_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_ccp_ce_get_context_info(d, h, r, i, c)               \
+        GA_ccp_ce_manage_context_info                           \
+        (                                                       \
+            GA_FALSE,                                           \
+            (d),                                                \
+            (h),                                                \
+            (r),                                                \
+            (i),                                                \
+            (c)                                                 \
+        )
 
 /**
  *  \brief Interface to Set the CCP Context Information.
@@ -2392,19 +3138,30 @@ GA_RESULT GA_ccp_ce_manage_context_info
  *         GTBS/TBS characteristics handle range.
  *
  *  \param [inout] i
- *          GTBS/TBS characteristics information.
+ *         GTBS/TBS characteristics information.
  *
  *  \param [inout] c
- *          GTBS/TBS characteristics count.
+ *         GTBS/TBS characteristics count.
  *
- *  \return GA_SUCCESS or one of the error codes as defined in \ref GA_error.h.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
  *
- *  \note
- *       Before calling this interface, the application is expected to save the GTBS/TBS context
- *       information by calling \ref GA_ccp_ce_get_context_info().
+ *  \note Before calling this interface, the application is expected to save
+ *        the GTBS/TBS context information by calling
+ *        \ref GA_ccp_ce_get_context_info().
+ *
+ *  \sa ga_ccp_error_code
  */
-#define GA_ccp_ce_set_context_info(d, h, r, i, c) \
-        GA_ccp_ce_manage_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_ccp_ce_set_context_info(d, h, r, i, c)               \
+        GA_ccp_ce_manage_context_info                           \
+        (                                                       \
+            GA_TRUE,                                            \
+            (d),                                                \
+            (h),                                                \
+            (r),                                                \
+            (i),                                                \
+            (c)                                                 \
+        )
 #endif /* CCP_SUPPORT_CONTEXT_MANAGE */
 
 /**
@@ -2421,123 +3178,166 @@ GA_RESULT GA_ccp_ce_manage_context_info
  */
 
 /**
- *  \brief Release or free the given GTBS context.
+ *  \brief Close or Release the given CCP context.
  *
- *  \par Description
- *  When 'free' is set to \ref GA_FALSE, this routine initiates the release
- *  procedure for the context. Once release is done, the context is freed up
- *  and the setup must be freshly done by calling
- *  \ref GA_ccp_ce_setup_context if required for
- *  the same device again.
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_ccp_ce_setup_context() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure. Any associated TBS
+ *       contexts should be freed by the application before calling this
+ *       function.
  *
- *  If the 'free' parameter is set to \ref GA_TRUE,
- *  this API just frees up the context without the release procedure.
- *  If the given handle is GTBS Handle, any related TBS contexts shall be
- *  freed by the application before freeing up the GTBS context.
- *  If the given handle is a TBS Handle, the respective TBS context is freed.
+ *  \param [in] handle
+ *         CCP Context for the endpoint to be released/freed.
  *
- *  \param [in] context Context to be released/freed
- *  \param [in] free Indicate free only without release
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *          If \ref GA_SUCCESS, \ref  is notified on
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref CCP_CE_RELEASE_CNF is notified on
  *          completion with status as success or failure.
+ *
+ *  \sa ga_ccp_error_code
  */
 GA_RESULT GA_ccp_ce_terminate
           (
               /* IN */ CCP_HANDLE handle,
-              /* IN */ UCHAR      free
+              /* IN */ UCHAR      release
           );
 
 /**
- *  \brief Release the given GA context.
+ *  \brief Release the given CCP context.
  *
- *  \par Description
- *  This routine initiates the release procedure for the context. Once release
- *  is done, the context is freed up and the setup must be freshly done by
- *  calling \ref GA_ccp_ce_setup_context if required for the same device again.
+ *  \par Description:
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_ccp_ce_setup_context() if required for the
+ *       same device again. Any associated TBS contexts should be
+ *       released/freed by the application before calling this function.
  *
- *  \param [in] context Context to be released
+ *  \param [in] ctx
+ *         CCP Context for the endpoint to be released.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref CCP_CE_RELEASE_CNF is notified on
  *          completion with status as success or failure.
+ *
+ *  \sa ga_ccp_error_code
  */
-#define GA_ccp_ce_release(ctx) \
-        GA_ccp_ce_terminate((ctx), GA_FALSE)
+#define GA_ccp_ce_release(ctx)              \
+        GA_ccp_ce_terminate                 \
+        (                                   \
+            (ctx),                          \
+            GA_TRUE                         \
+        )
 
 /**
- *  \brief Free the given GTBS context.
+ *  \brief Free the given CCP context.
  *
- *  \par Description
- *  This routine frees up the given context of the GA layer.
- *  If the given handle is GTBS Handle, any related TBS contexts shall be
- *  freed by the application before freeing up the GTBS context.
- *  If the given handle is a TBS Handle, the respective TBS context is freed.
+ *  \par Description:
+ *       This routine frees up the given context of the CCP. Any associated
+ *       TBS contexts should be released/freed by the application before
+ *       calling this function.
  *
- *  \param [in] context Context to be freed
+ *  \param [in] ctx
+ *         CCP Context for the endpoint to be freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_ccp_error_code
  */
-#define GA_ccp_ce_close(ctx) \
-        GA_ccp_ce_terminate((ctx), GA_TRUE)
+#define GA_ccp_ce_close(ctx)                \
+        GA_ccp_ce_terminate                 \
+        (                                   \
+            (ctx),                          \
+            GA_FALSE                        \
+        )
 
 /**
- *  \brief Release or free the given TBS context.
+ *  \brief Close or Release the given TBS context.
  *
- *  \par Description
- *  When 'free' is set to \ref GA_FALSE, this routine initiates the release
- *  procedure for the context. Once release is done, the context is freed up
- *  and the setup must be freshly done by calling
- *  \ref GA_ccp_ce_setup_tbs_context if required for
- *  the same device again.
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_ccp_ce_setup_tbs_context() if required for
+ *       the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
  *
- *  If the 'free' parameter is set to \ref GA_TRUE,
- *  this API just frees up the context without the release procedure.
+ *  \param [in] handle
+ *         TBS Context for the endpoint to be released/freed.
  *
- *  \param [in] context Context to be released/freed
- *  \param [in] free Indicate free only without release
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *          If \ref GA_SUCCESS, \ref  is notified on
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref CCP_CE_RELEASE_TBS_CNF is notified on
  *          completion with status as success or failure.
+ *
+ *  \sa ga_ccp_error_code
  */
 GA_RESULT GA_ccp_ce_terminate_tbs
           (
               /* IN */ CCP_HANDLE handle,
-              /* IN */ UCHAR      free
+              /* IN */ UCHAR      release
           );
 
 /**
- *  \brief Release the given GA context.
+ *  \brief Release the given TBS context.
  *
- *  \par Description
- *  This routine initiates the release procedure for the context. Once release
- *  is done, the context is freed up and the setup must be freshly done by
- *  calling \ref GA_ccp_ce_setup_tbs_context if required for the same device
- *  again.
+ *  \par Description:
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_ccp_ce_setup_tbs_context() if required for the
+ *       same device again.
  *
- *  \param [in] context Context to be released
+ *  \param [in] ctx
+ *         TBS Context for the endpoint to be released.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref CCP_CE_RELEASE_TBS_CNF is notified on
  *          completion with status as success or failure.
+ *
+ *  \sa ga_ccp_error_code
  */
-#define GA_ccp_ce_release_tbs(ctx) \
-        GA_ccp_ce_terminate_tbs((ctx), GA_FALSE)
+#define GA_ccp_ce_release_tbs(ctx)          \
+        GA_ccp_ce_terminate_tbs             \
+        (                                   \
+            (ctx),                          \
+            GA_TRUE                         \
+        )
 
 /**
- *  \brief Free the given GA context.
+ *  \brief Free the given TBS context.
  *
- *  \par Description
- *  This routine frees up the given context of the TBS.
+ *  \par Description:
+ *       This routine frees up the given context of the TBS.
  *
- *  \param [in] context Context to be freed
+ *  \param [in] ctx
+ *         TBS Context for the endpoint to be freed.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h.
+ *
+ *  \sa ga_ccp_error_code
  */
-#define GA_ccp_ce_close_tbs(ctx) \
-        GA_ccp_ce_terminate_tbs((ctx), GA_TRUE)
+#define GA_ccp_ce_close_tbs(ctx)            \
+        GA_ccp_ce_terminate_tbs             \
+        (                                   \
+            (ctx),                          \
+            GA_FALSE                        \
+        )
 
 /** \} */
 

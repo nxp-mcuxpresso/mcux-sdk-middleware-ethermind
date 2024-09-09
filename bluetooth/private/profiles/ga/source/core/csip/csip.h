@@ -149,10 +149,10 @@ typedef void (* CSIP_SIRK_CB)
  */
 
  /** Set Member Lock - Unlocked */
-#define CSIP_SET_MEMBER_LOCK_UNLOCKED    0x01
+#define CSIP_SET_MEMBER_LOCK_UNLOCKED    0x01U
 
 /** Set Member Lock - Locked */
-#define CSIP_SET_MEMBER_LOCK_LOCKED      0x02
+#define CSIP_SET_MEMBER_LOCK_LOCKED      0x02U
 
 /** \} */
 
@@ -164,13 +164,13 @@ typedef void (* CSIP_SIRK_CB)
  */
 
 /** SIRK Type - Encrypted SIRK */
-#define CSIP_SIRK_TYPE_ENCRYPTED         0x00
+#define CSIP_SIRK_TYPE_ENCRYPTED         0x00U
 
 /** SIRK Type - Plain text SIRK */
-#define CSIP_SIRK_TYPE_PLAIN_TEXT        0x01
+#define CSIP_SIRK_TYPE_PLAIN_TEXT        0x01U
 
 /** SIRK Type - OOB */
-#define CSIP_SIRK_TYPE_OOB               0x02
+#define CSIP_SIRK_TYPE_OOB               0x02U
 
 /** \} */
 
@@ -178,14 +178,14 @@ typedef void (* CSIP_SIRK_CB)
  * \defgroup ga_csip_coord_set_size CSIS Coordinated Set Size Values.
  * \{
  * This section lists the CSIS Coordinated Set Size Values.
- * As defined in CSIS Specification.
+ * As defined in CSIS Specification, ver 1.0.1.
  */
 
  /** Coordinated Set Size - Minimum */
-#define CSIP_SET_SIZE_MIN          0x02
+#define CSIP_SET_SIZE_MIN          0x01U
 
 /** Coordinated Set Size - Maximum */
-#define CSIP_SET_SIZE_MAX          0xFF
+#define CSIP_SET_SIZE_MAX          0xFFU
 
 /** \} */
 
@@ -378,22 +378,34 @@ GA_RESULT CSIP_setup_context
           );
 
 /**
- *  \brief To Release Coordinated Set Idenitfucation Profile (CSIP) Context
+ *  \brief Close or Release the given CSIP context.
  *
  *  \par Description:
- *       This function enables to release the given CSIP context.
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref GA_cs_setup if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
  *
  *  \param [in] ci
- *       CSIP Context Handle.
+ *         CSIP Context for the endpoint to be released/freed.
  *
- *  \return API_SUCCESS or an error code indicating reason for failure
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \note This function internally disables notifications and invokes CSIP_RELEASE_CNF
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref GA_CS_RELEASE_CNF is notified on
+ *          completion with status as success or failure.
+ *
+ *  \sa ga_csip_error_code
  */
 GA_RESULT CSIP_release_context
           (
               /* IN */ CSIP_HANDLE ci,
-              /* IN */ UCHAR free
+              /* IN */ UCHAR release
           );
 
 

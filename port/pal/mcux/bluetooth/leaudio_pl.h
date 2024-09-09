@@ -49,6 +49,20 @@ API_RESULT leaudio_setup_pl_ext
 API_RESULT  leaudio_start_pl_ext (UCHAR ep);
 API_RESULT   leaudio_stop_pl_ext (UCHAR ep);
 void leaudio_write_pl_ext (UCHAR ep, UCHAR * m_data, UINT16 m_datalen);
-void le_audio_pl_iso_tx_delay (void);
+
+
+void le_audio_codec_setabsvol_pl(UCHAR volume);
+void le_audio_codec_setmute_pl();
+void le_audio_codec_setunmute_pl();
+
+#if defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)
+void le_audio_set_sync_info_pl (UINT8 ep, UINT8 evt, void *sync_data);
+#endif /*defined(LE_AUDIO_SINK_SYNC_ENABLE) && (LE_AUDIO_SINK_SYNC_ENABLE > 0)*/
+
+#if defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)
+void le_audio_pl_sync_stop(void);
+UINT32 le_audio_pl_get_sdu_timestamp (UINT32 seq_num);
+API_RESULT le_audio_pl_validate_next_timestamp (void);
+#endif /*defined(LE_AUDIO_SRC_SYNC_ENABLE) && (LE_AUDIO_SRC_SYNC_ENABLE > 0)*/
 
 #endif /* _H_LEAUDIO_PL_*/

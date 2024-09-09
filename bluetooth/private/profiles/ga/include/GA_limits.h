@@ -31,17 +31,17 @@
  */
 
 /**
- * \addtogroup ga_bap_module
+ * \addtogroup ga_common_module
  * \{
  */
 
 /**
- * \addtogroup ga_bap_defines
+ * \addtogroup ga_common_defines
  * \{
  */
 
 /**
- * \addtogroup ga_bap_constants
+ * \addtogroup ga_common_constants
  * \{
  */
 
@@ -70,7 +70,7 @@
  *  Maximum Value: As required \n
  *  Dynamic: Yes \n
  */
-#define GA_MAX_SOURCE_PAC_RECORDS                       2U
+#define GA_MAX_SOURCE_PAC_RECORDS                       3U
 
 /**
  *  This parameter defines the maximum number of capability records
@@ -80,7 +80,7 @@
  *  Maximum Value: As required \n
  *  Dynamic: Yes \n
  */
-#define GA_MAX_SINK_PAC_RECORDS                         2U
+#define GA_MAX_SINK_PAC_RECORDS                         3U
 
 /**
  *  This parameter defines the maximum number of Audio Stream Endpoints
@@ -134,7 +134,7 @@
  *  Maximum Value: As required \n
  *  Dynamic: Yes \n
  */
-#define GA_MAX_SOURCE_STREAM_CONTEXTS                   4U
+#define GA_MAX_SOURCE_STREAM_CONTEXTS                   6U
 
 /**
  *  This parameter defines the maximum number of sink stream contexts that
@@ -147,7 +147,7 @@
  *  Maximum Value: As required \n
  *  Dynamic: Yes \n
  */
-#define GA_MAX_SINK_STREAM_CONTEXTS                     4U
+#define GA_MAX_SINK_STREAM_CONTEXTS                     6U
 
 /**
  *  This parameter defines the maximum number of Content Control Services
@@ -335,7 +335,7 @@
  *  Maximum Value: As required \n
  *  Dynamic: Yes \n
  */
-#define CSIP_MAX_CSIS_ENTITIES                          1U
+#define CSIP_MAX_CSIS_ENTITIES                          2U
 
 /**
  *  This parameter defines the maximum number Generic Telephony Bearer contexts

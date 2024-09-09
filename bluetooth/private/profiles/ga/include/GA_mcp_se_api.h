@@ -3,7 +3,7 @@
  *  \file GA_mcp_se_api.h
  *
  *  \brief This file defines the GA Media Control Profile(MCP)
- *  Server Entity(SE) Interface - includes Data Structures and Methods.
+ *  Server Interface - includes Data Structures and Methods.
  */
 
 /*
@@ -34,7 +34,7 @@
  * Generic Audio (GA) Content Control Profile module to the Application.
  */
 /**
- * \addtogroup bt_ga_mcp Media Control
+ * \addtogroup bt_ga_mcp Media Control Profile (MCP)
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
  * Generic Audio (GA) Profile Media Control module to the Application.
@@ -48,9 +48,40 @@
  */
 
 /**
- * \defgroup ga_mcp_se_module_def MCP SE (Media Control Profile) Server Entity
+ * \defgroup ga_mcp_common Common
  * \{
- * \brief This section describes the defines for MCP SE.
+ * \brief Describes common macros for the module.
+ */
+
+/**
+ * \defgroup ga_mcp_and_otp_error_code Error Codes
+ * \{
+ * \brief This section lists the Error Codes that are provided as part of
+ * return of functionalities of MCP and OTP
+ */
+
+/**
+ * \name MCP - Application Error Codes
+ * \{
+ * \brief This section describes application error codes,
+ * as defined in MCS Specification.
+ */
+
+/**
+ * A characteristic value has changed while a Read Long Value Characteristic
+ * sub-procedure is in progress.
+ */
+#define MCS_ERR_CODE_VALUE_CHANGED_DURING_READ_LONG     0x80
+
+/** \} */
+
+/** \} */
+/** \} */
+
+/**
+ * \defgroup ga_mcp_se_module_def Media Control Server
+ * \{
+ * \brief This section describes the defines for Server.
  */
 
 /**
@@ -89,26 +120,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_MEDIA_PLAYER_NAME_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_MEDIA_PLAYER_NAME_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                            - data - \ref UINT16 - Offset \n
+ *                            - len - \ref sizeof( \ref UINT16) -
+ *                              Offset Length \n
+ *                            .
+ *                         - Else, \n
+ *                           - data - NULL, Ignore \n
+ *                           - len - 0, Ignore \n
+ *                           .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -123,25 +157,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_MP_ICON_OBJ_ID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_MP_ICON_OBJ_ID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                            - data - \ref UINT16 - Offset \n
+ *                            - len - \ref sizeof( \ref UINT16) -
+ *                              Offset Length \n
+ *                            .
+ *                         - Else, \n
+ *                            - data - NULL, Ignore \n
+ *                            - len - 0, Ignore \n
+ *                            .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -156,25 +194,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_MP_ICON_URL_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_MP_ICON_URL_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                            - data - \ref UINT16 - Offset \n
+ *                            - len - \ref sizeof( \ref UINT16) -
+ *                              Offset Length \n
+ *                            .
+ *                         - Else, \n
+ *                            - data - NULL, Ignore \n
+ *                            - len - 0, Ignore \n
+ *                            .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -188,25 +230,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_TRACK_TITLE_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_TRACK_TITLE_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                            - data - \ref UINT16 - Offset \n
+ *                            - len - \ref sizeof( \ref UINT16) -
+ *                              Offset Length \n
+ *                            .
+ *                         - Else, \n
+ *                            - data - NULL, Ignore \n
+ *                            - len - 0, Ignore \n
+ *                            .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -220,25 +266,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_TRACK_DUR_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_TRACK_DUR_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT16 - Offset \n
+ *                              - len - \ref sizeof( \ref UINT16) -
+ *                                Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                     Else, \n
+ *                        - mcp_handle: MCP Handle for the Device \n
+ *                        - data - NULL, Ignore \n
+ *                        - len - 0, Ignore \n
+ *                        .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -252,25 +302,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_TRACK_POS_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_TRACK_POS_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                         If evt_status is \ref GA_SUCCESS : \n
+ *                            - mcp_handle: MCP Handle for the Device \n
+ *                            - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                              \ref GA_TRUE, \n
+ *                                 - data - \ref UINT16 - Offset \n
+ *                                 - len - \ref sizeof( \ref UINT16) -
+ *                                   Offset Length \n
+ *                                 .
+ *                            - Else, \n
+ *                                 - data - NULL, Ignore \n
+ *                                 - len - 0, Ignore \n
+ *                                 .
+ *                            .
+ *                         Else, \n
+ *                            - mcp_handle: MCP Handle for the Device \n
+ *                            - data - NULL, Ignore \n
+ *                            - len - 0, Ignore \n
+ *                            .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -284,25 +338,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_PLAYBACK_SPEED_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_PLAYBACK_SPEED_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT16 - Offset \n
+ *                              - len - \ref sizeof( \ref UINT16) -
+ *                                Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -316,25 +374,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_SEEKING_SPEED_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_SEEKING_SPEED_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT16 - Offset \n
+ *                              - len - \ref sizeof( \ref UINT16) -
+ *                                Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -349,25 +411,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_CURR_TRACK_SEG_OBJ_ID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_CURR_TRACK_SEG_OBJ_ID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT16 - Offset \n
+ *                              - len - \ref sizeof( \ref UINT16) -
+ *                                Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                             - data - NULL, Ignore \n
+ *                             - len - 0, Ignore \n
+ *                             .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -381,25 +447,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_CURR_TRACK_OBJ_ID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_CURR_TRACK_OBJ_ID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT16 - Offset \n
+ *                              - len - \ref sizeof( \ref UINT16) -
+ *                                Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -413,25 +483,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_NEXT_TRACK_OBJ_ID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_NEXT_TRACK_OBJ_ID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT16 - Offset \n
+ *                              - len - \ref sizeof( \ref UINT16) -
+ *                                Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -445,25 +519,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_PARENT_GROUP_OBJ_ID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_PARENT_GROUP_OBJ_ID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT16 - Offset \n
+ *                              - len - \ref sizeof( \ref UINT16) -
+ *                                Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -477,25 +555,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_CURR_GROUP_OBJ_ID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_CURR_GROUP_OBJ_ID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                               - data - \ref UINT16 - Offset \n
+ *                               - len - \ref sizeof( \ref UINT16) -
+ *                                 Offset Length \n
  *                               .
+ *                         - Else, \n
+ *                               - data - NULL, Ignore \n
+ *                               - len - 0, Ignore \n
+ *                               .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -510,25 +592,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_PLAYING_ORDER_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_PLAYING_ORDER_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                               - data - \ref UINT16 - Offset \n
+ *                               - len - \ref sizeof( \ref UINT16) -
+ *                                 Offset Length \n
  *                               .
+ *                         - Else, \n
+ *                               - data - NULL, Ignore \n
+ *                               - len - 0, Ignore \n
+ *                               .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -542,25 +628,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_PLAYING_ORDER_SUPP_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_PLAYING_ORDER_SUPP_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                               - data - \ref UINT16 - Offset \n
+ *                               - len - \ref sizeof( \ref UINT16) -
+ *                                 Offset Length \n
  *                               .
+ *                         - Else, \n
+ *                               - data - NULL, Ignore \n
+ *                               - len - 0, Ignore \n
+ *                               .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -578,21 +668,25 @@
  * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
  * \param [in] evt_id  \ref MCP_SE_READ_MEDIA_STATE_IND
  * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                               - data - \ref UINT16 - Offset \n
+ *                               - len - \ref sizeof( \ref UINT16) -
+ *                                 Offset Length \n
  *                               .
+ *                         - Else, \n
+ *                               - data - NULL, Ignore \n
+ *                               - len - 0, Ignore \n
+ *                               .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -610,21 +704,25 @@
  * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
  * \param [in] evt_id  \ref MCP_SE_READ_MCP_OPC_SUPP_IND
  * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                               - data - \ref UINT16 - Offset \n
+ *                               - len - \ref sizeof( \ref UINT16) -
+ *                                 Offset Length \n
  *                               .
+ *                         - Else, \n
+ *                               - data - NULL, Ignore \n
+ *                               - len - 0, Ignore \n
+ *                               .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -643,21 +741,25 @@
  * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
  * \param [in] evt_id  \ref MCP_SE_READ_SEARCH_RES_OBJ_ID_IND
  * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                               - data - \ref UINT16 - Offset \n
+ *                               - len - \ref sizeof( \ref UINT16) -
+ *                                 Offset Length \n
  *                               .
+ *                         - Else, \n
+ *                               - data - NULL, Ignore \n
+ *                               - len - 0, Ignore \n
+ *                               .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -672,25 +774,29 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_READ_CCID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 2, \n
- *                                   - data - \ref UINT16 - Offset \n
- *                                   - len - \ref sizeof( \ref UINT16) -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_READ_CCID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                               - data - \ref UINT16 - Offset \n
+ *                               - len - \ref sizeof( \ref UINT16) -
+ *                                 Offset Length \n
  *                               .
+ *                         - Else, \n
+ *                               - data - NULL, Ignore \n
+ *                               - len - 0, Ignore \n
+ *                               .
+ *                         .
+ *                      Else, \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -716,17 +822,17 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_WRITE_TRACK_POS_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref MCP_CHAR_PARAM_TYPE_INT32 - Track Position \n
- *                               - len - \ref sizeof( \ref MCP_CHAR_PARAM_TYPE_INT32 ) -
- *                                       Length of Track Position \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_WRITE_TRACK_POS_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref MCP_CHAR_PARAM_TYPE_INT32 - Track Position \n
+ *                         - len - \ref sizeof( \ref MCP_CHAR_PARAM_TYPE_INT32 ) -
+ *                           Length of Track Position \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -739,17 +845,17 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_WRITE_TRACK_PLAYBACK_SPEED_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref MCP_CHAR_PARAM_TYPE_INT8 - Playback Speed \n
- *                               - len - \ref sizeof( \ref MCP_CHAR_PARAM_TYPE_INT8 ) -
- *                                       Length of Playback Speed \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_WRITE_TRACK_PLAYBACK_SPEED_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref MCP_CHAR_PARAM_TYPE_INT8 - Playback Speed \n
+ *                         - len - \ref sizeof( \ref MCP_CHAR_PARAM_TYPE_INT8 ) -
+ *                           Length of Playback Speed \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -763,17 +869,17 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_WRITE_CURR_TRACK_OBJ_ID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Obj ID \n
- *                               - len - \ref MCP_OBJ_ID_LEN -
- *                                       Object ID Length \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_WRITE_CURR_TRACK_OBJ_ID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Obj ID \n
+ *                         - len - \ref MCP_OBJ_ID_LEN -
+ *                           Object ID Length \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -786,17 +892,17 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_WRITE_NEXT_TRACK_OBJ_ID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Obj ID \n
- *                               - len - \ref MCP_OBJ_ID_LEN -
- *                                       Object ID Length \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_WRITE_NEXT_TRACK_OBJ_ID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Obj ID \n
+ *                         - len - \ref MCP_OBJ_ID_LEN -
+ *                           Object ID Length \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -809,17 +915,17 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_WRITE_CURR_GRP_OBJ_ID_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Obj ID \n
- *                               - len - \ref MCP_OBJ_ID_LEN -
- *                                       Object ID Length \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_WRITE_CURR_GRP_OBJ_ID_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Obj ID \n
+ *                         - len - \ref MCP_OBJ_ID_LEN -
+ *                           Object ID Length \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -833,17 +939,17 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_WRITE_PLAYING_ORDER_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref MCP_CHAR_PARAM_TYPE_UINT8 - Playing Order \n
- *                               - len - \ref sizeof( \ref MCP_CHAR_PARAM_TYPE_UINT8) -
- *                                       Length of Playing Order \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_WRITE_PLAYING_ORDER_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref MCP_CHAR_PARAM_TYPE_UINT8 - Playing Order \n
+ *                         - len - \ref sizeof( \ref MCP_CHAR_PARAM_TYPE_UINT8) -
+ *                                 Length of Playing Order \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -856,47 +962,43 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_WRITE_MCP_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - Pointer to a \ref UCHAR array where \n
- *                                 First Byte refers to \ref ga_mcp_se_constants . \n
- *                                 Based on the Requested Opcode,
- *                                 the following Bytes can be decoded. \n
- *                                 Opcodes \ref ga_mcp_se_constants with no
- *                                 parameters: \n
- *                                 \ref MCP_CP_OPCODE_PLAY \n
- *                                 \ref MCP_CP_OPCODE_PAUSE \n
- *                                 \ref MCP_CP_OPCODE_FAST_RWD \n
- *                                 \ref MCP_CP_OPCODE_FAST_FWD \n
- *                                 \ref MCP_CP_OPCODE_STOP \n
- *                                 \ref MCP_CP_OPCODE_PREV_SEG \n
- *                                 \ref MCP_CP_OPCODE_NEXT_SEG \n
- *                                 \ref MCP_CP_OPCODE_FIRST_SEG \n
- *                                 \ref MCP_CP_OPCODE_LAST_SEG \n
- *                                 \ref MCP_CP_OPCODE_PREV_TRACK \n
- *                                 \ref MCP_CP_OPCODE_NEXT_TRACK \n
- *                                 \ref MCP_CP_OPCODE_FIRST_TRACK \n
- *                                 \ref MCP_CP_OPCODE_LAST_TRACK \n
- *                                 \ref MCP_CP_OPCODE_PREV_GROUP \n
- *                                 \ref MCP_CP_OPCODE_NEXT_GROUP \n
- *                                 \ref MCP_CP_OPCODE_FIRST_GROUP \n
- *                                 \ref MCP_CP_OPCODE_LAST_GROUP \n
- *                                 For below Opcodes, there are parameters: \ref INT32 \n
- *                                 \ref MCP_CP_OPCODE_MOVE_RELATIVE -
- *                                                                  Offset \n
- *                                 \ref MCP_CP_OPCODE_GOTO_SEG -
- *                                                             nth seg \n
- *                                 \ref MCP_CP_OPCODE_GOTO_TRACK -
- *                                                               nth track \n
- *                                 \ref MCP_CP_OPCODE_GOTO_GROUP -
- *                                                               nth group \n
- *                               - len - Length as per above \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_WRITE_MCP_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - Pointer to a \ref UCHAR array where \n
+ *                           First Byte refers to \ref ga_mcp_se_constants . \n
+ *                           Based on the Requested Opcode,
+ *                           the following Bytes can be decoded. \n
+ *                           Opcodes \ref ga_mcp_se_constants with no
+ *                           parameters: \n
+ *                           \ref MCP_CP_OPCODE_PLAY \n
+ *                           \ref MCP_CP_OPCODE_PAUSE \n
+ *                           \ref MCP_CP_OPCODE_FAST_RWD \n
+ *                           \ref MCP_CP_OPCODE_FAST_FWD \n
+ *                           \ref MCP_CP_OPCODE_STOP \n
+ *                           \ref MCP_CP_OPCODE_PREV_SEG \n
+ *                           \ref MCP_CP_OPCODE_NEXT_SEG \n
+ *                           \ref MCP_CP_OPCODE_FIRST_SEG \n
+ *                           \ref MCP_CP_OPCODE_LAST_SEG \n
+ *                           \ref MCP_CP_OPCODE_PREV_TRACK \n
+ *                           \ref MCP_CP_OPCODE_NEXT_TRACK \n
+ *                           \ref MCP_CP_OPCODE_FIRST_TRACK \n
+ *                           \ref MCP_CP_OPCODE_LAST_TRACK \n
+ *                           \ref MCP_CP_OPCODE_PREV_GROUP \n
+ *                           \ref MCP_CP_OPCODE_NEXT_GROUP \n
+ *                           \ref MCP_CP_OPCODE_FIRST_GROUP \n
+ *                           \ref MCP_CP_OPCODE_LAST_GROUP \n
+ *                           For below Opcodes, there are parameters: \ref INT32 \n
+ *                           \ref MCP_CP_OPCODE_MOVE_RELATIVE - Offset - \ref INT32 \n
+ *                           \ref MCP_CP_OPCODE_GOTO_SEG - nth seg - \ref INT32 \n
+ *                           \ref MCP_CP_OPCODE_GOTO_TRACK - nth track - \ref INT32 \n
+ *                           \ref MCP_CP_OPCODE_GOTO_GROUP - nth group - \ref INT32 \n
+ *                         - len - Length based on the Opcode \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -904,22 +1006,22 @@
  */
 #define MCP_SE_WRITE_MCP_IND                          0x1AU
 
+/* TODO */
 /**
  * This event is notified when a write request is received for a char from
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_WRITE_SCP_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref - \n
- *                               - len - \ref
- *                                       Length of \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_WRITE_SCP_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref - \n
+ *                         - len - \ref
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -944,25 +1046,27 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_READ_OTS_FEATURE_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 4, \n
- *                                   - data - \ref UINT32 - Pointer to a \ref UINT32 \n
- *                                   - len -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_READ_OTS_FEATURE_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE,
+ *                            - data - \ref UINT32 - Pointer to a \ref UINT32 \n
+ *                            - len - Offset Length \n
+ *                            .
+ *                         - Else, \n
+ *                               - data - NULL, Ignore \n
+ *                               - len - 0, Ignore \n
  *                               .
+ *                         .
+ *                      Else, \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -976,25 +1080,28 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_READ_OBJ_NAME_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 4, \n
- *                                   - data - \ref UINT32 - Pointer to a \ref UINT32 \n
- *                                   - len -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_READ_OBJ_NAME_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT32 - Pointer to a \ref UINT32 \n
+ *                              - len - Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
+ *                      .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1008,25 +1115,28 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_READ_OBJ_TYPE_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 4, \n
- *                                   - data - \ref UINT32 - Pointer to a \ref UINT32 \n
- *                                   - len -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_READ_OBJ_TYPE_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT32 - Pointer to a \ref UINT32 \n
+ *                              - len - Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
+ *                      .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1044,21 +1154,24 @@
  * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
  * \param [in] evt_id  \ref MCP_SE_OTP_SE_READ_OBJ_SIZE_IND
  * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 4, \n
- *                                   - data - \ref UINT32 - Pointer to a \ref UINT32 \n
- *                                   - len -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT32 - Pointer to a \ref UINT32 \n
+ *                              - len - Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
+ *                      .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1076,21 +1189,24 @@
  * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
  * \param [in] evt_id  \ref MCP_SE_OTP_SE_READ_OBJ_FIRST_CREATED_IND
  * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 4, \n
- *                                   - data - \ref UINT32 - Pointer to a \ref UINT32 \n
- *                                   - len -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT32 - Pointer to a \ref UINT32 \n
+ *                              - len - Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
+ *                      .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1108,21 +1224,24 @@
  * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
  * \param [in] evt_id  \ref MCP_SE_OTP_SE_READ_OBJ_LAST_MOD_IND
  * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 4, \n
- *                                   - data - \ref UINT32 - Pointer to a \ref UINT32 \n
- *                                   - len -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT32 - Pointer to a \ref UINT32 \n
+ *                              - len - Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
+ *                      .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1140,21 +1259,24 @@
  * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
  * \param [in] evt_id  \ref MCP_SE_OTP_SE_READ_OBJ_ID_IND
  * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 4, \n
- *                                   - data - \ref UINT32 - Pointer to a \ref UINT32 \n
- *                                   - len -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT32 - Pointer to a \ref UINT32 \n
+ *                              - len - Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
+ *                      .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1172,21 +1294,24 @@
  * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
  * \param [in] evt_id  \ref MCP_SE_OTP_SE_READ_OBJ_PROP_IND
  * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 4, \n
- *                                   - data - \ref UINT32 - Pointer to a \ref UINT32 \n
- *                                   - len -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT32 - Pointer to a \ref UINT32 \n
+ *                              - len - Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
+ *                      .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1204,21 +1329,24 @@
  * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
  * \param [in] evt_id  \ref MCP_SE_OTP_SE_READ_OBJ_FILTER_IND
  * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
- *                                   \ref GA_TRUE, data is Valid and
- *                                   len is 4, \n
- *                                   - data - \ref UINT32 - Pointer to a \ref UINT32 \n
- *                                   - len -
- *                                     Offset Length \n
- *                                   .
- *                               - Else, \n
- *                                   - data - NULL, Ignore \n
- *                                   - len - 0, Ignore \n
- *                                   .
- *                               .
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - If \ref GA_MCP_SE_RSP_CONTEXT is_blob is
+ *                           \ref GA_TRUE, \n
+ *                              - data - \ref UINT32 - Pointer to a \ref UINT32 \n
+ *                              - len - Offset Length \n
+ *                              .
+ *                         - Else, \n
+ *                              - data - NULL, Ignore \n
+ *                              - len - 0, Ignore \n
+ *                              .
+ *                         .
+ *                      Else, \n
+ *                         - data - NULL, Ignore \n
+ *                         - len - 0, Ignore \n
+ *                         .
+ *                      .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1244,16 +1372,16 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_WRITE_OBJ_NAME_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Param \n
- *                               - len - \ref Length of the parameter \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_WRITE_OBJ_NAME_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Param \n
+ *                         - len - \ref Length of the parameter \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1266,16 +1394,16 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_WRITE_OBJ_FIRST_CREATED_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Param \n
- *                               - len - \ref Length of the parameter \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_WRITE_OBJ_FIRST_CREATED_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Param \n
+ *                         - len - \ref Length of the parameter \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1288,16 +1416,16 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_WRITE_OBJ_LAST_MOD_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Param \n
- *                               - len - \ref Length of the parameter \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_WRITE_OBJ_LAST_MOD_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Param \n
+ *                         - len - \ref Length of the parameter \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1310,16 +1438,16 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_WRITE_OBJ_PROP_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Param \n
- *                               - len - \ref Length of the parameter \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_WRITE_OBJ_PROP_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Param \n
+ *                         - len - \ref Length of the parameter \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1332,16 +1460,16 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_WRITE_OACP_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Param \n
- *                               - len - \ref Length of the parameter \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_WRITE_OACP_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Param \n
+ *                         - len - \ref Length of the parameter \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1354,16 +1482,16 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_WRITE_OLCP_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Param \n
- *                               - len - \ref Length of the parameter \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_WRITE_OLCP_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Param \n
+ *                         - len - \ref Length of the parameter \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1376,16 +1504,16 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_OTP_SE_WRITE_OBJ_FILTER_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT8 - Pointer to Param \n
- *                               - len - \ref Length of the parameter \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_OTP_SE_WRITE_OBJ_FILTER_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request received \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT8 - Pointer to Param \n
+ *                         - len - \ref Length of the parameter \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  *
@@ -1406,16 +1534,16 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_DATA_CHANNEL_UP_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Data Channel established \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT16 - Pointer to Channel ID \n
- *                               - len - \ref sizeof(\ref UINT16) Length of the Channel ID \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_DATA_CHANNEL_UP_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Data Channel established \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT16 - Pointer to Channel ID \n
+ *                         - len - \ref sizeof(\ref UINT16) Length of the Channel ID \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1426,16 +1554,16 @@
  * peer device with the following values as parameters in the
  * \ref MCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_DATA_CHANNEL_DOWN_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Data Channel disconnected \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT16 - Pointer to Channel ID \n
- *                               - len - \ref sizeof(\ref UINT16) Length of the Channel ID \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_DATA_CHANNEL_DOWN_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Data Channel disconnected \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT16 - Pointer to Channel ID \n
+ *                         - len - \ref sizeof(\ref UINT16) Length of the Channel ID \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1447,16 +1575,16 @@
  * \ref MCP_SE_NTF_CB callback. This is called once \ref
  * GA_mcp_se_data_channel_write() is called to write object contents to peer.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_MCP_SE_RSP_CONTEXT
- * \param [in] evt_id  \ref MCP_SE_DATA_CHANNEL_WRITE_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Data Channel disconnected \n
- * \param [in] evt_data  Pointer to object of type \ref MCP_SE_EVT \n
- *                         MCP Handle for the Device - \ref MCP_HANDLE \n
- *                           - If evt_status is \ref GA_SUCCESS : \n
- *                               - data - \ref UINT16 - Pointer to Number of Bytes written \n
- *                               - len - \ref sizeof(\ref UINT16) \n
- *                               .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] chr \ref GA_MCP_SE_RSP_CONTEXT
+ * \param [in] evt_id \ref MCP_SE_DATA_CHANNEL_WRITE_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Data Channel disconnected \n
+ * \param [in] evt_data Pointer to object of type \ref MCP_SE_EVT \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - mcp_handle: MCP Handle for the Device \n
+ *                         - data - \ref UINT16 - Pointer to Number of Bytes written \n
+ *                         - len - \ref sizeof(\ref UINT16) \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -1475,7 +1603,7 @@
  */
 
 /**
- * \name MCP Server Constants - General Macros
+ * \name General Macros
  * \{
  * \brief This section lists general macros used.
  */
@@ -1495,7 +1623,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - Default Char Values
+ * \name Default Char Values
  * \{
  * \brief This section lists the default values to be used as defined per MCS
  * specification.
@@ -1541,7 +1669,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - Playing Order
+ * \name Playing Order
  * \{
  * \brief This section lists Playing Order Values,
  * As defined in MCS Specification.
@@ -1572,7 +1700,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - Playing Order Supported
+ * \name Playing Order Supported
  * \{
  * \brief This section lists Playing Order Supported Values,
  * As defined in MCS Specification.
@@ -1603,7 +1731,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - Media State
+ * \name Media State
  * \{
  * \brief This section lists Media State Opcode Values,
  * As defined in MCS Specification.
@@ -1628,7 +1756,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - Request Opcode
+ * \name Request Opcode
  * \{
  * \brief This section lists MCP Opcodes, As defined in MCS Specification.
  * \ref MCP_CP_REQ_OPC
@@ -1680,7 +1808,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - Opcode Supported
+ * \name Opcode Supported
  * \{
  * \brief This section lists MCP Supported Opcodes, As defined in MCS
  * Specification.
@@ -1733,7 +1861,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - CP Result Code
+ * \name CP Result Code
  * \{
  * \brief This section lists the result codes for Media Control Point
  * Notification.
@@ -1753,7 +1881,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - SCP Type
+ * \name SCP Type
  * \{
  * \brief This section lists the SCP Types used.
  * As defined in MCS Specification.
@@ -1782,7 +1910,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - SCP Result Code
+ * \name SCP Result Code
  * \{
  * \brief This section lists the result codes for Search Control Point
  * Notification.
@@ -1799,7 +1927,7 @@
 /** \} */
 
 /**
- * \name MCP Server Constants - Group Object Type
+ * \name Group Object Type
  * \{
  * \brief This section lists the Group Object Type.
  * As defined in MCS Specification.
@@ -1821,7 +1949,7 @@
  * \defgroup ga_mcp_se_structures Structures
  * \{
  * \brief This section lists the various data structures and typedefs for use
- * by MCP SE.
+ * by Server.
  */
 
 /**
@@ -1834,7 +1962,7 @@
 typedef UINT8 MCP_SE_HANDLE;
 
 /**
- * Event that will be notified by the MCP SE module.
+ * Event that will be notified by the Server module.
  */
 typedef UINT8 MCP_SE_EVT_ID;
 
@@ -1850,8 +1978,10 @@ typedef UINT8 MCP_SE_EVT_ID;
  * 1. \ref GA_mcp_se_notify_media_player_name(), \ref GA_mcp_se_notify_track_title()
  *    OR
  *    while responding to event \ref MCP_SE_READ_MEDIA_PLAYER_NAME_IND,
- *    \ref MCP_SE_READ_MP_ICON_OBJ_ID_IND, \ref MCP_SE_READ_TRACK_TITLE_IND
- *    by calling \ref GA_mcp_se_send_rsp().
+ * \if MCP_SUPPORT_OBJECT_TRANSFER
+ *    \ref MCP_SE_READ_MP_ICON_OBJ_ID_IND,
+ * \endif
+ *    \ref MCP_SE_READ_TRACK_TITLE_IND by calling \ref GA_mcp_se_send_rsp().
  * 2. If the media player has no current track or the track title is unavailable,
  *    the Track Title characteristic value shall be a zero-length string.
  * 3. If the characteristic value is longer than (ATT_MTU-3), then the first
@@ -2003,7 +2133,7 @@ typedef struct _MCP_PARAM_OBJ_ID
 
 }MCP_PARAM_OBJ_ID;
 
-/** MCP SE Event */
+/** Server Event */
 typedef struct _MCP_SE_EVT_
 {
     /** Reference Identifier to GMCS/MCS instance */
@@ -2017,7 +2147,7 @@ typedef struct _MCP_SE_EVT_
 
 }MCP_SE_EVT;
 
-/** MCP SE Object Type - Media Player Icon */
+/** Server Object Type - Media Player Icon */
 typedef struct _MCP_SE_MP_ICON_OBJ_
 {
     /** Represented as .png format */
@@ -2028,7 +2158,7 @@ typedef struct _MCP_SE_MP_ICON_OBJ_
 
 }MCP_SE_MP_ICON_OBJ;
 
-/** MCP SE Object Type - Track Segments */
+/** Server Object Type - Track Segments */
 typedef struct _MCP_SE_TRACK_SEG_OBJ_
 {
     /** Length of the segment */
@@ -2045,7 +2175,7 @@ typedef struct _MCP_SE_TRACK_SEG_OBJ_
 
 }MCP_SE_TRACK_SEG_OBJ;
 
-/** MCP SE Object Type - Track */
+/** Server Object Type - Track */
 typedef struct _MCP_SE_TRACK_OBJ_
 {
     /** Represented as IDV32 format */
@@ -2056,7 +2186,7 @@ typedef struct _MCP_SE_TRACK_OBJ_
 
 }MCP_SE_TRACK_OBJ;
 
-/** MCP SE Object Type - Group, Can have 1 or more of below */
+/** Server Object Type - Group, Can have 1 or more of below */
 typedef struct _MCP_SE_GRP_OBJ_
 {
     /** Type of the Object */
@@ -2083,13 +2213,13 @@ typedef struct _MCP_SE_GRP_OBJ_
  */
 
 /**
- * \defgroup ga_mcp_se_module_cb MCP SE (Media Control Profile) Server Entity
+ * \defgroup ga_mcp_se_module_cb Media Control Server
  * \{
- * \brief This section describes the callback for MCP SE.
+ * \brief This section describes the callback for Server.
  */
 
 /**
- * MCP SE Callback to be registered by the Application
+ * Server Callback to be registered by the Application
  *
  * \param [in] device     Peer Device Info
  * \param [in] chr        Response context
@@ -2124,7 +2254,7 @@ extern "C" {
  */
 
 /**
- * \defgroup ga_mcp_se_api_defs MCP SE (Media Control Profile) Server Entity
+ * \defgroup ga_mcp_se_api_defs Media Control Server
  * \{
  * \brief This section describes the Media Control Profile APIs for Server.
  */
@@ -2140,7 +2270,7 @@ extern "C" {
  *  \brief To Init the MCP Server Module.
  *
  *  \par Description:
- *       This function enables to initialize the MCP Server Entity Module.
+ *       This function enables to initialize the MCP Server Module.
  *       and register a callback with MCP Module.
  *       This callback will be triggered whenever there are events generated
  *       as part of the functionality and also to indicate Configuration,
@@ -2150,9 +2280,10 @@ extern "C" {
  *       \ref MCP_SE_GMCS_HANDLE.
  *
  *  \param [in] cb
- *         MCP SE Callback.
+ *         Server Callback.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *
  *  \sa ga_mcp_se_events
  *  \sa ga_mcp_and_otp_error_code
@@ -2168,29 +2299,15 @@ GA_RESULT GA_mcp_se_init(MCP_SE_NTF_CB cb);
  *  \param [out] mcp_se_handle
  *         MCS Session Instance Identifier.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *
  *  \note Maximum number of instances of MCS that is supported
- *       \ref MCP_SE_MAX_MCS_ONLY_SER_ENTITIES.
+ *        \ref MCP_MAX_MCS_ENTITIES.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
 GA_RESULT GA_mcp_se_add_mcs_inst(MCP_SE_HANDLE * mcp_se_handle);
-
-/**
- *  \brief To remove added instance of MCS.
- *
- *  \par Description:
- *       This function removes the MCS instance in the DB.
- *
- *  \param [in] mcp_se_handle
- *         MCS Session Instance Identifier.
- *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
- *
- *  \sa ga_mcp_and_otp_error_code
- */
-GA_RESULT GA_mcp_se_unregister_mcs(MCP_SE_HANDLE mcp_se_handle);
 
 /** \} */
 
@@ -2226,7 +2343,8 @@ GA_RESULT GA_mcp_se_unregister_mcs(MCP_SE_HANDLE mcp_se_handle);
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *
  *  \sa ga_mcp_and_otp_error_code
  */
@@ -2260,12 +2378,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_se_notify_media_player_name(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_MEDIA_PLAYER_NAME), (char_info), (char_info_len))
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_MEDIA_PLAYER_NAME),                                                \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Track Changed.
@@ -2288,12 +2414,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_track_changed(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_TRACK_CHANGED), (char_info), (char_info_len))
+#define GA_mcp_se_notify_track_changed(ga_dev, mcp_se_handle, char_info, char_info_len)     \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_TRACK_CHANGED),                                                    \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Track Title.
@@ -2316,12 +2450,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_track_title(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_TRACK_TITLE), (char_info), (char_info_len))
+#define GA_mcp_se_notify_track_title(ga_dev, mcp_se_handle, char_info, char_info_len)       \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_TRACK_TITLE),                                                      \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Track Duration.
@@ -2342,12 +2484,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_track_duration(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_TRACK_DURATION), (char_info), (char_info_len))
+#define GA_mcp_se_notify_track_duration(ga_dev, mcp_se_handle, char_info, char_info_len)    \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_TRACK_DURATION),                                                   \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Track Position.
@@ -2368,12 +2518,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_track_pos(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_TRACK_POS), (char_info), (char_info_len))
+#define GA_mcp_se_notify_track_pos(ga_dev, mcp_se_handle, char_info, char_info_len)         \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_TRACK_POS),                                                        \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Playback Speed.
@@ -2394,12 +2552,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_playback_speed(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_PLAYBACK_SPEED), (char_info), (char_info_len))
+#define GA_mcp_se_notify_playback_speed(ga_dev, mcp_se_handle, char_info, char_info_len)    \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_PLAYBACK_SPEED),                                                   \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Seeking Speed.
@@ -2420,12 +2586,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_seeking_speed(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_SEEKING_SPEED), (char_info), (char_info_len))
+#define GA_mcp_se_notify_seeking_speed(ga_dev, mcp_se_handle, char_info, char_info_len)     \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_SEEKING_SPEED),                                                    \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 #ifdef MCP_SUPPORT_OBJECT_TRANSFER
 /**
@@ -2447,12 +2621,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_se_notify_curr_track_obj_id(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_CURR_TRACK_OBJ_ID), (char_info), (char_info_len))
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_CURR_TRACK_OBJ_ID),                                                \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Next Track Object ID.
@@ -2473,12 +2655,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_se_notify_next_track_obj_id(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_NEXT_TRACK_OBJ_ID), (char_info), (char_info_len))
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_NEXT_TRACK_OBJ_ID),                                                \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Parent Group Object ID.
@@ -2499,12 +2689,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_se_notify_parent_grp_obj_id(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_PARENT_GROUP_OBJ_ID), (char_info), (char_info_len))
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_PARENT_GROUP_OBJ_ID),                                              \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Current Group Object ID.
@@ -2525,12 +2723,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_curr_grp_obj_id(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_CURR_GROUP_OBJ_ID), (char_info), (char_info_len))
+#define GA_mcp_se_notify_curr_grp_obj_id(ga_dev, mcp_se_handle, char_info, char_info_len)   \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_CURR_GROUP_OBJ_ID),                                                \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 #endif /* MCP_SUPPORT_OBJECT_TRANSFER */
 
 /**
@@ -2552,12 +2758,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_playing_order(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_PLAYING_ORDER), (char_info), (char_info_len))
+#define GA_mcp_se_notify_playing_order(ga_dev, mcp_se_handle, char_info, char_info_len)     \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_PLAYING_ORDER),                                                    \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Media State.
@@ -2578,12 +2792,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_media_state(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_MEDIA_STATE), (char_info), (char_info_len))
+#define GA_mcp_se_notify_media_state(ga_dev, mcp_se_handle, char_info, char_info_len)       \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_MEDIA_STATE),                                                      \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Media Control Point(MCP).
@@ -2604,12 +2826,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_mcp(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_MEDIA_CONTROL_POINT), (char_info), (char_info_len))
+#define GA_mcp_se_notify_mcp(ga_dev, mcp_se_handle, char_info, char_info_len)               \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_MEDIA_CONTROL_POINT),                                              \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - MCP Opcode Supported.
@@ -2630,12 +2860,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_mcp_opc_supp(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_CP_OPC_SUPP), (char_info), (char_info_len))
+#define GA_mcp_se_notify_mcp_opc_supp(ga_dev, mcp_se_handle, char_info, char_info_len)      \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_CP_OPC_SUPP),                                                      \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - SCP.
@@ -2656,12 +2894,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
-#define GA_mcp_se_notify_scp(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_SEARCH_CONTROL_POINT), (char_info), (char_info_len))
+#define GA_mcp_se_notify_scp(ga_dev, mcp_se_handle, char_info, char_info_len)               \
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_SEARCH_CONTROL_POINT),                                             \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /**
  *  \brief To send Notifications - Search Results Object ID.
@@ -2682,12 +2928,20 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_se_notify_search_res_obj_id(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_send_ntf((ga_dev), (mcp_se_handle), (GA_CHAR_MCS_SEARCH_RES_OBJ_ID), (char_info), (char_info_len))
+        GA_mcp_se_send_ntf                                                                  \
+        (                                                                                   \
+            (ga_dev),                                                                       \
+            (mcp_se_handle),                                                                \
+            (GA_CHAR_MCS_SEARCH_RES_OBJ_ID),                                                \
+            (char_info),                                                                    \
+            (char_info_len)                                                                 \
+        )
 
 /** \} */
 
@@ -2721,7 +2975,8 @@ GA_RESULT GA_mcp_se_send_ntf
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
@@ -2753,12 +3008,20 @@ GA_RESULT GA_mcp_se_OTS_send_ind
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_se_OTS_indicate_OACP_rsp(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_OTS_send_ind((ga_dev), (mcp_se_handle), (GA_CHAR_OTS_CHAR_OACP), (char_info), (char_info_len))
+        GA_mcp_se_OTS_send_ind                                                           \
+        (                                                                                \
+            (ga_dev),                                                                    \
+            (mcp_se_handle),                                                             \
+            (GA_CHAR_OTS_CHAR_OACP),                                                     \
+            (char_info),                                                                 \
+            (char_info_len)                                                              \
+        )
 
 /**
  *  \brief To send Indications - OTS on OLCP char.
@@ -2779,12 +3042,20 @@ GA_RESULT GA_mcp_se_OTS_send_ind
  *  \param [in] char_info_len
  *         Length of the data to be sent.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n.
  *
  *  \sa ga_mcp_and_otp_error_code
  */
 #define GA_mcp_se_OTS_indicate_OLCP_rsp(ga_dev, mcp_se_handle, char_info, char_info_len) \
-        GA_mcp_se_OTS_send_ind((ga_dev), (mcp_se_handle), (GA_CHAR_OTS_CHAR_OLCP), (char_info), (char_info_len))
+        GA_mcp_se_OTS_send_ind                                                           \
+        (                                                                                \
+            (ga_dev),                                                                    \
+            (mcp_se_handle),                                                             \
+            (GA_CHAR_OTS_CHAR_OLCP),                                                     \
+            (char_info),                                                                 \
+            (char_info_len)                                                              \
+        )
 
 /** \} */
 
@@ -2812,7 +3083,8 @@ GA_RESULT GA_mcp_se_OTS_send_ind
  *  \param [in] buffer_len
  *         Packet length
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *
  *  \sa \ref MCP_SE_DATA_CHANNEL_WRITE_IND
  *  \sa ga_mcp_and_otp_error_code
@@ -2865,7 +3137,8 @@ GA_RESULT GA_mcp_se_data_channel_write
  *         Response Packet length - Valid for Read request event type only.
  *         0 - For Write request.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *
  *  \sa ga_mcp_se_events
  *  \sa ga_mcp_and_otp_error_code
@@ -2891,14 +3164,31 @@ GA_RESULT GA_mcp_se_send_rsp
  */
 
 /**
+ *  \brief To remove added instance of MCS.
+ *
+ *  \par Description:
+ *       This function removes the MCS instance in the DB.
+ *
+ *  \param [in] mcp_se_handle
+ *         MCS Session Instance Identifier.
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
+ *
+ *  \sa ga_mcp_and_otp_error_code
+ */
+GA_RESULT GA_mcp_se_unregister_mcs(MCP_SE_HANDLE mcp_se_handle);
+
+/**
  *  \brief To Shutdown the MCP Server Module.
  *
  *  \par Description:
- *       This function enables to Shutdown the MCP Server Entity Module.
+ *       This function enables to Shutdown the MCP Server Module.
  *       This function de-references the callback registered with GA MCP
  *       Module.
  *
- *  \return \ref GA_SUCCESS or an error code indicating reason for failure
+ *  \return \ref GA_SUCCESS or one of the error codes as defined
+ *          in \ref GA_error.h. \n
  *
  *  \note No events generated at the MCP_CE layer will be triggered
  *       post this function call.

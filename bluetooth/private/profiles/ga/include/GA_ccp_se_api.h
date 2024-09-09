@@ -3,7 +3,7 @@
  *  \file GA_ccp_se_api.h
  *
  *  \brief This file defines the GA Call Control Profile(CCP)
- *  Server Entity(SE) Interfaces - includes Data Structures and Methods.
+ *  Server (SE) Interfaces - includes Data Structures and Methods.
  */
 
 /*
@@ -31,7 +31,7 @@
  */
 
 /**
- * \addtogroup bt_ga_ccp Call Control
+ * \addtogroup bt_ga_ccp Call Control Profile (CCP)
  * \{
  * \brief This section describes the interfaces & APIs offered by the EtherMind
  * Generic Audio (GA) Profile Call Control module to the Application.
@@ -44,7 +44,7 @@
  */
 
 /**
- * \defgroup ga_ccp_se_module_def CCP SE (Call Control Profile) Server Entity
+ * \defgroup ga_ccp_se_module_def Call Control Server
  * \{
  * \brief This section describes the defines for CCP SE.
  */
@@ -57,44 +57,10 @@
  */
 
 /**
- * \name CCP Server Events - Control Point Write
- * \{
- * \brief This Event is notified on receving Control Write request from the peer
- * device. The Application is expected to send the response
- * using \ref GA_ccp_se_send_rsp() for the control point write request
- * and then on processing the control point write request,
- * send call control notification and other notifications(if any) depending on
- * control point Opcode.
- */
-
-/**
- * \brief This event is notified when a write request is received for a char
- * from peer device with the following values as parameters in the
- * \ref CCP_SE_NTF_CB callback.
- *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_BRR_CHR_CONTEXT
- * \param [in] evt_id  \ref CCP_SE_CP_WT_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  \ref TBS_EVENT_INFO, Expressed as
- *                       - data - Pointer to \ref UCHAR \n
- *                       - datalen - Varies \n
- *                       .
- * \param [in] evt_datalen  sizeof ( \ref TBS_EVENT_INFO ) \n
- *
- * \return \ref GA_SUCCESS (always)
- *
- * \sa \ref GA_ccp_se_send_rsp()
- */
-#define CCP_SE_CP_WT_IND                                0x23U
-
-/** \} */
-
-/**
  * \name CCP Server Events - Read
  * \{
- * \brief This Event is notified on receiving read request from the peer device.
- * Based on the received service instance and char_uuid, Application
+ * \brief This Event is notified on receiving read request from the peer
+ * device. Based on the received service instance and char_uuid, Application
  * is expected to form the response data and send response using
  * \ref GA_ccp_se_send_rsp() API.
  */
@@ -104,59 +70,128 @@
  * peer device with the following values as parameters in the
  * \ref CCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_BRR_CHR_CONTEXT \n
- * \param [in] evt_id  \ref CCP_SE_RD_IND \n
- * \param [in] evt_status  \ref GA_SUCCESS : Read Request received \n
- * \param [in] evt_data  \ref TBS_EVENT_INFO, Expressed as
- *                       If \ref GA_SUCCESS
- *                         - data - Valid only if evt_datalen is 2,
- *                                  Pointer to UCHAR that represents the
- *                                  offset for the read blob request.\n
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] evt_id \ref CCP_SE_RD_IND \n
+ * \param [in] evt_status \ref GA_SUCCESS : Read Request received \n
+ * \param [in] evt_data Pointer to object of type \ref TBS_EVENT_INFO \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Ignore \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified.
+ *                                         \ref CCP_SVS_TYPE_GTBS for GTBS,
+ *                                         otherwise TBS. \n
+ *                         - chr - Pointer to object of type \ref GA_BRR_CHR_CONTEXT,
+ *                                 from which characteristic info can be
+ *                                 extracted. \n
+ *                         - data
+ *                            - If chr->is_blob is \ref GA_TRUE, Pointer to
+ *                              \ref UCHAR that represents the offset for the
+ *                              read blob request.
+ *                            - Else, NULL.
+ *                            .
  *                         - datalen - \ref sizeof( \ref UINT16) representing
- *                                      offset\n
- *                       Else
+ *                                     offset. \n
+ *                         .
+ *                      Else \n
  *                         - data - NULL \n
  *                         - datalen - 0 \n
- * \param [in] evt_datalen  If \ref GA_SUCCESS, sizeof( \ref TBS_EVENT_INFO ).
+ *                         .
+ * \param [in] evt_datalen If \ref GA_SUCCESS, sizeof( \ref TBS_EVENT_INFO ).
  *
  * \return \ref GA_SUCCESS (always)
  *
- * \sa \ref GA_ccp_se_send_rsp()
+ * \sa GA_ccp_se_send_rsp()
  */
 #define CCP_SE_RD_IND                                   0x24U
 
 /** \} */
 
 /**
- * \name CCP Server Events - Control Point Write
+ * \name CCP Server Events - Write
  * \{
- * \brief This Event is notified on receving Write request for Bearer Signal
- * Strength Reporting Interval. Based on the received service instance, the
- * Application is expected to form the response and send response using
- * \ref GA_ccp_se_send_rsp() API.
+ * \brief This Event is notified on receving Write request or command from the
+ * peer device. Based on the received service instance, the Application is expected
+ * to form the response and send response using \ref GA_ccp_se_send_rsp() API.
  */
+
+/**
+ * \brief This event is notified when a write request or command is received for
+ * a char from peer device with the following values as parameters in the
+ * \ref CCP_SE_NTF_CB callback.
+ *
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] evt_id \ref CCP_SE_CP_WT_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request or Command received \n
+ * \param [in] evt_data Pointer to object of type \ref TBS_EVENT_INFO \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Ignore \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified.
+ *                                         \ref CCP_SVS_TYPE_GTBS for GTBS,
+ *                                         otherwise TBS. \n
+ *                         - chr - Pointer to object of type \ref GA_BRR_CHR_CONTEXT,
+ *                                 from which characteristic info can be
+ *                                 extracted. \n
+ *                         - data - Pointer to \ref UCHAR \n
+ *                         - datalen - Varies \n
+ *                         .
+ *                      Else \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param [in] evt_datalen sizeof ( \ref TBS_EVENT_INFO ) \n
+ *
+ * \return \ref GA_SUCCESS (always)
+ *
+ * \note If chr->to_rsp is \ref GA_TRUE, on processing the control point write
+ *       request, the application sends a write response.
+ *
+ * \note On processing the control point write request or command, the
+ *       application shall send call control notification and other
+ *       notifications(if any) depending on control point Opcode.
+ *
+ * \sa GA_ccp_se_send_rsp()
+ */
+#define CCP_SE_CP_WT_IND                                0x23U
 
 /**
  * \brief This event is notified when a write request is received for a char
  * from peer device with the following values as parameters in the
  * \ref CCP_SE_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] chr  \ref GA_BRR_CHR_CONTEXT
- * \param [in] evt_id  \ref CCP_SE_SET_BRR_SIG_STRTH_RPT_INTVAL_IND
- * \param [in] evt_status  \ref GA_SUCCESS : Write Request received \n
- * \param [in] evt_data  \ref TBS_EVENT_INFO, Expressed as
- *                       - data - Pointer to \ref UCHAR \n
- *                         The Bearer Signal Strength Reporting Interval
- *                         is 1 octet in seconds.
- *                       - datalen - \ref sizeof( \ref UINT8 ) \n
- *                       .
- * \param[in] evt_datalen  sizeof ( \ref TBS_EVENT_INFO ) \n
+ * \param [in] device Pointer to peer device handle \ref GA_ENDPOINT \n
+ * \param [in] evt_id \ref CCP_SE_SET_BRR_SIG_STRTH_RPT_INTVAL_IND
+ * \param [in] evt_status \ref GA_SUCCESS : Write Request or Command received \n
+ * \param [in] evt_data Pointer to object of type \ref TBS_EVENT_INFO \n
+ *                      If evt_status is \ref GA_SUCCESS : \n
+ *                         - srvc_type - Ignore \n
+ *                         - srvc_handle - Service Handle representing the
+ *                                         service for which the event is
+ *                                         notified.
+ *                                         \ref CCP_SVS_TYPE_GTBS for GTBS,
+ *                                         otherwise TBS. \n
+ *                         - chr - Pointer to object of type \ref GA_BRR_CHR_CONTEXT,
+ *                                 from which characteristic info can be
+ *                                 extracted. \n
+ *                         - data - Pointer to \ref UCHAR \n
+ *                                  The Bearer Signal Strength Reporting
+ *                                  Interval is 1 octet - In seconds.
+ *                         - datalen - \ref sizeof( \ref UINT8 ) \n
+ *                         .
+ *                      Else \n
+ *                         - data - NULL \n
+ *                         - datalen - 0 \n
+ *                         .
+ * \param[in] evt_datalen sizeof ( \ref TBS_EVENT_INFO ) \n
  *
  * \return \ref GA_SUCCESS (always)
  *
- * \sa \ref GA_ccp_se_send_rsp()
+ * \note If chr->to_rsp is \ref GA_TRUE, on processing the write request,
+ *       the application sends a write response.
+ *
+ * \sa GA_ccp_se_send_rsp()
  */
 #define CCP_SE_SET_BRR_SIG_STRTH_RPT_INTVAL_IND         0x25U
 
@@ -172,7 +207,7 @@
  */
 
 /**
- * \name CCP Server Constants - TBS Call States
+ * \name TBS Call States
  * \{
  * \brief This section lists Call State values,
  * As defined in TBS Specification.
@@ -198,7 +233,7 @@
 /** \} */
 
 /**
- * \name CCP Server Constants - TBS Call Terminate Reason
+ * \name TBS Call Terminate Reason
  * \{
  * \brief This section lists Call Termination Reason values,
  * As defined in TBS Specification.
@@ -228,7 +263,7 @@
 /** \} */
 
 /**
- * \name CCP Server Constants - TBS Control Point Opcodes
+ * \name TBS Control Point Opcodes
  * \{
  * \brief This section lists Control Point Opcodes Values,
  * As defined in TBS Specification.
@@ -250,11 +285,11 @@
 /** \} */
 
 /**
- * \name CCP Server Constants - TBS Call Flags
+ * \name TBS Call Flags
  * \{
  * \brief This section lists TBS Call Flags,
  * As defined in TBS Specification.
- * NOTE: These are Bitmask.
+ * \note These are Bitmask.
  */
 
 /** TBS Call Flags - Outgoing */
@@ -267,10 +302,10 @@
 /** \} */
 
 /**
- * \name CCP Server Constants - TBS Uniform Call Identifier(UCI) Values
+ * \name TBS Uniform Call Identifier(UCI) Values
  * \{
  * \brief This section lists TBS Uniform Call Identifier(UCI) ID values
- * NOTE: Taken from Assigned numbers.
+ * \note Taken from Assigned numbers.
  */
 
 /** TBS UCI ID - Skype */
@@ -341,10 +376,10 @@
 /** \} */
 
 /**
- * \name CCP Server Constants - TBS Uniform Resource Identifier(URI) Values
+ * \name TBS Uniform Resource Identifier(URI) Values
  * \{
  * \brief This section lists the TBS Uniform Resource Identifier(URI) Values.
- * NOTE: Took from Assigned numbers. Took only the selected URI, as there
+ * \note Took from Assigned numbers. Took only the selected URI, as there
  * are too many Id's.
  */
 
@@ -358,7 +393,7 @@
 /** \} */
 
 /**
- * \name CCP Server Constants - TBS Bearer Technology IDs
+ * \name TBS Bearer Technology IDs
  * \{
  * \brief This section lists the TBS Bearer Technology IDs.
  */
@@ -387,7 +422,7 @@
 /** \} */
 
 /**
- * \name CCP Server Constants - TBS Signal Strength
+ * \name TBS Signal Strength
  * \{
  * \brief This section lists the TBS Signal Strength,
  * As defined in TBS Specification.
@@ -403,7 +438,7 @@
 /** \} */
 
 /**
- * \name CCP Server Constants - TBS Service Type
+ * \name TBS Service Type
  * \{
  * \brief This section lists the TBS Service Type Values.
  */
@@ -416,7 +451,7 @@
 /** \} */
 
 /**
- * \name CCP Server Constants - Call Control Point Notification Result Codes
+ * \name Call Control Point Notification Result Codes
  * \{
  * \brief This section describes the TBS Call Control Point Notification
  * Result Codes,
@@ -440,6 +475,20 @@
 
 /** \} */
 
+/**
+ * \name General Macros
+ * \{
+ * \brief This section lists general macros used.
+ */
+
+/** By default, GTBS Session has to be supported */
+#define CCP_SE_GTBS_SER_ENTITIES       1U
+
+/** Maximum instances - GTBS + TBS Entities */
+#define CCP_SE_MAX_TBS_SER_ENTITIES    (CCP_SE_GTBS_SER_ENTITIES + GA_CONFIG_LIMITS(CCP_MAX_TBS_ENTITIES))
+
+/** \} */
+
 /** \} */
 
 /**
@@ -453,7 +502,7 @@
 typedef UCHAR   TBS_HANDLE;
 
 /** TBS Event Info */
-typedef struct _TBS_EVENT_INFO_
+typedef struct _TBS_EVENT_INFO
 {
     /** Service Type */
     UCHAR srvc_type;
@@ -461,7 +510,10 @@ typedef struct _TBS_EVENT_INFO_
     /** Service Handle */
     UCHAR srvc_handle;
 
-    /** Char Info */
+    /**
+     * Char Info, refer 'Content Control Char UUID: TBS'
+     * under \ref ga_common_constants
+     */
     GA_BRR_CHR_CONTEXT *chr;
 
     /** Event Data */
@@ -497,7 +549,7 @@ typedef struct _TBS_RSP_INFO
  */
 
 /**
- * \addtogroup ga_ccp_common CCP Common
+ * \addtogroup ga_ccp_common Common
  * \{
  * \brief Describes common macros for the module.
  */
@@ -511,31 +563,17 @@ typedef struct _TBS_RSP_INFO
  */
 
 /**
- * \name Application Error Codes
+ * \name CCP - Application Error Codes
  * \{
  * \brief This section lists Application error codes,
  * As defined in TBS Specification.
  */
 
 /**
-* A characteristic value has changed while a Read Long Value
-* Characteristic sub-procedure is in progress
-*/
-#define TBS_VAL_CHNGD_DURING_RD_LONG 0x80
-
-/** \} */
-
-/**
- * \name CCP Server Constants - General Macros
- * \{
- * \brief This section lists general macros used.
+ * A characteristic value has changed while a Read Long Value Characteristic
+ * sub-procedure is in progress.
  */
-
-/** By default, GTBS Session has to be supported */
-#define CCP_SE_GTBS_SER_ENTITIES             1U
-
-/** Maximum instances - GTBS + TBS Entities */
-#define CCP_SE_MAX_TBS_SER_ENTITIES    (CCP_SE_GTBS_SER_ENTITIES + GA_CONFIG_LIMITS(CCP_MAX_TBS_ENTITIES))
+#define TBS_VAL_CHNGD_DURING_RD_LONG 0x80
 
 /** \} */
 
@@ -552,7 +590,7 @@ typedef struct _TBS_RSP_INFO
  */
 
 /**
- * \defgroup ga_ccp_se_cb CCP SE (Call Control Profile) Server Entity
+ * \defgroup ga_ccp_se_cb Call Control Server
  * \{
  * \brief This section describes the application callback for CCP SE.
  */
@@ -590,7 +628,7 @@ extern "C" {
  */
 
 /**
- * \defgroup ga_ccp_se_module_api CCP SE (Call Control Profile) Server Entity
+ * \defgroup ga_ccp_se_module_api Call Control Server
  * \{
  * \brief This section describes the defines for CCP SE.
  */
@@ -614,7 +652,7 @@ extern "C" {
  *         Callback to be registered with CCP Server.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -630,7 +668,7 @@ GA_RESULT GA_ccp_se_init(/* IN */ CCP_SE_NTF_CB cb);
  *         Allocated Service Handle.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -655,7 +693,7 @@ GA_RESULT GA_ccp_se_register_tbs
  *       This function enables to shutdown the Call Control Server.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -671,7 +709,7 @@ GA_RESULT GA_ccp_se_shutdown(void);
  *         Handle associated with TBS.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -696,7 +734,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *       This function enables to Notify the Bearer Provider name with the
  *       peer(s).
  *
-  *  \param [in] ga_dev
+ *  \param [in] ga_dev
  *         Peer Device Address Information.
  *
  *  \param [in] svs_inst
@@ -709,7 +747,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Bearer Provider Name length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -718,7 +756,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_BRR_PROVIDER_NAME),                                       \
+            (GA_CHAR_TBS_BRR_PROVIDER_NAME),                                    \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -730,7 +768,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *       This function enables to Notify the Bearer Technology with the
  *       peer(s).
  *
-  *  \param [in] ga_dev
+ *  \param [in] ga_dev
  *         Peer Device Address Information.
  *
  *  \param [in] svs_inst
@@ -743,9 +781,9 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Bearer Technology length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_se_ntf_brr_technology(ga_dev, svs_inst, data, datalen)           \
@@ -753,7 +791,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_BRR_TECHNOLOGY),                                          \
+            (GA_CHAR_TBS_BRR_TECHNOLOGY),                                       \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -762,10 +800,10 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *  \brief To Notify Bearer Supported URI schemes.
  *
  *  \par Description:
- *       This function enables to Notify the Bearer supported URI schemes with the
- *       peer(s).
+ *       This function enables to Notify the Bearer supported URI schemes
+ *       with the peer(s).
  *
-  *  \param [in] ga_dev
+ *  \param [in] ga_dev
  *         Peer Device Address Information.
  *
  *  \param [in] svs_inst
@@ -778,9 +816,9 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Bearer URI Schemes List length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_se_ntf_brr_uri_schms_supp_list(ga_dev, svs_inst, data, datalen)  \
@@ -788,7 +826,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_BRR_URI_SCHMS_SUPPORT_LIST),                              \
+            (GA_CHAR_TBS_BRR_URI_SCHMS_SUPPORT_LIST),                           \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -800,7 +838,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *       This function enables to Notify  the Bearer Signal Strength with the
  *       peer(s).
  *
-  *  \param [in] ga_dev
+ *  \param [in] ga_dev
  *         Peer Device Address Information.
  *
  *  \param [in] svs_inst
@@ -813,7 +851,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Bearer Signal Strength Length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -822,7 +860,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_BRR_SIGSTRENGTH),                                     \
+            (GA_CHAR_TBS_BRR_SIGSTRENGTH),                                      \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -847,7 +885,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Bearer Current Calls Length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -856,7 +894,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_BRR_LIST_CUR_CALLS),                                      \
+            (GA_CHAR_TBS_BRR_LIST_CUR_CALLS),                                   \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -866,7 +904,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *
  *  \par Description:
  *       This function enables to Notify the Bearer Status Flags with the
- *       peer(s).
+ *       peer(s). \n
  *       This flag indicate if inband ringtone or Silent mode is
  *       enabled/disabled.
  *
@@ -883,7 +921,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Bearer Status Flags Length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -892,7 +930,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_STATUS_FLAGS),                                            \
+            (GA_CHAR_TBS_STATUS_FLAGS),                                         \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -902,11 +940,11 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *
  *  \par Description:
  *       This function enables to Notify the Incoming Call Target Bearer URI
- *       with the peer(s).
+ *       with the peer(s). \n
  *       It contains Call Index followed by the URI of the target of an
  *       incoming call.
  *
-  *  \param [in] ga_dev
+ *  \param [in] ga_dev
  *         Peer Device Address Information.
  *
  *  \param [in] svs_inst
@@ -919,7 +957,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Incoming Call Target Bearer URI length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -928,7 +966,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                           \
             (ga_dev),                                                               \
             (svs_inst),                                                             \
-            (GA_CHAR_TBS_INCOMING_CALL_TARGET_BRR_URI),                                  \
+            (GA_CHAR_TBS_INCOMING_CALL_TARGET_BRR_URI),                             \
             (data),                                                                 \
             (datalen)                                                               \
         )
@@ -938,14 +976,15 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *
  *  \par Description:
  *       This function enables to Notify Call State with the peer(s).
- *       It contains array of members each 3 octetes.
- *       Each member contains
- *         - Call Index: Index to identify a call.
- *         - Call State:This indicate the current state of the call.
- *         - Call Flags: This indicate if call is incomming/outgoing,
- *                       withheld by the server or network/
+ *       It contains array of members each 3 octetes. \n
+ *       Each member contains \n
+ *          - Call Index: Index to identify a call. \n
+ *          - Call State: This indicate the current state of the call. \n
+ *          - Call Flags: This indicate if call is incomming/outgoing,
+ *                        withheld by the server or network. \n
+ *          .
  *
-  *  \param [in] ga_dev
+ *  \param [in] ga_dev
  *         Peer Device Address Information.
  *
  *  \param [in] svs_inst
@@ -958,9 +997,9 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Call State Information Length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_se_ntf_call_state(ga_dev, svs_inst, data, datalen)               \
@@ -968,7 +1007,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_CALL_STATE),                                              \
+            (GA_CHAR_TBS_CALL_STATE),                                           \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -979,11 +1018,12 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *  \par Description:
  *       This function enables to Notify Call Control Point.
  *       The control point notification is sent from the server to the client
- *       after each control point opcode write.
- *       Format:
- *       - Requested opcode(1 octet): Client Request Opcode.
- *       - Call Index (1 octet): Call Index associate with the Opcode
- *       - Result Code(1 octet): Result of opcode procedure.
+ *       after each control point opcode write. \n
+ *       Format: \n
+ *          - Requested opcode(1 octet): Client Request Opcode. \n
+ *          - Call Index (1 octet): Call Index associate with the Opcode. \n
+ *          - Result Code (1 octet): Result of opcode procedure. \n
+ *          .
  *
  *  \param [in] ga_dev
  *         Peer Device Address Information.
@@ -998,9 +1038,9 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Call Control Point Notification length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_se_ntf_call_cp(ga_dev, svs_inst, data, datalen)                  \
@@ -1008,7 +1048,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_CALL_CP),                                                 \
+            (GA_CHAR_TBS_CALL_CP),                                              \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -1018,12 +1058,13 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *
  *  \par Description:
  *       This function enables to Notify reason for the Termination of a call
- *       with the peer(s).
- *       Format:
- *       - Call Index(1 octet): Index of the call to be notified.
- *       - Reason Code(1 octet): Reason for the Termination.
+ *       with the peer(s). \n
+ *       Format: \n
+ *          - Call Index(1 octet): Index of the call to be notified. \n
+ *          - Reason Code(1 octet): Reason for the Termination. \n
+ *          .
  *
-  *  \param [in] ga_dev
+ *  \param [in] ga_dev
  *         Peer Device Address Information.
  *
  *  \param [in] svs_inst
@@ -1037,9 +1078,9 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Call Termination reason information length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
- *  \ref ga_ccp_se_constants
+ *  \sa ga_ccp_se_constants
  *  \sa ga_ccp_error_code
  */
 #define GA_ccp_se_ntf_terminate_reason(ga_dev, svs_inst, data, datalen)         \
@@ -1047,7 +1088,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_TERMINATION_REASON),                                      \
+            (GA_CHAR_TBS_TERMINATION_REASON),                                   \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -1057,10 +1098,11 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *
  *  \par Description:
  *       This function enables to Notify the incoming call name with the
- *       peer(s).
- *       Format:
- *       - Call Index(1 octet): Index of the associated incoming call.
- *       - URI(Variable): URI of the incoming call.
+ *       peer(s). \n
+ *       Format: \n
+ *          - Call Index(1 octet): Index of the associated incoming call. \n
+ *          - URI(Variable): URI of the incoming call. \n
+ *          .
  *
  *  \param [in] ga_dev
  *         Peer Device Address Information.
@@ -1075,7 +1117,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Incoming Call information length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -1084,7 +1126,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_INCOMING_CALL),                                           \
+            (GA_CHAR_TBS_INCOMING_CALL),                                        \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -1095,10 +1137,11 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *  \par Description:
  *       This function enables to notify call index and friendly name
  *       (determined by the server) of the incoming or outgoing call with the
- *       peer(s).
- *       Format:
- *       - Call_Index(1 octet):Index associated with the call.
- *       - Friendly_Name(Variable):Caller Friendly name.
+ *       peer(s). \n
+ *       Format: \n
+ *          - Call_Index(1 octet):Index associated with the call. \n
+ *          - Friendly_Name(Variable):Caller Friendly name. \n
+ *          .
  *
  *  \param [in] ga_dev
  *         Peer Device Address Information.
@@ -1113,7 +1156,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
  *         Caller Friendly Name information length.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -1122,7 +1165,7 @@ GA_RESULT GA_ccp_se_unregister_tbs
         (                                                                       \
             (ga_dev),                                                           \
             (svs_inst),                                                         \
-            (GA_CHAR_TBS_CALL_FRIENDLY_NAME),                                        \
+            (GA_CHAR_TBS_CALL_FRIENDLY_NAME),                                   \
             (data),                                                             \
             (datalen)                                                           \
         )
@@ -1130,27 +1173,27 @@ GA_RESULT GA_ccp_se_unregister_tbs
 /**
  *  \brief Notify Charateristic Values to connected devices.
  *
- *  \par Description
- *          This routine enables to notifies updated char value to specified
- *          remote device.
+ *  \par Description:
+ *       This routine enables to notifies updated char value to specified
+ *       remote device.
  *
  *  \param [in] device
  *          Endpoint Device Address to be notified.
  *
  *  \param [in] srvs_inst
- *              GTBS/TBS instance.
+ *         GTBS/TBS instance.
  *
  *  \param [in] char_uuid
- *              characteristic to be notified.
+ *         Characteristic to be notified.
  *
  *  \param [in] char_info
- *              characteristic info.
+ *         Characteristic info.
  *
  *  \param [in] char_info_len
- *              characteristic info.
+ *         Characteristic info.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */
@@ -1183,9 +1226,10 @@ GA_RESULT ccp_tbs_se_char_notify
  *         Peer Device Address Information.
  *
  *  \param [in] event_type
- *         Event type indicating response for read or write.
- *           - \ref GA_RSP_TYPE_RD
- *           - \ref GA_RSP_TYPE_WT
+ *         Event type indicating response for read or write. \n
+ *            - \ref GA_RSP_TYPE_RD \n
+ *            - \ref GA_RSP_TYPE_WT \n
+ *            .
  *
  *  \param [in] event_status
  *         Response status for the read/write operation.
@@ -1197,7 +1241,7 @@ GA_RESULT ccp_tbs_se_char_notify
  *         Response information size.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *  \ref GA_error.h.
+ *          \ref GA_error.h.
  *
  *  \sa ga_ccp_error_code
  */

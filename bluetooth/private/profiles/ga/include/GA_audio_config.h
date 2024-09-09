@@ -33,32 +33,37 @@
  */
 
 /**
- * \addtogroup ga_bap_defines
+ * \addtogroup ga_bap_common_module
  * \{
  */
 
 /**
- * \addtogroup ga_bap_constants
+ * \addtogroup ga_bap_common_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_common_constants
  * \{
  */
 
 /* --------------------------------------------- Global Definitions */
 /**
- * \defgroup ga_ac_sets GA Audio Config Sets
+ * \defgroup ga_ac_sets Audio Config Sets
  * \{
  * \brief This section describes the Audio Config sets as defined in
  * BAP Specification.
  */
 
 /**
- * \defgroup ga_codec_spec_cap GA Codec Specific Capabilities Sets
+ * \defgroup ga_codec_spec_cap Codec Specific Capabilities Sets
  * \{
  * \brief Codec Specific Capabilities Sets.
  * As defined in BAP Specification.
  */
 
 /**
- * \name GA Codec Specific Capabilities Set 8_1
+ * \name Codec Specific Capabilities Sets - Set 8_1
  * \{
  * \brief Codec Specific Capabilities: Set 8_1
  * As defined in BAP Specification.
@@ -76,7 +81,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 8_2
+ * \name Codec Specific Capabilities Sets - Set 8_2
  * \{
  * \brief Codec Specific Capabilities: Set 8_2
  * As defined in BAP Specification.
@@ -94,7 +99,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 16_1
+ * \name Codec Specific Capabilities Sets - Set 16_1
  * \{
  * \brief Codec Specific Capabilities: Set 16_1
  * As defined in BAP Specification.
@@ -112,7 +117,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 16_2
+ * \name Codec Specific Capabilities Sets - Set 16_2
  * \{
  * \brief Codec Specific Capabilities: Set 16_2
  * As defined in BAP Specification.
@@ -130,7 +135,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 24_1
+ * \name Codec Specific Capabilities Sets - Set 24_1
  * \{
  * \brief Codec Specific Capabilities: Set 24_1
  * As defined in BAP Specification.
@@ -148,7 +153,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 24_2
+ * \name Codec Specific Capabilities Sets - Set 24_2
  * \{
  * \brief Codec Specific Capabilities: Set 24_2
  * As defined in BAP Specification.
@@ -166,7 +171,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 32_1
+ * \name Codec Specific Capabilities Sets - Set 32_1
  * \{
  * \brief Codec Specific Capabilities: Set 32_1
  * As defined in BAP Specification.
@@ -184,7 +189,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 32_2
+ * \name Codec Specific Capabilities Sets - Set 32_2
  * \{
  * \brief Codec Specific Capabilities: Set 32_2
  * As defined in BAP Specification.
@@ -202,7 +207,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 441_1
+ * \name Codec Specific Capabilities Sets - Set 441_1
  * \{
  * \brief Codec Specific Capabilities: Set 441_1
  * As defined in BAP Specification.
@@ -225,7 +230,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 441_2
+ * \name Codec Specific Capabilities Sets - Set 441_2
  * \{
  * \brief Codec Specific Capabilities: Set 441_2
  * As defined in BAP Specification.
@@ -248,7 +253,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 48_1
+ * \name Codec Specific Capabilities Sets - Set 48_1
  * \{
  * \brief Codec Specific Capabilities: Set 48_1
  * As defined in BAP Specification.
@@ -266,7 +271,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 48_2
+ * \name Codec Specific Capabilities Sets - Set 48_2
  * \{
  * \brief Codec Specific Capabilities: Set 48_2
  * As defined in BAP Specification.
@@ -284,7 +289,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 48_3
+ * \name Codec Specific Capabilities Sets - Set 48_3
  * \{
  * \brief Codec Specific Capabilities: Set 48_3
  * As defined in BAP Specification.
@@ -302,7 +307,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 48_4
+ * \name Codec Specific Capabilities Sets - Set 48_4
  * \{
  * \brief Codec Specific Capabilities: Set 48_4
  * As defined in BAP Specification.
@@ -320,7 +325,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 48_5
+ * \name Codec Specific Capabilities Sets - Set 48_5
  * \{
  * \brief Codec Specific Capabilities: Set 48_5
  * As defined in BAP Specification.
@@ -338,7 +343,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Capabilities Set 48_6
+ * \name Codec Specific Capabilities Sets - Set 48_6
  * \{
  * \brief Codec Specific Capabilities: Set 48_6
  * As defined in BAP Specification.
@@ -358,22 +363,22 @@
 /** \} */
 
 /**
- * \defgroup ga_codec_spec_conf_sets GA Codec Specific Configuration Sets
+ * \defgroup ga_codec_spec_conf_sets Codec Specific Configuration Sets
  * \{
  * \brief Codec Specific Configuration Sets.
- * As defined in BAP Specification.
+ * As defined in BAP Specification. \n
  * Note: The Bitrate as per BAP Spec, Codec-Specific Configuration for Unicast
  * and Broadcast (Table 3.11 and/or Table 3.12) is defined in kbps.
  * However there are some values which are decimal.
  * Hence to avoid the decimal part, we have them
- * defined in bps by * by 1000(k).
+ * defined in bps by * by 1000(k). \n
  * Eg: For Set 8_1, Bitrate: 27.734 Kbps.
  * Bitrate in Bps: (27.734 * 1000) = 27734 Bps which is
- * GA_CODEC_CONF_8_1_BITRATE_IN_BPS.
+ * \ref GA_CODEC_CONF_8_1_BITRATE_IN_BPS.
  */
 
 /**
- * \name GA Codec Specific Configuration Set 8_1
+ * \name Codec Specific Configuration Sets - Set 8_1
  * \{
  * \brief Codec Specific Configuration: Set 8_1
  * As defined in BAP Specification.
@@ -393,7 +398,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 8_2
+ * \name Codec Specific Configuration Sets - Set 8_2
  * \{
  * \brief Codec Specific Configuration: Set 8_2
  * As defined in BAP Specification.
@@ -413,7 +418,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 16_1
+ * \name Codec Specific Configuration Sets - Set 16_1
  * \{
  * \brief Codec Specific Configuration: Set 16_1
  * As defined in BAP Specification.
@@ -433,7 +438,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 16_2
+ * \name Codec Specific Configuration Sets - Set 16_2
  * \{
  * \brief Codec Specific Configuration: Set 16_2
  * As defined in BAP Specification.
@@ -453,7 +458,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 24_1
+ * \name Codec Specific Configuration Sets - Set 24_1
  * \{
  * \brief Codec Specific Configuration: Set 24_1
  * As defined in BAP Specification.
@@ -473,7 +478,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 24_2
+ * \name Codec Specific Configuration Sets - Set 24_2
  * \{
  * \brief Codec Specific Configuration: Set 24_2
  * As defined in BAP Specification.
@@ -493,7 +498,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 32_1
+ * \name Codec Specific Configuration Sets - Set 32_1
  * \{
  * \brief Codec Specific Configuration: Set 32_1
  * As defined in BAP Specification.
@@ -513,7 +518,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 32_2
+ * \name Codec Specific Configuration Sets - Set 32_2
  * \{
  * \brief Codec Specific Configuration: Set 32_2
  * As defined in BAP Specification.
@@ -533,7 +538,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 441_1
+ * \name Codec Specific Configuration Sets - Set 441_1
  * \{
  * \brief Codec Specific Configuration: Set 441_1
  * As defined in BAP Specification.
@@ -558,7 +563,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 441_2
+ * \name Codec Specific Configuration Sets - Set 441_2
  * \{
  * \brief Codec Specific Configuration: Set 441_2
  * As defined in BAP Specification.
@@ -583,7 +588,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 48_1
+ * \name Codec Specific Configuration Sets - Set 48_1
  * \{
  * \brief Codec Specific Configuration: Set 48_1
  * As defined in BAP Specification.
@@ -603,7 +608,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 48_2
+ * \name Codec Specific Configuration Sets - Set 48_2
  * \{
  * \brief Codec Specific Configuration: Set 48_2
  * As defined in BAP Specification.
@@ -623,7 +628,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 48_3
+ * \name Codec Specific Configuration Sets - Set 48_3
  * \{
  * \brief Codec Specific Configuration: Set 48_3
  * As defined in BAP Specification.
@@ -643,7 +648,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 48_4
+ * \name Codec Specific Configuration Sets - Set 48_4
  * \{
  * \brief Codec Specific Configuration: Set 48_4
  * As defined in BAP Specification.
@@ -663,7 +668,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 48_5
+ * \name Codec Specific Configuration Sets - Set 48_5
  * \{
  * \brief Codec Specific Configuration: Set 48_5
  * As defined in BAP Specification.
@@ -683,7 +688,7 @@
 /** \} */
 
 /**
- * \name GA Codec Specific Configuration Set 48_6
+ * \name Codec Specific Configuration Sets - Set 48_6
  * \{
  * \brief Codec Specific Configuration: Set 48_6
  * As defined in BAP Specification.
@@ -703,18 +708,57 @@
 /** \} */
 
 /** \} */
+/** \} */
 
+/** \} */
+/** \} */
 /** \} */
 
 /**
- * \defgroup ga_qos_conf_setting_sets GA QOS Configuration Settings Sets
+ * \addtogroup ga_bap_uc_module
  * \{
- * \brief QOS Configuration Settings Sets.
- * As defined in BAP Specification.
  */
 
 /**
- * \name QOS Configuration Settings Set 8_1_1
+ * \addtogroup ga_bap_uc_defines
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_common_def
+ * \{
+ */
+
+/**
+ * \addtogroup ga_bap_uc_common_constants
+ * \{
+ */
+
+/**
+ * \defgroup ga_qos_conf_setting_sets QOS Configuration Settings Sets
+ * \{
+ * \brief QOS Configuration Settings Sets.
+ * As defined in BAP Specification - Refer Page 87 of BAP spec version 1.0.1, Table: 5.2. \n
+ * \if GA_GMAP
+ * As defined in GMAP Specification - Refer Page 21 of GMAP spec version v1.0, Table: 3.14. \n
+ * As per GMAP Spec, New Set IDs with Set Name x_gs and x_gr are defined
+ * with parameters: \n
+ * Same values for parameters: \n
+ *    - Codec Capability / Configuration Setting \n
+ *    - SDU_ Interval (us) \n
+ *    - Framing \n
+ *    - Maximum_SDU_Size \n
+ *    .
+ * Difference in values for parameters: \n
+ *    - Retransmission Number \n
+ *    - Max_Transport_Latency(ms) \n
+ *    - Presentation_delay(us) \n
+ *    .
+ * \endif
+ */
+
+/**
+ * \name QOS Configuration Settings Sets - Set 8_1_1
  * \{
  * \brief QoS Configuration Settings: Set 8_1_1
  * As defined in BAP Specification.
@@ -736,7 +780,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 8_2_1
+ * \name QOS Configuration Settings Sets - Set 8_2_1
  * \{
  * \brief QoS Configuration Settings: Set 8_2_1
  * As defined in BAP Specification.
@@ -758,7 +802,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 16_1_1
+ * \name QOS Configuration Settings Sets - Set 16_1_1
  * \{
  * \brief QoS Configuration Settings: Set 16_1_1
  * As defined in BAP Specification.
@@ -780,7 +824,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 16_2_1
+ * \name QOS Configuration Settings Sets - Set 16_2_1
  * \{
  * \brief QoS Configuration Settings: Set 16_2_1
  * As defined in BAP Specification.
@@ -802,7 +846,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 24_1_1
+ * \name QOS Configuration Settings Sets - Set 24_1_1
  * \{
  * \brief QoS Configuration Settings: Set 24_1_1
  * As defined in BAP Specification.
@@ -824,7 +868,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 24_2_1
+ * \name QOS Configuration Settings Sets - Set 24_2_1
  * \{
  * \brief QoS Configuration Settings: Set 24_2_1
  * As defined in BAP Specification.
@@ -846,7 +890,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 32_1_1
+ * \name QOS Configuration Settings Sets - Set 32_1_1
  * \{
  * \brief QoS Configuration Settings: Set 32_1_1
  * As defined in BAP Specification.
@@ -868,7 +912,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 32_2_1
+ * \name QOS Configuration Settings Sets - Set 32_2_1
  * \{
  * \brief QoS Configuration Settings: Set 32_2_1
  * As defined in BAP Specification.
@@ -890,7 +934,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 441_1_1
+ * \name QOS Configuration Settings Sets - Set 441_1_1
  * \{
  * \brief QoS Configuration Settings: Set 441_1_1
  * As defined in BAP Specification.
@@ -900,7 +944,7 @@
  * SDU_Interval (us): 8163 \n
  * For 44.1 kHz/7.5ms, the actual SDU_Interval is equivalent to
  * 360 (samples per second) divided by 44100 (Sampling Frequency), which
- * equals 8.16327 ms
+ * equals 8.16327 ms.
  */
 #define GA_441_1_1_SDUINTERVAL_uS       8163
 /** Framing: Framed */
@@ -917,7 +961,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 441_2_1
+ * \name QOS Configuration Settings Sets - Set 441_2_1
  * \{
  * \brief QoS Configuration Settings: Set 441_2_1
  * As defined in BAP Specification.
@@ -927,7 +971,7 @@
  * SDU_Interval (us): 10884 \n
  * For 44.1 kHz/10 ms the actual frame duration is equal to
  * 480 (samples per second) divided by 44100 (Sampling Frequency), which
- * equals 10.88435 ms
+ * equals 10.88435 ms.
  */
 #define GA_441_2_1_SDUINTERVAL_uS       10884
 /** Framing: Framed */
@@ -944,7 +988,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_1_1
+ * \name QOS Configuration Settings Sets - Set 48_1_1
  * \{
  * \brief QoS Configuration Settings: Set 48_1_1
  * As defined in BAP Specification.
@@ -966,7 +1010,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_2_1
+ * \name QOS Configuration Settings Sets - Set 48_2_1
  * \{
  * \brief QoS Configuration Settings: Set 48_2_1
  * As defined in BAP Specification.
@@ -988,7 +1032,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_3_1
+ * \name QOS Configuration Settings Sets - Set 48_3_1
  * \{
  * \brief QoS Configuration Settings: Set 48_3_1
  * As defined in BAP Specification.
@@ -1010,7 +1054,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_4_1
+ * \name QOS Configuration Settings Sets - Set 48_4_1
  * \{
  * \brief QoS Configuration Settings: Set 48_4_1
  * As defined in BAP Specification.
@@ -1032,7 +1076,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_5_1
+ * \name QOS Configuration Settings Sets - Set 48_5_1
  * \{
  * \brief QoS Configuration Settings: Set 48_5_1
  * As defined in BAP Specification.
@@ -1054,7 +1098,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_6_1
+ * \name QOS Configuration Settings Sets - Set 48_6_1
  * \{
  * \brief QoS Configuration Settings: Set 48_6_1
  * As defined in BAP Specification.
@@ -1076,7 +1120,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 8_1_2
+ * \name QOS Configuration Settings Sets - Set 8_1_2
  * \{
  * \brief QoS Configuration Settings: Set 8_1_2
  * As defined in BAP Specification.
@@ -1098,7 +1142,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 8_2_2
+ * \name QOS Configuration Settings Sets - Set 8_2_2
  * \{
  * \brief QoS Configuration Settings: Set 8_2_2
  * As defined in BAP Specification.
@@ -1120,7 +1164,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 16_1_2
+ * \name QOS Configuration Settings Sets - Set 16_1_2
  * \{
  * \brief QoS Configuration Settings: Set 16_1_2
  * As defined in BAP Specification.
@@ -1142,7 +1186,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 16_2_2
+ * \name QOS Configuration Settings Sets - Set 16_2_2
  * \{
  * \brief QoS Configuration Settings: Set 16_2_2
  * As defined in BAP Specification.
@@ -1164,7 +1208,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 24_1_2
+ * \name QOS Configuration Settings Sets - Set 24_1_2
  * \{
  * \brief QoS Configuration Settings: Set 24_1_2
  * As defined in BAP Specification.
@@ -1186,7 +1230,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 24_2_2
+ * \name QOS Configuration Settings Sets - Set 24_2_2
  * \{
  * \brief QoS Configuration Settings: Set 24_2_2
  * As defined in BAP Specification.
@@ -1208,7 +1252,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 32_1_2
+ * \name QOS Configuration Settings Sets - Set 32_1_2
  * \{
  * \brief QoS Configuration Settings: Set 32_1_2
  * As defined in BAP Specification.
@@ -1230,7 +1274,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 32_2_2
+ * \name QOS Configuration Settings Sets - Set 32_2_2
  * \{
  * \brief QoS Configuration Settings: Set 32_2_2
  * As defined in BAP Specification.
@@ -1252,7 +1296,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 441_1_2
+ * \name QOS Configuration Settings Sets - Set 441_1_2
  * \{
  * \brief QoS Configuration Settings: Set 441_1_2
  * As defined in BAP Specification.
@@ -1262,7 +1306,7 @@
  * SDU_Interval (us): 8163 \n
  * For 44.1 kHz/7.5ms, the actual SDU_Interval is equivalent to
  * 360 (samples per second) divided by 44100 (Sampling Frequency), which
- * equals 8.16327 ms
+ * equals 8.16327 ms.
  */
 #define GA_441_1_2_SDUINTERVAL_uS       8163
 /** Framing: Framed */
@@ -1279,7 +1323,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 441_2_2
+ * \name QOS Configuration Settings Sets - Set 441_2_2
  * \{
  * \brief QoS Configuration Settings: Set 441_2_2
  * As defined in BAP Specification.
@@ -1289,7 +1333,7 @@
  * SDU_Interval (us): 10884 \n
  * For 44.1 kHz/10 ms the actual frame duration is equal to
  * 480 (samples per second) divided by 44100 (Sampling Frequency), which
- * equals 10.88435 ms
+ * equals 10.88435 ms.
  */
 #define GA_441_2_2_SDUINTERVAL_uS       10884
 /** Framing: Framed */
@@ -1306,7 +1350,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_1_2
+ * \name QOS Configuration Settings Sets - Set 48_1_2
  * \{
  * \brief QoS Configuration Settings: Set 48_1_2
  * As defined in BAP Specification.
@@ -1328,7 +1372,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_2_2
+ * \name QOS Configuration Settings Sets - Set 48_2_2
  * \{
  * \brief QoS Configuration Settings: Set 48_2_2
  * As defined in BAP Specification.
@@ -1350,7 +1394,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_3_2
+ * \name QOS Configuration Settings Sets - Set 48_3_2
  * \{
  * \brief QoS Configuration Settings: Set 48_3_2
  * As defined in BAP Specification.
@@ -1372,7 +1416,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_4_2
+ * \name QOS Configuration Settings Sets - Set 48_4_2
  * \{
  * \brief QoS Configuration Settings: Set 48_4_2
  * As defined in BAP Specification.
@@ -1394,7 +1438,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_5_2
+ * \name QOS Configuration Settings Sets - Set 48_5_2
  * \{
  * \brief QoS Configuration Settings: Set 48_5_2
  * As defined in BAP Specification.
@@ -1416,7 +1460,7 @@
 /** \} */
 
 /**
- * \name QOS Configuration Settings Set 48_6_2
+ * \name QOS Configuration Settings Sets - Set 48_6_2
  * \{
  * \brief QoS Configuration Settings: Set 48_6_2
  * As defined in BAP Specification.
@@ -1468,7 +1512,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 8_2_1
+ * \name Broadcast Configuration Settings Sets - Set 8_2_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 8_2_1
  * As defined in BAP Specification.
@@ -1490,7 +1534,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 16_1_1
+ * \name Broadcast Configuration Settings Sets - Set 16_1_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 16_1_1
  * As defined in BAP Specification.
@@ -1512,7 +1556,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 16_2_1
+ * \name Broadcast Configuration Settings Sets - Set 16_2_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 16_2_1
  * As defined in BAP Specification.
@@ -1534,7 +1578,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 24_1_1
+ * \name Broadcast Configuration Settings Sets - Set 24_1_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 24_1_1
  * As defined in BAP Specification.
@@ -1556,7 +1600,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 24_2_1
+ * \name Broadcast Configuration Settings Sets - Set 24_2_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 24_2_1
  * As defined in BAP Specification.
@@ -1578,7 +1622,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 32_1_1
+ * \name Broadcast Configuration Settings Sets - Set 32_1_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 32_1_1
  * As defined in BAP Specification.
@@ -1600,7 +1644,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 32_2_1
+ * \name Broadcast Configuration Settings Sets - Set 32_2_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 32_2_1
  * As defined in BAP Specification.
@@ -1622,7 +1666,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 441_1_1
+ * \name Broadcast Configuration Settings Sets - Set 441_1_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 441_1_1
  * As defined in BAP Specification.
@@ -1632,7 +1676,7 @@
  * SDU_Interval (us): 8163 \n
  * For 44.1 kHz/7.5ms, the actual SDU_Interval is equivalent to
  * 360 (samples per second) divided by 44100 (Sampling Frequency), which
- * equals 8.16327 ms
+ * equals 8.16327 ms.
  */
 #define GA_BC_441_1_1_SDUINTERVAL_uS     8163
 /** Framing: Framed */
@@ -1649,7 +1693,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 441_2_1
+ * \name Broadcast Configuration Settings Sets - Set 441_2_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 441_2_1
  * As defined in BAP Specification.
@@ -1659,7 +1703,7 @@
  * SDU_Interval (us): 10884 \n
  * For 44.1 kHz/10 ms the actual frame duration is equal to
  * 480 (samples per second) divided by 44100 (Sampling Frequency), which
- * equals 10.88435 ms
+ * equals 10.88435 ms.
  */
 #define GA_BC_441_2_1_SDUINTERVAL_uS     10884
 /** Framing: Framed */
@@ -1676,7 +1720,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_1_1
+ * \name Broadcast Configuration Settings Sets - Set 48_1_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_1_1
  * As defined in BAP Specification.
@@ -1698,7 +1742,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_2_1
+ * \name Broadcast Configuration Settings Sets - Set 48_2_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_2_1
  * As defined in BAP Specification.
@@ -1720,7 +1764,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_3_1
+ * \name Broadcast Configuration Settings Sets - Set 48_3_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_3_1
  * As defined in BAP Specification.
@@ -1742,7 +1786,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_4_1
+ * \name Broadcast Configuration Settings Sets - Set 48_4_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_4_1
  * As defined in BAP Specification.
@@ -1764,7 +1808,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_5_1
+ * \name Broadcast Configuration Settings Sets - Set 48_5_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_5_1
  * As defined in BAP Specification.
@@ -1786,7 +1830,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_6_1
+ * \name Broadcast Configuration Settings Sets - Set 48_6_1
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_6_1
  * As defined in BAP Specification.
@@ -1808,7 +1852,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 8_1_2
+ * \name Broadcast Configuration Settings Sets - Set 8_1_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 8_1_2
  * As defined in BAP Specification.
@@ -1830,7 +1874,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 8_2_2
+ * \name Broadcast Configuration Settings Sets - Set 8_2_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 8_2_2
  * As defined in BAP Specification.
@@ -1852,7 +1896,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 16_1_2
+ * \name Broadcast Configuration Settings Sets - Set 16_1_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 16_1_2
  * As defined in BAP Specification.
@@ -1874,7 +1918,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 16_2_2
+ * \name Broadcast Configuration Settings Sets - Set 16_2_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 16_2_2
  * As defined in BAP Specification.
@@ -1896,7 +1940,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 24_1_2
+ * \name Broadcast Configuration Settings Sets - Set 24_1_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 24_1_2
  * As defined in BAP Specification.
@@ -1918,7 +1962,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 24_2_2
+ * \name Broadcast Configuration Settings Sets - Set 24_2_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 24_2_2
  * As defined in BAP Specification.
@@ -1940,7 +1984,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 32_1_2
+ * \name Broadcast Configuration Settings Sets - Set 32_1_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 32_1_2
  * As defined in BAP Specification.
@@ -1962,7 +2006,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 32_2_2
+ * \name Broadcast Configuration Settings Sets - Set 32_2_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 32_2_2
  * As defined in BAP Specification.
@@ -1984,7 +2028,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 441_1_2
+ * \name Broadcast Configuration Settings Sets - Set 441_1_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 441_1_2
  * As defined in BAP Specification.
@@ -1994,7 +2038,7 @@
  * SDU_Interval (us): 8163 \n
  * For 44.1 kHz/7.5ms, the actual SDU_Interval is equivalent to
  * 360 (samples per second) divided by 44100 (Sampling Frequency), which
- * equals 8.16327 ms
+ * equals 8.16327 ms.
  */
 #define GA_BC_441_1_2_SDUINTERVAL_uS     8163
 /** Framing: Framed */
@@ -2011,7 +2055,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 441_2_2
+ * \name Broadcast Configuration Settings Sets - Set 441_2_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 441_2_2
  * As defined in BAP Specification.
@@ -2021,7 +2065,7 @@
  * SDU_Interval (us): 10884 \n
  * For 44.1 kHz/10 ms the actual frame duration is equal to
  * 480 (samples per second) divided by 44100 (Sampling Frequency), which
- * equals 10.88435 ms
+ * equals 10.88435 ms.
  */
 #define GA_BC_441_2_2_SDUINTERVAL_uS     10884
 /** Framing: Framed */
@@ -2038,7 +2082,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_1_2
+ * \name Broadcast Configuration Settings Sets - Set 48_1_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_1_2
  * As defined in BAP Specification.
@@ -2060,7 +2104,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_2_2
+ * \name Broadcast Configuration Settings Sets - Set 48_2_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_2_2
  * As defined in BAP Specification.
@@ -2082,7 +2126,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_3_2
+ * \name Broadcast Configuration Settings Sets - Set 48_3_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_3_2
  * As defined in BAP Specification.
@@ -2104,7 +2148,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_4_2
+ * \name Broadcast Configuration Settings Sets - Set 48_4_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_4_2
  * As defined in BAP Specification.
@@ -2126,7 +2170,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_5_2
+ * \name Broadcast Configuration Settings Sets - Set 48_5_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_5_2
  * As defined in BAP Specification.
@@ -2148,7 +2192,7 @@
 /** \} */
 
 /**
- * \name Broadcast Configuration Settings Set 48_6_2
+ * \name Broadcast Configuration Settings Sets - Set 48_6_2
  * \{
  * \brief Broadcast Audio Stream Configuration Settings: Set 48_6_2
  * As defined in BAP Specification.

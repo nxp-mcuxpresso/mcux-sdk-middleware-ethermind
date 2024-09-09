@@ -3,7 +3,7 @@
  *  \file GA_tmap_api.h
  *
  *  \brief This file defines the GA Telephony and Media Audio Profile(TMAP)
- *  Client and Server Entity(SE) Interface - includes Data Structures and
+ *  Client and Server Interface - includes Data Structures and
  *  Methods.
  */
 
@@ -47,6 +47,15 @@
  */
 
 /**
+ * \defgroup tmap_error_code Error Codes
+ * \{
+ * \brief This section lists the Error Codes that are provided as part of
+ * return of functionalities of TMAP.
+ */
+
+/** \} */
+
+/**
  * \defgroup tmap_constants Constants
  * \{
  * \brief This section describes the various Constants in EtherMind GA
@@ -56,8 +65,8 @@
 /**
  * \name TMAP Roles
  * \{
- * Bitmask Field
- * 0 = Server does not support.
+ * \brief Bitmask Field
+ * 0 = Server does not support. \n
  * 1 = Server supports.
  */
 
@@ -77,7 +86,7 @@
 /** \} */
 
 /**
- * \name TMAP Client Constants - General Macros
+ * \name Client - General Macros
  * \{
  * \brief Initialization and other General Macros offered by the module.
  */
@@ -91,7 +100,7 @@
 /** \} */
 
 /**
- * \name TMAP Client Constants - TMAP Char ID
+ * \name Client - TMAP Char ID
  * \{
  * This section lists the Characteristic ID references.
  */
@@ -114,38 +123,39 @@
  */
 
 /**
- * \defgroup tmap_client_events TMAP Client Events
+ * \defgroup tmap_client_events Client
  * \{
- * This section describes the Telephony and Media Audio Profile Events
+ * \brief This section describes the Telephony and Media Audio Profile Events
  * for Client.
  */
 
 /**
- * \name TMAP Client - Setup Events
+ * \name TMAP Client Events - Setup
  * \{
  */
 
 /**
- * This event indicates the setup of a TMAS context.
- * Callback is triggered once discovery of service and char is complete.
+ * \brief This event indicates the setup of a TMAS context.
+ * Callback is triggered once discovery of service and char is complete. \n
  * Callback is triggered with the following values as parameters in the
- * \ref TMAP_NTF_CB callback.
+ * \ref TMAP_NTF_CB callback. \n
  * TMAP Role is also read and notified during the process of discovery.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref TMAP_SETUP_CNF
- * \param [in] evt_status  \ref GA_SUCCESS Service Discovery Complete \n
- *                         \ref GA_FAILURE Others \n
- * \param [in] evt_data  Pointer to object of type \ref TMAP_EVT \n
- *                         - TMAP Handle for the Device - \ref TMAP_HANDLE \n
- *                         If status is \ref GA_SUCCESS \n
- *                           - data - Pointer to object of type \ref TMAP_ROLE \n
- *                           - len - Size of \ref TMAP_ROLE \n
- *                           .
- *                         If status is \ref GA_FAILURE, \n
- *                           - data - NULL \n
- *                           - len - 0 \n
- *                           .
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref TMAP_SETUP_CNF
+ * \param [in] evt_status \ref GA_SUCCESS : Service Discovery Complete \n
+ *                        \ref GA_FAILURE : Others \n
+ * \param [in] evt_data Pointer to object of type \ref TMAP_EVT \n
+ *                      If status is \ref GA_SUCCESS \n
+ *                         - tmap_handle: TMAP Handle for the Device \n
+ *                         - data - Pointer to object of type \ref TMAP_ROLE \n
+ *                         - len - \ref sizeof ( \ref TMAP_ROLE ) \n
+ *                         .
+ *                      If status is \ref GA_FAILURE, \n
+ *                         - tmap_handle: TMAP Handle for the Device \n
+ *                         - data - NULL \n
+ *                         - len - 0 \n
+ *                         .
  *
  * \return \ref GA_SUCCESS (always)
  */
@@ -154,26 +164,25 @@
 /** \} */
 
 /**
- * \name TMAP Client - Release Events
+ * \name TMAP Client Events - Release
  * \{
  */
 
 /**
- * This event indicates the release of a TMAS context.
+ * \brief This event indicates the release of a TMAS context.
  * Callback is triggered once the context is cleared of any discovered
- * handles and properties
- *
+ * handles and properties. \n
  * Callback is triggered with the following values as parameters in the
  * \ref TMAP_NTF_CB callback.
  *
- * \param [in] device  Pointer to peer device handle \ref
- * \param [in] evt_id  \ref TMAP_RELEASE_CNF
- * \param [in] evt_status  \ref GA_SUCCESS on release \n
- * \param [in] evt_data  Pointer to object of type \ref TMAP_EVT \n
- *                         - TMAP Handle for the Device - \ref TMAP_HANDLE \n
+ * \param [in] device Pointer to peer device handle \ref
+ * \param [in] evt_id \ref TMAP_RELEASE_CNF
+ * \param [in] evt_status \ref GA_SUCCESS on release \n
+ * \param [in] evt_data Pointer to object of type \ref TMAP_EVT \n
+ *                         - tmap_handle: TMAP Handle for the Device \n
  *                         - data - NULL \n
  *                         - len - 0 \n
- *                           .
+ *                         .
  */
 #define TMAP_RELEASE_CNF                          0x02U
 
@@ -235,8 +244,7 @@ typedef struct _TMAP_EVT
  */
 
 /**
- * TMAP Callback to be registered by the Application
- *
+ * TMAP Callback to be registered by the Application. \n
  * TMAP Layer calls the registered callback to indicate events occurred to the
  * application.
  *
@@ -271,23 +279,24 @@ extern "C" {
  */
 
 /**
- * \defgroup tmap_common_api TMAP Common APIs
+ * \defgroup tmap_common_api Common
  * \{
- * This section describes the Telephony and Media Audio Profile APIs
+ * \brief This section describes the Telephony and Media Audio Profile APIs
  * common for Client and Server.
  */
 
 /**
- * \name TMAP Init
- * This section describes the Telephony and Media Audio Profile Init APIs
+ * \name TMAP Common APIs - Init
+ * \brief This section describes the Telephony and Media Audio Profile Init APIs
  * \{
  */
 
 /**
- *  \brief To Init the TMAP Client and Server Module
+ *  \brief To Init the TMAP Client and Server Module.
  *
  *  \par Description:
- *       This function enables to initialize the TMAP Client and Server Entity Module.
+ *       This function enables to initialize the TMAP Client and Server
+ *       Module. \n
  *       This function enables to register a callback with TMAP Module.
  *       This callback will be triggered whenever there are events generated
  *       either due to requests/responses or notifications from peer.
@@ -308,17 +317,18 @@ GA_RESULT GA_tmap_init
 /** \} */
 
 /**
- * \name TMAP De-Init
- * This section describes the Telephony and Media Audio Profile De-Init APIs
+ * \name TMAP Common APIs - De-Init
+ * \brief This section describes the Telephony and Media Audio Profile
+ * De-Init APIs.
  * \{
  */
 
 /**
- *  \brief To Shutdown the TMAP Client and Server Module
+ *  \brief To Shutdown the TMAP Client and Server Module.
  *
  *  \par Description:
- *       This function enables to Shutdown the TMAP Client and Server Entity
- *       module.
+ *       This function enables to Shutdown the TMAP Client and Server
+ *       module. \n
  *       This function de-references the callback registered with GA TMAP
  *       Module. No events generated at the TMAP layer will be triggered
  *       post this function call.
@@ -333,8 +343,9 @@ GA_RESULT GA_tmap_shutdown(void);
 /** \} */
 
 /**
- * \name TMAP Init
- * This section describes the Telephony and Media Audio Profile Init APIs
+ * \name TMAP Common APIs - Init
+ * \brief This section describes the Telephony and Media Audio Profile
+ * Init APIs.
  * \{
  */
 /**
@@ -347,7 +358,6 @@ GA_RESULT GA_tmap_shutdown(void);
  *  \param [in] client \n
  *         \ref GA_TRUE - Refers the device to be registered as a Client. \n
  *         \ref GA_FALSE - Refers the device to be registerd as a Server. \n
- *                          .
  *
  *  \param [in] role
  *         Refer \ref TMAP_ROLE.
@@ -370,19 +380,19 @@ GA_RESULT GA_tmap_register_role
 #ifdef TMAP_CLIENT
 
 /**
- * \defgroup tmap_client_api TMAP Client APIs
+ * \defgroup tmap_client_api Client
  * \{
- * This section describes the Telephony and Media Audio Profile APIs
+ * \brief This section describes the Telephony and Media Audio Profile APIs
  * for Client.
  */
 
 /**
- * \name TMAP Client - Discover
+ * \name TMAP Client APIs - Setup
  * \{
  */
 
 /**
- *  \brief To Setup Telephony and Media Audio Service(TMAS) Context
+ *  \brief To Setup Telephony and Media Audio Service(TMAS) Context.
  *
  *  \par Description:
  *       This function enables to discover TMAS context with given device.
@@ -397,7 +407,7 @@ GA_RESULT GA_tmap_register_role
  *         TMAP Handle.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
+ *          \ref GA_error.h. \n
  *          If \ref GA_SUCCESS, \ref TMAP_SETUP_CNF is notified on
  *          completion with status as success or failure.
  *
@@ -413,7 +423,7 @@ GA_RESULT GA_tmap_setup
 /** \} */
 
 /**
- * \name TMAP Client - Setup
+ * \name TMAP Client APIs - Setup
  * \{
  */
 
@@ -424,27 +434,27 @@ GA_RESULT GA_tmap_setup
 /**
  *  \brief To manage the GA TMAP characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to get/set the service and
  *       characteristic handle ranges from/to a device context.
  *
  *  \param [in] set
- *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET
+ *         \ref GA_TRUE for Context SET and \ref GA_FALSE for Context GET.
  *
  *  \param [in] device
- *         Remote device endpoint
+ *         Remote device endpoint.
  *
  *  \param [inout] tmap_handle
- *         Context handle for the endpoint
+ *         Context handle for the endpoint.
  *
  *  \param [inout] range
- *         Service range array for TMAS
+ *         Service range array for TMAS.
  *
  *  \param [inout] info
- *         Array of characteristic handles for TMAS
+ *         Array of characteristic handles for TMAS.
  *
  *  \param [inout] info_count
- *         Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
@@ -464,62 +474,78 @@ GA_RESULT GA_tmap_manage_context_info
 /**
  *  \brief To get the GA TMAP characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to get the service and
  *       characteristic handle ranges from a device context.
  *
  *  \param [in] d
- *         Remote device endpoint
+ *         Remote device endpoint.
  *
  *  \param [inout] h
- *         Context handle for the endpoint
+ *         Context handle for the endpoint.
  *
  *  \param [inout] r
- *         Service range array for TMAS
+ *         Service range array for TMAS.
  *
  *  \param [inout] i
- *         Array of characteristic handles for TMAS
+ *         Array of characteristic handles for TMAS.
  *
  *  \param [inout] c
- *         Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
  *  \sa tmap_error_code
  */
-#define GA_tmap_get_context_info(d, h, r, i, c) \
-        GA_tmap_manage_context_info(GA_FALSE, (d), (h), (r), (i), (c))
+#define GA_tmap_get_context_info(d, h, r, i, c)              \
+        GA_tmap_manage_context_info                          \
+        (                                                    \
+            GA_FALSE,                                        \
+            (d),                                             \
+            (h),                                             \
+            (r),                                             \
+            (i),                                             \
+            (c)                                              \
+        )
 
 /**
  *  \brief To set the GA TMAP characteristic handles of a device.
  *
- *  \par Description
+ *  \par Description:
  *       The routine enables the application to set the service and
  *       characteristic handle ranges to a device context.
  *
  *  \param [in] d
- *         Remote device endpoint
+ *         Remote device endpoint.
  *
  *  \param [inout] h
- *         Context handle for the endpoint
+ *         Context handle for the endpoint.
  *
  *  \param [inout] r
- *         Service range array for TMAS
+ *         Service range array for TMAS.
  *
  *  \param [inout] i
- *         Array of characteristic handles for TMAS
+ *         Array of characteristic handles for TMAS.
  *
  *  \param [inout] c
- *         Count of characteristics handles in above parameter
+ *         Count of characteristics handles in above parameter.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
  *  \sa tmap_error_code
  */
-#define GA_tmap_set_context_info(d, h, r, i, c) \
-        GA_tmap_manage_context_info(GA_TRUE, (d), (h), (r), (i), (c))
+#define GA_tmap_set_context_info(d, h, r, i, c)              \
+        GA_tmap_manage_context_info                          \
+        (                                                    \
+            GA_TRUE,                                         \
+            (d),                                             \
+            (h),                                             \
+            (r),                                             \
+            (i),                                             \
+            (c)                                              \
+        )
 
 #endif /* TMAP_SUPPORT_CONTEXT_MANAGE */
 
@@ -530,29 +556,31 @@ GA_RESULT GA_tmap_manage_context_info
 /** \} */
 
 /**
- * \name TMAP Client - Release
+ * \name TMAP Client APIs - Release
  * \{
  */
+
 /**
- *  \brief Release or free the given TMAP context.
+ *  \brief Close or Release the given TMAP context.
  *
  *  \par Description:
- *       When 'free' is set to \ref GA_FALSE, this routine initiates the
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
  *       release procedure for the context. Once release is done, the context
  *       is freed up and the setup must be freshly done by calling
- *       \ref GA_tmap_setup if required for the same device again.
- *
- *  If the 'free' parameter is set to \ref GA_TRUE,
- *  this API just frees up the context without the release procedure.
+ *       \ref GA_tmap_setup() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
  *
  *  \param [in] tmap_handle
- *         Context handle for the endpoint to be released/freed.
- *  \param [in] free
- *         Indicate free only without release.
+ *         TMAP Context for the endpoint to be released/freed.
+ *
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
- *          If \ref GA_SUCCESS, \ref TMAP_CE_RELEASE_CNF is notified on
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref TMAP_RELEASE_CNF is notified on
  *          completion with status as success or failure.
  *
  *  \sa tmap_client_events
@@ -561,48 +589,57 @@ GA_RESULT GA_tmap_manage_context_info
 GA_RESULT GA_tmap_terminate
           (
               /* IN */  TMAP_HANDLE tmap_handle,
-              /* IN */  UCHAR       free
+              /* IN */  UCHAR       release
           );
 
 /**
- *  \brief Release the given GA TMAP context.
+ *  \brief Release the given TMAP context.
  *
  *  \par Description:
- *       This routine initiates the release procedure for the context.
- *       Once release is done, the context is freed up and the setup must be
- *       freshly done by calling \ref GA_tmap_setup if required for
- *       the same device again.
+ *       This routine initiates the release procedure for the context. Once
+ *       release is done, the context is freed up and the setup must be freshly
+ *       done by calling \ref GA_tmap_setup() if required for the
+ *       same device again.
  *
  *  \param [in] tmap_handle
- *         Context handle for the endpoint to be released.
+ *         TMAP Context for the endpoint to be released.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
- *          \ref GA_error.h.
- *          If \ref GA_SUCCESS, \ref TMAP_CE_RELEASE_CNF is notified on
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref TMAP_RELEASE_CNF is notified on
  *          completion with status as success or failure.
  *
  *  \sa tmap_client_events
  *  \sa tmap_error_code
  */
-#define GA_tmap_release(tmap_handle) \
-        GA_tmap_terminate((tmap_handle), GA_FALSE)
+#define GA_tmap_release(tmap_handle)                         \
+        GA_tmap_terminate                                    \
+        (                                                    \
+            (tmap_handle),                                   \
+            GA_TRUE                                          \
+        )
 
 /**
  *  \brief Free the given TMAP context.
  *
  *  \par Description:
- *       This routine frees up the given context of the GA layer.
+ *       This routine frees up the given context of the TMAP.
  *
  *  \param [in] tmap_handle
- *         Context handle for the endpoint to be freed.
+ *         TMAP Context for the endpoint to be freed.
  *
  *  \return \ref GA_SUCCESS or one of the error codes as defined in
  *          \ref GA_error.h.
  *
  *  \sa tmap_error_code
  */
-#define GA_tmap_close(tmap_handle) \
-        GA_tmap_terminate((tmap_handle), GA_TRUE)
+#define GA_tmap_close(tmap_handle)                           \
+        GA_tmap_terminate                                    \
+        (                                                    \
+            (tmap_handle),                                   \
+            GA_FALSE                                         \
+        )
+
 /** \} */
 
 /** \} */

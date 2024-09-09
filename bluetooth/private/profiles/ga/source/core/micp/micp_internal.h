@@ -57,8 +57,12 @@
 #define MICS_UNLOCK_VOID()       GA_MUTEX_UNLOCK_VOID(mics_mutex, MICP)
 
 /* --------------------------------------------- APIs */
-void micp_add_aics(/* IN */ MICS_AICS_CONTEXT * aics_entity);
 
+#ifdef MICP_DEVICE
+void micp_add_aics(/* IN */ MICS_AICS_CONTEXT * aics_entity);
+#endif /* MICP_DEVICE */
+
+#ifdef MICP_CONTROLLER
 GA_RESULT micp_get_context
           (
               /* IN    */ void   *cntx_pointer,
@@ -96,7 +100,9 @@ GA_RESULT micp_profile_callback
               /* IN */ void * event_data,
               /* IN */ UINT16 event_datalen
           );
+#endif /* MICP_CONTROLLER */
 
+#ifdef MICP_DEVICE
 GA_RESULT micp_service_callback
           (
               /* IN */ GA_BRR_DEVICE * device,
@@ -124,6 +130,7 @@ void micp_handle_write_request
          /* IN */ UCHAR * event_data,
          /* IN */ UINT16 event_datalen
      );
+#endif /* MICP_DEVICE */
 
 void micp_handle_config_request
      (
@@ -134,12 +141,15 @@ void micp_handle_config_request
          /* IN */ UINT16 event_datalen
      );
 
+#ifdef MICP_CONTROLLER
 GA_RESULT micp_release_context
           (
               /* IN */ UCHAR  cntx_idx,
               /* IN */ UCHAR  srvc_type
           );
+#endif /* MICP_CONTROLLER */
 
+#ifdef MICP_DEVICE
 GA_RESULT micp_get_aics_char_id_from_char_uuid
           (
               /* IN */  MICS_AICS_CONTEXT  *srvc_info,
@@ -154,7 +164,9 @@ GA_RESULT mcd_get_srvc_id_from_char_id
               /* OUT */ UCHAR           *srvc_type,
               /* IN  */ GA_BRR_CHR_INST  char_inst
           );
+#endif /* MICP_DEVICE */
 
+#ifdef MICP_CONTROLLER
 GA_RESULT micp_search_device_context
           (
               /* IN  */ GA_ENDPOINT * device,
@@ -190,7 +202,5 @@ UINT8 micp_get_next_char_config
           /* IN */ GA_CHAR_INFO *ga_char_info
       );
 
+#endif /* MICP_CONTROLLER */
 #endif /* _H_MICP_INTERNAL */
-
-
-

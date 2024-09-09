@@ -80,25 +80,19 @@ typedef UINT8 VCP_AICS_HANDLE;
  */
 typedef struct _VCP_CONTEXT
 {
-    /* Device Endpoint */
+    /** Device Endpoint */
     GA_ENDPOINT device;
 
-    /**
-     * VCS characteristics Info.
-     */
+    /** VCS characteristics Info. */
     GA_CHAR_INFO char_info[VCS_CHAR_ID_COUNT];
 
-    /**
-     * Current characteristic ID being configured
-     */
+    /** Current characteristic ID being configured */
     UINT8 char_config_id;
 
-   /**
-    * Status Flag
-    */
+    /** Status Flag */
     UCHAR cntx_id;
 
-    /* Context Event for a procedure */
+    /** Context Event for a procedure */
     UINT8 cntx_event;
 
     /** Service Range */
@@ -108,24 +102,16 @@ typedef struct _VCP_CONTEXT
 
 typedef struct _VCP_VOCS_CONTEXT
 {
-    /**
-     * VOCS characteristics Info.
-     */
+    /** VOCS characteristics Info. */
     GA_CHAR_INFO char_info[VOCS_CHAR_ID_COUNT];
 
-    /**
-     * Current characteristic ID being configured
-     */
+    /** Current characteristic ID being configured */
     UINT8 char_config_id;
 
-   /**
-    * Status Flag
-    */
+    /** Status Flag */
     UCHAR cntx_id;
 
-    /**
-     * Associated VCP Context
-     */
+    /** Associated VCP Context */
     VCP_HANDLE vcp_id;
 
     /** Service Range */
@@ -135,214 +121,142 @@ typedef struct _VCP_VOCS_CONTEXT
 
 typedef struct _VCP_AICS_CONTEXT
 {
-    /**
-     * AICS characteristics Info.
-     */
+    /** AICS characteristics Info. */
     GA_CHAR_INFO char_info[AICS_CHAR_ID_COUNT];
 
-    /**
-     * Current characteristic ID being configured
-     */
+    /** Current characteristic ID being configured */
     UINT8 char_config_id;
 
-   /**
-    * Status Flag
-    */
+    /** Status Flag */
     UCHAR cntx_id;
 
-    /**
-     * Associated VCP Context
-     */
+    /** Associated VCP Context */
     VCP_HANDLE vcp_id;
 
     /** Service Range */
     GA_BRR_SVC_RANGE range;
 }VCP_AICS_CONTEXT;
 
-/**
- * VCS as Server
- */
-typedef struct _VCS_ENTITY_
+/** VCS as Server */
+typedef struct _VCS_ENTITY
 {
-    /**
-    * Flag to indicate if allocated.
-    */
+    /** Flag to indicate if allocated. */
     UCHAR state;
 
-    /* Service Id */
+    /** Service Id */
     GA_BRR_SVC_INST   vcs_id;
 
-    /**
-     * Volume State
-     */
+    /** Volume State */
     GA_BRR_CHR_INST char_id_VOLUME_STATE;
 
-    /**
-     * Volume Control Point
-     */
+    /** Volume Control Point */
     GA_BRR_CHR_INST char_id_VOLUME_CP;
 
-    /**
-     * Volume Flags
-     */
+    /** Volume Flags */
     GA_BRR_CHR_INST char_id_VOLUME_FLAGS;
 
-    /**
-     * Volume Flags Properties
-     */
+    /** Volume Flags Properties */
     GA_BRR_CHR_INST   char_id_VOLUME_FLAGS_prpty;
 }VCS_ENTTITY;
 
-/**
- *  VOCS as Server
- */
-typedef struct _VCS_VOCS_ENTITY_
+/** VOCS as Server */
+typedef struct _VCS_VOCS_ENTITY
 {
-   /**
-    * Flag to indicate if allocated.
-    */
+    /** Flag to indicate if allocated. */
     UCHAR state;
 
-    /**
-     * VOCS Service Handle
-     */
+    /** VOCS Service Handle */
     GA_BRR_SVC_INST vocs_id;
 
-    /**
-     * Offset State
-     */
+    /** Offset State */
     GA_BRR_CHR_INST char_id_OFFSET_STATE;
 
-    /**
-     * Audio Location
-     */
+    /** Audio Location */
     GA_BRR_CHR_INST char_id_AUDIO_LOCATION;
 
-    /**
-     * Volume Offset Control Point
-     */
+    /** Volume Offset Control Point */
     GA_BRR_CHR_INST char_id_VOLUME_OFFSET_CP;
 
-    /**
-     * Audio Output Description
-     */
+    /** Audio Output Description */
     GA_BRR_CHR_INST char_id_AUDIO_OUTPUT_DESC;
 }VCS_VOCS_ENTITY;
 
-/**
- * AICS as a Server
- */
-typedef struct _VCS_AICS_ENTITY_
+/** AICS as a Server */
+typedef struct _VCS_AICS_ENTITY
 {
-   /**
-    * Flag to indicate if allocated.
-    */
+    /** Flag to indicate if allocated. */
     UCHAR state;
 
-    /**
-     * VCS Service Handle
-     */
+    /** VCS Service Handle */
     GA_BRR_SVC_INST aics_id;
 
-    /**
-     * Input State
-     */
+    /** Input State */
     GA_BRR_CHR_INST char_id_INPUT_STATE;
 
-    /**
-     * Gain Setting Properties
-     */
+    /** Gain Setting Properties */
     GA_BRR_CHR_INST char_id_GAIN_SETTING_PROPERTIES;
 
-    /**
-     * Input Type
-     */
+    /** Input Type */
     GA_BRR_CHR_INST char_id_INPUT_TYPE;
 
-    /**
-     * Input Status
-     */
+    /** Input Status */
     GA_BRR_CHR_INST char_id_INPUT_STATUS;
 
-    /**
-     * Audio Input Control Point
-     */
+    /** Audio Input Control Point */
     GA_BRR_CHR_INST char_id_AUDIO_INPUT_CP;
 
-    /**
-     * Audio Input Description
-     */
+    /** Audio Input Description */
     GA_BRR_CHR_INST char_id_AUDIO_INPUT_DESCRIPTION;
 }VCS_AICS_ENTITY;
 
 typedef struct _VCP_CHAR_NTF
 {
-    /* Service type */
+    /** Service type */
     UCHAR srvs_type;
 
-    /* Char instance id */
+    /** Char instance id */
     UINT8 inst;
 
-    /**
-     * Notify data
-     */
-    void * data;
+    /** Notify data */
+    void * data; /* SZ:^4 */
 
-    /**
-     * Notify data length
-     */
+    /** Notify data length */
     UINT8 datalen;
 } VCP_CHAR_NTF;
 
-/* VCP Event Info */
+/** VCP Event Info */
 typedef struct _VCP_EVENT_INFO
 {
-    /**
-    * Peer Device Address
-    */
+    /** Peer Device Address */
     GA_ENDPOINT * device;
 
-    /**
-     * Char Info.
-     */
+    /** Char Info. */
     GA_BRR_CHR_CONTEXT *chr;
 
-    /**
-     * Service Type
-     */
+    /** Service Type */
     UCHAR  srvc_type;
 
-    /**
-     * Service instance. Refer \ref GA_VR_HANDLE.
-     */
+    /** Service instance. Refer \ref GA_VR_HANDLE. */
     UCHAR srvc_inst;
 
-    /**
-     * Data
-     */
-    UCHAR * data;
+    /** Data */
+    UCHAR * data; /* SZ:^6 */
 
-    /**
-     * Data Length
-     */
+    /** Data Length */
     UCHAR datalen;
 } VCP_EVENT_INFO;
 
-/* VCP Response Info. */
+/** VCP Response Info. */
 typedef struct _VCP_RSP_INFO
 {
     GA_BRR_CHR_CONTEXT * chr;
 
-    /**
-     * Data
-     */
+    /** Data */
     UCHAR * data;
 
-    /**
-     * Data Length
-     */
+    /** Data Length */
     UCHAR datalen;
-}VCP_RSP_INF;
+}VCP_RSP_INFO;
 
 /* --------------------------------------------- Macros */
 
@@ -587,40 +501,98 @@ GA_RESULT VCP_get_vcp_handle_from_opt_svc
           );
 
 /**
- *  \brief To Release a VCP context.
+ *  \brief Close or Release the given VCP context.
  *
  *  \par Description:
- *       This function enables to release context of given service.
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref VCP_setup_context() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure. Any associated
+ *       VOCS and AICS contexts should be released/freed by the application
+ *       before calling this function.
  *
- *  \param [in] vcs_srvs_type
- *        Flag to indicate the Service type.
+ *  \param [in] handle
+ *         VCP Context for the endpoint to be released/freed.
  *
- *  \param [in] vcs_hndl
- *        Handle associated with the given service
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
  *
- *  \param [out] aics_hndl
- *        Allocated AICS Context Handle.
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref VCP_RELEASE_VCS_CNF is notified on
+ *          completion with status as success or failure.
  *
- *  \return API_SUCCESS or an error code indicating reason for failure
- *         If API_SUCCESS, VCP_DISCOVER_SRVS_CONTINUE_CNF or VCP_DISCOVER_SRVS_CNF.
+ *  \sa ga_vcp_error_code
  */
-
 GA_RESULT VCP_release_context
           (
-              /* IN */ VCP_HANDLE   handle,
-              /* IN */ UCHAR   free
+              /* IN */ VCP_HANDLE handle,
+              /* IN */ UCHAR      release
           );
 
+/**
+ *  \brief Close or Release the given VOCS context.
+ *
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref VCP_setup_vocs_context() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
+ *
+ *  \param [in] handle
+ *         VOCS Context for the endpoint to be released/freed.
+ *
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref VCP_RELEASE_VOCS_CNF is notified on
+ *          completion with status as success or failure.
+ *
+ *  \sa ga_vcp_error_code
+ */
 GA_RESULT VCP_release_vocs_context
           (
-              /* IN */ VCP_VOCS_HANDLE   handle,
-              /* IN */ UCHAR   free
+              /* IN */ VCP_VOCS_HANDLE handle,
+              /* IN */ UCHAR           release
           );
 
+/**
+ *  \brief Close or Release the given AICS context.
+ *
+ *  \par Description:
+ *       When 'release' is set to \ref GA_TRUE, this routine initiates the
+ *       release procedure for the context. Once release is done, the context
+ *       is freed up and the setup must be freshly done by calling
+ *       \ref VCP_setup_aics_context() if required for the same device again. \n
+ *       If the 'release' parameter is set to \ref GA_FALSE, this API just
+ *       frees the context without the release procedure.
+ *
+ *  \param [in] handle
+ *         AICS Context for the endpoint to be released/freed.
+ *
+ *  \param [in] release
+ *         \ref GA_TRUE : Indicates release with freeing of context \n
+ *         \ref GA_FALSE : Indicates only freeing of context
+ *
+ *  \return \ref GA_SUCCESS or one of the error codes as defined in
+ *          \ref GA_error.h. \n
+ *          If \ref GA_SUCCESS, \ref VCP_RELEASE_AICS_CNF is notified on
+ *          completion with status as success or failure.
+ *
+ *  \sa ga_vcp_error_code
+ */
 GA_RESULT VCP_release_aics_context
           (
-              /* IN */ VCP_AICS_HANDLE   handle,
-              /* IN */ UCHAR   free
+              /* IN */ VCP_AICS_HANDLE handle,
+              /* IN */ UCHAR           release
           );
 
 GA_RESULT VCP_update_ntf_configuration

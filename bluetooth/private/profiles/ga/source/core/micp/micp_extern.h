@@ -17,7 +17,7 @@
 #include "micp.h"
 
 /* --------------------------------------------- Global Definitions */
-
+#ifdef MICP_CONTROLLER
 /** MICP MICS Contexts */
 GA_DECLARE_GLOBAL_ARRAY(MICP_CONTEXT, micp_context, GA_CONFIG_LIMITS(MICP_MAX_MICS_CONTEXTS));
 
@@ -25,11 +25,17 @@ GA_DECLARE_GLOBAL_ARRAY(MICP_CONTEXT, micp_context, GA_CONFIG_LIMITS(MICP_MAX_MI
 GA_DECLARE_GLOBAL_ARRAY(MICP_AICS_CONTEXT, micp_aics_context, GA_CONFIG_LIMITS(MICP_MAX_AICS_CONTEXTS));
 
 extern GA_BRR_PRF_HANDLE micp_brr_id;
+#endif /* MICP_CONTROLLER */
 
 /* Global MICP Mutex Variable */
+#ifdef MICP_CONTROLLER
 GA_DEFINE_MUTEX_TYPE(extern, micc_mutex);
+#endif /* MICP_CONTROLLER */
+#ifdef MICP_DEVICE
 GA_DEFINE_MUTEX_TYPE(extern, mics_mutex);
+#endif /* MICP_DEVICE */
 
+#ifdef MICP_CONTROLLER
 /* Characteristic UUID table for AICS */
 extern DECL_CONST GA_CHAR_UUID micp_mics_uuid[MICS_CHAR_ID_COUNT];
 
@@ -41,6 +47,7 @@ extern DECL_CONST GA_CHAR_UUID micp_aics_uuid[AICS_CHAR_ID_COUNT];
 
 /* Characterisitc configuration enable mask */
 extern UINT32 micp_aics_config;
+#endif /* MICP_CONTROLLER */
 
 #ifdef MICP_DEVICE
 /* MICS as Server */

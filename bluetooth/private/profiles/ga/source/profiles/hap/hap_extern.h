@@ -23,7 +23,11 @@ extern HAP_NTF_CB hap_cb;
 
 #ifdef HAP_CLIENT
 
+/* HAP Profile ID registered with the GA Bearer */
 extern GA_BRR_PRF_HANDLE hap_brr_prf_handle;
+
+/* HA Roles - Client */
+extern HAP_ROLE hap_role;
 
 /* Characteristic UUID table for HAS */
 extern DECL_CONST GA_CHAR_UUID hap_has_uuid[HAP_CHAR_ID_COUNT];

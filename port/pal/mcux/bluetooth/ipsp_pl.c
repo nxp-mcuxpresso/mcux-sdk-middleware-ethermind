@@ -41,7 +41,10 @@ void ipsp_init_pl
     niface_stack_setup();
     if (BT_TRUE == is_router)
     {
+      /*Since there is no Ethernet interface on the RW610/RW612 board, Just disable it for IPSP Profile*/
+#if !defined(RW610_SERIES) && !defined(RW612_SERIES)
         niface_setup();
+#endif
     }
 
     if ((NULL != ipsp_read) && (NULL != read_cb))
