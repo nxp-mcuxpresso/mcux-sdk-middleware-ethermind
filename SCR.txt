@@ -1,0 +1,12 @@
+NXP Software Content Register
+
+Package: mcux-sdk-middleware-ethermind
+Version: 20.13.0
+Outgoing License: LA_OPT_Online_Code_Hosting
+License File: LA_OPT_Online_Code_Hosting.txt
+Type of Content: source code, header files, binary libraries
+Description and comments: Bluetooth and Bluetooth Low Energy Host Stack.
+Release Location: https://github.com/nxp-mcuxpresso/mcux-sdk-middleware-ethermind
+Origin: 
+      Mindtree (Proprietary） 
+	  NXP (BSD-3-Clause)

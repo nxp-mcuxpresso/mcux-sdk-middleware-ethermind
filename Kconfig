@@ -1,0 +1,403 @@
+
+menuconfig MCUX_COMPONENT_middleware.wireless.ethermind
+	bool "ethermind_bluetooth_stack"
+	imply MCUX_COMPONENT_middleware.freertos-kernel
+    select MCUX_PRJSEG_middleware.wireless.ethermind.common
+
+if MCUX_COMPONENT_middleware.wireless.ethermind
+
+config MCUX_PRJSEG_middleware.wireless.ethermind.common
+	bool
+	select MCUX_COMPONENT_middleware.wireless.ethermind.common.ethermind.hci
+	imply MCUX_COMPONENT_middleware.littlefs
+	imply MCUX_COMPONENT_middleware.fatfs
+	imply MCUX_COMPONENT_component.osa
+	imply FSL_OSA_TASK_ENABLE
+
+# Physical interface of HCI. Currently supports UART and RPMSG.
+config MCUX_COMPONENT_middleware.wireless.ethermind.common.ethermind.hci
+    bool
+
+if MCUX_COMPONENT_middleware.wireless.ethermind.common.ethermind.hci
+choice
+    prompt "Ethermind Bluetooth HCI interface Selection"
+    default MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hci_platform if MCUX_HW_DEVICE_RW612
+    default MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hci_uart
+    help
+      Select the Bluetooth HCI interface.
+
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hci_uart
+    bool "UART HCI"
+    depends on MCUX_HW_DEVICE_MIMXRT1176 || MCUX_HW_DEVICE_MIMXRT1062
+    select MCUX_COMPONENT_component.serial_manager
+    select MCUX_COMPONENT_component.serial_manager_uart
+    select MCUX_COMPONENT_driver.lpuart_edma if MCUX_HAS_COMPONENT_driver.lpuart_edma
+
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hci_platform
+    bool "RPMSG HCI"
+    depends on MCUX_HW_DEVICE_RW612
+    select MCUX_PRJSEG_middleware.wireless.ethermind.controller.rw610
+
+endchoice
+
+endif # MCUX_COMPONENT_middleware.wireless.ethermind.common.ethermind.hci
+
+config MCUX_PRJSEG_middleware.wireless.ethermind.controller.wifi_nxp
+	bool "Component middleware.wireless.ethermind.controller.wifi_nxp"
+	default n
+	select MCUX_COMPONENT_middleware.wifi.fwdnld
+	select MCUX_COMPONENT_middleware.wifi.osa_free_rtos
+
+config MCUX_PRJSEG_middleware.wireless.ethermind.controller.features.files
+	bool "Component middleware.wireless.ethermind.controller.features.files"
+	default y if MCUX_HW_BOARD_evkcmimxrt1060 || MCUX_HW_BOARD_evkbmimxrt1170
+
+config MCUX_PRJSEG_middleware.wireless.ethermind.controller.rw610
+	bool "Component middleware.wireless.ethermind.controller.rw610"
+
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hci_rpmsg
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.hci_rpmsg"
+
+config ETHERMIND_BTDM_STACK_PORT
+	bool "ethermind port interface"
+	default n
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.niface
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hps_pl
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.https_pl
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.ipsp_pl
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.pan_pl
+  	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hps_pl
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.https_pl
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.ipsp_pl
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hfp_ag_pl
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.pan_pl
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.sco_audio_pl
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.a2dp
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.vcom
+	select MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.niface
+
+config ETHERMIND_BTDM_STACK
+	bool "ethermind btdm stack/export interface"
+	default n
+	select MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ga.include
+	select MCUX_PRJSEG_middleware.wireless.ethermind.lc3.include.libFile
+	select MCUX_PRJSEG_middleware.wireless.ethermind.btdm.lib
+	select MCUX_PRJSEG_middleware.wireless.ethermind.config
+	select MCUX_PRJSEG_middleware.wireless.ethermind.extension.common
+	select MCUX_PRJSEG_middleware.wireless.ethermind.extension.gatt_db
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.a2dp
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.avrcp
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.bip
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.bpp
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.ctn
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.ftp
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.map
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.opp
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.pan
+	select MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.pbap
+	select MCUX_PRJSEG_middleware.wireless.ethermind.core.include.libFile
+
+config ETHERMIND_BLE_STACK
+	bool "ethermind ble stack/export interface"
+	default n
+	select MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ga.include
+	select MCUX_PRJSEG_middleware.wireless.ethermind.ble_only.lib
+	select MCUX_PRJSEG_middleware.wireless.ethermind.config
+	select MCUX_PRJSEG_middleware.wireless.ethermind.extension.common
+	select MCUX_PRJSEG_middleware.wireless.ethermind.extension.gatt_db
+	select MCUX_PRJSEG_middleware.wireless.ethermind.core.include.libFile
+
+config ETHERMIND_BLE_STACK_NO_LE_AUDIO
+	bool "ethermind ble stack/export interface without le audio"
+	default n
+	select MCUX_PRJSEG_middleware.wireless.ethermind.ble_only_without_lc3.lib
+	select MCUX_PRJSEG_middleware.wireless.ethermind.config
+	select MCUX_PRJSEG_middleware.wireless.ethermind.extension.common
+	select MCUX_PRJSEG_middleware.wireless.ethermind.extension.gatt_db
+	select MCUX_PRJSEG_middleware.wireless.ethermind.core.include.libFile
+
+config CONTROLLER_ID
+    string "CONTROLLER_ID"
+    default "kUSB_ControllerEhci0"
+    help
+      USB Controller ID
+      This symbol is a config macro.
+      No prefix in generated macro
+
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hps_pl
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.hps_pl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.https_pl
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.https_pl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.ipsp_pl
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.ipsp_pl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.pan_pl
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.pan_pl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.a2dp
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.a2dp"
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.vcom
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.vcom"
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.niface
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.niface"
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.sco_audio_pl
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.sco_audio_pl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hfp_ag_pl
+	bool "Component middleware.wireless.ethermind.port.pal.mcux.bluetooth.hfp_ag_pl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.appl.br.al
+	bool "Component middleware.wireless.ethermind.appl.br.al"
+config MCUX_PRJSEG_middleware.wireless.ethermind.appl.ga.appl
+	bool "Component middleware.wireless.ethermind.appl.ga.appl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ga.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.ga.libFile"
+	imply MCUX_COMPONENT_middleware.wireless.ethermind.private.profiles.ga.include
+config MCUX_PRJSEG_middleware.wireless.ethermind.appl.ga.bearer
+	bool "Component middleware.wireless.ethermind.appl.ga.bearer"
+config MCUX_PRJSEG_middleware.wireless.ethermind.appl.br.profile_appl
+	bool "Component middleware.wireless.ethermind.appl.br.profile_appl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.appl.multiprofile
+	bool "Component middleware.wireless.ethermind.appl.multiprofile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.appl.br.profile_appl.pan
+	bool "Component middleware.wireless.ethermind.appl.br.profile_appl.pan"
+config MCUX_PRJSEG_middleware.wireless.ethermind.appl.br.protocol_appl
+	bool "Component middleware.wireless.ethermind.appl.br.protocol_appl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.appl.le.common
+	bool "Component middleware.wireless.ethermind.appl.le.common"
+	imply MCUX_COMPONENT_middleware.wireless.ethermind.le.protocol_appl
+	imply MCUX_COMPONENT_middleware.wireless.ethermind.le.profile_appl.common
+	imply MCUX_COMPONENT_middleware.wireless.ethermind.client
+config MCUX_PRJSEG_middleware.wireless.ethermind.le.protocol_appl
+	bool "Component middleware.wireless.ethermind.le.protocol_appl"
+config MCUX_PRJSEG_middleware.wireless.ethermind.le.profile_appl.common
+	bool "Component middleware.wireless.ethermind.le.profile_appl.common"
+config MCUX_PRJSEG_middleware.wireless.ethermind.client
+	bool "Component middleware.wireless.ethermind.client"
+config MCUX_PRJSEG_middleware.wireless.ethermind.client.ipspr
+	bool "Component middleware.wireless.ethermind.client.ipspr"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server
+	bool "Component middleware.wireless.ethermind.server"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.bps
+	bool "Component middleware.wireless.ethermind.server.bps"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.cpms
+	bool "Component middleware.wireless.ethermind.server.cpms"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.cscs
+	bool "Component middleware.wireless.ethermind.server.cscs"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.basic
+	bool "Component middleware.wireless.ethermind.server.basic"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.gls
+	bool "Component middleware.wireless.ethermind.server.gls"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.hid
+	bool "Component middleware.wireless.ethermind.server.hid"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.hps
+	bool "Component middleware.wireless.ethermind.server.hps"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.hrs
+	bool "Component middleware.wireless.ethermind.server.hrs"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.hts
+	bool "Component middleware.wireless.ethermind.server.hts"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.ipspn
+	bool "Component middleware.wireless.ethermind.server.ipspn"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.pass
+	bool "Component middleware.wireless.ethermind.server.pass"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.pxr
+	bool "Component middleware.wireless.ethermind.server.pxr"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.rscs
+	bool "Component middleware.wireless.ethermind.server.rscs"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.tis
+	bool "Component middleware.wireless.ethermind.server.tis"
+config MCUX_PRJSEG_middleware.wireless.ethermind.server.pts
+	bool "Component middleware.wireless.ethermind.server.pts"
+config MCUX_PRJSEG_middleware.wireless.ethermind.btdm.lib
+	bool "Component middleware.wireless.ethermind.btdm.lib"
+config MCUX_PRJSEG_middleware.wireless.ethermind.btdm_lite.lib
+	bool "Component middleware.wireless.ethermind.btdm_lite.lib"
+config MCUX_PRJSEG_middleware.wireless.ethermind.ble_core_dm.lib
+	bool "Component middleware.wireless.ethermind.ble_core_dm.lib"
+config MCUX_PRJSEG_middleware.wireless.ethermind.br_only.lib
+	bool "Component middleware.wireless.ethermind.br_only.lib"
+config MCUX_PRJSEG_middleware.wireless.ethermind.ble_only.lib
+	bool "Component middleware.wireless.ethermind.ble_only.lib"
+config MCUX_PRJSEG_middleware.wireless.ethermind.ble_only_without_lc3.lib
+	bool "Component middleware.wireless.ethermind.ble_only_without_lc3.lib"
+config MCUX_PRJSEG_middleware.wireless.ethermind.config
+	bool "Component middleware.wireless.ethermind.config"
+config MCUX_PRJSEG_middleware.wireless.ethermind.extension.common
+	bool "Component middleware.wireless.ethermind.extension.common"
+config MCUX_PRJSEG_middleware.wireless.ethermind.extension.gatt_db
+	bool "Component middleware.wireless.ethermind.extension.gatt_db"
+config MCUX_PRJSEG_middleware.wireless.ethermind.core.include.libFile
+	bool "Component middleware.wireless.ethermind.core.include.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.lc3.include.libFile
+	bool "Component middleware.wireless.ethermind.lc3.include.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.lc3_ndsp.include.libFile
+	bool "Component middleware.wireless.ethermind.lc3_ndsp.include.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.lc3_odsp.include.libFile
+	bool "Component middleware.wireless.ethermind.lc3_odsp.include.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.sbc.include.libFile
+	bool "Component middleware.wireless.ethermind.sbc.include.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.att.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.att.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.avctp.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.avctp.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.avdtp.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.avdtp.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.bnep.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.bnep.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.commom.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.commom.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.dbase.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.dbase.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.device_queue.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.device_queue.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.el2cap.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.el2cap.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.fsm_engine.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.fsm_engine.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.gatt_db.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.gatt_db.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.hci_1.2.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.hci_1.2.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.hci_transport.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.hci_transport.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.irobex.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.irobex.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.mcap.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.mcap.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.obex.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.obex.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.rfcomm.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.rfcomm.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.sdp.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.sdp.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.sm.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.sm.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.smp.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.smp.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.protocols.write_task.libFile
+	bool "Component middleware.wireless.ethermind.private.protocols.write_task.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.aes_cmac.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.aes_cmac.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.at_parser.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.at_parser.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.btsnoop.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.btsnoop.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.jpl.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.jpl.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.object_parser.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.object_parser.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.racp.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.racp.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.security.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.security.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.status.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.status.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.storage.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.storage.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.xml_parser.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.xml_parser.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ga.include
+	bool "Component middleware.wireless.ethermind.private.profiles.ga.include"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.a2dp_sink.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.a2dp_sink.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.a2dp_source.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.a2dp_source.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.a2dp_common.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.a2dp_common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.avrcp.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.avrcp.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.bip_initiator.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.bip_initiator.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.bip_responder.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.bip_responder.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.bip_common.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.bip_common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.bpp_printer.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.bpp_printer.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.bpp_sender.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.bpp_sender.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.bpp_common.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.bpp_common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ctn_cce.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.ctn_cce.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ctn_cse.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.ctn_cse.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ctn_common.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.ctn_common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ftp.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.ftp.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.hfp_ag.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.hfp_ag.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.hfp_unit.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.hfp_unit.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.hid.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.hid.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.hid_host.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.hid_host.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.map_mce.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.map_mce.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.map_mse.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.map_mse.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.map_common.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.map_common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.opp.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.opp.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.pan.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.pan.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.pbap_pce.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.pbap_pce.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.pbap_pse.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.pbap_pse.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.pbap_common.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.pbap_common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.sap_client.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.sap_client.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.sap_server.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.sap_server.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.sap_common.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.sap_common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.spp.libFile
+	bool "Component middleware.wireless.ethermind.private.profiles.spp.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.lc3.common.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.lc3.common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.lc3.decoder.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.lc3.decoder.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.lc3.encoder.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.lc3.encoder.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.lc3_ndsp.common.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.lc3_ndsp.common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.lc3_ndsp.decoder.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.lc3_ndsp.decoder.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.lc3_ndsp.encoder.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.lc3_ndsp.encoder.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.lc3_odsp.common.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.lc3_odsp.common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.lc3_odsp.decoder.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.lc3_odsp.decoder.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.lc3_odsp.encoder.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.lc3_odsp.encoder.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.cmsis.files
+	bool "Component middleware.wireless.ethermind.private.utils.cmsis.files"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.sbc.common.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.sbc.common.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.sbc.decoder.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.sbc.decoder.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.private.utils.sbc.encoder.libFile
+	bool "Component middleware.wireless.ethermind.private.utils.sbc.encoder.libFile"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.a2dp
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.a2dp"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.avrcp
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.avrcp"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.bip
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.bip"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.bpp
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.bpp"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.ctn
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.ctn"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.ftp
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.ftp"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.map
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.map"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.opp
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.opp"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.pan
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.pan"
+config MCUX_PRJSEG_middleware.wireless.ethermind.bluetooth.tools.resources.pbap
+	bool "Component middleware.wireless.ethermind.bluetooth.tools.resources.pbap"
+endif
