@@ -2855,6 +2855,19 @@
 #define SDP_DYNAMIC_DB
 
 /*
+ * SDP_DB_ADD_PROFILE_DESC_LIST_UUID_128_BIT_SUPPORT
+ *
+ * This flag enables APIs to support adding 128 bit Profile Descriptor List
+ * UUID in the SDP database.
+ * This is applicable only for dynamic creation of the SDP database.
+ *
+ * Dependency: SDP_DYNAMIC_DB
+ *
+ * Default: Disable
+ */
+#define SDP_DB_ADD_PROFILE_DESC_LIST_UUID_128_BIT_SUPPORT
+
+/*
  * HAVE_SDP_DB_DUMP
  *
  * This flag enables interface to dump SDP Database on console.

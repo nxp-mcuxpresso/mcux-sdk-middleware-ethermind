@@ -1,24 +1,24 @@
 
-menuconfig MCUX_COMPONENT_middleware.wireless.ethermind
+menuconfig MCUX_PRJSEG_middleware.wireless.ethermind
 	bool "ethermind_bluetooth_stack"
 	imply MCUX_COMPONENT_middleware.freertos-kernel
     select MCUX_PRJSEG_middleware.wireless.ethermind.common
 
-if MCUX_COMPONENT_middleware.wireless.ethermind
+if MCUX_PRJSEG_middleware.wireless.ethermind
 
 config MCUX_PRJSEG_middleware.wireless.ethermind.common
 	bool
-	select MCUX_COMPONENT_middleware.wireless.ethermind.common.ethermind.hci
+	select MCUX_PRJSEG_middleware.wireless.ethermind.common.ethermind.hci
 	imply MCUX_COMPONENT_middleware.littlefs
 	imply MCUX_COMPONENT_middleware.fatfs
 	imply MCUX_COMPONENT_component.osa
 	imply FSL_OSA_TASK_ENABLE
 
 # Physical interface of HCI. Currently supports UART and RPMSG.
-config MCUX_COMPONENT_middleware.wireless.ethermind.common.ethermind.hci
+config MCUX_PRJSEG_middleware.wireless.ethermind.common.ethermind.hci
     bool
 
-if MCUX_COMPONENT_middleware.wireless.ethermind.common.ethermind.hci
+if MCUX_PRJSEG_middleware.wireless.ethermind.common.ethermind.hci
 choice
     prompt "Ethermind Bluetooth HCI interface Selection"
     default MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hci_platform if MCUX_HW_DEVICE_RW612
@@ -40,7 +40,7 @@ config MCUX_PRJSEG_middleware.wireless.ethermind.port.pal.mcux.bluetooth.hci_pla
 
 endchoice
 
-endif # MCUX_COMPONENT_middleware.wireless.ethermind.common.ethermind.hci
+endif # MCUX_PRJSEG_middleware.wireless.ethermind.common.ethermind.hci
 
 config MCUX_PRJSEG_middleware.wireless.ethermind.controller.wifi_nxp
 	bool "Component middleware.wireless.ethermind.controller.wifi_nxp"
@@ -148,7 +148,7 @@ config MCUX_PRJSEG_middleware.wireless.ethermind.appl.ga.appl
 	bool "Component middleware.wireless.ethermind.appl.ga.appl"
 config MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ga.libFile
 	bool "Component middleware.wireless.ethermind.private.profiles.ga.libFile"
-	imply MCUX_COMPONENT_middleware.wireless.ethermind.private.profiles.ga.include
+	imply MCUX_PRJSEG_middleware.wireless.ethermind.private.profiles.ga.include
 config MCUX_PRJSEG_middleware.wireless.ethermind.appl.ga.bearer
 	bool "Component middleware.wireless.ethermind.appl.ga.bearer"
 config MCUX_PRJSEG_middleware.wireless.ethermind.appl.br.profile_appl
@@ -161,9 +161,9 @@ config MCUX_PRJSEG_middleware.wireless.ethermind.appl.br.protocol_appl
 	bool "Component middleware.wireless.ethermind.appl.br.protocol_appl"
 config MCUX_PRJSEG_middleware.wireless.ethermind.appl.le.common
 	bool "Component middleware.wireless.ethermind.appl.le.common"
-	imply MCUX_COMPONENT_middleware.wireless.ethermind.le.protocol_appl
-	imply MCUX_COMPONENT_middleware.wireless.ethermind.le.profile_appl.common
-	imply MCUX_COMPONENT_middleware.wireless.ethermind.client
+	imply MCUX_PRJSEG_middleware.wireless.ethermind.le.protocol_appl
+	imply MCUX_PRJSEG_middleware.wireless.ethermind.le.profile_appl.common
+	imply MCUX_PRJSEG_middleware.wireless.ethermind.client
 config MCUX_PRJSEG_middleware.wireless.ethermind.le.protocol_appl
 	bool "Component middleware.wireless.ethermind.le.protocol_appl"
 config MCUX_PRJSEG_middleware.wireless.ethermind.le.profile_appl.common

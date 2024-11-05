@@ -48,9 +48,6 @@
 /* The EtherMind Timer Library */
 #include "BT_timer.h"
 
-/* The EtherMind SDP Database APIs */
-#include "BT_dbase_api.h"
-
 /* EtherMind Platform Specific Initialization & Shutdown Handlers */
 #include "BT_common_pl.h"
 
