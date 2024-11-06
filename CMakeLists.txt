@@ -45,6 +45,27 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.controller.features.files)
     )
 endif()
 
+if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.bt_only_fw_dnld)
+    mcux_add_source(
+        SOURCES port/pal/mcux/bluetooth/fw_loader_uart.c
+                port/pal/mcux/bluetooth/fw_loader_uart.h
+                port/pal/mcux/ethal/ethal_os.c
+                port/pal/mcux/ethal/ethal_os.h
+                port/pal/mcux/EM_platform.h
+                port/osal/src/freertos/EM_os.h
+                bluetooth/export/eOSAL/eBT_os.h
+        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
+    )
+    mcux_add_include(
+        INCLUDES port/pal/mcux/bluetooth
+                 port/pal/mcux
+                 port/pal/mcux/ethal
+                 port/osal/src/freertos
+                 bluetooth/export/eOSAL
+        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
+    )
+endif()
+
 if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.common)
     mcux_add_source(
         SOURCES bluetooth/export/eOSAL/eBT_assert.h

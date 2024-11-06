@@ -4,6 +4,9 @@ menuconfig MCUX_PRJSEG_middleware.wireless.ethermind
 	imply MCUX_COMPONENT_middleware.freertos-kernel
     select MCUX_PRJSEG_middleware.wireless.ethermind.common
 
+config MCUX_PRJSEG_middleware.wireless.ethermind.bt_only_fw_dnld
+    bool "bt_only_fw_dnld"
+
 if MCUX_PRJSEG_middleware.wireless.ethermind
 
 config MCUX_PRJSEG_middleware.wireless.ethermind.common
