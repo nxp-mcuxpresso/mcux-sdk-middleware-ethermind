@@ -21,7 +21,6 @@
 #include "fsl_common.h"
 #ifdef ENABLE_BT_IND_RESET
 #include <stdint.h>
-#include "EmbeddedTypes.h"
 #endif /*ENABLE_BT_IND_RESET*/
 /*******************************************************************************
  * Definitions

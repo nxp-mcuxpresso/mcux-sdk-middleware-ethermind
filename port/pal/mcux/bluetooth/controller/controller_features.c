@@ -164,7 +164,7 @@ DECL_STATIC void configure_ir_reset_ind_gpio(void);
 DECL_STATIC void controller_config_oob_ir_gpio(void);
 DECL_STATIC void controller_trigger_oob_ir(void);
 DECL_STATIC uint8_t controller_wait_for_ir_config_status(void);
-DECL_STATIC bool_t controller_trigger_inband_ir(void);
+DECL_STATIC UINT8 controller_trigger_inband_ir(void);
 DECL_STATIC void controller_uart_tr_rx_cb(hal_uart_handle_t handle, hal_uart_status_t status, void *userData);
 DECL_STATIC hal_uart_status_t controller_init_uart(hal_uart_handle_t handle, uint32_t u32BaudRate, bool flowControl);
 DECL_STATIC hal_uart_status_t controller_deinit_uart(hal_uart_handle_t handle);
@@ -494,13 +494,13 @@ DECL_STATIC uint8_t controller_wait_for_ir_config_status()
 
 void controler_config_ir(ir_mode_t ir_option)
 {
-    static bool_t oneTimeInit = TRUE;
+    static UINT8 oneTimeInit = BT_TRUE;
 
     ir_state_update(IR_CONFIG_IR);
     if ((ir_option == IR_DISABLE) || (ir_option == IR_OOB) || (ir_option == IR_INBAND))
     {
         UCHAR ir_payload[2];
-        if ((oneTimeInit == TRUE) && (ir_option == IR_OOB))
+        if ((oneTimeInit == BT_TRUE) && (ir_option == IR_OOB))
         {
             /* Configure RESET-INDICATION GPIO(controller's GPIO-22) to read IR Status from Controller! */
 #if CONTROLLER_IR_GPIO_PIN_TOGGLE
@@ -508,7 +508,7 @@ void controler_config_ir(ir_mode_t ir_option)
 #endif
             /* Configure GPIO1 IO0 for OUTBAND OUTPUT TRIGGER*/
             controller_config_oob_ir_gpio();
-            oneTimeInit = FALSE;
+            oneTimeInit = BT_FALSE;
         }
 
         ir_payload[0] = ir_option;
@@ -560,10 +560,10 @@ DECL_STATIC void controller_trigger_oob_ir(void)
     GPIO_PinWrite(IR_OUTBAND_TRIGGER_GPIO, IR_OUTBAND_TRIGGER_GPIO_PIN, 1);
 }
 
-DECL_STATIC bool_t controller_trigger_inband_ir(void)
+DECL_STATIC UINT8 controller_trigger_inband_ir(void)
 {
     hal_uart_status_t error;
-    bool_t ret            = FALSE;
+    UINT8 ret            = BT_FALSE;
     uint8_t sendingBuffer[5];
     uint8_t inbandStatusIndex = 6U;
     uint16_t resp_opcode;
@@ -613,7 +613,7 @@ DECL_STATIC bool_t controller_trigger_inband_ir(void)
     if ((resp_opcode == IR_INBAND_OPCODE) && (uart_rx.data[inbandStatusIndex] == 0x00))
     {
         ir_state_update(IR_TRIGGER_COMPLETE);
-        ret = TRUE;
+        ret = BT_TRUE;
     }
     else
     {
@@ -630,7 +630,7 @@ DECL_STATIC bool_t controller_trigger_inband_ir(void)
 
 void controller_trigger_ir(void)
 {
-    bool_t ir_triggered = FALSE;
+    UINT8 ir_triggered = BT_FALSE;
     if ((ir_mode != IR_INBAND) && (ir_mode != IR_OOB))
     {
         PRINTF_E("IR not configured, use option 255 ir_state = %d\n", ir_state);
@@ -649,18 +649,18 @@ void controller_trigger_ir(void)
     else if (ir_mode == IR_OOB)
     {
         controller_trigger_oob_ir();
-        ir_triggered = TRUE;
+        ir_triggered = BT_TRUE;
     }
     ir_mode = IR_DISABLE;
-    if (ir_triggered == TRUE)
+    if (ir_triggered == BT_TRUE)
     {
-        static bool oneTimeInit = true;
-        if (oneTimeInit)
+        static UINT8 oneTimeInit = BT_TRUE;
+        if (oneTimeInit == BT_TRUE)
         {
             OSA_SemaphoreCreate(xWaitForBTDownload, 0);
             OSA_SemaphoreCreate(xStartIRThread, 0);
             controller_create_uart_read_task(controller_redownload_firmware);
-            oneTimeInit = false;
+            oneTimeInit = BT_FALSE;
         }
         OSA_SemaphorePost(xStartIRThread);
         OSA_SemaphoreWait(xWaitForBTDownload, (1000U * 20U));
