@@ -2465,7 +2465,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.ble_only.lib)
         DSP NO_DSP
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
-    )
     mcux_add_library(
         LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/mcuxpresso/libethermind_ble_core.a
         TOOLCHAINS mcux
