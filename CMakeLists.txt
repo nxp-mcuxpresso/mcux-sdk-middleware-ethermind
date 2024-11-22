@@ -1041,24 +1041,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.btdm.lib)
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
     mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/gcc/libethermind_lc3_odsp_common.a
-        TOOLCHAINS armgcc
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/gcc/libethermind_lc3_odsp_decoder.a
-        TOOLCHAINS armgcc
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/gcc/libethermind_lc3_odsp_encoder.a
-        TOOLCHAINS armgcc
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
         LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/iar/libethermind_bt_a2dp.a
         TOOLCHAINS iar
         CORES ${wireless_ble_core_arch}
@@ -1227,24 +1209,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.btdm.lib)
         TOOLCHAINS iar
         CORES cm33
         DSP NO_DSP
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/iar/libethermind_lc3_odsp_common.a
-        TOOLCHAINS iar
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/iar/libethermind_lc3_odsp_decoder.a
-        TOOLCHAINS iar
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/iar/libethermind_lc3_odsp_encoder.a
-        TOOLCHAINS iar
-        CORES cm7f cm4f cm33
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
     mcux_add_library(
@@ -1607,24 +1571,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.btdm.lib)
         DSP NO_DSP
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/mdk/libethermind_lc3_odsp_common.lib
-        TOOLCHAINS mdk
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/mdk/libethermind_lc3_odsp_decoder.lib
-        TOOLCHAINS mdk
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/btdm/${wireless_ble_lib_sel}/mdk/libethermind_lc3_odsp_encoder.lib
-        TOOLCHAINS mdk
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
 endif()
 
 if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.btdm_lite.lib)
@@ -1710,24 +1656,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.btdm_lite.lib)
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
     mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/gcc/libethermind_lc3_odsp_common.a
-        TOOLCHAINS armgcc
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/gcc/libethermind_lc3_odsp_decoder.a
-        TOOLCHAINS armgcc
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/gcc/libethermind_lc3_odsp_encoder.a
-        TOOLCHAINS armgcc
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
         LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/iar/libethermind_ble_ga.a
         TOOLCHAINS iar
         CORES ${wireless_ble_core_arch}
@@ -1806,24 +1734,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.btdm_lite.lib)
         TOOLCHAINS iar
         CORES cm33
         DSP NO_DSP
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/iar/libethermind_lc3_odsp_common.a
-        TOOLCHAINS iar
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/iar/libethermind_lc3_odsp_decoder.a
-        TOOLCHAINS iar
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/iar/libethermind_lc3_odsp_encoder.a
-        TOOLCHAINS iar
-        CORES cm7f cm4f cm33
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
     mcux_add_library(
@@ -2487,24 +2397,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.ble_only.lib)
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
     mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/gcc/libethermind_lc3_odsp_common.a
-        TOOLCHAINS armgcc
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/gcc/libethermind_lc3_odsp_decoder.a
-        TOOLCHAINS armgcc
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/gcc/libethermind_lc3_odsp_encoder.a
-        TOOLCHAINS armgcc
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
         LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/iar/libethermind_ble_core.a
         TOOLCHAINS iar
         CORES ${wireless_ble_core_arch}
@@ -2573,23 +2465,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.ble_only.lib)
         DSP NO_DSP
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/iar/libethermind_lc3_odsp_common.a
-        TOOLCHAINS iar
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/iar/libethermind_lc3_odsp_decoder.a
-        TOOLCHAINS iar
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/iar/libethermind_lc3_odsp_encoder.a
-        TOOLCHAINS iar
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
     mcux_add_library(
         LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/mcuxpresso/libethermind_ble_core.a
@@ -2661,24 +2536,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.ble_only.lib)
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
     mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/mcuxpresso/libethermind_lc3_odsp_common.a
-        TOOLCHAINS mcux
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/mcuxpresso/libethermind_lc3_odsp_decoder.a
-        TOOLCHAINS mcux
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/mcuxpresso/libethermind_lc3_odsp_encoder.a
-        TOOLCHAINS mcux
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
         LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/mdk/libethermind_ble_core.lib
         TOOLCHAINS mdk
         CORES ${wireless_ble_core_arch}
@@ -2745,24 +2602,6 @@ if(CONFIG_MCUX_PRJSEG_middleware.wireless.ethermind.ble_only.lib)
         TOOLCHAINS mdk
         CORES cm33
         DSP NO_DSP
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/mdk/libethermind_lc3_odsp_common.lib
-        TOOLCHAINS mdk
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/mdk/libethermind_lc3_odsp_decoder.lib
-        TOOLCHAINS mdk
-        CORES cm7f cm4f cm33
-        BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
-    )
-    mcux_add_library(
-        LIBS bluetooth/private/lib/mcux/default/ble/${wireless_ble_lib_sel}/mdk/libethermind_lc3_odsp_encoder.lib
-        TOOLCHAINS mdk
-        CORES cm7f cm4f cm33
         BASE_PATH ${SdkRootDirPath}/middleware/wireless/ethermind/
     )
 endif()
